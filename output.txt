@@ -23,68 +23,16 @@ Standard deviation of means: 0.514
 Total cells by type (Map My Cells):
 ------------------------------
 
-      Astro-Epen 
-             924 
-         CB GABA 
-              17 
-         CB Glut 
-              19 
-    CNU-HYa GABA 
-               9 
-    CNU-LGE GABA 
-               4 
-CTX-CGE/MGE GABA 
-             474 
-     DG-IMN Glut 
-               7 
-        filtered 
-            5620 
-         HY GABA 
-              10 
-          Immune 
-             104 
-      IT-ET Glut 
-            5527 
-        LSX GABA 
-               9 
-         MB GABA 
-              16 
-         MY GABA 
-             153 
-         MY Glut 
-               2 
-  NP-CT-L6b Glut 
-            1086 
-      OB-CR Glut 
-               0 
-     OB-IMN GABA 
-              45 
-       OPC-Oligo 
-             145 
-          P GABA 
-              52 
-         TH Glut 
-               1 
-        Vascular 
-            1444 
-    CNU-HYa Glut 
-               1 
-    CNU-MGE GABA 
-               6 
-   HY Gnrh1 Glut 
-               2 
-         MB Dopa 
-               2 
-      MH-LH Glut 
-               8 
-             OEC 
-              13 
-          P Glut 
-               2 
-     Pineal Glut 
-               5 
-      MB-HB Sero 
-               1 
+      Astro-Epen          CB GABA          CB Glut     CNU-HYa GABA     CNU-LGE GABA CTX-CGE/MGE GABA      DG-IMN Glut 
+             924               17               19                9                4              474                7 
+        filtered          HY GABA           Immune       IT-ET Glut         LSX GABA          MB GABA          MY GABA 
+            5620               10              104             5527                9               16              153 
+         MY Glut   NP-CT-L6b Glut       OB-CR Glut      OB-IMN GABA        OPC-Oligo           P GABA          TH Glut 
+               2             1086                0               45              145               52                1 
+        Vascular     CNU-HYa Glut     CNU-MGE GABA    HY Gnrh1 Glut          MB Dopa       MH-LH Glut              OEC 
+            1444                1                6                2                2                8               13 
+          P Glut      Pineal Glut       MB-HB Sero 
+               2                5                1 
 ----
 
 Number of mice: 3
@@ -197,106 +145,106 @@ Estimating model paarameters:
 
 
 Running bootstrap fits (forking): 
-Batch 0/100, 0.237089 sec/bs
-Batch 1/100, 0.192736 sec/bs
-Batch 2/100, 0.236 sec/bs
-Batch 3/100, 0.218052 sec/bs
-Batch 4/100, 0.151169 sec/bs
-Batch 5/100, 0.279066 sec/bs
-Batch 6/100, 0.208379 sec/bs
-Batch 7/100, 0.221248 sec/bs
-Batch 8/100, 0.239391 sec/bs
-Batch 9/100, 0.209381 sec/bs
-Batch 10/100, 0.194506 sec/bs
-Batch 11/100, 0.260618 sec/bs
-Batch 12/100, 0.194253 sec/bs
-Batch 13/100, 0.198364 sec/bs
-Batch 14/100, 0.183885 sec/bs
-Batch 15/100, 0.196592 sec/bs
-Batch 16/100, 0.202463 sec/bs
-Batch 17/100, 0.27766 sec/bs
-Batch 18/100, 0.273958 sec/bs
-Batch 19/100, 0.211938 sec/bs
-Batch 20/100, 0.163488 sec/bs
-Batch 21/100, 0.265455 sec/bs
-Batch 22/100, 0.237958 sec/bs
-Batch 23/100, 0.195093 sec/bs
-Batch 24/100, 0.274959 sec/bs
-Batch 25/100, 0.184917 sec/bs
-Batch 26/100, 0.185539 sec/bs
-Batch 27/100, 0.193873 sec/bs
-Batch 28/100, 0.157612 sec/bs
-Batch 29/100, 0.232375 sec/bs
-Batch 30/100, 0.247287 sec/bs
-Batch 31/100, 0.194065 sec/bs
-Batch 32/100, 0.265492 sec/bs
-Batch 33/100, 0.207139 sec/bs
-Batch 34/100, 0.205389 sec/bs
-Batch 35/100, 0.200629 sec/bs
-Batch 36/100, 0.198797 sec/bs
-Batch 37/100, 0.157514 sec/bs
-Batch 38/100, 0.158647 sec/bs
-Batch 39/100, 0.175668 sec/bs
-Batch 40/100, 0.247925 sec/bs
-Batch 41/100, 0.178256 sec/bs
-Batch 42/100, 0.200352 sec/bs
-Batch 43/100, 0.14988 sec/bs
-Batch 44/100, 0.265146 sec/bs
-Batch 45/100, 0.203536 sec/bs
-Batch 46/100, 0.232826 sec/bs
-Batch 47/100, 0.246241 sec/bs
-Batch 48/100, 0.164812 sec/bs
-Batch 49/100, 0.189803 sec/bs
-Batch 50/100, 0.195139 sec/bs
-Batch 51/100, 0.196392 sec/bs
-Batch 52/100, 0.230041 sec/bs
-Batch 53/100, 0.190507 sec/bs
-Batch 54/100, 0.225166 sec/bs
-Batch 55/100, 0.184867 sec/bs
-Batch 56/100, 0.244246 sec/bs
-Batch 57/100, 0.227378 sec/bs
-Batch 58/100, 0.219606 sec/bs
-Batch 59/100, 0.20354 sec/bs
-Batch 60/100, 0.159493 sec/bs
-Batch 61/100, 0.243987 sec/bs
-Batch 62/100, 0.150395 sec/bs
-Batch 63/100, 0.214417 sec/bs
-Batch 64/100, 0.264023 sec/bs
-Batch 65/100, 0.213837 sec/bs
-Batch 66/100, 0.219208 sec/bs
-Batch 67/100, 0.23196 sec/bs
-Batch 68/100, 0.24373 sec/bs
-Batch 69/100, 0.160876 sec/bs
-Batch 70/100, 0.27313 sec/bs
-Batch 71/100, 0.190317 sec/bs
-Batch 72/100, 0.291325 sec/bs
-Batch 73/100, 0.212221 sec/bs
-Batch 74/100, 0.192529 sec/bs
-Batch 75/100, 0.228251 sec/bs
-Batch 76/100, 0.201165 sec/bs
-Batch 77/100, 0.236634 sec/bs
-Batch 78/100, 0.199943 sec/bs
-Batch 79/100, 0.195959 sec/bs
-Batch 80/100, 0.285832 sec/bs
-Batch 81/100, 0.228662 sec/bs
-Batch 82/100, 0.18656 sec/bs
-Batch 83/100, 0.184319 sec/bs
-Batch 84/100, 0.243789 sec/bs
-Batch 85/100, 0.20098 sec/bs
-Batch 86/100, 0.247427 sec/bs
-Batch 87/100, 0.159966 sec/bs
-Batch 88/100, 0.28815 sec/bs
-Batch 89/100, 0.262324 sec/bs
-Batch 90/100, 0.180406 sec/bs
-Batch 91/100, 0.258013 sec/bs
-Batch 92/100, 0.217443 sec/bs
-Batch 93/100, 0.192421 sec/bs
-Batch 94/100, 0.189882 sec/bs
-Batch 95/100, 0.183813 sec/bs
-Batch 96/100, 0.227668 sec/bs
-Batch 97/100, 0.196684 sec/bs
-Batch 98/100, 0.223898 sec/bs
-Batch 99/100, 0.17239 sec/bs
+Batch 0/100, 0.235621 sec/bs
+Batch 1/100, 0.188693 sec/bs
+Batch 2/100, 0.234601 sec/bs
+Batch 3/100, 0.218023 sec/bs
+Batch 4/100, 0.155061 sec/bs
+Batch 5/100, 0.285922 sec/bs
+Batch 6/100, 0.198196 sec/bs
+Batch 7/100, 0.222708 sec/bs
+Batch 8/100, 0.238562 sec/bs
+Batch 9/100, 0.210073 sec/bs
+Batch 10/100, 0.21026 sec/bs
+Batch 11/100, 0.261491 sec/bs
+Batch 12/100, 0.194688 sec/bs
+Batch 13/100, 0.193977 sec/bs
+Batch 14/100, 0.184382 sec/bs
+Batch 15/100, 0.198861 sec/bs
+Batch 16/100, 0.195775 sec/bs
+Batch 17/100, 0.27619 sec/bs
+Batch 18/100, 0.277571 sec/bs
+Batch 19/100, 0.209794 sec/bs
+Batch 20/100, 0.165638 sec/bs
+Batch 21/100, 0.281467 sec/bs
+Batch 22/100, 0.241604 sec/bs
+Batch 23/100, 0.189504 sec/bs
+Batch 24/100, 0.265816 sec/bs
+Batch 25/100, 0.182802 sec/bs
+Batch 26/100, 0.188808 sec/bs
+Batch 27/100, 0.186175 sec/bs
+Batch 28/100, 0.157168 sec/bs
+Batch 29/100, 0.234826 sec/bs
+Batch 30/100, 0.237767 sec/bs
+Batch 31/100, 0.190947 sec/bs
+Batch 32/100, 0.260668 sec/bs
+Batch 33/100, 0.193775 sec/bs
+Batch 34/100, 0.206387 sec/bs
+Batch 35/100, 0.208454 sec/bs
+Batch 36/100, 0.200783 sec/bs
+Batch 37/100, 0.160757 sec/bs
+Batch 38/100, 0.162013 sec/bs
+Batch 39/100, 0.174787 sec/bs
+Batch 40/100, 0.249913 sec/bs
+Batch 41/100, 0.181517 sec/bs
+Batch 42/100, 0.203006 sec/bs
+Batch 43/100, 0.153303 sec/bs
+Batch 44/100, 0.261322 sec/bs
+Batch 45/100, 0.208919 sec/bs
+Batch 46/100, 0.240473 sec/bs
+Batch 47/100, 0.240123 sec/bs
+Batch 48/100, 0.16325 sec/bs
+Batch 49/100, 0.193209 sec/bs
+Batch 50/100, 0.195207 sec/bs
+Batch 51/100, 0.192478 sec/bs
+Batch 52/100, 0.225317 sec/bs
+Batch 53/100, 0.187734 sec/bs
+Batch 54/100, 0.220664 sec/bs
+Batch 55/100, 0.195354 sec/bs
+Batch 56/100, 0.239195 sec/bs
+Batch 57/100, 0.224849 sec/bs
+Batch 58/100, 0.210641 sec/bs
+Batch 59/100, 0.204988 sec/bs
+Batch 60/100, 0.16207 sec/bs
+Batch 61/100, 0.2406 sec/bs
+Batch 62/100, 0.151517 sec/bs
+Batch 63/100, 0.214005 sec/bs
+Batch 64/100, 0.263434 sec/bs
+Batch 65/100, 0.214893 sec/bs
+Batch 66/100, 0.216343 sec/bs
+Batch 67/100, 0.227453 sec/bs
+Batch 68/100, 0.23734 sec/bs
+Batch 69/100, 0.163689 sec/bs
+Batch 70/100, 0.272126 sec/bs
+Batch 71/100, 0.201879 sec/bs
+Batch 72/100, 0.28331 sec/bs
+Batch 73/100, 0.212569 sec/bs
+Batch 74/100, 0.180675 sec/bs
+Batch 75/100, 0.216158 sec/bs
+Batch 76/100, 0.19302 sec/bs
+Batch 77/100, 0.226992 sec/bs
+Batch 78/100, 0.19819 sec/bs
+Batch 79/100, 0.195811 sec/bs
+Batch 80/100, 0.282552 sec/bs
+Batch 81/100, 0.224398 sec/bs
+Batch 82/100, 0.189005 sec/bs
+Batch 83/100, 0.19712 sec/bs
+Batch 84/100, 0.236114 sec/bs
+Batch 85/100, 0.199537 sec/bs
+Batch 86/100, 0.24486 sec/bs
+Batch 87/100, 0.159471 sec/bs
+Batch 88/100, 0.282728 sec/bs
+Batch 89/100, 0.260028 sec/bs
+Batch 90/100, 0.178184 sec/bs
+Batch 91/100, 0.270058 sec/bs
+Batch 92/100, 0.222227 sec/bs
+Batch 93/100, 0.190867 sec/bs
+Batch 94/100, 0.192137 sec/bs
+Batch 95/100, 0.18184 sec/bs
+Batch 96/100, 0.227509 sec/bs
+Batch 97/100, 0.198818 sec/bs
+Batch 98/100, 0.230571 sec/bs
+Batch 99/100, 0.177207 sec/bs
 All complete!
 
 Setting median bootstrap estimates as parameters... 
@@ -307,48 +255,27 @@ Provided parameters are feasible
 Running stats on bootstrap results: 
 ----------------------------------------
 
-Grabbing bootstrap results, only resamples with converged fit... 
+Grabbing bootstrap results, all resamples... 
 Grabbing parameter values... 
 Computing 95% confidence intervals... 
 Estimating p-values from bootstraped parameters... 
 
 Stat summary (head only):
 ------------------------------
-                              parameter
-1       baseline_cortex_Rt_Arc_Tns/Blk1
-2   beta_Rt_cortex_Arc_right_X_Tns/Blk1
-3      beta_Rt_cortex_Arc_18_X_Tns/Blk1
-4 beta_Rt_cortex_Arc_right18_X_Tns/Blk1
-5       baseline_cortex_Rt_Arc_Tns/Blk2
-6   beta_Rt_cortex_Arc_right_X_Tns/Blk2
-     estimate      CI.low
-1  8.11920507  8.11657989
-2 -0.04434121 -0.04555375
-3 -0.05793907 -0.05895139
-4 -0.04733714 -0.04837988
-5  7.15863635  7.15536551
-6 -0.04420185 -0.04566534
-      CI.high p.value
-1  8.12098636       0
-2 -0.04328109      NA
-3 -0.05698353      NA
-4 -0.04645440      NA
-5  7.16133090       0
-6 -0.04278326      NA
-  p.value.adj    alpha.adj
-1           0 0.0001858736
-2          NA           NA
-3          NA           NA
-4          NA           NA
-5           0 0.0001865672
-6          NA           NA
-  significance
-1          ***
-2             
-3             
-4             
-5          ***
-6             
+                              parameter    estimate      CI.low     CI.high
+1       baseline_cortex_Rt_Arc_Tns/Blk1  8.11920507  8.11658075  8.12263826
+2   beta_Rt_cortex_Arc_right_X_Tns/Blk1 -0.04434121 -0.04556218 -0.04328136
+3      beta_Rt_cortex_Arc_18_X_Tns/Blk1 -0.05793907 -0.05895215 -0.05698360
+4 beta_Rt_cortex_Arc_right18_X_Tns/Blk1 -0.04733714 -0.04838619 -0.04645599
+5       baseline_cortex_Rt_Arc_Tns/Blk2  7.15863635  7.15536601  7.16260155
+6   beta_Rt_cortex_Arc_right_X_Tns/Blk2 -0.04420185 -0.04567093 -0.04279267
+  p.value p.value.adj    alpha.adj significance
+1       0           0 0.0001858736          ***
+2      NA          NA           NA             
+3      NA          NA           NA             
+4      NA          NA           NA             
+5       0           0 0.0001865672          ***
+6      NA          NA           NA             
 ----
 
 Analyzing residuals: 
@@ -360,10 +287,8 @@ Making plots and saving stats...
 
 Log-residual summary by grouping variables (head only):
 ------------------------------
-         group     mean
-1 cortex_Satb2 1.028904
-        sd variance
-1 1.314951 1.729097
+         group     mean       sd variance
+1 cortex_Satb2 1.028904 1.314951 1.729097
 ----
 
 Can't make TPS table without running stats... 
