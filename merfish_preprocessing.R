@@ -894,6 +894,10 @@ transform_and_extract <- function(
     t <- ncol(count_data) # last column
     count_data <- count_data[,c(1:n,m:t,(n+1):(m-1))]
     
+    # Make cell_num column on front 
+    cell_num <- rownames(count_data)
+    count_data <- cbind(cell_num, count_data)
+    
     return(
       list(
         df = count_data, 
@@ -906,78 +910,60 @@ transform_and_extract <- function(
 
 # Functions for converting to count_data df for WSPmm modal ############################################################
 
-fixed_effect_names <- c("hemisphere", "age")
-
 # Function to convert to WSPmm format
-create_count_data_WSPmm <- function(
-    df_merfish,                                    # data frame of MERFISH data, produced by transform_and_extract function
-    bin_dim = c("x_bins", "y_bins"),               # dimension by which to bin; must be one of these two; will collapse along the other
-    gene_list,                                     # list of genes to include in count data, forms the "child" level of the model
-    fixed_effect_names, 
+create.count.data.WSPmm <- function(
+    df.merfish,                                    # data frame of MERFISH data, produced by transform_and_extract function
+    bin.dim = c("x_bins", "y_bins"),               # dimension by which to bin; must be one of these two; will collapse along the other
+    gene.list,                                     # list of genes to include in count data, forms the "child" level of the model
+    fixed.effect.names, 
     parent = NULL,                                 # parent level for fixed effects; if NULL, will use "cortex"
     verbose = FALSE
   ) { 
     
-    # Set dimension by which to bin
-    if (bin_dim == "x_bins") {
-      if (verbose) {
-        snk.report("Creating count data for WSPmm, binning by X (columnar coordinates)")
-        snk.horizontal_rule(reps = snk.simple_break_reps)
-      }
-    } else {
-      if (verbose) {
-        snk.report("Creating count data for WSPmm, binning by Y (laminar coordinates)")
-        snk.horizontal_rule(reps = snk.simple_break_reps)
-      }
-    }
-   
     # Run checks 
     if (verbose) snk.report...("Running checks")
-    if (length(bin_dim) != 1 || !(bin_dim %in% c("x_bins","y_bins"))) stop("bin_dim must be one of 'x_bins' or 'y_bins'")
-    if (!all(c("mouse", "cell_num", fixed_effect_names, parent) %in% colnames(df_merfish))) stop("df_merfish missing mouse, parent, or fixed effect column")
+    if (length(bin.dim) != 1 || !(bin.dim %in% c("x_bins","y_bins"))) stop("bin.dim must be one of 'x_bins' or 'y_bins'")
+    if (!all(c("mouse", "cell_num", fixed.effect.names, parent) %in% colnames(df.merfish))) stop("df.merfish missing mouse, cell_num, parent, or fixed effect column")
     
     # Make count data column names and find its dimensions 
-    num_genes <- length(gene_list)
-    num_cells <- nrow(df_merfish)
+    num_genes <- length(gene.list)
+    num_cells <- nrow(df.merfish)
     if (is.null(parent)) parent <- "cortex"
-    column_names <- c("count", bin_dim, parent, "gene", "mouse", "cell_num", fixed_effect_names)
-    numcol <- length(column_names)
     numrow <- num_cells * num_genes
     
     # Make parent column 
     if (parent == "cortex") parent_col <- rep("cortex", numrow)
-    else parent_col <- rep(df_merfish[,parent], num_genes)
+    else parent_col <- rep(df.merfish[,parent], num_genes)
     
     # Pre-allocate as much of the count data as possible
     count_data <- data.frame(
-      Count = rep(as.numeric(NA), numrow),
-      Bin_dim = rep(df_merfish[,bin_dim], num_genes),
-      Parent = parent_col,
-      Gene = rep(gene_list, each = num_cells), 
-      Mouse = rep(df_merfish[,"mouse"], num_genes),
-      Cell_num = rep(rownames(df_merfish), num_genes)
+      count = rep(as.numeric(NA), numrow),
+      bin = rep(df.merfish[,bin.dim], num_genes),
+      parent = parent_col,
+      gene = rep(gene.list, each = num_cells), 
+      mouse = rep(df.merfish[,"mouse"], num_genes),
+      cell_num = rep(df.merfish[,"cell_num"], num_genes)
     )
+    colnames(count_data)[3] <- parent
     
     # Fill out the fixed-effect columns
     count_data_fe <- data.frame(
-      matrix(rep(as.character(NA), numrow * length(fixed_effect_names)), nrow = numrow, ncol = length(fixed_effect_names))
+      matrix(rep(as.character(NA), numrow * length(fixed.effect.names)), nrow = numrow, ncol = length(fixed.effect.names))
     )
-    for (fe in fixed_effect_names) {
-      count_data_fe[,fe] <- rep(df_merfish[,fe], num_genes)
+    colnames(count_data_fe) <- fixed.effect.names
+    for (fe in fixed.effect.names) {
+      count_data_fe[,fe] <- rep(df.merfish[,fe], num_genes)
     }
     
     # Combine into one df and add column names
     count_data <- cbind(count_data, count_data_fe)
-    colnames(count_data) <- column_names
     
     # Fill in the count data
     for (i in 1:num_genes) {
-      
-      g <- gene_list[i]
+      g <- gene.list[i]
       idx_initial <- (i-1)*num_cells+1
       idx_final <- i*num_cells
-      count_data[idx_initial:idx_final, "Count"] <- df_merfish[,g]
-      
+      count_data[idx_initial:idx_final, "count"] <- df.merfish[, g]
     }
     
     # return data frames and token_counts vector 
