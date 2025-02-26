@@ -7,10 +7,7 @@ rm(list = ls())
 # If using VS Code with httpgd, ensure clean start
 httpgd::hgd_close() 
 projects_folder <- "/Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/"
-options(
-  warn = 2,          # -1: suppress warnings, 0: warnings at end, 1: warnings in line, 2: warnings as errors
-  error = recover    # recover: recover from error, dump.frames: dump frames, browser: enter browser, NULL: stop
-)
+
 # For for WSPmm 
 wispack_path <- paste0(projects_folder, "R_packages/wispack_1.0.tar.gz")
 install.packages(wispack_path, repos = NULL)
@@ -87,7 +84,7 @@ model.settings = list(
   LROcutoff = 2.0,                                      # cutoff for LROcp
   tslope_initial = 1.0,                                 # initial value for tslope
   wf_initial = 0.5,                                     # initial value for wfactor
-  max_evals = 200                                       # maximum number of evaluations for optimization
+  max_evals = 500                                       # maximum number of evaluations for optimization
 )
 
 # Create count data for WSPmm object, from preprocessed count_data, using laminar axis (y)
@@ -102,7 +99,7 @@ count_data_WSPmm.y <- create.count.data.WSPmm(
 merfish_laminar_model <- wisp(
   count.data.raw = count_data_WSPmm.y,
   variables = data.variables,
-  bootstraps.num = 1e3,
+  bootstraps.num = 1e2,
   converged.resamples.only = FALSE,
   max.fork = bs_chunksize,
   batch.size = bs_chunksize,
@@ -111,3 +108,4 @@ merfish_laminar_model <- wisp(
   print.child.summaries = TRUE, 
   model.settings = model.settings
 )
+
