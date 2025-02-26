@@ -9,7 +9,7 @@ httpgd::hgd_close()
 projects_folder <- "/Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/"
 
 # For for WSPmm 
-wispack_path <- paste0(projects_folder, "R_packages/wispack_1.0.tar.gz")
+wispack_path <- paste0(projects_folder, "R_packages/wispack/wispack_1.0.tar.gz")
 install.packages(wispack_path, repos = NULL)
 library(wispack)
 
@@ -83,7 +83,7 @@ model.settings = list(
   max_penalty_at_distance_factor = 0.01,                # maximum penalty at distance from structural parameter values
   LROcutoff = 2.0,                                      # cutoff for LROcp
   tslope_initial = 1.0,                                 # initial value for tslope
-  wf_initial = 0.5,                                     # initial value for wfactor
+  wf_initial = 0.05,                                     # initial value for wfactor
   max_evals = 500                                       # maximum number of evaluations for optimization
 )
 
@@ -99,7 +99,7 @@ count_data_WSPmm.y <- create.count.data.WSPmm(
 merfish_laminar_model <- wisp(
   count.data.raw = count_data_WSPmm.y,
   variables = data.variables,
-  bootstraps.num = 1e2,
+  bootstraps.num = 1e3,
   converged.resamples.only = FALSE,
   max.fork = bs_chunksize,
   batch.size = bs_chunksize,
