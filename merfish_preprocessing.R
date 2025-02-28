@@ -840,7 +840,7 @@ coordinate_binning <- function(
   }
 
 # Helper function to transform coordinates for each mouse and extract layer boundary estimates
-transform_and_extract <- function(
+cortical_coordinate_transform <- function(
     count_data,
     total_bins,
     keep_plots = FALSE,
@@ -901,7 +901,7 @@ transform_and_extract <- function(
     return(
       list(
         df = count_data, 
-        layer_boundary_bins = layer_boundary_bins,
+        layer.boundary.bins = layer_boundary_bins,
         plots = plots
       )
     )
@@ -912,7 +912,7 @@ transform_and_extract <- function(
 
 # Function to convert to WSPmm format
 create.count.data.WSPmm <- function(
-    df.merfish,                                    # data frame of MERFISH data, produced by transform_and_extract function
+    df.merfish,                                    # data frame of MERFISH data, produced by cortical_coordinate_transform function
     bin.dim = c("x_bins", "y_bins"),               # dimension by which to bin; must be one of these two; will collapse along the other
     gene.list,                                     # list of genes to include in count data, forms the "child" level of the model
     fixed.effect.names, 

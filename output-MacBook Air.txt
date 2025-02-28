@@ -1,151 +1,18 @@
 
 
-
 Analysis of MERFISH data by Warped Sigmoid, Poisson-Process Mixed-Effects Model (WSPmm)
 : 
 
 Loading helper function definitions for preprocessing MERFISH data... 
 Setting flag to remove Layer 1 from the analysis... 
 
-test: 
-
 Loading raw data: 
 ----------------------------------------
 
-Found 3 HDF5 files.... 
+Found 4 HDF5 files.... 
 File names:
-	mouse 1: /Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/MERFISH/data//ACxDev1_CBA-CAJ_FFPE_P18_celltyped_filtered_withCCF.hdf5
-	mouse 2: /Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/MERFISH/data//ACxDev1_CBA-CAJ_P12_celltyped_filtered_withCCF.hdf5
-	mouse 3: /Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/MERFISH/data//ACxDev1_CBA-CAJ_P18_celltyped_filtered_withCCF.hdf5
-Loading and parsing file for mouse number: 1, 2, 3 
-
-Mean transcript counts per cell for each mouse: 1.902, 0.897, 1.216
-Mean of means: 1.338
-Standard deviation of means: 0.514
-
-Total cells by type (Map My Cells):
-------------------------------
-
-      Astro-Epen          CB GABA          CB Glut     CNU-HYa GABA     CNU-LGE GABA CTX-CGE/MGE GABA      DG-IMN Glut         filtered          HY GABA           Immune 
-             924               17               19                9                4              474                7             5620               10              104 
-      IT-ET Glut         LSX GABA          MB GABA          MY GABA          MY Glut   NP-CT-L6b Glut       OB-CR Glut      OB-IMN GABA        OPC-Oligo           P GABA 
-            5527                9               16              153                2             1086                0               45              145               52 
-         TH Glut         Vascular     CNU-HYa Glut     CNU-MGE GABA    HY Gnrh1 Glut          MB Dopa       MH-LH Glut              OEC           P Glut      Pineal Glut 
-               1             1444                1                6                2                2                8               13                2                5 
-      MB-HB Sero 
-               1 
-----
-
-Number of mice: 3
-Cells per mouse: 5759, 4514, 5435
-Means cells per mouse: 5236
-Total cells: 15708
-
-Transforming raw data into laminar and columnar coordinates: 
-----------------------------------------
-
-Mouse number 1: 
-Performing coordinate transform... 
-Grabbing coordinates and defining layers and hemispheres... 
-Step 1, correcting perspective to ensure right hemisphere is on the right... 
-Step 2, centering each patch around the mean point of L5... 
-Step 3, rotating each patch so that L4 aligns with the x-axis and L1 (or L23, if L1 removed) is on top... 
-Step 4, linearly transforming each patch to vertically straighten them while preserving area... 
-Step 5, leveling all layers... 
-Binning transformed coordinates... 
-Smoothing bin edges with nonlinear transformation... 
-Estimating layer boundaries... 
-
-Mouse number 2: 
-Performing coordinate transform... 
-Grabbing coordinates and defining layers and hemispheres... 
-Step 1, correcting perspective to ensure right hemisphere is on the right... 
-Step 2, centering each patch around the mean point of L5... 
-Step 3, rotating each patch so that L4 aligns with the x-axis and L1 (or L23, if L1 removed) is on top... 
-Step 4, linearly transforming each patch to vertically straighten them while preserving area... 
-Step 5, leveling all layers... 
-Binning transformed coordinates... 
-Smoothing bin edges with nonlinear transformation... 
-Estimating layer boundaries... 
-
-Mouse number 3: 
-Performing coordinate transform... 
-Grabbing coordinates and defining layers and hemispheres... 
-Step 1, correcting perspective to ensure right hemisphere is on the right... 
-Step 2, centering each patch around the mean point of L5... 
-Step 3, rotating each patch so that L4 aligns with the x-axis and L1 (or L23, if L1 removed) is on top... 
-Step 4, linearly transforming each patch to vertically straighten them while preserving area... 
-Step 5, leveling all layers... 
-Binning transformed coordinates... 
-Smoothing bin edges with nonlinear transformation... 
-Estimating layer boundaries... 
-Running checks... 
-Initializing Cpp (wspc) model... Data structure check passed
-Saving tokenized count
-Found max bin: 100.000000
-Extracted fixed effects:
-"hemisphere" "age"
-Ref levels:
-"left" "12"
-Created treatment levels
-"ref" "right" "18" "right18"
-Created treatment-to-fix translation matrix
-Pre-computed weight matrix rows
-Extracted parent grouping variables:
-"cortex"
-Extracted child grouping variables:
-"Arc" "Bcl11b" "Camk2a" "Dlx2" "Fezf2" "Grin2a" "Ncdn" "Nptxr" "Nr4a2" "Rorb" "Satb2"
-Extracted random-effect grouping variables:
-"none" "1" "2" "3"
-Extracted tokenized count columns
-Grabbed size constants for summed count data, total rows: 17600
-Initialized columns for summed count data
-Initialized count indexes, number of rows with unique model components: 176
-Pre-computing bin masks
-Creating summed-count data columns ...
-Random level 0, 1/4 complete
-Random level 1, 2/4 complete
-Random level 2, 3/4 complete
-Random level 3, 4/4 complete
-Extracted non-NA indexes
-Making extrapolation pool ...
-row: 440/4400
-row: 880/4400
-row: 1320/4400
-row: 1760/4400
-row: 2200/4400
-row: 2640/4400
-row: 3080/4400
-row: 3520/4400
-row: 3960/4400
-row: 4390/4400
-Extrapolated 'none' rows
-Took log of observed counts
-Arc
-Bcl11b
-Camk2a
-Dlx2
-Fezf2
-Grin2a
-Ncdn
-Nptxr
-Nr4a2
-Rorb
-Satb2
-Estimated change points with LROcp and found initial baseline parameters
-Built initial beta (ref and fixed-effects) matrices
-Initialized random effect warping factors
-Made and mapped parameter vector
-Constructed grouping variable ids
-Computed size of rRsum boundary vector: 1291
-Finished initializing wspc object
-
-
-Estimating model paarameters: 
----------------
-
-
-Running bootstrap fits (forking): 
-Batch 0/10, 0.420955 sec/bs
-Batch 1/10, 0.281147 sec/bs
-Batch 2/10, 0.319441 sec/bs
+	mouse 1: /Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/MERFISH/data//ACxDev1_CBA-CAJ_FFPE_P12_celltyped_filtered_withCCF.hdf5
+	mouse 2: /Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/MERFISH/data//ACxDev1_CBA-CAJ_FFPE_P18_celltyped_filtered_withCCF.hdf5
+	mouse 3: /Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/MERFISH/data//ACxDev1_CBA-CAJ_P12_celltyped_filtered_withCCF.hdf5
+	mouse 4: /Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/MERFISH/data//ACxDev1_CBA-CAJ_P18_celltyped_filtered_withCCF.hdf5
+Loading and parsing file for mouse number: 1, 
