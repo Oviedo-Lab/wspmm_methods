@@ -24,12 +24,14 @@ Standard deviation of means: 0.497
 Total cells by type (Map My Cells):
 ------------------------------
 
-      Astro-Epen          CB GABA     CNU-HYa GABA CTX-CGE/MGE GABA         filtered          HY GABA           Immune       IT-ET Glut         LSX GABA          MB GABA       MH-LH Glut 
-            1249               25               12              663             6989               14              122             7545               12               18                9 
-         MY GABA   NP-CT-L6b Glut      OB-IMN GABA              OEC        OPC-Oligo           P GABA         Vascular          CB Glut     CNU-LGE GABA      DG-IMN Glut          MY Glut 
-             206             1423               49               16              244               69             2015               19                4                7                2 
-      OB-CR Glut          TH Glut     CNU-HYa Glut     CNU-MGE GABA    HY Gnrh1 Glut          MB Dopa           P Glut      Pineal Glut       MB-HB Sero 
-               0                1                1                6                2                2                2                5                1 
+      Astro-Epen          CB GABA     CNU-HYa GABA CTX-CGE/MGE GABA         filtered          HY GABA           Immune       IT-ET Glut 
+            1249               25               12              663             6989               14              122             7545 
+        LSX GABA          MB GABA       MH-LH Glut          MY GABA   NP-CT-L6b Glut      OB-IMN GABA              OEC        OPC-Oligo 
+              12               18                9              206             1423               49               16              244 
+          P GABA         Vascular          CB Glut     CNU-LGE GABA      DG-IMN Glut          MY Glut       OB-CR Glut          TH Glut 
+              69             2015               19                4                7                2                0                1 
+    CNU-HYa Glut     CNU-MGE GABA    HY Gnrh1 Glut          MB Dopa           P Glut      Pineal Glut       MB-HB Sero 
+               1                6                2                2                2                5                1 
 ----
 
 Number of mice: 4
@@ -135,7 +137,7 @@ Built initial beta (ref and fixed-effects) matrices
 Initialized random effect warping factors
 Made and mapped parameter vector
 Constructed grouping variable ids
-Computed size of rRsum boundary vector: 1563
+Computed size of rRsum boundary vector: 1620
 Finished initializing wspc object
 
 
@@ -144,217 +146,18 @@ Estimating model parameters:
 
 
 Running bootstrap fits (forking): 
-Batch 0/5, 0.0598462 sec/bs
-Batch 1/5, 0.0746877 sec/bs
-Batch 2/5, 0.0583394 sec/bs
-Batch 3/5, 0.0553026 sec/bs
-Batch 4/5, 0.0548713 sec/bs
+Batch 0/10, 0.290987 sec/bs
+Batch 1/10, 0.29504 sec/bs
+Batch 2/10, 0.201724 sec/bs
+Batch 3/10, 0.195144 sec/bs
+Batch 4/10, 0.349818 sec/bs
+Batch 5/10, 0.248346 sec/bs
+Batch 6/10, 0.195132 sec/bs
+Batch 7/10, 0.307207 sec/bs
+Batch 8/10, 0.797522 sec/bs
+Batch 9/10, 0.301302 sec/bs
 All complete!
 
-Setting full-data fit as parameters... 
+Setting median bootstrap estimates as parameters... 
 Checking feasibility of provided parameters
 Provided parameters are feasible
-
-
-Running stats on bootstrap results: 
-----------------------------------------
-
-Grabbing bootstrap results, all resamples... 
-Grabbing parameter values... 
-Computing 95% confidence intervals... 
-Estimating p-values from bootstraped parameters... 
-
-Stat summary (head only):
-------------------------------
-                              parameter     estimate        CI.low       CI.high    p.value p.value.adj    alpha.adj significance
-1       baseline_cortex_Rt_Arc_Tns/Blk1  5.374954517  5.3748653238  5.3750678872 0.00000000   0.0000000 0.0001262626          ***
-2   beta_Rt_cortex_Arc_right_X_Tns/Blk1 -0.000111295 -0.0001050471  0.0002090507 0.00990099   0.7326733 0.0006756757           ns
-3      beta_Rt_cortex_Arc_18_X_Tns/Blk1 -0.021624766 -0.0216224283 -0.0211765397 0.00000000   0.0000000 0.0001265823          ***
-4 beta_Rt_cortex_Arc_right18_X_Tns/Blk1  0.029757376  0.0297583053  0.0299691344 0.00000000   0.0000000 0.0001269036          ***
-5       baseline_cortex_Rt_Arc_Tns/Blk2  5.748992369  5.7488651613  5.7489919363 0.00000000   0.0000000 0.0001272265          ***
-6   beta_Rt_cortex_Arc_right_X_Tns/Blk2 -0.009845581 -0.0098440278 -0.0095616382 0.00000000   0.0000000 0.0001275510          ***
-----
-
-Analyzing residuals: 
-----------------------------------------
-
-Computing residuals... 
-Making masks... 
-Making plots and saving stats... 
-
-Log-residual summary by grouping variables (head only):
-------------------------------
-         group          mean        sd  variance
-1          all -0.1222145961 0.6322347 0.3997207
-2 ran_lvl_none -0.3717460616 0.5824179 0.3392107
-3    ran_lvl_1 -0.0035318037 0.6392168 0.4085981
-4    ran_lvl_2  0.0089127790 0.5732163 0.3285770
-5    ran_lvl_3 -0.0005224062 0.6545199 0.4283963
-6    ran_lvl_4  0.0053459775 0.6067196 0.3681086
-----
-
-TPS test results (head only):
-------------------------------
-              cortex   gene TPS.ref TPS.right TPS.18 TPS.right18 Rt.18 tpoint.18 tslope.18 Rt.right tpoint.right tslope.right Rt.right18 tpoint.right18 tslope.right18
-Arc.cortex    cortex    Arc    TRUE      TRUE   TRUE        TRUE  TRUE     FALSE      TRUE     TRUE        FALSE         TRUE       TRUE          FALSE           TRUE
-Bcl11b.cortex cortex Bcl11b    TRUE      TRUE   TRUE        TRUE  TRUE     FALSE      TRUE     TRUE        FALSE         TRUE       TRUE          FALSE           TRUE
-Camk2a.cortex cortex Camk2a    TRUE      TRUE   TRUE        TRUE  TRUE     FALSE      TRUE     TRUE        FALSE         TRUE       TRUE          FALSE           TRUE
-Dlx2.cortex   cortex   Dlx2    TRUE      TRUE   TRUE        TRUE  TRUE     FALSE      TRUE     TRUE        FALSE         TRUE       TRUE          FALSE           TRUE
-Fezf2.cortex  cortex  Fezf2   FALSE     FALSE  FALSE       FALSE  TRUE        NA        NA     TRUE           NA           NA       TRUE             NA             NA
-Grin2a.cortex cortex Grin2a    TRUE      TRUE   TRUE        TRUE  TRUE     FALSE      TRUE     TRUE        FALSE         TRUE       TRUE          FALSE           TRUE
-----
-
-
-Printing structural summary distributions: 
-----------------------------------------
-
-Warping factors, beta distributions... 
-Rate effects, gamma distribution... 
-Slope effects, gamma distribution... 
-tpoint effects, Gaussian distribution... 
-Making rate-count plots... 
-Printing child summary plots: 
-----------------------------------------
-
-
-Making summary plots for cortex: Arc, Bcl11b, Camk2a, Dlx2, Fezf2, Grin2a, Ncdn, Nptxr, Nr4a2, Rorb, Satb2$plot_wfactor_point_struc_stats
-
-$plot_wfactor_rate_struc_stats
-
-$plot_rate_effects_struc_stats
-
-$plot_slope_effects_struc_stats
-
-$plot_tpoint_effects_struc_stats
-
-
-Initializing Cpp (wspc) model... Data structure check passed
-Saving tokenized count
-Found max bin: 100.000000
-Extracted fixed effects:
-"hemisphere" "age"
-Ref levels:
-"left" "12"
-Created treatment levels
-"ref" "right" "18" "right18"
-Created treatment-to-fix translation matrix
-Pre-computed weight matrix rows
-Extracted parent grouping variables:
-"cortex"
-Extracted child grouping variables:
-"Arc" "Bcl11b" "Camk2a" "Dlx2" "Fezf2" "Grin2a" "Ncdn" "Nptxr" "Nr4a2" "Rorb" "Satb2"
-Extracted random-effect grouping variables:
-"none" "1" "2" "3" "4"
-Extracted tokenized count columns
-Grabbed size constants for summed count data, total rows: 22000
-Initialized columns for summed count data
-Initialized count indexes, number of rows with unique model components: 220
-Pre-computing bin masks
-Creating summed-count data columns ...
-Random level 0, 1/5 complete
-Random level 1, 2/5 complete
-Random level 2, 3/5 complete
-Random level 3, 4/5 complete
-Random level 4, 5/5 complete
-Extracted non-NA indexes
-Making extrapolation pool ...
-row: 440/4400
-row: 880/4400
-row: 1320/4400
-row: 1760/4400
-row: 2200/4400
-row: 2640/4400
-row: 3080/4400
-row: 3520/4400
-row: 3960/4400
-row: 4390/4400
-Extrapolated 'none' rows
-Took log of observed counts
-Estimated change points with LROcp and found initial baseline parameters
-Built initial beta (ref and fixed-effects) matrices
-Initialized random effect warping factors
-Made and mapped parameter vector
-Constructed grouping variable ids
-Computed size of rRsum boundary vector: 1623
-Finished initializing wspc object
-
-
-Estimating model parameters: 
----------------
-
-
-Running bootstrap fits (forking): 
-Batch 0/5, 0.481209 sec/bs
-Batch 1/5, 0.275779 sec/bs
-Batch 2/5, 0.481182 sec/bs
-Batch 3/5, 0.326791 sec/bs
-Batch 4/5, 0.302233 sec/bs
-All complete!
-
-Setting full-data fit as parameters... 
-Checking feasibility of provided parameters
-Provided parameters are feasible
-
-
-Running stats on bootstrap results: 
-----------------------------------------
-
-Grabbing bootstrap results, all resamples... 
-Grabbing parameter values... 
-Computing 95% confidence intervals... 
-Estimating p-values from bootstraped parameters... 
-
-Stat summary (head only):
-------------------------------
-                              parameter     estimate       CI.low     CI.high    p.value p.value.adj    alpha.adj significance
-1       baseline_cortex_Rt_Arc_Tns/Blk1  6.039884337  5.995587790 6.225998651 0.00000000    0.000000 0.0001228501          ***
-2   beta_Rt_cortex_Arc_right_X_Tns/Blk1  0.007306904 -0.031051534 0.008549628 0.11881188    5.821782 0.0010204082           ns
-3      beta_Rt_cortex_Arc_18_X_Tns/Blk1  0.044333715 -0.003582843 0.044333646 0.00000000    0.000000 0.0001231527          ***
-4 beta_Rt_cortex_Arc_right18_X_Tns/Blk1  0.018155121 -0.037358922 0.032737462 0.01980198    3.247525 0.0003048780           ns
-5       baseline_cortex_Rt_Arc_Tns/Blk2  6.279100482  6.179498953 6.548843903 0.00000000    0.000000 0.0001234568          ***
-6   beta_Rt_cortex_Arc_right_X_Tns/Blk2 -0.007913158 -0.075589915 0.006575590 0.06930693    4.366337 0.0007936508           ns
-----
-
-Analyzing residuals: 
-----------------------------------------
-
-Computing residuals... 
-Making masks... 
-Making plots and saving stats... 
-
-Log-residual summary by grouping variables (head only):
-------------------------------
-         group         mean        sd  variance
-1          all -0.018229775 0.4868685 0.2370410
-2 ran_lvl_none -0.075385165 0.4491653 0.2017494
-3    ran_lvl_1 -0.004799229 0.5206546 0.2710812
-4    ran_lvl_2 -0.028896660 0.4459685 0.1988879
-5    ran_lvl_3  0.065621700 0.5543380 0.3072907
-6    ran_lvl_4  0.009465871 0.4767618 0.2273018
-----
-
-TPS test results (head only):
-------------------------------
-              cortex   gene TPS.ref TPS.right TPS.18 TPS.right18 Rt.18 tpoint.18 tslope.18 Rt.right tpoint.right tslope.right Rt.right18 tpoint.right18 tslope.right18
-Arc.cortex    cortex    Arc    TRUE      TRUE   TRUE        TRUE  TRUE      TRUE      TRUE    FALSE         TRUE         TRUE      FALSE           TRUE           TRUE
-Bcl11b.cortex cortex Bcl11b    TRUE      TRUE   TRUE        TRUE  TRUE      TRUE      TRUE     TRUE         TRUE         TRUE      FALSE          FALSE           TRUE
-Camk2a.cortex cortex Camk2a    TRUE      TRUE   TRUE        TRUE FALSE      TRUE      TRUE     TRUE         TRUE         TRUE      FALSE           TRUE           TRUE
-Dlx2.cortex   cortex   Dlx2    TRUE      TRUE   TRUE        TRUE FALSE      TRUE      TRUE    FALSE        FALSE         TRUE      FALSE           TRUE           TRUE
-Fezf2.cortex  cortex  Fezf2    TRUE      TRUE   TRUE        TRUE  TRUE      TRUE      TRUE     TRUE         TRUE         TRUE       TRUE           TRUE           TRUE
-Grin2a.cortex cortex Grin2a    TRUE      TRUE   TRUE        TRUE FALSE      TRUE      TRUE    FALSE        FALSE         TRUE      FALSE           TRUE           TRUE
-----
-
-
-Printing structural summary distributions: 
-----------------------------------------
-
-Warping factors, beta distributions... 
-Rate effects, gamma distribution... 
-Slope effects, gamma distribution... 
-tpoint effects, Gaussian distribution... 
-Making rate-count plots... 
-Printing child summary plots: 
-----------------------------------------
-
-
-Making summary plots for cortex: Arc, Bcl11b, Camk2a, Dlx2, Fezf2, Grin2a, Ncdn, Nptxr, Nr4a2, Rorb, Satb2

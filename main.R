@@ -30,7 +30,7 @@ sys_name <- Sys.info()["sysname"]
 if (sys_name == "Darwin") {
   source("merfish_preprocessing.R")
   data_path <- paste0(projects_folder, "MERFISH/data/")
-  bs_chunksize <- 20
+  bs_chunksize <- 10
 } else if (sys_name == "Linux") {
   source("~/MERFISH/MERFISH-ACx-Spatial-Density/merfish_preprocessing.R")
   data_path <- "/mnt/c/OviedoLab/MERFISH/MERFISH_Data/All_HDF5/"
@@ -79,13 +79,10 @@ data.variables = list(
 # Model settings
 model.settings = list(
   struc_values = c(                                     # values of structural parameters to test
-    5.0,   # beta_shape_point
-    5.0,   # beta_shape_rate
-    1.0,   # sd_point_effect
-    10.0, # gamma_shape_slope
-    10.0, # gamma_shape_rate
-    10.0, # gamma_rate_slope
-    10.0  # gamma_rate_rate
+    1.0,   # beta_shape_point
+    1.0,   # beta_shape_rate
+    1.0,   # sd_tpoint_effect
+    1.0    # sd_tslope_effect
     ),  
   buffer_factor = 0.05,                                 # buffer factor for penalizing distance from structural parameter values
   ctol = 1e-6,                                          # convergence tolerance
@@ -105,13 +102,12 @@ count.data.WSPmm.y <- create.count.data.WSPmm(
   verbose = TRUE
 )
 
-options(error = recover, warn = 2)
 merfish.laminar.model <- wisp(
   count.data.raw = count.data.WSPmm.y,
   variables = data.variables,
-  use.median = FALSE,
+  use.median = TRUE,
   bootstraps.num = 1e2,
-  converged.resamples.only = FALSE,
+  converged.resamples.only = TRUE,
   max.fork = bs_chunksize,
   batch.size = bs_chunksize,
   dim.bounds = colMeans(layer.boundary.bins),
@@ -119,3 +115,38 @@ merfish.laminar.model <- wisp(
   print.child.summaries = TRUE, 
   model.settings = model.settings
 )
+
+
+
+pools <- c()
+for (i in 1:length(merfish.laminar.model[["token.pool"]])) {
+  
+  l <- length(merfish.laminar.model[["token.pool"]][[i]])
+  if (l > 0) {
+    pools <- c(pools, l)
+  }
+  
+}
+hist(pools)
+mean(pools)
+counts <- merfish.laminar.model$count.data.summed
+resamples <- merfish.laminar.model$resample.demo
+
+mask <- counts$child == "Nptxr"
+plot(
+  counts$bin[mask], 
+  counts$count[mask], 
+  pch = 19, 
+  col = "blue", 
+  xlab = "Bin", 
+  ylab = "Count")
+j <- sample(1:ncol(resamples), 1)
+points(
+  counts$bin[mask], 
+  resamples[mask, j], 
+  pch = 19, 
+  col = "red")
+
+resamples[mask, j]
+merfish.laminar.model$count.data.summed$ran[mask]
+sum(is.na(resamples[, j]))
