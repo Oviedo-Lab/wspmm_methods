@@ -18,8 +18,7 @@ library(wispack)
 ran.seed <- 12349999
 set.seed(ran.seed)
 
-# Set for debugging (if needed): 
-Sys.setenv(CXXFLAGS="-fsanitize=address -g -O1")
+# Set for debugging (if needed): Sys.setenv(CXXFLAGS="-fsanitize=address -g -O1")
 # ... in external terminal: cd to working directory, run "Rscript main.R"
 
 # Report what's happening and send all output to both the console and text file
@@ -131,10 +130,6 @@ mean(pools)
 counts <- merfish.laminar.model$count.data.summed
 resamples <- merfish.laminar.model$resample.demo
 
-# questions: 
-# 1. Why does "none" have no count (in resamples)? 
-# 2. Check that NAs in counts (resamples) matche those in count.data.summed$count
-
 mask <- counts$child == "Rorb" & counts$ran == "none"
 plot(
   counts$bin[mask], 
@@ -150,7 +145,7 @@ points(
   pch = 19, 
   col = "red")
 
-resamples[mask, j]
+
 merfish.laminar.model$count.data.summed$ran[mask]
 sum(is.na(resamples[, j]))
 
