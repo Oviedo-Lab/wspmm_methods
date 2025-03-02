@@ -133,6 +133,7 @@ resamples <- merfish.laminar.model$resample.demo
 
 # questions: 
 # 1. Why does "none" have no count (in resamples)? 
+# 2. Check that NAs in counts (resamples) matche those in count.data.summed$count
 
 mask <- counts$child == "Rorb" & counts$ran == "none"
 plot(
@@ -152,3 +153,9 @@ points(
 resamples[mask, j]
 merfish.laminar.model$count.data.summed$ran[mask]
 sum(is.na(resamples[, j]))
+
+
+
+
+mask2 <- is.na(counts$count)
+View(counts[mask2, ])
