@@ -10,7 +10,7 @@ projects_folder <- "/Users/michaelbarkasi/Library/CloudStorage/OneDrive-Washingt
 
 # For for WSPmm 
 wispack_path <- paste0(projects_folder, "R_packages/wispack/wispack_1.0.tar.gz")
-install.packages(wispack_path, repos = NULL)
+#install.packages(wispack_path, repos = NULL)
 library(wispack)
 
 # Set random seed for reproducibility
@@ -81,6 +81,7 @@ model.settings = list(
   struc_values = c(                                     # values of structural parameters to test
     1.0,   # beta_shape_point
     1.0,   # beta_shape_rate
+    1.0,   # sd_Rt_effect
     1.0,   # sd_tpoint_effect
     1.0    # sd_tslope_effect
     ),  
@@ -89,7 +90,7 @@ model.settings = list(
   max_penalty_at_distance_factor = 0.01,                # maximum penalty at distance from structural parameter values
   LROcutoff = 2.0,                                      # cutoff for LROcp
   tslope_initial = 1.0,                                 # initial value for tslope
-  wf_initial = 0.5,                                     # initial value for wfactor (0.5 results in faster and better fits than 0.25 or 0.05)
+  wf_initial = 0.05,                                     # initial value for wfactor (0.5 results in faster and better fits than 0.25 or 0.05)
   max_evals = 500                                       # maximum number of evaluations for optimization
 )
 
@@ -118,6 +119,13 @@ merfish.laminar.model <- wisp(
 
 
 
+
+
+
+
+
+
+
 pools <- c()
 for (i in 1:length(merfish.laminar.model[["token.pool"]])) {
   l <- length(merfish.laminar.model[["token.pool"]][[i]])
@@ -130,7 +138,7 @@ mean(pools)
 counts <- merfish.laminar.model$count.data.summed
 resamples <- merfish.laminar.model$resample.demo
 
-mask <- counts$child == "Rorb" & counts$ran == "none"
+mask <- counts$child == "Rorb" & counts$ran == "none" & counts$treatment == "ref"
 plot(
   counts$bin[mask], 
   counts$count[mask], 
@@ -146,11 +154,37 @@ points(
   col = "red")
 
 
-merfish.laminar.model$count.data.summed$ran[mask]
-sum(is.na(resamples[, j]))
 
 
 
 
-mask2 <- is.na(counts$count)
-View(counts[mask2, ])
+
+
+pn <- merfish.laminar.model$param.names
+ps <- merfish.laminar.model$fitted.parameters
+ps <- merfish.laminar.model$fitted.parameters
+mc <- sum(counts$count.log[counts$ran != "none"], na.rm = TRUE)/4
+mean_wf <- c()
+sd_wf <- c()
+mean_wf_obs <- c()
+for (r in 1:4) {
+  param_mask <- grepl(paste0("wfactor_rate_", r, "_X"), pn)
+  hist(ps[param_mask])
+  print(mean(ps[param_mask]))
+  print(sum(counts$count.log[counts$ran == as.character(r)], na.rm = TRUE)/mc - 1)
+  print("------")
+  mean_wf <- c(mean_wf, mean(ps[param_mask]))
+  sd_wf <- c(sd_wf, sd(ps[param_mask]))
+  mean_wf_obs <- c(mean_wf_obs, sum(counts$count.log[counts$ran == as.character(r)], na.rm = TRUE)/mc - 1)
+}
+ds <- c()
+ds_max <- c()
+for (r in 1:4) {
+  
+  d <- dnorm(mean_wf_obs[r], mean_wf[r], sd_wf[r]/sqrt(4))
+  ds <- c(ds, d)
+  d_max <- dnorm(mean_wf[r], mean_wf[r], sd_wf[r]/sqrt(4))
+  ds_max <- c(ds_max, d_max)
+  
+}
+results <- data.frame(mean_wf_obs, mean_wf, sd_wf, ds, ds_max)
