@@ -916,12 +916,10 @@ create.count.data.WSPmm <- function(
     bin.dim = c("x_bins", "y_bins"),               # dimension by which to bin; must be one of these two; will collapse along the other
     gene.list,                                     # list of genes to include in count data, forms the "child" level of the model
     fixed.effect.names, 
-    parent = NULL,                                 # parent level for fixed effects; if NULL, will use "cortex"
-    verbose = FALSE
+    parent = NULL                                  # parent level for fixed effects; if NULL, will use "cortex"
   ) { 
     
     # Run checks 
-    if (verbose) snk.report...("Running checks")
     if (length(bin.dim) != 1 || !(bin.dim %in% c("x_bins","y_bins"))) stop("bin.dim must be one of 'x_bins' or 'y_bins'")
     if (!all(c("mouse", "cell_num", fixed.effect.names, parent) %in% colnames(df.merfish))) stop("df.merfish missing mouse, cell_num, parent, or fixed effect column")
     

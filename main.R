@@ -30,7 +30,7 @@ sys_name <- Sys.info()["sysname"]
 if (sys_name == "Darwin") {
   source("merfish_preprocessing.R")
   data_path <- paste0(projects_folder, "MERFISH/data/")
-  bs_chunksize <- 10
+  bs_chunksize <- 20
 } else if (sys_name == "Linux") {
   source("~/MERFISH/MERFISH-ACx-Spatial-Density/merfish_preprocessing.R")
   data_path <- "/mnt/c/OviedoLab/MERFISH/MERFISH_Data/All_HDF5/"
@@ -66,6 +66,14 @@ gene.list.plasticity <- c(
 # Define fixed effects to test
 fixed.effect.names <- c("hemisphere", "age")
 
+# Create count data for WSPmm object, from preprocessed count_data, using laminar axis (y)
+count.data.WSPmm.y <- create.count.data.WSPmm(
+  df.merfish = count_data,
+  bin.dim = "y_bins",
+  gene.list = gene.list.plasticity,
+  fixed.effect.names = c("hemisphere","age")
+)
+
 # Data variables 
 data.variables = list(
   count = "count",
@@ -81,7 +89,6 @@ model.settings = list(
   struc_values = c(                                     # values of structural parameters to test
     1.0,   # beta_shape_point
     1.0,   # beta_shape_rate
-    1.0,   # sd_Rt_effect
     1.0,   # sd_tpoint_effect
     1.0    # sd_tslope_effect
     ),  
@@ -90,24 +97,15 @@ model.settings = list(
   max_penalty_at_distance_factor = 0.01,                # maximum penalty at distance from structural parameter values
   LROcutoff = 2.0,                                      # cutoff for LROcp
   tslope_initial = 1.0,                                 # initial value for tslope
-  wf_initial = 0.05,                                     # initial value for wfactor (0.5 results in faster and better fits than 0.25 or 0.05)
-  max_evals = 500                                       # maximum number of evaluations for optimization
-)
-
-# Create count data for WSPmm object, from preprocessed count_data, using laminar axis (y)
-count.data.WSPmm.y <- create.count.data.WSPmm(
-  df.merfish = count_data,
-  bin.dim = "y_bins",
-  gene.list = gene.list.plasticity,
-  fixed.effect.names = c("hemisphere","age"),
-  verbose = TRUE
+  wf_initial = 0.05,                                    # initial value for wfactor
+  max_evals = 1000                                      # maximum number of evaluations for optimization
 )
 
 merfish.laminar.model <- wisp(
   count.data.raw = count.data.WSPmm.y,
   variables = data.variables,
-  use.median = TRUE,
-  bootstraps.num = 1e2,
+  use.median = FALSE,
+  bootstraps.num = 1e3,
   converged.resamples.only = TRUE,
   max.fork = bs_chunksize,
   batch.size = bs_chunksize,
@@ -118,11 +116,16 @@ merfish.laminar.model <- wisp(
 )
 
 
+tslope_effs_mask <- grepl("tslope", merfish.laminar.model$param.names) & grepl("beta", merfish.laminar.model$param.names)
+bs_fitted_params <- merfish.laminar.model$bs_params
+tslope_effects <- c(bs_fitted_params[,tslope_effs_mask])
+hist(tslope_effects)
+sd(tslope_effects)
+mean(tslope_effects)
 
-
-
-
-
+mask <- grepl("beta_tslope", testnames)
+plot(test[mask])
+max(test[mask])
 
 
 
@@ -188,3 +191,6 @@ for (r in 1:4) {
   
 }
 results <- data.frame(mean_wf_obs, mean_wf, sd_wf, ds, ds_max)
+
+
+
