@@ -105,7 +105,7 @@ merfish.laminar.model <- wisp(
   count.data.raw = count.data.WSPmm.y,
   variables = data.variables,
   use.median = FALSE,
-  bootstraps.num = 1e2,
+  bootstraps.num = 1e3,
   converged.resamples.only = TRUE,
   max.fork = bs_chunksize,
   batch.size = bs_chunksize,

@@ -91,7 +91,11 @@ results <- data.frame(mean_wf_obs, mean_wf, sd_wf, ds, ds_max)
 
 plot.decomposition(
   merfish.laminar.model,
-  child = "Rorb"
+  gene = "Rorb",
+  treatment = "ref",
+  resample = 1,
+  bin = 1,
+  plot.type = "all"
 )
 
 
