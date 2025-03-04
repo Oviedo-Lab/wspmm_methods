@@ -30,7 +30,7 @@ sys_name <- Sys.info()["sysname"]
 if (sys_name == "Darwin") {
   source("merfish_preprocessing.R")
   data_path <- paste0(projects_folder, "MERFISH/data/")
-  bs_chunksize <- 20
+  bs_chunksize <- 10
 } else if (sys_name == "Linux") {
   source("~/MERFISH/MERFISH-ACx-Spatial-Density/merfish_preprocessing.R")
   data_path <- "/mnt/c/OviedoLab/MERFISH/MERFISH_Data/All_HDF5/"
@@ -95,8 +95,8 @@ model.settings = list(
   buffer_factor = 0.05,                                 # buffer factor for penalizing distance from structural parameter values
   ctol = 1e-6,                                          # convergence tolerance
   max_penalty_at_distance_factor = 0.01,                # maximum penalty at distance from structural parameter values
-  LROcutoff = 3.0,                                      # cutoff for LROcp
-  tslope_initial = 0.0,                                 # initial value for tslope
+  LROcutoff = 2.0,                                      # cutoff for LROcp
+  tslope_initial = 1.0,                                 # initial value for tslope
   wf_initial = 0.1,                                     # initial value for wfactor
   max_evals = 1000                                      # maximum number of evaluations for optimization
 )
