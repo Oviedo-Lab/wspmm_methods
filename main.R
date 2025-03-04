@@ -6,11 +6,11 @@
 rm(list = ls())
 # If using VS Code with httpgd, ensure clean start
 httpgd::hgd_close() 
+
+# Where to find data (not working directory) 
 projects_folder <- "/Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/"
 
 # For for WSPmm 
-wispack_path <- paste0(projects_folder, "R_packages/wispack/wispack_1.0.tar.gz")
-#install.packages(wispack_path, repos = NULL)
 library(wispack)
 
 # Set random seed for reproducibility
@@ -30,7 +30,7 @@ sys_name <- Sys.info()["sysname"]
 if (sys_name == "Darwin") {
   source("merfish_preprocessing.R")
   data_path <- paste0(projects_folder, "MERFISH/data/")
-  bs_chunksize <- 10
+  bs_chunksize <- 20
 } else if (sys_name == "Linux") {
   source("~/MERFISH/MERFISH-ACx-Spatial-Density/merfish_preprocessing.R")
   data_path <- "/mnt/c/OviedoLab/MERFISH/MERFISH_Data/All_HDF5/"
