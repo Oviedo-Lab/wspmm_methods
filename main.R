@@ -6,8 +6,6 @@
 rm(list = ls())
 # If using VS Code with httpgd, ensure clean start
 httpgd::hgd_close() 
-
-# Where to find data (not working directory) 
 projects_folder <- "/Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/"
 
 # For for WSPmm 
@@ -30,7 +28,7 @@ sys_name <- Sys.info()["sysname"]
 if (sys_name == "Darwin") {
   source("merfish_preprocessing.R")
   data_path <- paste0(projects_folder, "MERFISH/data/")
-  bs_chunksize <- 20
+  bs_chunksize <- 10
 } else if (sys_name == "Linux") {
   source("~/MERFISH/MERFISH-ACx-Spatial-Density/merfish_preprocessing.R")
   data_path <- "/mnt/c/OviedoLab/MERFISH/MERFISH_Data/All_HDF5/"
@@ -105,8 +103,8 @@ merfish.laminar.model <- wisp(
   count.data.raw = count.data.WSPmm.y,
   variables = data.variables,
   use.median = FALSE,
-  bootstraps.num = 1e3,
-  converged.resamples.only = TRUE,
+  bootstraps.num = 1e2,
+  converged.resamples.only = FALSE,
   max.fork = bs_chunksize,
   batch.size = bs_chunksize,
   dim.bounds = colMeans(layer.boundary.bins),
@@ -114,3 +112,4 @@ merfish.laminar.model <- wisp(
   print.child.summaries = TRUE, 
   model.settings = model.settings
 )
+

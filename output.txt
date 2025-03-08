@@ -11,41 +11,35 @@ Loading raw data:
 
 Found 4 HDF5 files.... 
 File names:
-	mouse 1: /Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/MERFISH/data//ACxDev1_CBA-CAJ_FFPE_P12_celltyped_filtered_withCCF.hdf5
+	mouse 1: /Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/MERFISH/data//ACxDev1_CBA-CAJ_FFPE_P12_z0-3_celltyped_filtered_withCCF.hdf5
 	mouse 2: /Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/MERFISH/data//ACxDev1_CBA-CAJ_FFPE_P18_celltyped_filtered_withCCF.hdf5
 	mouse 3: /Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/MERFISH/data//ACxDev1_CBA-CAJ_P12_celltyped_filtered_withCCF.hdf5
 	mouse 4: /Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/MERFISH/data//ACxDev1_CBA-CAJ_P18_celltyped_filtered_withCCF.hdf5
 Loading and parsing file for mouse number: 1, 2, 3, 4 
 
-Mean transcript counts per cell for each mouse: 1.873, 1.902, 0.897, 1.216
-Mean of means: 1.472
-Standard deviation of means: 0.497
+Mean transcript counts per cell for each mouse: 1.722, 1.902, 0.897, 1.216
+Mean of means: 1.434
+Standard deviation of means: 0.461
 
 Total cells by type (Map My Cells):
 ------------------------------
 
-      Astro-Epen          CB GABA     CNU-HYa GABA CTX-CGE/MGE GABA 
-            1249               25               12              663 
-        filtered          HY GABA           Immune       IT-ET Glut 
-            6989               14              122             7545 
-        LSX GABA          MB GABA       MH-LH Glut          MY GABA 
-              12               18                9              206 
-  NP-CT-L6b Glut      OB-IMN GABA              OEC        OPC-Oligo 
-            1423               49               16              244 
-          P GABA         Vascular          CB Glut     CNU-LGE GABA 
-              69             2015               19                4 
-     DG-IMN Glut          MY Glut       OB-CR Glut          TH Glut 
-               7                2                0                1 
-    CNU-HYa Glut     CNU-MGE GABA    HY Gnrh1 Glut          MB Dopa 
-               1                6                2                2 
-          P Glut      Pineal Glut       MB-HB Sero 
-               2                5                1 
+      Astro-Epen          CB GABA     CNU-HYa GABA     CNU-MGE GABA CTX-CGE/MGE GABA         filtered          HY GABA 
+            1255               24               12                7              652             6917               14 
+          Immune       IT-ET Glut         LSX GABA          MB GABA       MH-LH Glut          MY GABA   NP-CT-L6b Glut 
+             122             7388               12               18                9              203             1365 
+     OB-IMN GABA              OEC        OPC-Oligo           P GABA  TSCRPT_filtered         Vascular          CB Glut 
+              51               16              242               68                6             2015               19 
+    CNU-LGE GABA      DG-IMN Glut          MY Glut       OB-CR Glut          TH Glut     CNU-HYa Glut    HY Gnrh1 Glut 
+               4                7                2                0                1                1                2 
+         MB Dopa           P Glut      Pineal Glut       MB-HB Sero 
+               2                2                5                1 
 ----
 
 Number of mice: 4
-Cells per mouse: 5024, 5759, 4514, 5435
-Means cells per mouse: 5183
-Total cells: 20732
+Cells per mouse: 4734, 5759, 4514, 5435
+Means cells per mouse: 5110.5
+Total cells: 20442
 
 Transforming raw data into laminar and columnar coordinates: 
 ----------------------------------------
@@ -149,65 +143,25 @@ Built initial beta (ref and fixed-effects) matrices
 Initialized random effect warping factors
 Made and mapped parameter vector
 Constructed grouping variable ids
-Computed size of rRsum boundary vector: 1040
+Computed size of rRsum boundary vector: 911
 Pre-computed bin ranges for bootstrap resampling
 Finished initializing wspc object
-Imported fe_difference_ratio: 1.277575
+Imported fe_difference_ratio: 1.486919
 
 Estimating model parameters: 
 ---------------
 
 Running bootstrap fits (forking): 
-Batch 0/50, 0.59971 sec/bs
-Batch 1/50, 0.511189 sec/bs
-Batch 2/50, 0.572947 sec/bs
-Batch 3/50, 0.631256 sec/bs
-Batch 4/50, 0.592981 sec/bs
-Batch 5/50, 0.554433 sec/bs
-Batch 6/50, 0.572891 sec/bs
-Batch 7/50, 0.581102 sec/bs
-Batch 8/50, 0.610778 sec/bs
-Batch 9/50, 0.572657 sec/bs
-Batch 10/50, 0.592829 sec/bs
-Batch 11/50, 0.574841 sec/bs
-Batch 12/50, 0.579588 sec/bs
-Batch 13/50, 0.61824 sec/bs
-Batch 14/50, 0.546117 sec/bs
-Batch 15/50, 0.55792 sec/bs
-Batch 16/50, 0.618448 sec/bs
-Batch 17/50, 0.502622 sec/bs
-Batch 18/50, 0.567314 sec/bs
-Batch 19/50, 0.547656 sec/bs
-Batch 20/50, 0.547383 sec/bs
-Batch 21/50, 0.575944 sec/bs
-Batch 22/50, 0.569212 sec/bs
-Batch 23/50, 0.50501 sec/bs
-Batch 24/50, 0.553453 sec/bs
-Batch 25/50, 0.659709 sec/bs
-Batch 26/50, 0.53795 sec/bs
-Batch 27/50, 0.533777 sec/bs
-Batch 28/50, 0.545512 sec/bs
-Batch 29/50, 0.601295 sec/bs
-Batch 30/50, 0.556041 sec/bs
-Batch 31/50, 0.573641 sec/bs
-Batch 32/50, 0.547238 sec/bs
-Batch 33/50, 0.970462 sec/bs
-Batch 34/50, 0.54825 sec/bs
-Batch 35/50, 0.603083 sec/bs
-Batch 36/50, 0.554796 sec/bs
-Batch 37/50, 0.523055 sec/bs
-Batch 38/50, 0.538141 sec/bs
-Batch 39/50, 0.607493 sec/bs
-Batch 40/50, 0.54849 sec/bs
-Batch 41/50, 0.518577 sec/bs
-Batch 42/50, 0.597861 sec/bs
-Batch 43/50, 0.519225 sec/bs
-Batch 44/50, 0.67305 sec/bs
-Batch 45/50, 0.608756 sec/bs
-Batch 46/50, 0.540774 sec/bs
-Batch 47/50, 0.569528 sec/bs
-Batch 48/50, 0.675826 sec/bs
-Batch 49/50, 0.587759 sec/bs
+Batch 0/10, 0.0936426 sec/bs
+Batch 1/10, 0.108522 sec/bs
+Batch 2/10, 0.0827451 sec/bs
+Batch 3/10, 0.0842995 sec/bs
+Batch 4/10, 0.0919339 sec/bs
+Batch 5/10, 0.127634 sec/bs
+Batch 6/10, 0.0836235 sec/bs
+Batch 7/10, 0.0822434 sec/bs
+Batch 8/10, 0.0858529 sec/bs
+Batch 9/10, 0.0860875 sec/bs
 All complete!
 
 Setting full-data fit as parameters... 
@@ -217,27 +171,20 @@ Provided parameters are feasible
 Running stats on bootstrap results: 
 ----------------------------------------
 
-Grabbing bootstrap results, only resamples with converged fit... 
+Grabbing bootstrap results, all resamples... 
 Grabbing parameter values... 
 Computing 95% confidence intervals... 
 Estimating p-values from bootstraped parameters... 
 
 Stat summary (head only):
 ------------------------------
-                              parameter    estimate      CI.low     CI.high
-1       baseline_cortex_Rt_Arc_Tns/Blk1  9.83972836  7.28219965 10.64150022
-2   beta_Rt_cortex_Arc_right_X_Tns/Blk1 -0.01029629 -0.05186548  0.04930917
-3      beta_Rt_cortex_Arc_18_X_Tns/Blk1  0.05920120 -0.02044726  0.13127346
-4 beta_Rt_cortex_Arc_right18_X_Tns/Blk1  0.02593683 -0.01294512  0.07387975
-5       baseline_cortex_Rt_Arc_Tns/Blk2 12.19449905 11.58682820 16.88067225
-6   beta_Rt_cortex_Arc_right_X_Tns/Blk2 -0.01450044 -0.05453399  0.02551439
-     p.value p.value.adj    alpha.adj significance
-1 0.00000000     0.00000 0.0001377410          ***
-2 0.48348348    42.54655 0.0005681818           ns
-3 0.01801802     4.36036 0.0002066116           ns
-4 0.06706707    13.14515 0.0002551020           ns
-5 0.00000000     0.00000 0.0001381215          ***
-6 0.11011011    19.15916 0.0002873563           ns
+                              parameter   estimate     CI.low    CI.high p.value p.value.adj    alpha.adj significance
+1       baseline_cortex_Rt_Arc_Tns/Blk1  5.9708199  5.9702606  5.9712437       0           0 0.0001567398          ***
+2   beta_Rt_cortex_Arc_right_X_Tns/Blk1 -0.3325805 -0.3329375 -0.3323070       0           0 0.0001572327          ***
+3      beta_Rt_cortex_Arc_18_X_Tns/Blk1  0.9624684  0.9620407  0.9626248       0           0 0.0001577287          ***
+4 beta_Rt_cortex_Arc_right18_X_Tns/Blk1  0.3436806  0.3434165  0.3439111       0           0 0.0001582278          ***
+5       baseline_cortex_Rt_Arc_Tns/Blk2  5.2860844  5.2852438  5.2865552       0           0 0.0001587302          ***
+6   beta_Rt_cortex_Arc_right_X_Tns/Blk2 -0.1778685 -0.1783477 -0.1773998       0           0 0.0001592357          ***
 ----
 
 Analyzing residuals: 
@@ -249,38 +196,31 @@ Making plots and saving stats...
 
 Log-residual summary by grouping variables (head only):
 ------------------------------
-         group         mean        sd  variance
-1          all  0.010155845 0.4498104 0.2023294
-2 ran_lvl_none -0.044141467 0.3928228 0.1543097
-3    ran_lvl_1  0.001217094 0.4712167 0.2220452
-4    ran_lvl_2  0.023656399 0.4201992 0.1765674
-5    ran_lvl_3  0.076007550 0.5251873 0.2758217
-6    ran_lvl_4  0.048336959 0.4683529 0.2193545
+         group        mean        sd  variance
+1          all  0.02706133 0.6231344 0.3882965
+2 ran_lvl_none -0.04922399 0.5203136 0.2707262
+3    ran_lvl_1 -0.10938561 0.6885092 0.4740449
+4    ran_lvl_2 -0.02571838 0.6057976 0.3669907
+5    ran_lvl_3  0.28565764 0.6712226 0.4505397
+6    ran_lvl_4  0.11026232 0.6250005 0.3906256
 ----
 
 TPS test results (head only):
 ------------------------------
-              cortex   gene TPS.ref TPS.right TPS.18 TPS.right18 Rt.18
-Arc.cortex    cortex    Arc   FALSE     FALSE  FALSE       FALSE  TRUE
-Bcl11b.cortex cortex Bcl11b   FALSE     FALSE  FALSE       FALSE FALSE
-Camk2a.cortex cortex Camk2a    TRUE     FALSE  FALSE       FALSE FALSE
-Dlx2.cortex   cortex   Dlx2    TRUE      TRUE   TRUE        TRUE FALSE
-Fezf2.cortex  cortex  Fezf2   FALSE     FALSE  FALSE       FALSE FALSE
-Grin2a.cortex cortex Grin2a   FALSE     FALSE  FALSE       FALSE FALSE
-              tpoint.18 tslope.18 Rt.right tpoint.right tslope.right Rt.right18
-Arc.cortex         TRUE     FALSE    FALSE        FALSE        FALSE       TRUE
-Bcl11b.cortex     FALSE     FALSE    FALSE        FALSE        FALSE      FALSE
-Camk2a.cortex     FALSE      TRUE    FALSE        FALSE         TRUE      FALSE
-Dlx2.cortex       FALSE      TRUE    FALSE        FALSE        FALSE      FALSE
-Fezf2.cortex       TRUE     FALSE    FALSE         TRUE        FALSE      FALSE
-Grin2a.cortex     FALSE      TRUE    FALSE        FALSE         TRUE      FALSE
-              tpoint.right18 tslope.right18
-Arc.cortex              TRUE          FALSE
-Bcl11b.cortex          FALSE          FALSE
-Camk2a.cortex          FALSE           TRUE
-Dlx2.cortex            FALSE          FALSE
-Fezf2.cortex           FALSE          FALSE
-Grin2a.cortex          FALSE           TRUE
+              cortex   gene TPS.ref TPS.right TPS.18 TPS.right18 Rt.18 tpoint.18 tslope.18 Rt.right tpoint.right
+Arc.cortex    cortex    Arc    TRUE      TRUE   TRUE        TRUE  TRUE      TRUE     FALSE     TRUE        FALSE
+Bcl11b.cortex cortex Bcl11b    TRUE      TRUE   TRUE        TRUE  TRUE      TRUE      TRUE     TRUE         TRUE
+Camk2a.cortex cortex Camk2a    TRUE      TRUE   TRUE        TRUE  TRUE      TRUE      TRUE     TRUE         TRUE
+Dlx2.cortex   cortex   Dlx2    TRUE      TRUE   TRUE        TRUE  TRUE      TRUE     FALSE     TRUE         TRUE
+Fezf2.cortex  cortex  Fezf2    TRUE      TRUE   TRUE        TRUE  TRUE      TRUE      TRUE     TRUE         TRUE
+Grin2a.cortex cortex Grin2a    TRUE      TRUE   TRUE        TRUE  TRUE      TRUE      TRUE     TRUE         TRUE
+              tslope.right Rt.right18 tpoint.right18 tslope.right18
+Arc.cortex            TRUE       TRUE           TRUE           TRUE
+Bcl11b.cortex         TRUE       TRUE           TRUE          FALSE
+Camk2a.cortex         TRUE       TRUE           TRUE           TRUE
+Dlx2.cortex          FALSE       TRUE           TRUE          FALSE
+Fezf2.cortex          TRUE       TRUE           TRUE          FALSE
+Grin2a.cortex        FALSE       TRUE           TRUE          FALSE
 ----
 
 Printing structural summary distributions: 
@@ -295,42 +235,531 @@ Making rate-count plots...
 Printing child summary plots: 
 ----------------------------------------
 
-Making summary plots for cortex: Arc, Bcl11b, Camk2a, Dlx2, Fezf2, Grin2a, Ncdn, Nptxr, Nr4a2, Rorb, Satb2[1] 2.718282
-beta_shape_point  beta_shape_rate sd_tpoint_effect sd_tslope_effect 
-     49.50571268      49.53184135       0.08219461       7.48452171 
-$all
-$all$plot_pred_parent_cortex_fixEff_Rorb
-
-
-$points.obs
-$points.obs$plot_pred_parent_cortex_fixEff_Rorb
-
-
-$points.extrap
-$points.extrap$plot_pred_parent_cortex_fixEff_Rorb
-
-
-$lines
-$lines$plot_pred_parent_cortex_fixEff_Rorb
-
-
-$none
-$none$plot_pred_parent_cortex_fixEff_Rorb
-
-
-$`1`
-$`1`$plot_pred_parent_cortex_fixEff_Rorb
-
-
-$`2`
-$`2`$plot_pred_parent_cortex_fixEff_Rorb
-
-
-$`3`
-$`3`$plot_pred_parent_cortex_fixEff_Rorb
-
-
-$`4`
-$`4`$plot_pred_parent_cortex_fixEff_Rorb
-
-
+Making summary plots for cortex: Arc, Bcl11b, Camk2a, Dlx2, Fezf2, Grin2a, Ncdn, Nptxr, Nr4a2, Rorb, Satb2  [1] "baseline_cortex_Rt_Arc_Tns/Blk1"              "beta_Rt_cortex_Arc_right_X_Tns/Blk1"         
+  [3] "beta_Rt_cortex_Arc_18_X_Tns/Blk1"             "beta_Rt_cortex_Arc_right18_X_Tns/Blk1"       
+  [5] "baseline_cortex_Rt_Arc_Tns/Blk2"              "beta_Rt_cortex_Arc_right_X_Tns/Blk2"         
+  [7] "beta_Rt_cortex_Arc_18_X_Tns/Blk2"             "beta_Rt_cortex_Arc_right18_X_Tns/Blk2"       
+  [9] "baseline_cortex_Rt_Arc_Tns/Blk3"              "beta_Rt_cortex_Arc_right_X_Tns/Blk3"         
+ [11] "beta_Rt_cortex_Arc_18_X_Tns/Blk3"             "beta_Rt_cortex_Arc_right18_X_Tns/Blk3"       
+ [13] "baseline_cortex_Rt_Bcl11b_Tns/Blk1"           "beta_Rt_cortex_Bcl11b_right_X_Tns/Blk1"      
+ [15] "beta_Rt_cortex_Bcl11b_18_X_Tns/Blk1"          "beta_Rt_cortex_Bcl11b_right18_X_Tns/Blk1"    
+ [17] "baseline_cortex_Rt_Bcl11b_Tns/Blk2"           "beta_Rt_cortex_Bcl11b_right_X_Tns/Blk2"      
+ [19] "beta_Rt_cortex_Bcl11b_18_X_Tns/Blk2"          "beta_Rt_cortex_Bcl11b_right18_X_Tns/Blk2"    
+ [21] "baseline_cortex_Rt_Bcl11b_Tns/Blk3"           "beta_Rt_cortex_Bcl11b_right_X_Tns/Blk3"      
+ [23] "beta_Rt_cortex_Bcl11b_18_X_Tns/Blk3"          "beta_Rt_cortex_Bcl11b_right18_X_Tns/Blk3"    
+ [25] "baseline_cortex_Rt_Camk2a_Tns/Blk1"           "beta_Rt_cortex_Camk2a_right_X_Tns/Blk1"      
+ [27] "beta_Rt_cortex_Camk2a_18_X_Tns/Blk1"          "beta_Rt_cortex_Camk2a_right18_X_Tns/Blk1"    
+ [29] "baseline_cortex_Rt_Camk2a_Tns/Blk2"           "beta_Rt_cortex_Camk2a_right_X_Tns/Blk2"      
+ [31] "beta_Rt_cortex_Camk2a_18_X_Tns/Blk2"          "beta_Rt_cortex_Camk2a_right18_X_Tns/Blk2"    
+ [33] "baseline_cortex_Rt_Camk2a_Tns/Blk3"           "beta_Rt_cortex_Camk2a_right_X_Tns/Blk3"      
+ [35] "beta_Rt_cortex_Camk2a_18_X_Tns/Blk3"          "beta_Rt_cortex_Camk2a_right18_X_Tns/Blk3"    
+ [37] "baseline_cortex_Rt_Dlx2_Tns/Blk1"             "beta_Rt_cortex_Dlx2_right_X_Tns/Blk1"        
+ [39] "beta_Rt_cortex_Dlx2_18_X_Tns/Blk1"            "beta_Rt_cortex_Dlx2_right18_X_Tns/Blk1"      
+ [41] "baseline_cortex_Rt_Dlx2_Tns/Blk2"             "beta_Rt_cortex_Dlx2_right_X_Tns/Blk2"        
+ [43] "beta_Rt_cortex_Dlx2_18_X_Tns/Blk2"            "beta_Rt_cortex_Dlx2_right18_X_Tns/Blk2"      
+ [45] "baseline_cortex_Rt_Dlx2_Tns/Blk3"             "beta_Rt_cortex_Dlx2_right_X_Tns/Blk3"        
+ [47] "beta_Rt_cortex_Dlx2_18_X_Tns/Blk3"            "beta_Rt_cortex_Dlx2_right18_X_Tns/Blk3"      
+ [49] "baseline_cortex_Rt_Fezf2_Tns/Blk1"            "beta_Rt_cortex_Fezf2_right_X_Tns/Blk1"       
+ [51] "beta_Rt_cortex_Fezf2_18_X_Tns/Blk1"           "beta_Rt_cortex_Fezf2_right18_X_Tns/Blk1"     
+ [53] "baseline_cortex_Rt_Fezf2_Tns/Blk2"            "beta_Rt_cortex_Fezf2_right_X_Tns/Blk2"       
+ [55] "beta_Rt_cortex_Fezf2_18_X_Tns/Blk2"           "beta_Rt_cortex_Fezf2_right18_X_Tns/Blk2"     
+ [57] "baseline_cortex_Rt_Fezf2_Tns/Blk3"            "beta_Rt_cortex_Fezf2_right_X_Tns/Blk3"       
+ [59] "beta_Rt_cortex_Fezf2_18_X_Tns/Blk3"           "beta_Rt_cortex_Fezf2_right18_X_Tns/Blk3"     
+ [61] "baseline_cortex_Rt_Grin2a_Tns/Blk1"           "beta_Rt_cortex_Grin2a_right_X_Tns/Blk1"      
+ [63] "beta_Rt_cortex_Grin2a_18_X_Tns/Blk1"          "beta_Rt_cortex_Grin2a_right18_X_Tns/Blk1"    
+ [65] "baseline_cortex_Rt_Grin2a_Tns/Blk2"           "beta_Rt_cortex_Grin2a_right_X_Tns/Blk2"      
+ [67] "beta_Rt_cortex_Grin2a_18_X_Tns/Blk2"          "beta_Rt_cortex_Grin2a_right18_X_Tns/Blk2"    
+ [69] "baseline_cortex_Rt_Grin2a_Tns/Blk3"           "beta_Rt_cortex_Grin2a_right_X_Tns/Blk3"      
+ [71] "beta_Rt_cortex_Grin2a_18_X_Tns/Blk3"          "beta_Rt_cortex_Grin2a_right18_X_Tns/Blk3"    
+ [73] "baseline_cortex_Rt_Grin2a_Tns/Blk4"           "beta_Rt_cortex_Grin2a_right_X_Tns/Blk4"      
+ [75] "beta_Rt_cortex_Grin2a_18_X_Tns/Blk4"          "beta_Rt_cortex_Grin2a_right18_X_Tns/Blk4"    
+ [77] "baseline_cortex_Rt_Ncdn_Tns/Blk1"             "beta_Rt_cortex_Ncdn_right_X_Tns/Blk1"        
+ [79] "beta_Rt_cortex_Ncdn_18_X_Tns/Blk1"            "beta_Rt_cortex_Ncdn_right18_X_Tns/Blk1"      
+ [81] "baseline_cortex_Rt_Ncdn_Tns/Blk2"             "beta_Rt_cortex_Ncdn_right_X_Tns/Blk2"        
+ [83] "beta_Rt_cortex_Ncdn_18_X_Tns/Blk2"            "beta_Rt_cortex_Ncdn_right18_X_Tns/Blk2"      
+ [85] "baseline_cortex_Rt_Ncdn_Tns/Blk3"             "beta_Rt_cortex_Ncdn_right_X_Tns/Blk3"        
+ [87] "beta_Rt_cortex_Ncdn_18_X_Tns/Blk3"            "beta_Rt_cortex_Ncdn_right18_X_Tns/Blk3"      
+ [89] "baseline_cortex_Rt_Nptxr_Tns/Blk1"            "beta_Rt_cortex_Nptxr_right_X_Tns/Blk1"       
+ [91] "beta_Rt_cortex_Nptxr_18_X_Tns/Blk1"           "beta_Rt_cortex_Nptxr_right18_X_Tns/Blk1"     
+ [93] "baseline_cortex_Rt_Nptxr_Tns/Blk2"            "beta_Rt_cortex_Nptxr_right_X_Tns/Blk2"       
+ [95] "beta_Rt_cortex_Nptxr_18_X_Tns/Blk2"           "beta_Rt_cortex_Nptxr_right18_X_Tns/Blk2"     
+ [97] "baseline_cortex_Rt_Nptxr_Tns/Blk3"            "beta_Rt_cortex_Nptxr_right_X_Tns/Blk3"       
+ [99] "beta_Rt_cortex_Nptxr_18_X_Tns/Blk3"           "beta_Rt_cortex_Nptxr_right18_X_Tns/Blk3"     
+[101] "baseline_cortex_Rt_Nr4a2_Tns/Blk1"            "beta_Rt_cortex_Nr4a2_right_X_Tns/Blk1"       
+[103] "beta_Rt_cortex_Nr4a2_18_X_Tns/Blk1"           "beta_Rt_cortex_Nr4a2_right18_X_Tns/Blk1"     
+[105] "baseline_cortex_Rt_Rorb_Tns/Blk1"             "beta_Rt_cortex_Rorb_right_X_Tns/Blk1"        
+[107] "beta_Rt_cortex_Rorb_18_X_Tns/Blk1"            "beta_Rt_cortex_Rorb_right18_X_Tns/Blk1"      
+[109] "baseline_cortex_Rt_Satb2_Tns/Blk1"            "beta_Rt_cortex_Satb2_right_X_Tns/Blk1"       
+[111] "beta_Rt_cortex_Satb2_18_X_Tns/Blk1"           "beta_Rt_cortex_Satb2_right18_X_Tns/Blk1"     
+[113] "baseline_cortex_tslope_Arc_Tns/Blk1"          "beta_tslope_cortex_Arc_right_X_Tns/Blk1"     
+[115] "beta_tslope_cortex_Arc_18_X_Tns/Blk1"         "beta_tslope_cortex_Arc_right18_X_Tns/Blk1"   
+[117] "baseline_cortex_tslope_Arc_Tns/Blk2"          "beta_tslope_cortex_Arc_right_X_Tns/Blk2"     
+[119] "beta_tslope_cortex_Arc_18_X_Tns/Blk2"         "beta_tslope_cortex_Arc_right18_X_Tns/Blk2"   
+[121] "baseline_cortex_tslope_Bcl11b_Tns/Blk1"       "beta_tslope_cortex_Bcl11b_right_X_Tns/Blk1"  
+[123] "beta_tslope_cortex_Bcl11b_18_X_Tns/Blk1"      "beta_tslope_cortex_Bcl11b_right18_X_Tns/Blk1"
+[125] "baseline_cortex_tslope_Bcl11b_Tns/Blk2"       "beta_tslope_cortex_Bcl11b_right_X_Tns/Blk2"  
+[127] "beta_tslope_cortex_Bcl11b_18_X_Tns/Blk2"      "beta_tslope_cortex_Bcl11b_right18_X_Tns/Blk2"
+[129] "baseline_cortex_tslope_Camk2a_Tns/Blk1"       "beta_tslope_cortex_Camk2a_right_X_Tns/Blk1"  
+[131] "beta_tslope_cortex_Camk2a_18_X_Tns/Blk1"      "beta_tslope_cortex_Camk2a_right18_X_Tns/Blk1"
+[133] "baseline_cortex_tslope_Camk2a_Tns/Blk2"       "beta_tslope_cortex_Camk2a_right_X_Tns/Blk2"  
+[135] "beta_tslope_cortex_Camk2a_18_X_Tns/Blk2"      "beta_tslope_cortex_Camk2a_right18_X_Tns/Blk2"
+[137] "baseline_cortex_tslope_Dlx2_Tns/Blk1"         "beta_tslope_cortex_Dlx2_right_X_Tns/Blk1"    
+[139] "beta_tslope_cortex_Dlx2_18_X_Tns/Blk1"        "beta_tslope_cortex_Dlx2_right18_X_Tns/Blk1"  
+[141] "baseline_cortex_tslope_Dlx2_Tns/Blk2"         "beta_tslope_cortex_Dlx2_right_X_Tns/Blk2"    
+[143] "beta_tslope_cortex_Dlx2_18_X_Tns/Blk2"        "beta_tslope_cortex_Dlx2_right18_X_Tns/Blk2"  
+[145] "baseline_cortex_tslope_Fezf2_Tns/Blk1"        "beta_tslope_cortex_Fezf2_right_X_Tns/Blk1"   
+[147] "beta_tslope_cortex_Fezf2_18_X_Tns/Blk1"       "beta_tslope_cortex_Fezf2_right18_X_Tns/Blk1" 
+[149] "baseline_cortex_tslope_Fezf2_Tns/Blk2"        "beta_tslope_cortex_Fezf2_right_X_Tns/Blk2"   
+[151] "beta_tslope_cortex_Fezf2_18_X_Tns/Blk2"       "beta_tslope_cortex_Fezf2_right18_X_Tns/Blk2" 
+[153] "baseline_cortex_tslope_Grin2a_Tns/Blk1"       "beta_tslope_cortex_Grin2a_right_X_Tns/Blk1"  
+[155] "beta_tslope_cortex_Grin2a_18_X_Tns/Blk1"      "beta_tslope_cortex_Grin2a_right18_X_Tns/Blk1"
+[157] "baseline_cortex_tslope_Grin2a_Tns/Blk2"       "beta_tslope_cortex_Grin2a_right_X_Tns/Blk2"  
+[159] "beta_tslope_cortex_Grin2a_18_X_Tns/Blk2"      "beta_tslope_cortex_Grin2a_right18_X_Tns/Blk2"
+[161] "baseline_cortex_tslope_Grin2a_Tns/Blk3"       "beta_tslope_cortex_Grin2a_right_X_Tns/Blk3"  
+[163] "beta_tslope_cortex_Grin2a_18_X_Tns/Blk3"      "beta_tslope_cortex_Grin2a_right18_X_Tns/Blk3"
+[165] "baseline_cortex_tslope_Ncdn_Tns/Blk1"         "beta_tslope_cortex_Ncdn_right_X_Tns/Blk1"    
+[167] "beta_tslope_cortex_Ncdn_18_X_Tns/Blk1"        "beta_tslope_cortex_Ncdn_right18_X_Tns/Blk1"  
+[169] "baseline_cortex_tslope_Ncdn_Tns/Blk2"         "beta_tslope_cortex_Ncdn_right_X_Tns/Blk2"    
+[171] "beta_tslope_cortex_Ncdn_18_X_Tns/Blk2"        "beta_tslope_cortex_Ncdn_right18_X_Tns/Blk2"  
+[173] "baseline_cortex_tslope_Nptxr_Tns/Blk1"        "beta_tslope_cortex_Nptxr_right_X_Tns/Blk1"   
+[175] "beta_tslope_cortex_Nptxr_18_X_Tns/Blk1"       "beta_tslope_cortex_Nptxr_right18_X_Tns/Blk1" 
+[177] "baseline_cortex_tslope_Nptxr_Tns/Blk2"        "beta_tslope_cortex_Nptxr_right_X_Tns/Blk2"   
+[179] "beta_tslope_cortex_Nptxr_18_X_Tns/Blk2"       "beta_tslope_cortex_Nptxr_right18_X_Tns/Blk2" 
+[181] "baseline_cortex_tpoint_Arc_Tns/Blk1"          "beta_tpoint_cortex_Arc_right_X_Tns/Blk1"     
+[183] "beta_tpoint_cortex_Arc_18_X_Tns/Blk1"         "beta_tpoint_cortex_Arc_right18_X_Tns/Blk1"   
+[185] "baseline_cortex_tpoint_Arc_Tns/Blk2"          "beta_tpoint_cortex_Arc_right_X_Tns/Blk2"     
+[187] "beta_tpoint_cortex_Arc_18_X_Tns/Blk2"         "beta_tpoint_cortex_Arc_right18_X_Tns/Blk2"   
+[189] "baseline_cortex_tpoint_Bcl11b_Tns/Blk1"       "beta_tpoint_cortex_Bcl11b_right_X_Tns/Blk1"  
+[191] "beta_tpoint_cortex_Bcl11b_18_X_Tns/Blk1"      "beta_tpoint_cortex_Bcl11b_right18_X_Tns/Blk1"
+[193] "baseline_cortex_tpoint_Bcl11b_Tns/Blk2"       "beta_tpoint_cortex_Bcl11b_right_X_Tns/Blk2"  
+[195] "beta_tpoint_cortex_Bcl11b_18_X_Tns/Blk2"      "beta_tpoint_cortex_Bcl11b_right18_X_Tns/Blk2"
+[197] "baseline_cortex_tpoint_Camk2a_Tns/Blk1"       "beta_tpoint_cortex_Camk2a_right_X_Tns/Blk1"  
+[199] "beta_tpoint_cortex_Camk2a_18_X_Tns/Blk1"      "beta_tpoint_cortex_Camk2a_right18_X_Tns/Blk1"
+[201] "baseline_cortex_tpoint_Camk2a_Tns/Blk2"       "beta_tpoint_cortex_Camk2a_right_X_Tns/Blk2"  
+[203] "beta_tpoint_cortex_Camk2a_18_X_Tns/Blk2"      "beta_tpoint_cortex_Camk2a_right18_X_Tns/Blk2"
+[205] "baseline_cortex_tpoint_Dlx2_Tns/Blk1"         "beta_tpoint_cortex_Dlx2_right_X_Tns/Blk1"    
+[207] "beta_tpoint_cortex_Dlx2_18_X_Tns/Blk1"        "beta_tpoint_cortex_Dlx2_right18_X_Tns/Blk1"  
+[209] "baseline_cortex_tpoint_Dlx2_Tns/Blk2"         "beta_tpoint_cortex_Dlx2_right_X_Tns/Blk2"    
+[211] "beta_tpoint_cortex_Dlx2_18_X_Tns/Blk2"        "beta_tpoint_cortex_Dlx2_right18_X_Tns/Blk2"  
+[213] "baseline_cortex_tpoint_Fezf2_Tns/Blk1"        "beta_tpoint_cortex_Fezf2_right_X_Tns/Blk1"   
+[215] "beta_tpoint_cortex_Fezf2_18_X_Tns/Blk1"       "beta_tpoint_cortex_Fezf2_right18_X_Tns/Blk1" 
+[217] "baseline_cortex_tpoint_Fezf2_Tns/Blk2"        "beta_tpoint_cortex_Fezf2_right_X_Tns/Blk2"   
+[219] "beta_tpoint_cortex_Fezf2_18_X_Tns/Blk2"       "beta_tpoint_cortex_Fezf2_right18_X_Tns/Blk2" 
+[221] "baseline_cortex_tpoint_Grin2a_Tns/Blk1"       "beta_tpoint_cortex_Grin2a_right_X_Tns/Blk1"  
+[223] "beta_tpoint_cortex_Grin2a_18_X_Tns/Blk1"      "beta_tpoint_cortex_Grin2a_right18_X_Tns/Blk1"
+[225] "baseline_cortex_tpoint_Grin2a_Tns/Blk2"       "beta_tpoint_cortex_Grin2a_right_X_Tns/Blk2"  
+[227] "beta_tpoint_cortex_Grin2a_18_X_Tns/Blk2"      "beta_tpoint_cortex_Grin2a_right18_X_Tns/Blk2"
+[229] "baseline_cortex_tpoint_Grin2a_Tns/Blk3"       "beta_tpoint_cortex_Grin2a_right_X_Tns/Blk3"  
+[231] "beta_tpoint_cortex_Grin2a_18_X_Tns/Blk3"      "beta_tpoint_cortex_Grin2a_right18_X_Tns/Blk3"
+[233] "baseline_cortex_tpoint_Ncdn_Tns/Blk1"         "beta_tpoint_cortex_Ncdn_right_X_Tns/Blk1"    
+[235] "beta_tpoint_cortex_Ncdn_18_X_Tns/Blk1"        "beta_tpoint_cortex_Ncdn_right18_X_Tns/Blk1"  
+[237] "baseline_cortex_tpoint_Ncdn_Tns/Blk2"         "beta_tpoint_cortex_Ncdn_right_X_Tns/Blk2"    
+[239] "beta_tpoint_cortex_Ncdn_18_X_Tns/Blk2"        "beta_tpoint_cortex_Ncdn_right18_X_Tns/Blk2"  
+[241] "baseline_cortex_tpoint_Nptxr_Tns/Blk1"        "beta_tpoint_cortex_Nptxr_right_X_Tns/Blk1"   
+[243] "beta_tpoint_cortex_Nptxr_18_X_Tns/Blk1"       "beta_tpoint_cortex_Nptxr_right18_X_Tns/Blk1" 
+[245] "baseline_cortex_tpoint_Nptxr_Tns/Blk2"        "beta_tpoint_cortex_Nptxr_right_X_Tns/Blk2"   
+[247] "beta_tpoint_cortex_Nptxr_18_X_Tns/Blk2"       "beta_tpoint_cortex_Nptxr_right18_X_Tns/Blk2" 
+[249] "wfactor_point_1_X_Arc"                        "wfactor_rate_1_X_Arc"                        
+[251] "wfactor_point_2_X_Arc"                        "wfactor_rate_2_X_Arc"                        
+[253] "wfactor_point_3_X_Arc"                        "wfactor_rate_3_X_Arc"                        
+[255] "wfactor_point_4_X_Arc"                        "wfactor_rate_4_X_Arc"                        
+[257] "wfactor_point_1_X_Bcl11b"                     "wfactor_rate_1_X_Bcl11b"                     
+[259] "wfactor_point_2_X_Bcl11b"                     "wfactor_rate_2_X_Bcl11b"                     
+[261] "wfactor_point_3_X_Bcl11b"                     "wfactor_rate_3_X_Bcl11b"                     
+[263] "wfactor_point_4_X_Bcl11b"                     "wfactor_rate_4_X_Bcl11b"                     
+[265] "wfactor_point_1_X_Camk2a"                     "wfactor_rate_1_X_Camk2a"                     
+[267] "wfactor_point_2_X_Camk2a"                     "wfactor_rate_2_X_Camk2a"                     
+[269] "wfactor_point_3_X_Camk2a"                     "wfactor_rate_3_X_Camk2a"                     
+[271] "wfactor_point_4_X_Camk2a"                     "wfactor_rate_4_X_Camk2a"                     
+[273] "wfactor_point_1_X_Dlx2"                       "wfactor_rate_1_X_Dlx2"                       
+[275] "wfactor_point_2_X_Dlx2"                       "wfactor_rate_2_X_Dlx2"                       
+[277] "wfactor_point_3_X_Dlx2"                       "wfactor_rate_3_X_Dlx2"                       
+[279] "wfactor_point_4_X_Dlx2"                       "wfactor_rate_4_X_Dlx2"                       
+[281] "wfactor_point_1_X_Fezf2"                      "wfactor_rate_1_X_Fezf2"                      
+[283] "wfactor_point_2_X_Fezf2"                      "wfactor_rate_2_X_Fezf2"                      
+[285] "wfactor_point_3_X_Fezf2"                      "wfactor_rate_3_X_Fezf2"                      
+[287] "wfactor_point_4_X_Fezf2"                      "wfactor_rate_4_X_Fezf2"                      
+[289] "wfactor_point_1_X_Grin2a"                     "wfactor_rate_1_X_Grin2a"                     
+[291] "wfactor_point_2_X_Grin2a"                     "wfactor_rate_2_X_Grin2a"                     
+[293] "wfactor_point_3_X_Grin2a"                     "wfactor_rate_3_X_Grin2a"                     
+[295] "wfactor_point_4_X_Grin2a"                     "wfactor_rate_4_X_Grin2a"                     
+[297] "wfactor_point_1_X_Ncdn"                       "wfactor_rate_1_X_Ncdn"                       
+[299] "wfactor_point_2_X_Ncdn"                       "wfactor_rate_2_X_Ncdn"                       
+[301] "wfactor_point_3_X_Ncdn"                       "wfactor_rate_3_X_Ncdn"                       
+[303] "wfactor_point_4_X_Ncdn"                       "wfactor_rate_4_X_Ncdn"                       
+[305] "wfactor_point_1_X_Nptxr"                      "wfactor_rate_1_X_Nptxr"                      
+[307] "wfactor_point_2_X_Nptxr"                      "wfactor_rate_2_X_Nptxr"                      
+[309] "wfactor_point_3_X_Nptxr"                      "wfactor_rate_3_X_Nptxr"                      
+[311] "wfactor_point_4_X_Nptxr"                      "wfactor_rate_4_X_Nptxr"                      
+[313] "wfactor_point_1_X_Nr4a2"                      "wfactor_rate_1_X_Nr4a2"                      
+[315] "wfactor_point_2_X_Nr4a2"                      "wfactor_rate_2_X_Nr4a2"                      
+[317] "wfactor_point_3_X_Nr4a2"                      "wfactor_rate_3_X_Nr4a2"                      
+[319] "wfactor_point_4_X_Nr4a2"                      "wfactor_rate_4_X_Nr4a2"                      
+[321] "wfactor_point_1_X_Rorb"                       "wfactor_rate_1_X_Rorb"                       
+[323] "wfactor_point_2_X_Rorb"                       "wfactor_rate_2_X_Rorb"                       
+[325] "wfactor_point_3_X_Rorb"                       "wfactor_rate_3_X_Rorb"                       
+[327] "wfactor_point_4_X_Rorb"                       "wfactor_rate_4_X_Rorb"                       
+[329] "wfactor_point_1_X_Satb2"                      "wfactor_rate_1_X_Satb2"                      
+[331] "wfactor_point_2_X_Satb2"                      "wfactor_rate_2_X_Satb2"                      
+[333] "wfactor_point_3_X_Satb2"                      "wfactor_rate_3_X_Satb2"                      
+[335] "wfactor_point_4_X_Satb2"                      "wfactor_rate_4_X_Satb2"                      
+[337] "beta_shape_point"                             "beta_shape_rate"                             
+[339] "sd_tpoint_effect"                             "sd_tslope_effect"                            
+[341] "gamma_var_Arc"                                "gamma_var_Bcl11b"                            
+[343] "gamma_var_Camk2a"                             "gamma_var_Dlx2"                              
+[345] "gamma_var_Fezf2"                              "gamma_var_Grin2a"                            
+[347] "gamma_var_Ncdn"                               "gamma_var_Nptxr"                             
+[349] "gamma_var_Nr4a2"                              "gamma_var_Rorb"                              
+[351] "gamma_var_Satb2"                             
+             baseline_cortex_Rt_Arc_Tns/Blk1          beta_Rt_cortex_Arc_right_X_Tns/Blk1 
+                                5.970820e+00                                -3.325805e-01 
+            beta_Rt_cortex_Arc_18_X_Tns/Blk1        beta_Rt_cortex_Arc_right18_X_Tns/Blk1 
+                                9.624684e-01                                 3.436806e-01 
+             baseline_cortex_Rt_Arc_Tns/Blk2          beta_Rt_cortex_Arc_right_X_Tns/Blk2 
+                                5.286084e+00                                -1.778685e-01 
+            beta_Rt_cortex_Arc_18_X_Tns/Blk2        beta_Rt_cortex_Arc_right18_X_Tns/Blk2 
+                                1.285242e+00                                 7.881108e-02 
+             baseline_cortex_Rt_Arc_Tns/Blk3          beta_Rt_cortex_Arc_right_X_Tns/Blk3 
+                                5.256988e+00                                -3.079003e-01 
+            beta_Rt_cortex_Arc_18_X_Tns/Blk3        beta_Rt_cortex_Arc_right18_X_Tns/Blk3 
+                                1.406098e+00                                 1.287289e-01 
+          baseline_cortex_Rt_Bcl11b_Tns/Blk1       beta_Rt_cortex_Bcl11b_right_X_Tns/Blk1 
+                                2.385015e+00                                 4.446315e-02 
+         beta_Rt_cortex_Bcl11b_18_X_Tns/Blk1     beta_Rt_cortex_Bcl11b_right18_X_Tns/Blk1 
+                                3.450077e-01                                 1.115008e-01 
+          baseline_cortex_Rt_Bcl11b_Tns/Blk2       beta_Rt_cortex_Bcl11b_right_X_Tns/Blk2 
+                                2.289017e+00                                -8.282750e-03 
+         beta_Rt_cortex_Bcl11b_18_X_Tns/Blk2     beta_Rt_cortex_Bcl11b_right18_X_Tns/Blk2 
+                                2.512314e-01                                 6.900556e-02 
+          baseline_cortex_Rt_Bcl11b_Tns/Blk3       beta_Rt_cortex_Bcl11b_right_X_Tns/Blk3 
+                                1.386679e+00                                 1.046749e-01 
+         beta_Rt_cortex_Bcl11b_18_X_Tns/Blk3     beta_Rt_cortex_Bcl11b_right18_X_Tns/Blk3 
+                                6.990835e-01                                -2.203031e-01 
+          baseline_cortex_Rt_Camk2a_Tns/Blk1       beta_Rt_cortex_Camk2a_right_X_Tns/Blk1 
+                                5.744149e+00                                 1.863165e-01 
+         beta_Rt_cortex_Camk2a_18_X_Tns/Blk1     beta_Rt_cortex_Camk2a_right18_X_Tns/Blk1 
+                                5.837126e-01                                -1.295993e-01 
+          baseline_cortex_Rt_Camk2a_Tns/Blk2       beta_Rt_cortex_Camk2a_right_X_Tns/Blk2 
+                                6.476463e+00                                 1.294937e-01 
+         beta_Rt_cortex_Camk2a_18_X_Tns/Blk2     beta_Rt_cortex_Camk2a_right18_X_Tns/Blk2 
+                                7.512231e-01                                -2.136903e-01 
+          baseline_cortex_Rt_Camk2a_Tns/Blk3       beta_Rt_cortex_Camk2a_right_X_Tns/Blk3 
+                                6.414433e+00                                 4.040962e-02 
+         beta_Rt_cortex_Camk2a_18_X_Tns/Blk3     beta_Rt_cortex_Camk2a_right18_X_Tns/Blk3 
+                                8.678934e-01                                -1.419925e-01 
+            baseline_cortex_Rt_Dlx2_Tns/Blk1         beta_Rt_cortex_Dlx2_right_X_Tns/Blk1 
+                                1.889671e+00                                -2.498735e-01 
+           beta_Rt_cortex_Dlx2_18_X_Tns/Blk1       beta_Rt_cortex_Dlx2_right18_X_Tns/Blk1 
+                               -5.898418e-02                                 3.603319e-01 
+            baseline_cortex_Rt_Dlx2_Tns/Blk2         beta_Rt_cortex_Dlx2_right_X_Tns/Blk2 
+                                1.836520e+00                                -5.540708e-02 
+           beta_Rt_cortex_Dlx2_18_X_Tns/Blk2       beta_Rt_cortex_Dlx2_right18_X_Tns/Blk2 
+                                7.228236e-02                                 7.389600e-02 
+            baseline_cortex_Rt_Dlx2_Tns/Blk3         beta_Rt_cortex_Dlx2_right_X_Tns/Blk3 
+                                1.854380e+00                                 5.835872e-02 
+           beta_Rt_cortex_Dlx2_18_X_Tns/Blk3       beta_Rt_cortex_Dlx2_right18_X_Tns/Blk3 
+                                1.755625e-01                                -1.008064e-01 
+           baseline_cortex_Rt_Fezf2_Tns/Blk1        beta_Rt_cortex_Fezf2_right_X_Tns/Blk1 
+                                2.920964e+00                                -1.127154e-01 
+          beta_Rt_cortex_Fezf2_18_X_Tns/Blk1      beta_Rt_cortex_Fezf2_right18_X_Tns/Blk1 
+                                3.811750e-02                                 5.257033e-01 
+           baseline_cortex_Rt_Fezf2_Tns/Blk2        beta_Rt_cortex_Fezf2_right_X_Tns/Blk2 
+                                2.654901e+00                                 2.068984e-02 
+          beta_Rt_cortex_Fezf2_18_X_Tns/Blk2      beta_Rt_cortex_Fezf2_right18_X_Tns/Blk2 
+                                2.790856e-01                                 1.802516e-01 
+           baseline_cortex_Rt_Fezf2_Tns/Blk3        beta_Rt_cortex_Fezf2_right_X_Tns/Blk3 
+                                1.559847e+00                                 1.303179e-02 
+          beta_Rt_cortex_Fezf2_18_X_Tns/Blk3      beta_Rt_cortex_Fezf2_right18_X_Tns/Blk3 
+                                6.166628e-01                                 2.977412e-01 
+          baseline_cortex_Rt_Grin2a_Tns/Blk1       beta_Rt_cortex_Grin2a_right_X_Tns/Blk1 
+                                4.625742e+00                                -2.122421e-01 
+         beta_Rt_cortex_Grin2a_18_X_Tns/Blk1     beta_Rt_cortex_Grin2a_right18_X_Tns/Blk1 
+                                1.224240e-01                                 2.551041e-01 
+          baseline_cortex_Rt_Grin2a_Tns/Blk2       beta_Rt_cortex_Grin2a_right_X_Tns/Blk2 
+                                4.436382e+00                                -2.570472e-01 
+         beta_Rt_cortex_Grin2a_18_X_Tns/Blk2     beta_Rt_cortex_Grin2a_right18_X_Tns/Blk2 
+                                3.815339e-01                                 1.623475e-01 
+          baseline_cortex_Rt_Grin2a_Tns/Blk3       beta_Rt_cortex_Grin2a_right_X_Tns/Blk3 
+                                4.787271e+00                                -2.068926e-01 
+         beta_Rt_cortex_Grin2a_18_X_Tns/Blk3     beta_Rt_cortex_Grin2a_right18_X_Tns/Blk3 
+                                2.366829e-01                                 9.082505e-02 
+          baseline_cortex_Rt_Grin2a_Tns/Blk4       beta_Rt_cortex_Grin2a_right_X_Tns/Blk4 
+                                4.755525e+00                                -2.004549e-01 
+         beta_Rt_cortex_Grin2a_18_X_Tns/Blk4     beta_Rt_cortex_Grin2a_right18_X_Tns/Blk4 
+                                4.432879e-01                                -2.172512e-02 
+            baseline_cortex_Rt_Ncdn_Tns/Blk1         beta_Rt_cortex_Ncdn_right_X_Tns/Blk1 
+                                5.056307e+00                                -3.786243e-02 
+           beta_Rt_cortex_Ncdn_18_X_Tns/Blk1       beta_Rt_cortex_Ncdn_right18_X_Tns/Blk1 
+                                2.396554e-02                                 8.081229e-02 
+            baseline_cortex_Rt_Ncdn_Tns/Blk2         beta_Rt_cortex_Ncdn_right_X_Tns/Blk2 
+                                5.011162e+00                                 2.993495e-02 
+           beta_Rt_cortex_Ncdn_18_X_Tns/Blk2       beta_Rt_cortex_Ncdn_right18_X_Tns/Blk2 
+                                3.795853e-01                                -1.285725e-01 
+            baseline_cortex_Rt_Ncdn_Tns/Blk3         beta_Rt_cortex_Ncdn_right_X_Tns/Blk3 
+                                4.938782e+00                                 1.211610e-01 
+           beta_Rt_cortex_Ncdn_18_X_Tns/Blk3       beta_Rt_cortex_Ncdn_right18_X_Tns/Blk3 
+                                6.758345e-01                                -3.952996e-01 
+           baseline_cortex_Rt_Nptxr_Tns/Blk1        beta_Rt_cortex_Nptxr_right_X_Tns/Blk1 
+                                5.070133e+00                                 1.319289e-01 
+          beta_Rt_cortex_Nptxr_18_X_Tns/Blk1      beta_Rt_cortex_Nptxr_right18_X_Tns/Blk1 
+                                4.824699e-01                                -6.341165e-02 
+           baseline_cortex_Rt_Nptxr_Tns/Blk2        beta_Rt_cortex_Nptxr_right_X_Tns/Blk2 
+                                5.932859e+00                                 1.444457e-01 
+          beta_Rt_cortex_Nptxr_18_X_Tns/Blk2      beta_Rt_cortex_Nptxr_right18_X_Tns/Blk2 
+                                6.982438e-01                                -3.564871e-01 
+           baseline_cortex_Rt_Nptxr_Tns/Blk3        beta_Rt_cortex_Nptxr_right_X_Tns/Blk3 
+                                6.157829e+00                                 1.816405e-01 
+          beta_Rt_cortex_Nptxr_18_X_Tns/Blk3      beta_Rt_cortex_Nptxr_right18_X_Tns/Blk3 
+                                1.089250e+00                                -4.340284e-01 
+           baseline_cortex_Rt_Nr4a2_Tns/Blk1        beta_Rt_cortex_Nr4a2_right_X_Tns/Blk1 
+                                3.379982e+00                                -5.849299e-02 
+          beta_Rt_cortex_Nr4a2_18_X_Tns/Blk1      beta_Rt_cortex_Nr4a2_right18_X_Tns/Blk1 
+                                2.287064e-01                                 4.264850e-01 
+            baseline_cortex_Rt_Rorb_Tns/Blk1         beta_Rt_cortex_Rorb_right_X_Tns/Blk1 
+                                2.044488e+00                                 1.577479e-01 
+           beta_Rt_cortex_Rorb_18_X_Tns/Blk1       beta_Rt_cortex_Rorb_right18_X_Tns/Blk1 
+                                4.471639e-01                                 3.277417e-02 
+           baseline_cortex_Rt_Satb2_Tns/Blk1        beta_Rt_cortex_Satb2_right_X_Tns/Blk1 
+                                4.126024e+00                                -6.493435e-02 
+          beta_Rt_cortex_Satb2_18_X_Tns/Blk1      beta_Rt_cortex_Satb2_right18_X_Tns/Blk1 
+                                3.022514e-01                                -4.972408e-03 
+         baseline_cortex_tslope_Arc_Tns/Blk1      beta_tslope_cortex_Arc_right_X_Tns/Blk1 
+                                9.999834e-01                                -8.452332e-06 
+        beta_tslope_cortex_Arc_18_X_Tns/Blk1    beta_tslope_cortex_Arc_right18_X_Tns/Blk1 
+                               -4.346073e-06                                -4.539600e-06 
+         baseline_cortex_tslope_Arc_Tns/Blk2      beta_tslope_cortex_Arc_right_X_Tns/Blk2 
+                                9.999988e-01                                -1.492727e-06 
+        beta_tslope_cortex_Arc_18_X_Tns/Blk2    beta_tslope_cortex_Arc_right18_X_Tns/Blk2 
+                                1.631263e-07                                -5.023130e-08 
+      baseline_cortex_tslope_Bcl11b_Tns/Blk1   beta_tslope_cortex_Bcl11b_right_X_Tns/Blk1 
+                                1.000004e+00                                 2.960961e-06 
+     beta_tslope_cortex_Bcl11b_18_X_Tns/Blk1 beta_tslope_cortex_Bcl11b_right18_X_Tns/Blk1 
+                                7.756383e-06                                 2.637317e-06 
+      baseline_cortex_tslope_Bcl11b_Tns/Blk2   beta_tslope_cortex_Bcl11b_right_X_Tns/Blk2 
+                                9.997967e-01                                -9.723357e-05 
+     beta_tslope_cortex_Bcl11b_18_X_Tns/Blk2 beta_tslope_cortex_Bcl11b_right18_X_Tns/Blk2 
+                               -4.251458e-05                                -2.392931e-05 
+      baseline_cortex_tslope_Camk2a_Tns/Blk1   beta_tslope_cortex_Camk2a_right_X_Tns/Blk1 
+                                9.999552e-01                                -1.560092e-05 
+     beta_tslope_cortex_Camk2a_18_X_Tns/Blk1 beta_tslope_cortex_Camk2a_right18_X_Tns/Blk1 
+                               -2.160530e-05                                -5.319783e-06 
+      baseline_cortex_tslope_Camk2a_Tns/Blk2   beta_tslope_cortex_Camk2a_right_X_Tns/Blk2 
+                                9.999977e-01                                -2.239199e-06 
+     beta_tslope_cortex_Camk2a_18_X_Tns/Blk2 beta_tslope_cortex_Camk2a_right18_X_Tns/Blk2 
+                                2.492520e-07                                 1.038961e-07 
+        baseline_cortex_tslope_Dlx2_Tns/Blk1     beta_tslope_cortex_Dlx2_right_X_Tns/Blk1 
+                                9.999916e-01                                -5.742331e-06 
+       beta_tslope_cortex_Dlx2_18_X_Tns/Blk1   beta_tslope_cortex_Dlx2_right18_X_Tns/Blk1 
+                               -3.373753e-06                                -2.256687e-07 
+        baseline_cortex_tslope_Dlx2_Tns/Blk2     beta_tslope_cortex_Dlx2_right_X_Tns/Blk2 
+                                1.000001e+00                                 3.791126e-06 
+       beta_tslope_cortex_Dlx2_18_X_Tns/Blk2   beta_tslope_cortex_Dlx2_right18_X_Tns/Blk2 
+                               -4.544450e-07                                 1.373417e-06 
+       baseline_cortex_tslope_Fezf2_Tns/Blk1    beta_tslope_cortex_Fezf2_right_X_Tns/Blk1 
+                                9.999946e-01                                -2.234121e-06 
+      beta_tslope_cortex_Fezf2_18_X_Tns/Blk1  beta_tslope_cortex_Fezf2_right18_X_Tns/Blk1 
+                               -3.548339e-06                                -3.091495e-06 
+       baseline_cortex_tslope_Fezf2_Tns/Blk2    beta_tslope_cortex_Fezf2_right_X_Tns/Blk2 
+                                9.996052e-01                                -2.080211e-04 
+      beta_tslope_cortex_Fezf2_18_X_Tns/Blk2  beta_tslope_cortex_Fezf2_right18_X_Tns/Blk2 
+                               -7.990774e-05                                -3.137824e-05 
+      baseline_cortex_tslope_Grin2a_Tns/Blk1   beta_tslope_cortex_Grin2a_right_X_Tns/Blk1 
+                                9.999971e-01                                -2.737429e-06 
+     beta_tslope_cortex_Grin2a_18_X_Tns/Blk1 beta_tslope_cortex_Grin2a_right18_X_Tns/Blk1 
+                               -2.336198e-07                                 3.471687e-07 
+      baseline_cortex_tslope_Grin2a_Tns/Blk2   beta_tslope_cortex_Grin2a_right_X_Tns/Blk2 
+                                9.999916e-01                                 6.931597e-07 
+     beta_tslope_cortex_Grin2a_18_X_Tns/Blk2 beta_tslope_cortex_Grin2a_right18_X_Tns/Blk2 
+                               -3.861349e-06                                 6.063979e-07 
+      baseline_cortex_tslope_Grin2a_Tns/Blk3   beta_tslope_cortex_Grin2a_right_X_Tns/Blk3 
+                                9.999996e-01                                -6.021236e-07 
+     beta_tslope_cortex_Grin2a_18_X_Tns/Blk3 beta_tslope_cortex_Grin2a_right18_X_Tns/Blk3 
+                               -5.307486e-07                                -4.323056e-07 
+        baseline_cortex_tslope_Ncdn_Tns/Blk1     beta_tslope_cortex_Ncdn_right_X_Tns/Blk1 
+                                9.999974e-01                                 1.571605e-06 
+       beta_tslope_cortex_Ncdn_18_X_Tns/Blk1   beta_tslope_cortex_Ncdn_right18_X_Tns/Blk1 
+                               -2.523825e-06                                 1.451547e-06 
+        baseline_cortex_tslope_Ncdn_Tns/Blk2     beta_tslope_cortex_Ncdn_right_X_Tns/Blk2 
+                                9.999999e-01                                 4.191599e-07 
+       beta_tslope_cortex_Ncdn_18_X_Tns/Blk2   beta_tslope_cortex_Ncdn_right18_X_Tns/Blk2 
+                               -1.388839e-07                                 4.813245e-07 
+       baseline_cortex_tslope_Nptxr_Tns/Blk1    beta_tslope_cortex_Nptxr_right_X_Tns/Blk1 
+                                9.999454e-01                                -2.559390e-05 
+      beta_tslope_cortex_Nptxr_18_X_Tns/Blk1  beta_tslope_cortex_Nptxr_right18_X_Tns/Blk1 
+                               -3.625990e-05                                -1.651076e-05 
+       baseline_cortex_tslope_Nptxr_Tns/Blk2    beta_tslope_cortex_Nptxr_right_X_Tns/Blk2 
+                                9.999881e-01                                -6.034077e-06 
+      beta_tslope_cortex_Nptxr_18_X_Tns/Blk2  beta_tslope_cortex_Nptxr_right18_X_Tns/Blk2 
+                               -9.111659e-06                                -3.331937e-06 
+         baseline_cortex_tpoint_Arc_Tns/Blk1      beta_tpoint_cortex_Arc_right_X_Tns/Blk1 
+                                2.799997e+01                                -1.104918e-05 
+        beta_tpoint_cortex_Arc_18_X_Tns/Blk1    beta_tpoint_cortex_Arc_right18_X_Tns/Blk1 
+                                2.020537e-05                                 1.624757e-05 
+         baseline_cortex_tpoint_Arc_Tns/Blk2      beta_tpoint_cortex_Arc_right_X_Tns/Blk2 
+                                6.699999e+01                                 5.854304e-06 
+        beta_tpoint_cortex_Arc_18_X_Tns/Blk2    beta_tpoint_cortex_Arc_right18_X_Tns/Blk2 
+                               -1.614651e-05                                -5.382098e-06 
+      baseline_cortex_tpoint_Bcl11b_Tns/Blk1   beta_tpoint_cortex_Bcl11b_right_X_Tns/Blk1 
+                                1.700002e+01                                 2.219435e-06 
+     beta_tpoint_cortex_Bcl11b_18_X_Tns/Blk1 beta_tpoint_cortex_Bcl11b_right18_X_Tns/Blk1 
+                                6.747376e-06                                 1.154257e-06 
+      baseline_cortex_tpoint_Bcl11b_Tns/Blk2   beta_tpoint_cortex_Bcl11b_right_X_Tns/Blk2 
+                                3.900071e+01                                 3.948705e-04 
+     beta_tpoint_cortex_Bcl11b_18_X_Tns/Blk2 beta_tpoint_cortex_Bcl11b_right18_X_Tns/Blk2 
+                                4.069682e-04                                 2.024550e-04 
+      baseline_cortex_tpoint_Camk2a_Tns/Blk1   beta_tpoint_cortex_Camk2a_right_X_Tns/Blk1 
+                                7.499953e+01                                -2.197828e-04 
+     beta_tpoint_cortex_Camk2a_18_X_Tns/Blk1 beta_tpoint_cortex_Camk2a_right18_X_Tns/Blk1 
+                               -2.213830e-04                                -9.465070e-05 
+      baseline_cortex_tpoint_Camk2a_Tns/Blk2   beta_tpoint_cortex_Camk2a_right_X_Tns/Blk2 
+                                8.899984e+01                                -8.147549e-05 
+     beta_tpoint_cortex_Camk2a_18_X_Tns/Blk2 beta_tpoint_cortex_Camk2a_right18_X_Tns/Blk2 
+                               -7.938589e-05                                -4.010922e-05 
+        baseline_cortex_tpoint_Dlx2_Tns/Blk1     beta_tpoint_cortex_Dlx2_right_X_Tns/Blk1 
+                                1.700016e+01                                 7.924688e-05 
+       beta_tpoint_cortex_Dlx2_18_X_Tns/Blk1   beta_tpoint_cortex_Dlx2_right18_X_Tns/Blk1 
+                                7.510832e-05                                 3.279254e-05 
+        baseline_cortex_tpoint_Dlx2_Tns/Blk2     beta_tpoint_cortex_Dlx2_right_X_Tns/Blk2 
+                                4.700008e+01                                 2.745286e-05 
+       beta_tpoint_cortex_Dlx2_18_X_Tns/Blk2   beta_tpoint_cortex_Dlx2_right18_X_Tns/Blk2 
+                                5.064161e-05                                 1.398428e-05 
+       baseline_cortex_tpoint_Fezf2_Tns/Blk1    beta_tpoint_cortex_Fezf2_right_X_Tns/Blk1 
+                                1.200017e+01                                 8.935106e-05 
+      beta_tpoint_cortex_Fezf2_18_X_Tns/Blk1  beta_tpoint_cortex_Fezf2_right18_X_Tns/Blk1 
+                                9.151326e-05                                 4.927894e-05 
+       baseline_cortex_tpoint_Fezf2_Tns/Blk2    beta_tpoint_cortex_Fezf2_right_X_Tns/Blk2 
+                                2.900150e+01                                 6.396354e-04 
+      beta_tpoint_cortex_Fezf2_18_X_Tns/Blk2  beta_tpoint_cortex_Fezf2_right18_X_Tns/Blk2 
+                                3.317888e-04                                 1.482610e-04 
+      baseline_cortex_tpoint_Grin2a_Tns/Blk1   beta_tpoint_cortex_Grin2a_right_X_Tns/Blk1 
+                                3.599936e+01                                -3.198488e-04 
+     beta_tpoint_cortex_Grin2a_18_X_Tns/Blk1 beta_tpoint_cortex_Grin2a_right18_X_Tns/Blk1 
+                               -3.293822e-04                                -1.674998e-04 
+      baseline_cortex_tpoint_Grin2a_Tns/Blk2   beta_tpoint_cortex_Grin2a_right_X_Tns/Blk2 
+                                4.500057e+01                                 2.861762e-04 
+     beta_tpoint_cortex_Grin2a_18_X_Tns/Blk2 beta_tpoint_cortex_Grin2a_right18_X_Tns/Blk2 
+                                2.899220e-04                                 1.403533e-04 
+      baseline_cortex_tpoint_Grin2a_Tns/Blk3   beta_tpoint_cortex_Grin2a_right_X_Tns/Blk3 
+                                6.700007e+01                                 3.525043e-05 
+     beta_tpoint_cortex_Grin2a_18_X_Tns/Blk3 beta_tpoint_cortex_Grin2a_right18_X_Tns/Blk3 
+                                3.490641e-05                                 1.696478e-05 
+        baseline_cortex_tpoint_Ncdn_Tns/Blk1     beta_tpoint_cortex_Ncdn_right_X_Tns/Blk1 
+                                1.800017e+01                                 8.927095e-05 
+       beta_tpoint_cortex_Ncdn_18_X_Tns/Blk1   beta_tpoint_cortex_Ncdn_right18_X_Tns/Blk1 
+                                8.479500e-05                                 4.519063e-05 
+        baseline_cortex_tpoint_Ncdn_Tns/Blk2     beta_tpoint_cortex_Ncdn_right_X_Tns/Blk2 
+                                7.499989e+01                                -4.691233e-05 
+       beta_tpoint_cortex_Ncdn_18_X_Tns/Blk2   beta_tpoint_cortex_Ncdn_right18_X_Tns/Blk2 
+                               -6.006728e-05                                -2.444475e-05 
+       baseline_cortex_tpoint_Nptxr_Tns/Blk1    beta_tpoint_cortex_Nptxr_right_X_Tns/Blk1 
+                                4.699988e+01                                -7.690023e-05 
+      beta_tpoint_cortex_Nptxr_18_X_Tns/Blk1  beta_tpoint_cortex_Nptxr_right18_X_Tns/Blk1 
+                               -1.245820e-04                                -7.222189e-05 
+       baseline_cortex_tpoint_Nptxr_Tns/Blk2    beta_tpoint_cortex_Nptxr_right_X_Tns/Blk2 
+                                7.499992e+01                                -4.218637e-05 
+      beta_tpoint_cortex_Nptxr_18_X_Tns/Blk2  beta_tpoint_cortex_Nptxr_right18_X_Tns/Blk2 
+                               -8.364788e-05                                -3.927216e-05 
+                       wfactor_point_1_X_Arc                         wfactor_rate_1_X_Arc 
+                                5.320192e-04                                -6.922111e-02 
+                       wfactor_point_2_X_Arc                         wfactor_rate_2_X_Arc 
+                                2.552257e-03                                 4.165489e-02 
+                       wfactor_point_3_X_Arc                         wfactor_rate_3_X_Arc 
+                                3.813176e-03                                 6.813705e-02 
+                       wfactor_point_4_X_Arc                         wfactor_rate_4_X_Arc 
+                                8.191829e-03                                -4.227710e-02 
+                    wfactor_point_1_X_Bcl11b                      wfactor_rate_1_X_Bcl11b 
+                                6.794150e-03                                 4.800305e-02 
+                    wfactor_point_2_X_Bcl11b                      wfactor_rate_2_X_Bcl11b 
+                                1.088541e-02                                -6.019353e-02 
+                    wfactor_point_3_X_Bcl11b                      wfactor_rate_3_X_Bcl11b 
+                                6.568419e-03                                -2.311814e-02 
+                    wfactor_point_4_X_Bcl11b                      wfactor_rate_4_X_Bcl11b 
+                                5.056098e-03                                 5.825099e-02 
+                    wfactor_point_1_X_Camk2a                      wfactor_rate_1_X_Camk2a 
+                                4.180100e-03                                 2.867091e-02 
+                    wfactor_point_2_X_Camk2a                      wfactor_rate_2_X_Camk2a 
+                                1.663172e-03                                 8.373792e-02 
+                    wfactor_point_3_X_Camk2a                      wfactor_rate_3_X_Camk2a 
+                                9.007507e-03                                -7.948852e-02 
+                    wfactor_point_4_X_Camk2a                      wfactor_rate_4_X_Camk2a 
+                                1.233649e-03                                -3.304922e-02 
+                      wfactor_point_1_X_Dlx2                        wfactor_rate_1_X_Dlx2 
+                                9.758701e-04                                 3.416574e-02 
+                      wfactor_point_2_X_Dlx2                        wfactor_rate_2_X_Dlx2 
+                                8.347934e-03                                 7.667653e-02 
+                      wfactor_point_3_X_Dlx2                        wfactor_rate_3_X_Dlx2 
+                                9.792992e-04                                -7.270397e-02 
+                      wfactor_point_4_X_Dlx2                        wfactor_rate_4_X_Dlx2 
+                                2.302874e-03                                -1.989399e-02 
+                     wfactor_point_1_X_Fezf2                       wfactor_rate_1_X_Fezf2 
+                                1.370929e-02                                 3.826638e-02 
+                     wfactor_point_2_X_Fezf2                       wfactor_rate_2_X_Fezf2 
+                                3.005414e-03                                -5.600218e-02 
+                     wfactor_point_3_X_Fezf2                       wfactor_rate_3_X_Fezf2 
+                                1.206460e-02                                -2.599133e-02 
+                     wfactor_point_4_X_Fezf2                       wfactor_rate_4_X_Fezf2 
+                                3.234839e-03                                 6.118939e-02 
+                    wfactor_point_1_X_Grin2a                      wfactor_rate_1_X_Grin2a 
+                                2.770208e-03                                 4.555570e-02 
+                    wfactor_point_2_X_Grin2a                      wfactor_rate_2_X_Grin2a 
+                               -3.223355e-05                                 8.953509e-02 
+                    wfactor_point_3_X_Grin2a                      wfactor_rate_3_X_Grin2a 
+                                8.391536e-03                                -1.144551e-01 
+                    wfactor_point_4_X_Grin2a                      wfactor_rate_4_X_Grin2a 
+                                9.673094e-03                                -4.394392e-02 
+                      wfactor_point_1_X_Ncdn                        wfactor_rate_1_X_Ncdn 
+                                6.222964e-03                                 2.159139e-02 
+                      wfactor_point_2_X_Ncdn                        wfactor_rate_2_X_Ncdn 
+                                4.308133e-03                                -3.804414e-02 
+                      wfactor_point_3_X_Ncdn                        wfactor_rate_3_X_Ncdn 
+                                9.624147e-03                                 6.674180e-02 
+                      wfactor_point_4_X_Ncdn                        wfactor_rate_4_X_Ncdn 
+                                4.584547e-03                                -1.374835e-02 
+                     wfactor_point_1_X_Nptxr                       wfactor_rate_1_X_Nptxr 
+                                3.209337e-03                                 1.108330e-02 
+                     wfactor_point_2_X_Nptxr                       wfactor_rate_2_X_Nptxr 
+                                6.814311e-03                                -4.880942e-02 
+                     wfactor_point_3_X_Nptxr                       wfactor_rate_3_X_Nptxr 
+                                6.064597e-03                                 6.780481e-02 
+                     wfactor_point_4_X_Nptxr                       wfactor_rate_4_X_Nptxr 
+                                8.125627e-03                                -2.520411e-02 
+                     wfactor_point_1_X_Nr4a2                       wfactor_rate_1_X_Nr4a2 
+                                3.348276e-03                                 2.607411e-02 
+                     wfactor_point_2_X_Nr4a2                       wfactor_rate_2_X_Nr4a2 
+                                4.831298e-04                                 7.464591e-02 
+                     wfactor_point_3_X_Nr4a2                       wfactor_rate_3_X_Nr4a2 
+                                2.771092e-03                                -2.938881e-02 
+                     wfactor_point_4_X_Nr4a2                       wfactor_rate_4_X_Nr4a2 
+                                4.429757e-03                                -6.845452e-02 
+                      wfactor_point_1_X_Rorb                        wfactor_rate_1_X_Rorb 
+                                6.821923e-03                                 3.420313e-02 
+                      wfactor_point_2_X_Rorb                        wfactor_rate_2_X_Rorb 
+                                2.059561e-03                                -7.323265e-02 
+                      wfactor_point_3_X_Rorb                        wfactor_rate_3_X_Rorb 
+                                4.564894e-03                                 5.395626e-02 
+                      wfactor_point_4_X_Rorb                        wfactor_rate_4_X_Rorb 
+                                4.789794e-03                                -3.063509e-02 
+                     wfactor_point_1_X_Satb2                       wfactor_rate_1_X_Satb2 
+                                6.089838e-04                                 6.672976e-02 
+                     wfactor_point_2_X_Satb2                       wfactor_rate_2_X_Satb2 
+                                1.830791e-03                                 8.292256e-02 
+                     wfactor_point_3_X_Satb2                       wfactor_rate_3_X_Satb2 
+                                9.022052e-03                                -2.995927e-02 
+                     wfactor_point_4_X_Satb2                       wfactor_rate_4_X_Satb2 
+                                9.488313e-04                                -3.847437e-02 
+                            beta_shape_point                              beta_shape_rate 
+                                1.008449e+00                                 1.015863e+00 
+                            sd_tpoint_effect                             sd_tslope_effect 
+                                9.845702e-01                                 9.846274e-01 
+                               gamma_var_Arc                             gamma_var_Bcl11b 
+                                7.423252e-02                                 2.468658e-02 
+                            gamma_var_Camk2a                               gamma_var_Dlx2 
+                                7.511332e-02                                 1.812099e-02 
+                             gamma_var_Fezf2                             gamma_var_Grin2a 
+                                2.233283e-02                                 6.714547e-02 
+                              gamma_var_Ncdn                              gamma_var_Nptxr 
+                                6.974854e-02                                 7.371082e-02 
+                             gamma_var_Nr4a2                               gamma_var_Rorb 
+                                6.508240e-02                                 4.151054e-02 
+                             gamma_var_Satb2 
+                                3.692939e+00 
