@@ -8,7 +8,7 @@ rm(list = ls())
 httpgd::hgd_close() 
 projects_folder <- "/Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/"
 
-# For for WSPmm 
+# For for WSPmm and snk printing
 library(wispack)
 
 # Set random seed for reproducibility
