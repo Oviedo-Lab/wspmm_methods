@@ -15,7 +15,7 @@ library(wispack)
 # ... R only. C++ seed set in its code
 ran.seed <- 12349999
 set.seed(ran.seed)
-
+options(error = recover)
 # Set for debugging (if needed): Sys.setenv(CXXFLAGS="-fsanitize=address -g -O1")
 # ... in external terminal: cd to working directory, run "Rscript main.R"
 
