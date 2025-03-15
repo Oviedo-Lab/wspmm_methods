@@ -28,7 +28,7 @@ sys_name <- Sys.info()["sysname"]
 if (sys_name == "Darwin") {
   source("merfish_preprocessing.R")
   data_path <- paste0(projects_folder, "MERFISH/data/")
-  bs_chunksize <- 10
+  bs_chunksize <- 5
 } else if (sys_name == "Linux") {
   source("~/MERFISH/MERFISH-ACx-Spatial-Density/merfish_preprocessing.R")
   data_path <- "/mnt/c/OviedoLab/MERFISH/MERFISH_Data/All_HDF5/"
@@ -87,7 +87,6 @@ model.settings = list(
   struc_values = c(                                     # values of structural parameters to test
     1.0,   # beta_shape_point
     1.0,   # beta_shape_rate
-    1.0,   # sd_tpoint_effect
     1.0    # sd_tslope_effect
     ),  
   buffer_factor = 0.05,                                 # buffer factor for penalizing distance from structural parameter values
@@ -112,5 +111,8 @@ merfish.laminar.model <- wisp(
   print.child.summaries = TRUE, 
   model.settings = model.settings
 )
+
+
+
 
 
