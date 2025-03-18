@@ -88,7 +88,7 @@ model.settings = list(
     1.0,   # beta_shape_point
     1.0,   # beta_shape_rate
     1.0    # sd_tslope_effect
-    ),  
+  ),  
   buffer_factor = 0.05,                                 # buffer factor for penalizing distance from structural parameter values
   ctol = 1e-6,                                          # convergence tolerance
   max_penalty_at_distance_factor = 0.01,                # maximum penalty at distance from structural parameter values
