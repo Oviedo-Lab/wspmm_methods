@@ -89,7 +89,7 @@ merfish.laminar.model <- wisp(
   count.data.raw = countdata,
   variables = data.variables,
   use.median = FALSE,
-  bootstraps.num = 0,
+  bootstraps.num = 1e2,
   converged.resamples.only = FALSE,
   max.fork = bs_chunksize,
   batch.size = bs_chunksize,
@@ -100,80 +100,15 @@ merfish.laminar.model <- wisp(
 )
 
 
-scan_LRO <- function() {
-  
-  ct <- c(1.5, 2.0, 2.5, 3.0)
-  wf <- c(2.0, 3.0, 4.0)
-  wd <- c(2.0, 3.0, 4.0)
-  grd <- expand.grid(ct, wf, wd)
-  
-  time <- Sys.time()
-  
-  cps <- list()
-  res <- list()
-  bs <- list()
-  for (r in 1:nrow(grd)) {
-    
-    model.settings = list(
-      struc_values = c(                                     # values of structural parameters to test
-        5.0,   # beta_shape_point
-        5.0,   # beta_shape_rate
-        1.0    # sd_tslope_effect
-      ),  
-      buffer_factor = 0.05,                                 # buffer factor for penalizing distance from structural parameter values
-      ctol = 1e-6,                                          # convergence tolerance
-      max_penalty_at_distance_factor = 0.01,                # maximum penalty at distance from structural parameter values
-      LROcutoff = grd[r,1],                                      # cutoff for LROcp
-      LROwindow_factor = grd[r,2],                               # window factor for LROcp, larger means larger rolling window
-      LROfilter_ws_divisor = grd[r,3],                           # divisor for filter window size in likelihood ratio outlier detection (bigger is smaller window)
-      tslope_initial = 1.0,                                 # initial value for tslope
-      wf_initial = 0.15,                                    # initial value for wfactor
-      max_evals = 1000,                                     # maximum number of evaluations for optimization
-      initial_fits = 10,                                    # number of initial fits to perform in search of best initial conditions and best fit
-      rng_seed = 42                                         # random seed for optimization (controls bootstrap resamples only)
-    )
-    
-    m <- wisp(
-      count.data.raw = countdata,
-      variables = data.variables,
-      use.median = FALSE,
-      bootstraps.num = 0,
-      converged.resamples.only = FALSE,
-      max.fork = bs_chunksize,
-      batch.size = bs_chunksize,
-      dim.bounds = layer.boundary.bins,
-      verbose = FALSE,
-      print.child.summaries = FALSE, 
-      model.settings = model.settings
-    )
-    
-    cps[[r]] <- m$change.points 
-    res[[r]] <- m$stats$residuals.log
-    bs[[r]] <- m$bs.diagnostics
-    
-    d <- Sys.time() - time
-    cat("Finished", r, "of", nrow(grd), "in", d, units(d), "\n")
-    time <- Sys.time()
-    
-  }
-  
-  return(list(cps = cps, res = res, bs = bs, grd = grd))
-  
-}
 
 
-LROscan_res <- scan_LRO()
-  
+newplots <- plot.ratecount(
+  merfish.laminar.model,
+  pred.type = "pred",
+  count.type = "count",
+  print.all = TRUE
+)
 
-mean_residual <- numeric(36)
-pnll <- numeric(36)
-nll <- numeric(36)
-Rorb_dg <- numeric(36)
-for (i in 1:36) {
-  mean_residual[i] <- LROscan_res[["res"]][[i]][1, "mean"]
-  pnll[i] <- LROscan_res[["bs"]][[i]][["pen.neg.value"]]
-  nll[i] <- LROscan_res[["bs"]][[i]][["neg.loglik"]]
-  Rorb_dg[i] <- nrow(LROscan_res[["cps"]][[i]][["cortex"]][["Rorb"]])
-}
-scan_results <- cbind(LROscan_res[["grd"]], mean_residual, pnll, nll, Rorb_dg)
-colnames(scan_results) <- c("LROcutoff", "LROwindow_factor", "LROfilter_ws_divisor", "mean_residual", "pen.nll", "nll", "Rorb_dg")
+
+
+

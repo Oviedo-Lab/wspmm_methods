@@ -1,40 +1,3 @@
-Finished 1 of 36 in 23.47282 secs 
-Finished 2 of 36 in 14.83726 secs 
-Finished 3 of 36 in 21.32869 secs 
-Finished 4 of 36 in 14.37627 secs 
-Finished 5 of 36 in 17.38084 secs 
-Finished 6 of 36 in 15.63983 secs 
-Finished 7 of 36 in 15.85862 secs 
-Finished 8 of 36 in 13.59039 secs 
-Finished 9 of 36 in 14.35363 secs 
-Finished 10 of 36 in 14.40497 secs 
-Finished 11 of 36 in 14.3658 secs 
-Finished 12 of 36 in 14.25103 secs 
-Finished 13 of 36 in 14.30838 secs 
-Finished 14 of 36 in 18.49181 secs 
-Finished 15 of 36 in 15.56757 secs 
-Finished 16 of 36 in 17.54379 secs 
-Finished 17 of 36 in 14.66689 secs 
-Finished 18 of 36 in 14.21734 secs 
-Finished 19 of 36 in 17.30708 secs 
-Finished 20 of 36 in 14.36969 secs 
-Finished 21 of 36 in 16.27918 secs 
-Finished 22 of 36 in 14.05184 secs 
-Finished 23 of 36 in 16.15981 secs 
-Finished 24 of 36 in 14.50857 secs 
-Finished 25 of 36 in 20.43095 secs 
-Finished 26 of 36 in 14.85749 secs 
-Finished 27 of 36 in 18.60827 secs 
-Finished 28 of 36 in 14.72157 secs 
-Finished 29 of 36 in 19.68326 secs 
-Finished 30 of 36 in 14.23575 secs 
-Finished 31 of 36 in 18.46706 secs 
-Finished 32 of 36 in 14.47335 secs 
-Finished 33 of 36 in 15.72167 secs 
-Finished 34 of 36 in 14.20915 secs 
-Finished 35 of 36 in 16.43947 secs 
-Finished 36 of 36 in 14.3172 secs 
-[1]  1 20
 
 
 Initializing Cpp (wspc) model: 
@@ -82,13 +45,12 @@ Estimated change points with LROcp and found initial parameter estimates for fix
 Built initial beta (ref and fixed-effects) matrices
 Initialized random effect warping factors
 Made and mapped parameter vector
-Number of parameters: 135
+Number of parameters: 243
 Constructed grouping variable IDs
-Computed size of boundary vector: 399
-Pre-computed bin ranges for bootstrap resampling
+Computed size of boundary vector: 619
 Finished initializing wspc object
-Imported fe_difference_ratio_Rt: 1.495111
-Imported fe_difference_ratio_tpoint: 1.145970
+Imported fe_difference_ratio_Rt: 1.370264
+Imported fe_difference_ratio_tpoint: 1.063063
 
 Estimating model parameters: 
 ---------------
@@ -99,7 +61,36 @@ Checking feasibility of provided parameters
 ... no negative rates predicted
 Provided parameters are feasible
 Performing initial fit of full data
-Jittered initial position 1/1
+Trying jittered initial position 1/10
+Penalized neg_loglik: 1.63379
+Trying jittered initial position 2/10
+Penalized neg_loglik: 1.63491
+Trying jittered initial position 3/10
+Penalized neg_loglik: 1.631
+Trying jittered initial position 4/10
+Penalized neg_loglik: 1.62763
+Trying jittered initial position 5/10
+Penalized neg_loglik: 1.62626
+Trying jittered initial position 6/10
+Penalized neg_loglik: 1.62427
+Trying jittered initial position 7/10
+Penalized neg_loglik: 1.62452
+Trying jittered initial position 8/10
+Penalized neg_loglik: 1.62285
+Trying jittered initial position 9/10
+Penalized neg_loglik: 1.62298
+Trying jittered initial position 10/10
+Penalized neg_loglik: 1.621
+Batch 1/10, 1.82807 sec/bs
+Batch 2/10, 0.861234 sec/bs
+Batch 3/10, 0.801713 sec/bs
+Batch 4/10, 0.988741 sec/bs
+Batch 5/10, 0.965165 sec/bs
+Batch 6/10, 0.790916 sec/bs
+Batch 7/10, 1.0183 sec/bs
+Batch 8/10, 0.87618 sec/bs
+Batch 9/10, 0.776428 sec/bs
+Batch 10/10, 0.737436 sec/bs
 All complete!
 
 Setting full-data fit as parameters... 
@@ -107,6 +98,32 @@ Checking feasibility of provided parameters
 ... no tpoints below buffer
 ... no negative rates predicted
 Provided parameters are feasible
+
+Running stats on bootstrap results: 
+----------------------------------------
+
+Grabbing bootstrap results, all resamples... 
+Grabbing parameter values... 
+Computing 95% confidence intervals... 
+Estimating p-values from bootstraped parameters... 
+
+Stat summary (head only):
+------------------------------
+                                 parameter     estimate       CI.low    CI.high    p.value
+1       baseline_cortex_Rt_Bcl11b_Tns/Blk1  2.823355751  2.598872943 2.87049362 0.00000000
+2   beta_Rt_cortex_Bcl11b_right_X_Tns/Blk1  0.005495231 -0.034261862 0.02496280 0.23762376
+3      beta_Rt_cortex_Bcl11b_18_X_Tns/Blk1  0.015107462 -0.024411010 0.03667515 0.02970297
+4 beta_Rt_cortex_Bcl11b_right18_X_Tns/Blk1  0.011728647 -0.003804279 0.03467591 0.03960396
+5       baseline_cortex_Rt_Bcl11b_Tns/Blk2  2.567821645  2.475382465 2.61828932 0.00000000
+6   beta_Rt_cortex_Bcl11b_right_X_Tns/Blk2 -0.001378206 -0.054337750 0.02058070 0.87128713
+  p.value.adj    alpha.adj significance
+1    0.000000 0.0002212389          ***
+2   24.712871 0.0004807692           ns
+3    4.693069 0.0003164557           ns
+4    5.980198 0.0003311258           ns
+5    0.000000 0.0002222222          ***
+6   32.237624 0.0013513514           ns
+----
 
 Analyzing residuals: 
 ----------------------------------------
@@ -118,268 +135,392 @@ Making plots and saving stats...
 Log-residual summary by grouping variables (head only):
 ------------------------------
          group      mean        sd  variance
-1          all 0.3338419 0.6419512 0.4121014
-2 ran_lvl_none 0.2645447 0.5586599 0.3121008
-3    ran_lvl_1 0.3456937 0.6731250 0.4530973
-4    ran_lvl_2 0.3178471 0.6049567 0.3659726
-5    ran_lvl_3 0.4904154 0.7226916 0.5222832
-6    ran_lvl_4 0.3200056 0.6883135 0.4737754
+1          all 0.3464260 0.5742853 0.3298036
+2 ran_lvl_none 0.2860249 0.4712120 0.2220407
+3    ran_lvl_1 0.3381154 0.6313336 0.3985821
+4    ran_lvl_2 0.3306734 0.5076007 0.2576585
+5    ran_lvl_3 0.5160943 0.6759326 0.4568849
+6    ran_lvl_4 0.3216231 0.6210939 0.3857576
 ----
 
+TPS test results (head only):
+------------------------------
+              cortex   gene TPS.ref TPS.right TPS.18 TPS.right18 Rt.18 tpoint.18 tslope.18
+Bcl11b.cortex cortex Bcl11b   FALSE     FALSE  FALSE       FALSE  TRUE     FALSE     FALSE
+Cux2.cortex   cortex   Cux2    TRUE      TRUE   TRUE        TRUE FALSE      TRUE     FALSE
+Fezf2.cortex  cortex  Fezf2   FALSE     FALSE  FALSE       FALSE  TRUE      TRUE     FALSE
+Nxph3.cortex  cortex  Nxph3   FALSE     FALSE  FALSE       FALSE FALSE     FALSE     FALSE
+Rorb.cortex   cortex   Rorb   FALSE     FALSE  FALSE       FALSE FALSE     FALSE     FALSE
+Satb2.cortex  cortex  Satb2    TRUE      TRUE   TRUE        TRUE FALSE      TRUE      TRUE
+              Rt.right tpoint.right tslope.right Rt.right18 tpoint.right18 tslope.right18
+Bcl11b.cortex    FALSE        FALSE        FALSE       TRUE           TRUE          FALSE
+Cux2.cortex      FALSE        FALSE        FALSE       TRUE          FALSE          FALSE
+Fezf2.cortex     FALSE        FALSE        FALSE       TRUE           TRUE          FALSE
+Nxph3.cortex     FALSE         TRUE        FALSE      FALSE           TRUE          FALSE
+Rorb.cortex      FALSE        FALSE        FALSE       TRUE          FALSE          FALSE
+Satb2.cortex     FALSE         TRUE        FALSE      FALSE          FALSE          FALSE
+----
+
+Printing structural summary distributions: 
+----------------------------------------
+
+Warping factors, beta distributions... 
+Rate effects, Gaussian distribution... 
+Slope effects, Gaussian distribution... 
+tpoint effects, Gaussian distribution... 
 Making rate-count plots... 
 
 Printing child summary plots: 
 ----------------------------------------
 
-Making summary plots for cortex: Bcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2Finished 1 of 36 in 17.08113 secs 
-Finished 2 of 36 in 34.5264 secs 
-Finished 3 of 36 in 17.04916 secs 
-Finished 4 of 36 in 30.06123 secs 
-Finished 5 of 36 in 18.26859 secs 
-Finished 6 of 36 in 30.79817 secs 
-Finished 7 of 36 in 17.4891 secs 
-Finished 8 of 36 in 31.40148 secs 
-Finished 9 of 36 in 17.08558 secs 
-Finished 10 of 36 in 16.67866 secs 
-Finished 11 of 36 in 16.36457 secs 
-Finished 12 of 36 in 15.97713 secs 
-Finished 13 of 36 in 16.48644 secs 
-Finished 14 of 36 in 33.58832 secs 
-Finished 15 of 36 in 18.10092 secs 
-Finished 16 of 36 in 31.33904 secs 
-Finished 17 of 36 in 16.64382 secs 
-Finished 18 of 36 in 15.63116 secs 
-Finished 19 of 36 in 29.36008 secs 
-Finished 20 of 36 in 16.71082 secs 
-Finished 21 of 36 in 28.37927 secs 
-Finished 22 of 36 in 17.22121 secs 
-Finished 23 of 36 in 30.47911 secs 
-Finished 24 of 36 in 17.75746 secs 
-Finished 25 of 36 in 26.89896 secs 
-Finished 26 of 36 in 17.28559 secs 
-Finished 27 of 36 in 29.69113 secs 
-Finished 28 of 36 in 16.55368 secs 
-Finished 29 of 36 in 33.32923 secs 
-Finished 30 of 36 in 17.11553 secs 
-Finished 31 of 36 in 29.86831 secs 
-Finished 32 of 36 in 17.09367 secs 
-Finished 33 of 36 in 31.5318 secs 
-Finished 34 of 36 in 16.58752 secs 
-Finished 35 of 36 in 21.80846 secs 
-Finished 36 of 36 in 16.02333 secs 
+Making summary plots for cortex: Bcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2
 
+Initializing Cpp (wspc) model: 
+----------------------------------------
+
+Data structure check passed
+Saving tokenized count
+Found max bin: 100.000000
+Extracted fixed effects:
+"hemisphere" "age"
+Ref levels:
+"left" "12"
+Created treatment levels
+"ref" "right" "18" "right18"
+Created treatment-to-fix translation matrix
+Pre-computed weight matrix rows
+Extracted parent grouping variables:
+"cortex"
+Extracted child grouping variables:
+"Bcl11b" "Cux2" "Fezf2" "Nxph3" "Rorb" "Satb2"
+Extracted random-effect grouping variables:
+"none" "1" "2" "3" "4"
+Extracted tokenized count columns
+Grabbed size constants for summed count data, total rows: 12000
+Initialized columns for summed count data
+Initialized count indexes, number of rows with unique model components: 120
+Pre-computing bin masks
+Creating summed-count data columns ...
+Random level 0, 1/5 complete
+Random level 1, 2/5 complete
+Random level 2, 3/5 complete
+Random level 3, 4/5 complete
+Random level 4, 5/5 complete
+Extracted non-NA indexes
+Making extrapolation pool ...
+row: 480/2400
+row: 960/2400
+row: 1440/2400
+row: 1920/2400
+row: 2400/2400
+Extrapolated 'none' rows
+Took log of observed counts
+Found mean observed ran effect per ran level
+Estimated change points with LROcp and found initial parameter estimates for fixed-effect treatments
+Built initial beta (ref and fixed-effects) matrices
+Initialized random effect warping factors
+Made and mapped parameter vector
+Number of parameters: 243
+Constructed grouping variable IDs
+Computed size of boundary vector: 619
+Finished initializing wspc object
+Imported fe_difference_ratio_Rt: 1.370264
+Imported fe_difference_ratio_tpoint: 1.063063
+
+Estimating model parameters: 
+---------------
+
+Running bootstrap fits (forking): 
+Checking feasibility of provided parameters
+... no tpoints below buffer
+... no negative rates predicted
+Provided parameters are feasible
+Performing initial fit of full data
+Trying jittered initial position 1/10
+Penalized neg_loglik: 1.63833
+Trying jittered initial position 2/10
+Penalized neg_loglik: 1.62969
+Trying jittered initial position 3/10
+Penalized neg_loglik: 1.62805
+Trying jittered initial position 4/10
+Penalized neg_loglik: 1.63217
+Trying jittered initial position 5/10
+Penalized neg_loglik: 1.63559
+Trying jittered initial position 6/10
+Penalized neg_loglik: 1.62873
+Trying jittered initial position 7/10
+Penalized neg_loglik: 1.62873
+Trying jittered initial position 8/10
+Penalized neg_loglik: 1.62921
+Trying jittered initial position 9/10
+Penalized neg_loglik: 1.62544
+Trying jittered initial position 10/10
+Penalized neg_loglik: 1.62803
+Batch 1/10, 1.43449 sec/bs
+Batch 2/10, 0.98438 sec/bs
+Batch 3/10, 0.889509 sec/bs
+Batch 4/10, 0.79544 sec/bs
+Batch 5/10, 0.804248 sec/bs
+Batch 6/10, 0.82469 sec/bs
+Batch 7/10, 0.806716 sec/bs
+Batch 8/10, 0.932915 sec/bs
+Batch 9/10, 1.00217 sec/bs
+Batch 10/10, 0.691676 sec/bs
+All complete!
+
+Setting full-data fit as parameters... 
+Checking feasibility of provided parameters
+... no tpoints below buffer
+... no negative rates predicted
+Provided parameters are feasible
+
+Running stats on bootstrap results: 
+----------------------------------------
+
+Grabbing bootstrap results, all resamples... 
+Grabbing parameter values... 
+Computing 95% confidence intervals... 
+Estimating p-values from bootstraped parameters... 
+
+Stat summary (head only):
+------------------------------
+                                 parameter    estimate       CI.low    CI.high    p.value
+1       baseline_cortex_Rt_Bcl11b_Tns/Blk1 2.763021894  2.675737738 2.82366188 0.00000000
+2   beta_Rt_cortex_Bcl11b_right_X_Tns/Blk1 0.008828171 -0.006778814 0.01642126 0.04950495
+3      beta_Rt_cortex_Bcl11b_18_X_Tns/Blk1 0.016038395  0.004957922 0.02663880 0.00000000
+4 beta_Rt_cortex_Bcl11b_right18_X_Tns/Blk1 0.013331443  0.006864289 0.02222185 0.00000000
+5       baseline_cortex_Rt_Bcl11b_Tns/Blk2 2.563497157  2.472101492 2.60404253 0.00000000
+6   beta_Rt_cortex_Bcl11b_right_X_Tns/Blk2 0.003337602 -0.013346256 0.01628893 0.66336634
+  p.value.adj    alpha.adj significance
+1    0.000000 0.0002212389          ***
+2    5.792079 0.0004273504           ns
+3    0.000000 0.0002222222          ***
+4    0.000000 0.0002232143          ***
+5    0.000000 0.0002242152          ***
+6   34.495050 0.0009615385           ns
+----
+
+Analyzing residuals: 
+----------------------------------------
+
+Computing residuals... 
+Making masks... 
+Making plots and saving stats... 
+
+Log-residual summary by grouping variables (head only):
+------------------------------
+         group      mean        sd  variance
+1          all 0.3436931 0.5722693 0.3274921
+2 ran_lvl_none 0.2824652 0.4713618 0.2221819
+3    ran_lvl_1 0.3370507 0.6268021 0.3928809
+4    ran_lvl_2 0.3196758 0.5123823 0.2625357
+5    ran_lvl_3 0.5130545 0.6749706 0.4555853
+6    ran_lvl_4 0.3274472 0.6112861 0.3736707
+----
+
+TPS test results (head only):
+------------------------------
+              cortex   gene TPS.ref TPS.right TPS.18 TPS.right18 Rt.18 tpoint.18 tslope.18
+Bcl11b.cortex cortex Bcl11b    TRUE     FALSE  FALSE       FALSE  TRUE      TRUE     FALSE
+Cux2.cortex   cortex   Cux2   FALSE     FALSE  FALSE       FALSE  TRUE      TRUE     FALSE
+Fezf2.cortex  cortex  Fezf2   FALSE     FALSE  FALSE       FALSE  TRUE      TRUE     FALSE
+Nxph3.cortex  cortex  Nxph3   FALSE     FALSE  FALSE       FALSE FALSE      TRUE      TRUE
+Rorb.cortex   cortex   Rorb   FALSE     FALSE  FALSE       FALSE  TRUE      TRUE     FALSE
+Satb2.cortex  cortex  Satb2    TRUE      TRUE   TRUE        TRUE  TRUE     FALSE     FALSE
+              Rt.right tpoint.right tslope.right Rt.right18 tpoint.right18 tslope.right18
+Bcl11b.cortex    FALSE        FALSE        FALSE       TRUE           TRUE          FALSE
+Cux2.cortex       TRUE        FALSE        FALSE      FALSE          FALSE          FALSE
+Fezf2.cortex      TRUE        FALSE         TRUE       TRUE           TRUE          FALSE
+Nxph3.cortex     FALSE         TRUE        FALSE      FALSE           TRUE           TRUE
+Rorb.cortex       TRUE        FALSE        FALSE       TRUE          FALSE          FALSE
+Satb2.cortex      TRUE         TRUE        FALSE       TRUE           TRUE          FALSE
+----
+
+Printing structural summary distributions: 
+----------------------------------------
+
+Warping factors, beta distributions... 
+Rate effects, Gaussian distribution... 
+Slope effects, Gaussian distribution... 
+tpoint effects, Gaussian distribution... 
+Making rate-count plots... 
 
 Printing child summary plots: 
 ----------------------------------------
 
-Making summary plots for cortex: Bcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2Finished 1 of 36 in 36.07202 secs 
+Making summary plots for cortex: Bcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2Satb2
 
+Initializing Cpp (wspc) model: 
+----------------------------------------
+
+Data structure check passed
+Saving tokenized count
+Found max bin: 100.000000
+Extracted fixed effects:
+"hemisphere" "age"
+Ref levels:
+"left" "12"
+Created treatment levels
+"ref" "right" "18" "right18"
+Created treatment-to-fix translation matrix
+Pre-computed weight matrix rows
+Extracted parent grouping variables:
+"cortex"
+Extracted child grouping variables:
+"Bcl11b" "Cux2" "Fezf2" "Nxph3" "Rorb" "Satb2"
+Extracted random-effect grouping variables:
+"none" "1" "2" "3" "4"
+Extracted tokenized count columns
+Grabbed size constants for summed count data, total rows: 12000
+Initialized columns for summed count data
+Initialized count indexes, number of rows with unique model components: 120
+Pre-computing bin masks
+Creating summed-count data columns ...
+Random level 0, 1/5 complete
+Random level 1, 2/5 complete
+Random level 2, 3/5 complete
+Random level 3, 4/5 complete
+Random level 4, 5/5 complete
+Extracted non-NA indexes
+Making extrapolation pool ...
+row: 480/2400
+row: 960/2400
+row: 1440/2400
+row: 1920/2400
+row: 2400/2400
+Extrapolated 'none' rows
+Took log of observed counts
+Found mean observed ran effect per ran level
+Estimated change points with LROcp and found initial parameter estimates for fixed-effect treatments
+Built initial beta (ref and fixed-effects) matrices
+Initialized random effect warping factors
+Made and mapped parameter vector
+Number of parameters: 243
+Constructed grouping variable IDs
+Computed size of boundary vector: 619
+Finished initializing wspc object
+Imported fe_difference_ratio_Rt: 1.370264
+Imported fe_difference_ratio_tpoint: 1.063063
+
+Estimating model parameters: 
+---------------
+
+Running bootstrap fits (forking): 
+Checking feasibility of provided parameters
+... no tpoints below buffer
+... no negative rates predicted
+Provided parameters are feasible
+Performing initial fit of full data
+Trying jittered initial position 1/10
+Penalized neg_loglik: 1.63833
+Trying jittered initial position 2/10
+Penalized neg_loglik: 1.62969
+Trying jittered initial position 3/10
+Penalized neg_loglik: 1.62805
+Trying jittered initial position 4/10
+Penalized neg_loglik: 1.63217
+Trying jittered initial position 5/10
+Penalized neg_loglik: 1.63559
+Trying jittered initial position 6/10
+Penalized neg_loglik: 1.62873
+Trying jittered initial position 7/10
+Penalized neg_loglik: 1.62873
+Trying jittered initial position 8/10
+Penalized neg_loglik: 1.62921
+Trying jittered initial position 9/10
+Penalized neg_loglik: 1.62544
+Trying jittered initial position 10/10
+Penalized neg_loglik: 1.62803
+Batch 1/10, 1.43449 sec/bs
+Batch 2/10, 0.98438 sec/bs
+Batch 3/10, 0.889509 sec/bs
+Batch 4/10, 0.79544 sec/bs
+Batch 5/10, 0.804248 sec/bs
+Batch 6/10, 0.82469 sec/bs
+Batch 7/10, 0.806716 sec/bs
+Batch 8/10, 0.932915 sec/bs
+Batch 9/10, 1.00217 sec/bs
+Batch 10/10, 0.691676 sec/bs
+All complete!
+
+Setting full-data fit as parameters... 
+Checking feasibility of provided parameters
+... no tpoints below buffer
+... no negative rates predicted
+Provided parameters are feasible
+
+Running stats on bootstrap results: 
+----------------------------------------
+
+Grabbing bootstrap results, all resamples... 
+Grabbing parameter values... 
+Computing 95% confidence intervals... 
+Estimating p-values from bootstraped parameters... 
+
+Stat summary (head only):
+------------------------------
+                                 parameter    estimate       CI.low    CI.high    p.value
+1       baseline_cortex_Rt_Bcl11b_Tns/Blk1 2.763021894  2.675737738 2.82366188 0.00000000
+2   beta_Rt_cortex_Bcl11b_right_X_Tns/Blk1 0.008828171 -0.006778814 0.01642126 0.04950495
+3      beta_Rt_cortex_Bcl11b_18_X_Tns/Blk1 0.016038395  0.004957922 0.02663880 0.00000000
+4 beta_Rt_cortex_Bcl11b_right18_X_Tns/Blk1 0.013331443  0.006864289 0.02222185 0.00000000
+5       baseline_cortex_Rt_Bcl11b_Tns/Blk2 2.563497157  2.472101492 2.60404253 0.00000000
+6   beta_Rt_cortex_Bcl11b_right_X_Tns/Blk2 0.003337602 -0.013346256 0.01628893 0.66336634
+  p.value.adj    alpha.adj significance
+1    0.000000 0.0002212389          ***
+2    5.792079 0.0004273504           ns
+3    0.000000 0.0002222222          ***
+4    0.000000 0.0002232143          ***
+5    0.000000 0.0002242152          ***
+6   34.495050 0.0009615385           ns
+----
+
+Analyzing residuals: 
+----------------------------------------
+
+Computing residuals... 
+Making masks... 
+Making plots and saving stats... 
+
+Log-residual summary by grouping variables (head only):
+------------------------------
+         group      mean        sd  variance
+1          all 0.3436931 0.5722693 0.3274921
+2 ran_lvl_none 0.2824652 0.4713618 0.2221819
+3    ran_lvl_1 0.3370507 0.6268021 0.3928809
+4    ran_lvl_2 0.3196758 0.5123823 0.2625357
+5    ran_lvl_3 0.5130545 0.6749706 0.4555853
+6    ran_lvl_4 0.3274472 0.6112861 0.3736707
+----
+
+TPS test results (head only):
+------------------------------
+              cortex   gene TPS.ref TPS.right TPS.18 TPS.right18 Rt.18 tpoint.18 tslope.18
+Bcl11b.cortex cortex Bcl11b    TRUE     FALSE  FALSE       FALSE  TRUE      TRUE     FALSE
+Cux2.cortex   cortex   Cux2   FALSE     FALSE  FALSE       FALSE  TRUE      TRUE     FALSE
+Fezf2.cortex  cortex  Fezf2   FALSE     FALSE  FALSE       FALSE  TRUE      TRUE     FALSE
+Nxph3.cortex  cortex  Nxph3   FALSE     FALSE  FALSE       FALSE FALSE      TRUE      TRUE
+Rorb.cortex   cortex   Rorb   FALSE     FALSE  FALSE       FALSE  TRUE      TRUE     FALSE
+Satb2.cortex  cortex  Satb2    TRUE      TRUE   TRUE        TRUE  TRUE     FALSE     FALSE
+              Rt.right tpoint.right tslope.right Rt.right18 tpoint.right18 tslope.right18
+Bcl11b.cortex    FALSE        FALSE        FALSE       TRUE           TRUE          FALSE
+Cux2.cortex       TRUE        FALSE        FALSE      FALSE          FALSE          FALSE
+Fezf2.cortex      TRUE        FALSE         TRUE       TRUE           TRUE          FALSE
+Nxph3.cortex     FALSE         TRUE        FALSE      FALSE           TRUE           TRUE
+Rorb.cortex       TRUE        FALSE        FALSE       TRUE          FALSE          FALSE
+Satb2.cortex      TRUE         TRUE        FALSE       TRUE           TRUE          FALSE
+----
+
+Printing structural summary distributions: 
+----------------------------------------
+
+Warping factors, beta distributions... 
+Rate effects, Gaussian distribution... 
+Slope effects, Gaussian distribution... 
+tpoint effects, Gaussian distribution... 
+Making rate-count plots... 
 
 Printing child summary plots: 
 ----------------------------------------
 
-Making summary plots for cortex: Bcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2Finished 2 of 36 in 26.46903 secs 
-
-
-Printing child summary plots: 
-----------------------------------------
-
-Making summary plots for cortex: Bcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2Finished 3 of 36 in 26.68922 secs 
-
-
-Printing child summary plots: 
-----------------------------------------
-
-Making summary plots for cortex: Bcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2Finished 4 of 36 in 25.05362 secs 
-
-
-Printing child summary plots: 
-----------------------------------------
-
-Making summary plots for cortex: Bcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2Finished 5 of 36 in 28.96875 secs 
-
-
-Printing child summary plots: 
-----------------------------------------
-
-Making summary plots for cortex: Bcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2Finished 6 of 36 in 26.15841 secs 
-
-
-Printing child summary plots: 
-----------------------------------------
-
-Making summary plots for cortex: Bcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2Finished 7 of 36 in 26.45785 secs 
-
-
-Printing child summary plots: 
-----------------------------------------
-
-Making summary plots for cortex: Bcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2Finished 8 of 36 in 25.06676 secs 
-
-
-Printing child summary plots: 
-----------------------------------------
-
-Making summary plots for cortex: Bcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2Finished 9 of 36 in 29.14092 secs 
-
-
-Printing child summary plots: 
-----------------------------------------
-
-Making summary plots for cortex: Bcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2Finished 10 of 36 in 24.10139 secs 
-
-
-Printing child summary plots: 
-----------------------------------------
-
-Making summary plots for cortex: Bcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2Finished 11 of 36 in 24.59084 secs 
-
-
-Printing child summary plots: 
-----------------------------------------
-
-Making summary plots for cortex: Bcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2Finished 12 of 36 in 24.83946 secs 
-
-
-Printing child summary plots: 
-----------------------------------------
-
-Making summary plots for cortex: Bcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2Finished 13 of 36 in 25.28742 secs 
-
-
-Printing child summary plots: 
-----------------------------------------
-
-Making summary plots for cortex: Bcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2Finished 14 of 36 in 28.27176 secs 
-
-
-Printing child summary plots: 
-----------------------------------------
-
-Making summary plots for cortex: Bcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2Finished 15 of 36 in 25.82839 secs 
-
-
-Printing child summary plots: 
-----------------------------------------
-
-Making summary plots for cortex: Bcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2Finished 16 of 36 in 31.51732 secs 
-
-
-Printing child summary plots: 
-----------------------------------------
-
-Making summary plots for cortex: Bcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2Finished 17 of 36 in 24.6134 secs 
-
-
-Printing child summary plots: 
-----------------------------------------
-
-Making summary plots for cortex: Bcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2Finished 18 of 36 in 24.08349 secs 
-
-
-Printing child summary plots: 
-----------------------------------------
-
-Making summary plots for cortex: Bcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2Finished 19 of 36 in 26.71856 secs 
-
-
-Printing child summary plots: 
-----------------------------------------
-
-Making summary plots for cortex: Bcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2Finished 20 of 36 in 23.82054 secs 
-
-
-Printing child summary plots: 
-----------------------------------------
-
-Making summary plots for cortex: Bcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2Finished 21 of 36 in 26.48985 secs 
-
-
-Printing child summary plots: 
-----------------------------------------
-
-Making summary plots for cortex: Bcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2Finished 22 of 36 in 25.79985 secs 
-
-
-Printing child summary plots: 
-----------------------------------------
-
-Making summary plots for cortex: Bcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2Finished 23 of 36 in 27.92794 secs 
-
-
-Printing child summary plots: 
-----------------------------------------
-
-Making summary plots for cortex: Bcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2Finished 24 of 36 in 24.93553 secs 
-
-
-Printing child summary plots: 
-----------------------------------------
-
-Making summary plots for cortex: Bcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2Finished 25 of 36 in 29.36742 secs 
-
-
-Printing child summary plots: 
-----------------------------------------
-
-Making summary plots for cortex: Bcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2Finished 26 of 36 in 25.46514 secs 
-
-
-Printing child summary plots: 
-----------------------------------------
-
-Making summary plots for cortex: Bcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2Finished 27 of 36 in 26.99573 secs 
-
-
-Printing child summary plots: 
-----------------------------------------
-
-Making summary plots for cortex: Bcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2Finished 28 of 36 in 24.91947 secs 
-
-
-Printing child summary plots: 
-----------------------------------------
-
-Making summary plots for cortex: Bcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2Finished 29 of 36 in 28.32242 secs 
-
-
-Printing child summary plots: 
-----------------------------------------
-
-Making summary plots for cortex: Bcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2Finished 30 of 36 in 25.72491 secs 
-
-
-Printing child summary plots: 
-----------------------------------------
-
-Making summary plots for cortex: Bcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2Finished 31 of 36 in 29.88781 secs 
-
-
-Printing child summary plots: 
-----------------------------------------
-
-Making summary plots for cortex: Bcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2Finished 32 of 36 in 25.52633 secs 
-
-
-Printing child summary plots: 
-----------------------------------------
-
-Making summary plots for cortex: Bcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2Finished 33 of 36 in 29.0697 secs 
-
-
-Printing child summary plots: 
-----------------------------------------
-
-Making summary plots for cortex: Bcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2Finished 34 of 36 in 24.52132 secs 
-
-
-Printing child summary plots: 
-----------------------------------------
-
-Making summary plots for cortex: Bcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2Finished 35 of 36 in 27.41166 secs 
-
-
-Printing child summary plots: 
-----------------------------------------
-
-Making summary plots for cortex: Bcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2Finished 36 of 36 in 24.53685 secs 
+Making summary plots for cortex: Bcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2
