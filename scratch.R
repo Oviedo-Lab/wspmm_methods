@@ -3,7 +3,7 @@
 # ... in external terminal: cd to working directory, run "scratch.R"
 
 rm(list = ls())
-Sys.setenv(CXXFLAGS="-fsanitize=address -g -O1")
+
 projects_folder <- "/Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/"
 sink("output.txt", split = TRUE, append = FALSE, type = "output")
 
@@ -85,19 +85,19 @@ model.settings = list(
 # - Adjusting the LROcutoff is another way of controlling how the model finds rate transitions. Higher values 
 #    mean fewer detected transitions. 
 
-# merfish.laminar.model <- wisp(
-#   count.data.raw = countdata,
-#   variables = data.variables,
-#   use.median = FALSE,
-#   bootstraps.num = 0,
-#   converged.resamples.only = FALSE,
-#   max.fork = bs_chunksize,
-#   batch.size = bs_chunksize,
-#   dim.bounds = layer.boundary.bins,
-#   verbose = TRUE,
-#   print.child.summaries = TRUE, 
-#   model.settings = model.settings
-# )
+merfish.laminar.model <- wisp(
+  count.data.raw = countdata,
+  variables = data.variables,
+  use.median = FALSE,
+  bootstraps.num = 0,
+  converged.resamples.only = FALSE,
+  max.fork = bs_chunksize,
+  batch.size = bs_chunksize,
+  dim.bounds = layer.boundary.bins,
+  verbose = TRUE,
+  print.child.summaries = TRUE,
+  model.settings = model.settings
+)
 
 
 scan_LRO <- function() {
@@ -149,7 +149,7 @@ scan_LRO <- function() {
     
     cps[[r]] <- m$change.points 
     res[[r]] <- m$stats$residuals.log
-    bs[[r]] <- m$bs.diagnostics[nrow(m$bs.diagnostics),]
+    bs[[r]] <- m$bs.diagnostics
     
     d <- Sys.time() - time
     cat("Finished", r, "of", nrow(grd), "in", d, units(d), "\n")
@@ -161,7 +161,19 @@ scan_LRO <- function() {
   
 }
 
+
 LROscan_res <- scan_LRO()
+  
 
-
-
+mean_residual <- numeric(36)
+pnll <- numeric(36)
+nll <- numeric(36)
+Rorb_dg <- numeric(36)
+for (i in 1:36) {
+  mean_residual[i] <- LROscan_res[["res"]][[i]][1, "mean"]
+  pnll[i] <- LROscan_res[["bs"]][[i]][["pen.neg.value"]]
+  nll[i] <- LROscan_res[["bs"]][[i]][["neg.loglik"]]
+  Rorb_dg[i] <- nrow(LROscan_res[["cps"]][[i]][["cortex"]][["Rorb"]])
+}
+scan_results <- cbind(LROscan_res[["grd"]], mean_residual, pnll, nll, Rorb_dg)
+colnames(scan_results) <- c("LROcutoff", "LROwindow_factor", "LROfilter_ws_divisor", "mean_residual", "pen.nll", "nll", "Rorb_dg")
