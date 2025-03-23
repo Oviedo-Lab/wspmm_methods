@@ -6,7 +6,7 @@ rm(list = ls())
 
 projects_folder <- "/Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/"
 sink("output.txt", split = TRUE, append = FALSE, type = "output")
-
+Sys.setenv(CXXFLAGS="-fsanitize=address -g -O1")
 # Set random seed for reproducibility
 # ... R only. C++ seed set in its code
 ran.seed <- 12349999
@@ -69,8 +69,8 @@ model.settings = list(
   LROfilter_ws_divisor = 2.0,                           # divisor for filter window size in likelihood ratio outlier detection (bigger is smaller window)
   tslope_initial = 1.0,                                 # initial value for tslope
   wf_initial = 0.15,                                    # initial value for wfactor
+  MCMC_prior = 0.5,                                     # probability of parameters found by full model fit, used as prior in MCMC
   max_evals = 1000,                                     # maximum number of evaluations for optimization
-  initial_fits = 10,                                    # number of initial fits to perform in search of best initial conditions and best fit
   rng_seed = 42                                         # random seed for optimization (controls bootstrap resamples only)
 )
 
@@ -86,19 +86,24 @@ model.settings = list(
 #    mean fewer detected transitions. 
 
 merfish.laminar.model <- wisp(
+  # Data to model
   count.data.raw = countdata,
+  # Variable labels
   variables = data.variables,
+  # Settings used on R side
   use.median = FALSE,
-  bootstraps.num = 1e2,
+  MCMC.burnin = 0,
+  MCMC.steps = 1e4,
+  MCMC.step.size = 0.005,
+  bootstraps.num = 0,
   converged.resamples.only = FALSE,
   max.fork = bs_chunksize,
-  batch.size = bs_chunksize,
   dim.bounds = layer.boundary.bins,
   verbose = TRUE,
   print.child.summaries = TRUE,
+  # Settings to pass on C++ model
   model.settings = model.settings
 )
-
 
 
 
@@ -110,5 +115,4 @@ newplots <- plot.ratecount(
 )
 
 
-
-
+s
