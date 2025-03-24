@@ -18,7 +18,7 @@ library(wispack)
 # Set bootstrap chunk size
 sys_name <- Sys.info()["sysname"]
 if (sys_name == "Darwin" || sys_name == "Linux") {
-  bs_chunksize <- 10
+  bs_chunksize <- 20
 } else {
   bs_chunksize <- 0
 }
@@ -54,8 +54,9 @@ data.variables = list(
   fixedeffects = fixed.effect.names
 )
 
-# Model settings
+# Model settings 
 model.settings = list(
+  # ... these are global options needed to set up model
   struc_values = c(                                     # values of structural parameters to test
     5.0,   # beta_shape_point
     5.0,   # beta_shape_rate
@@ -69,7 +70,6 @@ model.settings = list(
   LROfilter_ws_divisor = 2.0,                           # divisor for filter window size in likelihood ratio outlier detection (bigger is smaller window)
   tslope_initial = 1.0,                                 # initial value for tslope
   wf_initial = 0.15,                                    # initial value for wfactor
-  MCMC_prior = 0.5,                                     # probability of parameters found by full model fit, used as prior in MCMC
   max_evals = 1000,                                     # maximum number of evaluations for optimization
   rng_seed = 42                                         # random seed for optimization (controls bootstrap resamples only)
 )
@@ -90,18 +90,19 @@ merfish.laminar.model <- wisp(
   count.data.raw = countdata,
   # Variable labels
   variables = data.variables,
-  # Settings used on R side
+  # Local settings for specific fits, used on R side
   use.median = FALSE,
   MCMC.burnin = 0,
   MCMC.steps = 1e4,
   MCMC.step.size = 0.005,
-  bootstraps.num = 0,
+  MCMC.prior = 0.5,                                     
+  bootstraps.num = 1e3,
   converged.resamples.only = FALSE,
   max.fork = bs_chunksize,
   dim.bounds = layer.boundary.bins,
   verbose = TRUE,
   print.child.summaries = TRUE,
-  # Settings to pass on C++ model
+  # Global settings for initializing model, passed to C++ side
   model.settings = model.settings
 )
 
@@ -114,5 +115,4 @@ newplots <- plot.ratecount(
   print.all = TRUE
 )
 
-
-s
+plot.MCMC.walks(merfish.laminar.model)
