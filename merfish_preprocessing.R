@@ -1,4 +1,3 @@
-
 # Preprocessing MERFISH data ###########################################################################################
 
 # Packages for plotting
@@ -71,7 +70,7 @@ parse_hdf5 <- function(
       RL5 = "/obs/ROI__Right Primary auditory area, layer 5",
       RL6a = "/obs/ROI__Right Primary auditory area, layer 6a",
       RL6b = "/obs/ROI__Right Primary auditory area, layer 6b"
-      )
+    )
     L1_idx <- file[[ROI_names[["LL1"]]]][] | file[[ROI_names[["RL1"]]]][]
     L23_idx <- file[[ROI_names[["LL23"]]]][] | file[[ROI_names[["RL23"]]]][]
     L4_idx <- file[[ROI_names[["LL4"]]]][] | file[[ROI_names[["RL4"]]]][]
@@ -124,8 +123,6 @@ parse_hdf5 <- function(
     mouse <- as.factor(rep(mouse_num,n_cells))
     
     # Make data frame
-    which_cells <- TRUE 
-    if (ACx_only) which_cells <- hemisphere != "notACx"
     transcript_counts <- data.frame(
       mouse, 
       celltype_MMC, cellsubclass_MMC, cellsupertype_MMC, 
@@ -134,7 +131,21 @@ parse_hdf5 <- function(
       strain, experience, 
       x_max, x_min, x_cen, y_max, y_min, y_cen,
       transcript_counts_raw 
-    )[which_cells,]
+    )
+    
+    # Make plot of whole cortical slice 
+    layer_colors <- c("notACx" = "gray", "L1" = "gray4", "L23" = "tomato1", "L4" = "orange", "L5" = "springgreen2", "L6a" = "steelblue1", "L6b" = "purple") 
+    slice_plot <- ggplot(transcript_counts, aes(x = x_cen, y = y_cen, color = factor(layer))) +
+      geom_point() +
+      scale_color_manual(values = layer_colors) +
+      labs(title = paste("Mouse", mouse_num), color = "Layer") +
+      theme_minimal()
+    
+    # Prune to just ACx
+    if (ACx_only) {
+      ACx_cells <- hemisphere != "notACx"
+      transcript_counts <- transcript_counts[ACx_cells,]
+    }
     
     # Replace cell type number with cell type name
     transcript_counts$celltype_MMC <- celltype_names[transcript_counts$celltype_MMC]
@@ -157,7 +168,7 @@ parse_hdf5 <- function(
     # Release file
     file$close_all()
     
-    return(transcript_counts)
+    return(list(transcript_counts = transcript_counts, slice_plot = slice_plot))
     
   }
 
@@ -185,10 +196,13 @@ make_count_data <- function(
     cat("Loading and parsing file for mouse number: ")
     mean_rates <- c()
     cells_per_mouse <- c()
+    slice_plots <- list()
     for (f in seq_along(files)) {
       if (f < length(files)) cat(f, ", ", sep="")
       else cat(f, "\n")
       assign(paste0("mouse", f), parse_hdf5(file_path = files[f], mouse_num = f, raw = TRUE))
+      slice_plots[[paste0("slice_plot", f)]] <- get(paste0("mouse", f))$slice_plot
+      assign(paste0("mouse", f), get(paste0("mouse", f))$transcript_counts)
       ind_var_fields <- which(colnames(get(paste0("mouse", f))) %in% c(
         "mouse", 
         "celltype_MMC", "cellsubclass_MMC", "cellsupertype_MMC", 
@@ -209,8 +223,8 @@ make_count_data <- function(
     }
     
     # Combine data from all mice
-    count_data <- mouse1
-    for (f in 2:length(files)) {
+    count_data <- data.frame()
+    for (f in 1:length(files)) {
       count_data <- rbind(count_data, get(paste0("mouse", f)))
       rm(list = paste0("mouse", f))
     }
@@ -239,7 +253,7 @@ make_count_data <- function(
     count_data$x_bins <- rep(0,nrow(count_data))
     count_data$y_bins <- rep(0,nrow(count_data))
     
-    return(count_data)
+    return(list(count_data = count_data, slice_plots = slice_plots))
     
   }
 
@@ -248,9 +262,14 @@ make_count_data <- function(
 # Define helper function for transforming coordinates
 coordinate_transform <- function(
     mouse_num, 
+    orientation_info, 
     df,
     verbose = TRUE
   ) {
+    # orientation_info is a named vector c("Bisecting_axis", "direction", "view"), where: 
+    #   Bisecting_axis: "x" or "y", the coordinate axis with smaller angle to the line perpendicular to the line through the ACx
+    #   direction: "pos" or "ant", the anatomical direction of increasing coordinate values for the bisecting axis
+    #   view: "top" or "bottom", giving whether left or right should be interpreted based on a top-down or bottom-up view
     
     if (verbose) snk.report...("Grabbing coordinates and defining layers and hemispheres")
     
@@ -259,27 +278,27 @@ coordinate_transform <- function(
     idx_left <- df[idx,"hemisphere"] == "left"
     idx_right <- df[idx,"hemisphere"] == "right"
     
-    # Define columns sets
+    # Define columns for coordinate
     all_coord <- c("x_cen","y_cen")
     x_coord <- c("x_cen")
     y_coord <- c("y_cen")
     
     # Grab coordinates 
-    coordinates <- df[idx,all_coord]
+    coordinates <- df[idx, all_coord]
     
     # Define layer rows
-    idx_left_L1 <- idx_left & df[idx,"layer"] == "L1"
-    idx_right_L1 <- idx_right & df[idx,"layer"] == "L1"
-    idx_left_L23 <- idx_left & df[idx,"layer"] == "L23"
-    idx_right_L23 <- idx_right & df[idx,"layer"] == "L23"
-    idx_left_L4 <- idx_left & df[idx,"layer"] == "L4"
-    idx_right_L4 <- idx_right & df[idx,"layer"] == "L4"
-    idx_left_L5 <- idx_left & df[idx,"layer"] == "L5"
-    idx_right_L5 <- idx_right & df[idx,"layer"] == "L5"
-    idx_left_L6a <- idx_left & df[idx,"layer"] == "L6a"
-    idx_right_L6a <- idx_right & df[idx,"layer"] == "L6a"
-    idx_left_L6b <- idx_left & df[idx,"layer"] == "L6b"
-    idx_right_L6b <- idx_right & df[idx,"layer"] == "L6b"
+    idx_left_L1 <- idx_left & df[idx, "layer"] == "L1"
+    idx_right_L1 <- idx_right & df[idx, "layer"] == "L1"
+    idx_left_L23 <- idx_left & df[idx, "layer"] == "L23"
+    idx_right_L23 <- idx_right & df[idx, "layer"] == "L23"
+    idx_left_L4 <- idx_left & df[idx, "layer"] == "L4"
+    idx_right_L4 <- idx_right & df[idx, "layer"] == "L4"
+    idx_left_L5 <- idx_left & df[idx, "layer"] == "L5"
+    idx_right_L5 <- idx_right & df[idx, "layer"] == "L5"
+    idx_left_L6a <- idx_left & df[idx, "layer"] == "L6a"
+    idx_right_L6a <- idx_right & df[idx, "layer"] == "L6a"
+    idx_left_L6b <- idx_left & df[idx, "layer"] == "L6b"
+    idx_right_L6b <- idx_right & df[idx, "layer"] == "L6b"
     
     # Put layer rows in convenient lists
     # ... left hemisphere
@@ -310,7 +329,7 @@ coordinate_transform <- function(
         y = "Y Coordinate", 
         color = "Layer", 
         title = paste("Untransformed ACx layers, mouse", mouse_num)
-        ) +
+      ) +
       theme_minimal() +
       scale_x_continuous(limits = range_limit) + 
       scale_y_continuous(limits = range_limit)
@@ -347,7 +366,7 @@ coordinate_transform <- function(
           xlim(-1500,1500)
       } else {
         plot <- plot + 
-          scale_x_continuous(limits = range_limit - max(range_limit)/2) + 
+          scale_x_continuous(limits = range_limit) + 
           scale_y_continuous(limits = range_limit)
       }
       
@@ -355,27 +374,47 @@ coordinate_transform <- function(
       
     }
     
-    # Step 1: Ensure we're "facing" the slice from a consistent perspective (right on the right)
-    if (verbose) snk.report...("Step 1, correcting perspective to ensure right hemisphere is on the right")
-    correct_perspective <- function(coord) {
+    # Step 1: Ensure we're "facing" the slice from a consistent perspective 
+    if (verbose) snk.report...("Step 1, correcting perspective to ensure consistent orientation: y-ant-top")
+    correct_perspective <- function(
+      coord,
+      orientation
+    ) {
       
-      # Center the points around the y-axis
-      x_translation <- mean(coord[,x_coord])
-      # Subtract from all x-coordinates 
-      coord[,x_coord] <- coord[,x_coord] - x_translation
+      # Correct bisecting axis
+      if (orientation["Bisecting_axis"] == "x") {
+        coord <- coord[,c(y_coord, x_coord)]
+        colnames(coord) <- all_coord
+      }
       
-      # If mean right coordinate is less than mean left coordinate, reflect across midline 
-      mean_right_x <- mean(coord[idx_right, x_coord])
-      mean_left_x <- mean(coord[idx_left, x_coord])
-      if (mean_right_x < mean_left_x) reflection_value <- -1
-      else reflection_value <- 1
-      # Multiply x-coordinates to reflect across midline
-      coord[,x_coord] <- coord[,x_coord] * reflection_value
+      # Correct direction
+      if (orientation["direction"] == "pos") {
+        BAmean <- mean(coord[, y_coord])
+        coord[, y_coord] <- coord[, y_coord] * -1 + 2*BAmean
+      }
+      
+      # Correct view 
+      if (orientation["view"] == "bottom" && orientation["Bisecting_axis"] == "y") {
+        coord[, x_coord] <- coord[, x_coord] * -1
+      }
+      
+      # # Center the points around the y-axis
+      # x_translation <- mean(coord[,x_coord])
+      # # Subtract from all x-coordinates 
+      # coord[,x_coord] <- coord[,x_coord] - x_translation
+      # 
+      # # If mean right coordinate is less than mean left coordinate, reflect across midline 
+      # mean_right_x <- mean(coord[idx_right, x_coord])
+      # mean_left_x <- mean(coord[idx_left, x_coord])
+      # if (mean_right_x < mean_left_x) reflection_value <- -1
+      # else reflection_value <- 1
+      # # Multiply x-coordinates to reflect across midline
+      # coord[,x_coord] <- coord[,x_coord] * reflection_value
       
       return(coord)
       
     }
-    coordinates <- correct_perspective(coordinates)
+    coordinates <- correct_perspective(coordinates, orientation_info)
     
     # Test by plotting (corrected perspective)
     plot_perspective_correction <- plot_results(
@@ -458,9 +497,10 @@ coordinate_transform <- function(
       idx_lvl_layer_right, idx_lvl_layer_left,
       idx_ref_layer_right, idx_ref_layer_left
     ) {
-     
+      # Can assume we're in the y-ant-top perspective
+      
       # level given layer
-      coord[idx_hemisphere_right,] <- level_layer(coord, idx_hemisphere_right, idx_lvl_layer_right, verbose = FALSE)
+      coord[idx_hemisphere_right,] <- level_layer(coord, idx_hemisphere_right, idx_lvl_layer_right, verbose = FALSE, reverse_angle = orientation_info["direction"] == "ant")
       coord[idx_hemisphere_left,] <- level_layer(coord, idx_hemisphere_left, idx_lvl_layer_left, verbose = FALSE)
       
       # Check orientation, right 
@@ -630,6 +670,7 @@ coordinate_transform <- function(
 # Define helper function for binning coordinates and smoothing edges
 coordinate_binning <- function(
     mouse_num,
+    orientation_info,
     total_bins, 
     layer_names,
     df,
@@ -644,7 +685,7 @@ coordinate_binning <- function(
     
     # Apply coordinate transform to those rows
     if (verbose) snk.report...("Performing coordinate transform")
-    coord_trans <- coordinate_transform(mouse_num, df)
+    coord_trans <- coordinate_transform(mouse_num, orientation_info, df)
     plot_list <- coord_trans$plot_list
     coord_trans <- coord_trans$coord
     
@@ -727,7 +768,7 @@ coordinate_binning <- function(
         if (i == 1) Ly_by_x_abs[i] <- Ly_by_x_abs[idx_full_abs[which.min(idx_full_abs > i)]]
         else Ly_by_x_abs[i] <- Ly_by_x_abs[idx_full_abs[which.min(idx_full_abs < i)]]
       }
-     
+      
       # Look for any empty layers 
       idx_empty <- which(is.na(Lx_by_y))
       idx_full <- which(!is.na(Lx_by_y))
@@ -743,7 +784,7 @@ coordinate_binning <- function(
       # Preserve edge jitter, columns
       if (upper) Ly_by_x <- Ly_by_x + c(abs(diff(Ly_by_x)),0)/2
       else Ly_by_x <- Ly_by_x - c(abs(diff(Ly_by_x)),0)/2
-     
+      
       # Check edge jitter, layers 
       if (upper) Lx_by_y <- Lx_by_y + c(abs(diff(Lx_by_y)),0)/2
       else Lx_by_y <- Lx_by_y - c(abs(diff(Lx_by_y)),0)/2
@@ -780,11 +821,11 @@ coordinate_binning <- function(
           )
         )
       }
-     
+      
       return(df_)
       
     }
-   
+    
     # stretch upper half, left
     df <- stretch_to_fill(df, idx_left, upper = TRUE, layer_names)
     # stretch lower half, left
@@ -842,6 +883,7 @@ coordinate_binning <- function(
 # Helper function to transform coordinates for each mouse and extract layer boundary estimates
 cortical_coordinate_transform <- function(
     count_data,
+    orientation.info,
     total_bins,
     keep_plots = FALSE,
     verbose = TRUE
@@ -852,6 +894,11 @@ cortical_coordinate_transform <- function(
       snk.horizontal_rule(reps = snk.simple_break_reps, end_breaks = 0)
     }
     
+    # Extract list and slice plots 
+    slice_plots <- count_data$slice_plots
+    count_data <- count_data$count_data
+    
+    # Set layer names
     layer_names <- c("L1", "L23", "L4", "L5", "L6a", "L6b")
     layer_boundary_bins <- array (0, dim = c(length(unique(count_data$mouse)),length(layer_names)))
     rownames(layer_boundary_bins) <- unique(count_data$mouse)
@@ -860,12 +907,17 @@ cortical_coordinate_transform <- function(
     for (mouse_num in unique(count_data$mouse)) {
       if (verbose) snk.report(paste("Mouse number", mouse_num))
       
+      # Grab slice plot
+      assign(paste0("plot_list_m", mouse_num), list(slice_plot = slice_plots[[paste0("slice_plot", mouse_num)]]))
+      
       # Transform and bin coordinates
-      count_data <- coordinate_binning(mouse_num, total_bins, layer_names, count_data)
+      orientation <- orientation.info[mouse_num, ]
+      names(orientation) <- colnames(orientation.info)
+      count_data <- coordinate_binning(mouse_num, orientation, total_bins, layer_names, count_data)
       
       # Extract layer boundary estimates and plots 
       layer_boundary_bins[mouse_num,] <- count_data$layer_boundary_bins
-      assign(paste0("plot_list_m",mouse_num), count_data$plot_list)
+      assign(paste0("plot_list_m", mouse_num), c(get(paste0("plot_list_m", mouse_num)), count_data$plot_list))
       count_data <- count_data$df
       
       # Make histogram of cell distribution across laminar axis
@@ -873,15 +925,15 @@ cortical_coordinate_transform <- function(
         geom_histogram(bins = total_bins, fill = "steelblue", color = "black", na.rm = TRUE) + 
         labs(x = "bin num (laminar axis)", y = "cells per bin", title = "Histograms of Laminar (y-axis) Cell Distribution") +
         theme_minimal()
-      assign(paste0("plot_list_m",mouse_num), c(get(paste0("plot_list_m",mouse_num)), list(hist_resids_plot = hist_resids_plot)))
+      assign(paste0("plot_list_m", mouse_num), c(get(paste0("plot_list_m", mouse_num)), list(hist_resids_plot = hist_resids_plot)))
       
       # Save plots
-      if (keep_plots) plots <- c(plots, list(get(paste0("plot_list_m",mouse_num))))
+      if (keep_plots) plots <- c(plots, list(get(paste0("plot_list_m", mouse_num))))
       else plots <- NULL
       
       # Combine and print plots of interest
       main_title <- textGrob(paste("Coordinate Transformation, mouse", mouse_num), gp = gpar(fontsize = 20, fontface = "bold"))
-      make_plots <- get(paste0("plot_list_m",mouse_num))[c("plot_recenter", "plot_nonlinear_smoothing", "hist_resids_plot")]
+      make_plots <- get(paste0("plot_list_m", mouse_num))[c("slice_plot", "plot_nonlinear_smoothing", "hist_resids_plot")]
       make_plots <- do.call(arrangeGrob, c(make_plots, ncol = length(make_plots)))
       make_plots <- arrangeGrob(main_title, make_plots, ncol = 1, heights = c(0.05, 0.95))
       grid.arrange(make_plots)

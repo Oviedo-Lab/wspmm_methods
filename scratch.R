@@ -26,6 +26,11 @@ if (sys_name == "Darwin" || sys_name == "Linux") {
 # Load demo data
 countdata <- read.csv("countdata.csv")
 
+# Note on spatial coordinates: 
+#  data from horizontal (axial) slice of mouse cortex, ACx
+#  y-axes: laminar, 0 is bottom of L6b, 100 is top of L2/3
+#  x-axes: columnar, 
+
 # Define list of genes to analyze
 gene.list <- c("Bcl11b", "Fezf2", "Rorb", "Satb2", "Nxph3", "Cux2", "Rorb") 
 
@@ -96,7 +101,7 @@ merfish.laminar.model <- wisp(
   MCMC.steps = 1e4,
   MCMC.step.size = 0.005,
   MCMC.prior = 0.5,                                     
-  bootstraps.num = 1e3,
+  bootstraps.num = 0,
   converged.resamples.only = FALSE,
   max.fork = bs_chunksize,
   dim.bounds = layer.boundary.bins,
@@ -116,3 +121,14 @@ newplots <- plot.ratecount(
 )
 
 plot.MCMC.walks(merfish.laminar.model)
+
+
+
+
+
+
+
+
+
+
+

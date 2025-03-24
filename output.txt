@@ -1,185 +1,1146 @@
 
 
-Initializing Cpp (wspc) model: 
+Analysis of MERFISH data by Warped Sigmoid, Poisson-Process Mixed-Effects Model (WSPmm)
+: 
+
+Loading helper function definitions for preprocessing MERFISH data... 
+Setting flag to remove Layer 1 from the analysis... 
+
+Loading raw data: 
 ----------------------------------------
 
-Data structure check passed
-Saving tokenized count
-Found max bin: 100.000000
-Extracted fixed effects:
-"hemisphere" "age"
-Ref levels:
-"left" "12"
-Created treatment levels
-"ref" "right" "18" "right18"
-Created treatment-to-fix translation matrix
-Pre-computed weight matrix rows
-Extracted parent grouping variables:
-"cortex"
-Extracted child grouping variables:
-"Bcl11b" "Cux2" "Fezf2" "Nxph3" "Rorb" "Satb2"
-Extracted random-effect grouping variables:
-"none" "1" "2" "3" "4"
-Extracted tokenized count columns
-Grabbed size constants for summed count data, total rows: 12000
-Initialized columns for summed count data
-Initialized count indexes, number of rows with unique model components: 120
-Pre-computing bin masks
-Creating summed-count data columns ...
-Random level 0, 1/5 complete
-Random level 1, 2/5 complete
-Random level 2, 3/5 complete
-Random level 3, 4/5 complete
-Random level 4, 5/5 complete
-Extracted non-NA indexes
-Making extrapolation pool ...
-row: 480/2400
-row: 960/2400
-row: 1440/2400
-row: 1920/2400
-row: 2400/2400
-Extrapolated 'none' rows
-Took log of observed counts
-Found mean observed ran effect per ran level
-Estimated change points with LROcp and found initial parameter estimates for fixed-effect treatments
-Built initial beta (ref and fixed-effects) matrices
-Initialized random effect warping factors
-Made and mapped parameter vector
-Number of parameters: 243
-Constructed grouping variable IDs
-Computed size of boundary vector: 899
-Finished initializing wspc object
-Imported fe_difference_ratio_Rt: 1.370264
-Imported fe_difference_ratio_tpoint: 1.063063
+Found 4 HDF5 files.... 
+File names:
+	mouse 1: /Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/MERFISH/data//ACxDev1_CBA-CAJ_FFPE_P12_z0-3_celltyped_filtered_withCCF.hdf5
+	mouse 2: /Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/MERFISH/data//ACxDev1_CBA-CAJ_FFPE_P18_celltyped_filtered_withCCF.hdf5
+	mouse 3: /Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/MERFISH/data//ACxDev1_CBA-CAJ_P12_celltyped_filtered_withCCF.hdf5
+	mouse 4: /Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/MERFISH/data//ACxDev1_CBA-CAJ_P18_celltyped_filtered_withCCF.hdf5
+Loading and parsing file for mouse number: 1, 2, 3, 4 
 
-Estimating model parameters: 
----------------
-Forking available and bootstrap requested.... 
-If bootstrapping not desired, set bootstraps.num = 0... 
+Mean transcript counts per cell for each mouse: 1.722, 1.902, 0.897, 1.216
+Mean of means: 1.434
+Standard deviation of means: 0.461
 
-Running bootstrap fits (with forking): 
-Checking feasibility of provided parameters
-... no tpoints below buffer
-... no negative rates predicted
-Provided parameters are feasible
-Performing initial fit of full data
-Penalized neg_loglik: 1.62777
-Batch 1/50, 0.311231 sec/bs
-Batch 2/50, 0.316964 sec/bs
-Batch 3/50, 0.30737 sec/bs
-Batch 4/50, 0.322106 sec/bs
-Batch 5/50, 0.377632 sec/bs
-Batch 6/50, 0.308995 sec/bs
-Batch 7/50, 0.315369 sec/bs
-Batch 8/50, 0.307432 sec/bs
-Batch 9/50, 0.399263 sec/bs
-Batch 10/50, 0.332062 sec/bs
-Batch 11/50, 0.307183 sec/bs
-Batch 12/50, 0.326429 sec/bs
-Batch 13/50, 0.394401 sec/bs
-Batch 14/50, 0.346042 sec/bs
-Batch 15/50, 0.323102 sec/bs
-Batch 16/50, 0.306496 sec/bs
-Batch 17/50, 0.327678 sec/bs
-Batch 18/50, 0.329275 sec/bs
-Batch 19/50, 0.355832 sec/bs
-Batch 20/50, 0.325053 sec/bs
-Batch 21/50, 0.303418 sec/bs
-Batch 22/50, 0.339007 sec/bs
-Batch 23/50, 0.334886 sec/bs
-Batch 24/50, 0.338314 sec/bs
-Batch 25/50, 0.303061 sec/bs
-Batch 26/50, 0.334678 sec/bs
-Batch 27/50, 0.337254 sec/bs
-Batch 28/50, 0.353201 sec/bs
-Batch 29/50, 0.282227 sec/bs
-Batch 30/50, 0.335517 sec/bs
-Batch 31/50, 0.341642 sec/bs
-Batch 32/50, 0.298532 sec/bs
-Batch 33/50, 0.32763 sec/bs
-Batch 34/50, 0.411443 sec/bs
-Batch 35/50, 0.318461 sec/bs
-Batch 36/50, 0.335719 sec/bs
-Batch 37/50, 0.334155 sec/bs
-Batch 38/50, 0.352337 sec/bs
-Batch 39/50, 0.346506 sec/bs
-Batch 40/50, 0.332903 sec/bs
-Batch 41/50, 0.333382 sec/bs
-Batch 42/50, 0.351725 sec/bs
-Batch 43/50, 0.311212 sec/bs
-Batch 44/50, 0.292695 sec/bs
-Batch 45/50, 0.296537 sec/bs
-Batch 46/50, 0.288928 sec/bs
-Batch 47/50, 0.361291 sec/bs
-Batch 48/50, 0.325277 sec/bs
-Batch 49/50, 0.338312 sec/bs
-Batch 50/50, 0.315467 sec/bs
-All complete!
-
-Setting full-data fit as parameters... 
-Checking feasibility of provided parameters
-... no tpoints below buffer
-... no negative rates predicted
-Provided parameters are feasible
-
-Running stats on simulation results: 
-----------------------------------------
-
-Grabbing sample results... 
-Grabbing parameter values... 
-Computing 95% confidence intervals... 
-Estimating p-values from bootstraped parameters... 
-
-Stat summary (head only):
+Total cells by type (Map My Cells):
 ------------------------------
-                                 parameter    estimate       CI.low    CI.high    p.value p.value.adj    alpha.adj significance
-1       baseline_cortex_Rt_Bcl11b_Tns/Blk1 2.849404708  1.297565153 3.35161124 0.00000000    0.000000 0.0002212389          ***
-2   beta_Rt_cortex_Bcl11b_right_X_Tns/Blk1 0.003637582 -0.028075974 0.02009130 0.35364635   18.389610 0.0009615385           ns
-3      beta_Rt_cortex_Bcl11b_18_X_Tns/Blk1 0.012181288 -0.004596168 0.04299813 0.03896104    3.701299 0.0005263158           ns
-4 beta_Rt_cortex_Bcl11b_right18_X_Tns/Blk1 0.009344336 -0.016593415 0.02103575 0.00999001    1.208791 0.0004132231           ns
-5       baseline_cortex_Rt_Bcl11b_Tns/Blk2 2.623355446  1.867709745 4.17199300 0.00000000    0.000000 0.0002222222          ***
-6   beta_Rt_cortex_Bcl11b_right_X_Tns/Blk2 0.007644690 -0.022485318 0.03444928 0.41058941   19.708292 0.0010416667           ns
+
+      Astro-Epen          CB GABA     CNU-HYa GABA     CNU-MGE GABA CTX-CGE/MGE GABA         filtered          HY GABA           Immune       IT-ET Glut 
+            1255               24               12                7              652             6917               14              122             7388 
+        LSX GABA          MB GABA       MH-LH Glut          MY GABA   NP-CT-L6b Glut      OB-IMN GABA              OEC        OPC-Oligo           P GABA 
+              12               18                9              203             1365               51               16              242               68 
+ TSCRPT_filtered         Vascular          CB Glut     CNU-LGE GABA      DG-IMN Glut          MY Glut       OB-CR Glut          TH Glut     CNU-HYa Glut 
+               6             2015               19                4                7                2                0                1                1 
+   HY Gnrh1 Glut          MB Dopa           P Glut      Pineal Glut       MB-HB Sero 
+               2                2                2                5                1 
 ----
 
-Analyzing residuals: 
+Number of mice: 4
+Cells per mouse: 4734, 5759, 4514, 5435
+Means cells per mouse: 5110.5
+Total cells: 20442
+
+Transforming raw data into laminar and columnar coordinates: 
 ----------------------------------------
 
-Computing residuals... 
-Making masks... 
-Making plots and saving stats... 
+Mouse number 1: 
+Performing coordinate transform... 
+Grabbing coordinates and defining layers and hemispheres... 
+Step 1, correcting perspective to ensure consistent orientation: y-ant-top... 
+Step 2, centering each patch around the mean point of L5... 
+Step 3, rotating each patch so that L4 aligns with the x-axis and L1 (or L23, if L1 removed) is on top... 
+Step 4, linearly transforming each patch to vertically straighten them while preserving area... 
+Step 5, leveling all layers... 
+Binning transformed coordinates... 
+Smoothing bin edges with nonlinear transformation... 
+Estimating layer boundaries... 
 
-Log-residual summary by grouping variables (head only):
+Mouse number 2: 
+Performing coordinate transform... 
+Grabbing coordinates and defining layers and hemispheres... 
+Step 1, correcting perspective to ensure consistent orientation: y-ant-top... 
+Step 2, centering each patch around the mean point of L5... 
+Step 3, rotating each patch so that L4 aligns with the x-axis and L1 (or L23, if L1 removed) is on top... 
+Step 4, linearly transforming each patch to vertically straighten them while preserving area... 
+Step 5, leveling all layers... 
+Binning transformed coordinates... 
+Smoothing bin edges with nonlinear transformation... 
+Estimating layer boundaries... 
+
+Mouse number 3: 
+Performing coordinate transform... 
+Grabbing coordinates and defining layers and hemispheres... 
+Step 1, correcting perspective to ensure consistent orientation: y-ant-top... 
+Step 2, centering each patch around the mean point of L5... 
+Step 3, rotating each patch so that L4 aligns with the x-axis and L1 (or L23, if L1 removed) is on top... 
+Step 4, linearly transforming each patch to vertically straighten them while preserving area... 
+Step 5, leveling all layers... 
+Binning transformed coordinates... 
+Smoothing bin edges with nonlinear transformation... 
+Estimating layer boundaries... 
+
+Mouse number 4: 
+Performing coordinate transform... 
+Grabbing coordinates and defining layers and hemispheres... 
+Step 1, correcting perspective to ensure consistent orientation: y-ant-top... 
+Step 2, centering each patch around the mean point of L5... 
+Step 3, rotating each patch so that L4 aligns with the x-axis and L1 (or L23, if L1 removed) is on top... 
+Step 4, linearly transforming each patch to vertically straighten them while preserving area... 
+Step 5, leveling all layers... 
+Binning transformed coordinates... 
+Smoothing bin edges with nonlinear transformation... 
+Estimating layer boundaries... $slice_plot
+
+$plot_untransformed
+
+$plot_perspective_correction
+
+$plot_recenter
+
+$plot_level_L4
+
+$plot_linear_skew
+
+$plot_level_all
+
+$plot_nonlinear_smoothing
+
+$hist_resids_plot
+
+$slice_plot
+
+$plot_untransformed
+
+$plot_perspective_correction
+
+$plot_recenter
+
+$plot_level_L4
+
+$plot_linear_skew
+
+$plot_level_all
+
+$plot_nonlinear_smoothing
+
+$hist_resids_plot
+
+$slice_plot
+
+$plot_untransformed
+
+$plot_perspective_correction
+
+$plot_recenter
+
+$plot_level_L4
+
+$plot_linear_skew
+
+$plot_level_all
+
+$plot_nonlinear_smoothing
+
+$hist_resids_plot
+
+to remove Layer 1 from the analysis... 
+
+Loading raw data: 
+----------------------------------------
+
+Found 4 HDF5 files.... 
+File names:
+	mouse 1: /Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/MERFISH/data//ACxDev1_CBA-CAJ_FFPE_P12_z0-3_celltyped_filtered_withCCF.hdf5
+	mouse 2: /Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/MERFISH/data//ACxDev1_CBA-CAJ_FFPE_P18_celltyped_filtered_withCCF.hdf5
+	mouse 3: /Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/MERFISH/data//ACxDev1_CBA-CAJ_P12_celltyped_filtered_withCCF.hdf5
+	mouse 4: /Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/MERFISH/data//ACxDev1_CBA-CAJ_P18_celltyped_filtered_withCCF.hdf5
+Loading and parsing file for mouse number: 1, 2, 3, 4 
+
+Mean transcript counts per cell for each mouse: 1.722, 1.902, 0.897, 1.216
+Mean of means: 1.434
+Standard deviation of means: 0.461
+
+Total cells by type (Map My Cells):
 ------------------------------
-         group      mean        sd  variance
-1          all 0.3430986 0.5692254 0.3240175
-2 ran_lvl_none 0.2748596 0.4739091 0.2245898
-3    ran_lvl_1 0.3450736 0.6071638 0.3686479
-4    ran_lvl_2 0.3330003 0.5047880 0.2548109
-5    ran_lvl_3 0.5064164 0.6755773 0.4564046
-6    ran_lvl_4 0.3243822 0.6162414 0.3797535
+
+      Astro-Epen          CB GABA     CNU-HYa GABA     CNU-MGE GABA CTX-CGE/MGE GABA         filtered          HY GABA           Immune       IT-ET Glut 
+            1255               24               12                7              652             6917               14              122             7388 
+        LSX GABA          MB GABA       MH-LH Glut          MY GABA   NP-CT-L6b Glut      OB-IMN GABA              OEC        OPC-Oligo           P GABA 
+              12               18                9              203             1365               51               16              242               68 
+ TSCRPT_filtered         Vascular          CB Glut     CNU-LGE GABA      DG-IMN Glut          MY Glut       OB-CR Glut          TH Glut     CNU-HYa Glut 
+               6             2015               19                4                7                2                0                1                1 
+   HY Gnrh1 Glut          MB Dopa           P Glut      Pineal Glut       MB-HB Sero 
+               2                2                2                5                1 
 ----
 
-TPS test results (head only):
+Number of mice: 4
+Cells per mouse: 4734, 5759, 4514, 5435
+Means cells per mouse: 5110.5
+Total cells: 20442
+
+Transforming raw data into laminar and columnar coordinates: 
+----------------------------------------
+
+Mouse number 1: 
+Performing coordinate transform... 
+Grabbing coordinates and defining layers and hemispheres... 
+Step 1, correcting perspective to ensure consistent orientation: y-ant-top... 
+Step 2, centering each patch around the mean point of L5... 
+Step 3, rotating each patch so that L4 aligns with the x-axis and L1 (or L23, if L1 removed) is on top... 
+Step 4, linearly transforming each patch to vertically straighten them while preserving area... 
+Step 5, leveling all layers... 
+Binning transformed coordinates... 
+Smoothing bin edges with nonlinear transformation... 
+Estimating layer boundaries... 
+
+Mouse number 2: 
+Performing coordinate transform... 
+Grabbing coordinates and defining layers and hemispheres... 
+Step 1, correcting perspective to ensure consistent orientation: y-ant-top... 
+Step 2, centering each patch around the mean point of L5... 
+Step 3, rotating each patch so that L4 aligns with the x-axis and L1 (or L23, if L1 removed) is on top... 
+Step 4, linearly transforming each patch to vertically straighten them while preserving area... 
+Step 5, leveling all layers... 
+Binning transformed coordinates... 
+Smoothing bin edges with nonlinear transformation... 
+Estimating layer boundaries... 
+
+Mouse number 3: 
+Performing coordinate transform... 
+Grabbing coordinates and defining layers and hemispheres... 
+Step 1, correcting perspective to ensure consistent orientation: y-ant-top... 
+Step 2, centering each patch around the mean point of L5... 
+Step 3, rotating each patch so that L4 aligns with the x-axis and L1 (or L23, if L1 removed) is on top... 
+Step 4, linearly transforming each patch to vertically straighten them while preserving area... 
+Step 5, leveling all layers... 
+Binning transformed coordinates... 
+Smoothing bin edges with nonlinear transformation... 
+Estimating layer boundaries... 
+
+Mouse number 4: 
+Performing coordinate transform... 
+Grabbing coordinates and defining layers and hemispheres... 
+Step 1, correcting perspective to ensure consistent orientation: y-ant-top... 
+Step 2, centering each patch around the mean point of L5... 
+Step 3, rotating each patch so that L4 aligns with the x-axis and L1 (or L23, if L1 removed) is on top... 
+Step 4, linearly transforming each patch to vertically straighten them while preserving area... 
+Step 5, leveling all layers... 
+Binning transformed coordinates... 
+Smoothing bin edges with nonlinear transformation... 
+Estimating layer boundaries... $slice_plot
+
+$plot_untransformed
+
+$plot_perspective_correction
+
+$plot_recenter
+
+$plot_level_L4
+
+$plot_linear_skew
+
+$plot_level_all
+
+$plot_nonlinear_smoothing
+
+$hist_resids_plot
+
+$slice_plot
+
+$plot_untransformed
+
+$plot_perspective_correction
+
+$plot_recenter
+
+$plot_level_L4
+
+$plot_linear_skew
+
+$plot_level_all
+
+$plot_nonlinear_smoothing
+
+$hist_resids_plot
+
+$slice_plot
+
+$plot_untransformed
+
+$plot_perspective_correction
+
+$plot_recenter
+
+$plot_level_L4
+
+$plot_linear_skew
+
+$plot_level_all
+
+$plot_nonlinear_smoothing
+
+$hist_resids_plot
+
+CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/MERFISH/data//ACxDev1_CBA-CAJ_FFPE_P12_z0-3_celltyped_filtered_withCCF.hdf5
+	mouse 2: /Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/MERFISH/data//ACxDev1_CBA-CAJ_FFPE_P18_celltyped_filtered_withCCF.hdf5
+	mouse 3: /Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/MERFISH/data//ACxDev1_CBA-CAJ_P12_celltyped_filtered_withCCF.hdf5
+	mouse 4: /Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/MERFISH/data//ACxDev1_CBA-CAJ_P18_celltyped_filtered_withCCF.hdf5
+Loading and parsing file for mouse number: 1, 2, 3, 4 
+
+Mean transcript counts per cell for each mouse: 1.722, 1.902, 0.897, 1.216
+Mean of means: 1.434
+Standard deviation of means: 0.461
+
+Total cells by type (Map My Cells):
 ------------------------------
-              cortex   gene TPS.ref TPS.right TPS.18 TPS.right18 Rt.18 tpoint.18 tslope.18 Rt.right tpoint.right tslope.right Rt.right18 tpoint.right18 tslope.right18
-Bcl11b.cortex cortex Bcl11b   FALSE     FALSE  FALSE       FALSE  TRUE      TRUE     FALSE    FALSE        FALSE        FALSE      FALSE           TRUE          FALSE
-Cux2.cortex   cortex   Cux2   FALSE     FALSE  FALSE       FALSE  TRUE      TRUE     FALSE    FALSE        FALSE        FALSE      FALSE          FALSE           TRUE
-Fezf2.cortex  cortex  Fezf2   FALSE     FALSE  FALSE       FALSE FALSE      TRUE     FALSE    FALSE         TRUE        FALSE       TRUE           TRUE           TRUE
-Nxph3.cortex  cortex  Nxph3   FALSE     FALSE  FALSE       FALSE FALSE     FALSE      TRUE    FALSE        FALSE         TRUE      FALSE          FALSE           TRUE
-Rorb.cortex   cortex   Rorb   FALSE     FALSE  FALSE       FALSE FALSE      TRUE     FALSE     TRUE         TRUE        FALSE      FALSE           TRUE          FALSE
-Satb2.cortex  cortex  Satb2   FALSE     FALSE  FALSE       FALSE FALSE      TRUE      TRUE    FALSE         TRUE         TRUE      FALSE           TRUE           TRUE
+
+      Astro-Epen          CB GABA     CNU-HYa GABA     CNU-MGE GABA CTX-CGE/MGE GABA         filtered          HY GABA           Immune       IT-ET Glut 
+            1255               24               12                7              652             6917               14              122             7388 
+        LSX GABA          MB GABA       MH-LH Glut          MY GABA   NP-CT-L6b Glut      OB-IMN GABA              OEC        OPC-Oligo           P GABA 
+              12               18                9              203             1365               51               16              242               68 
+ TSCRPT_filtered         Vascular          CB Glut     CNU-LGE GABA      DG-IMN Glut          MY Glut       OB-CR Glut          TH Glut     CNU-HYa Glut 
+               6             2015               19                4                7                2                0                1                1 
+   HY Gnrh1 Glut          MB Dopa           P Glut      Pineal Glut       MB-HB Sero 
+               2                2                2                5                1 
 ----
 
-Printing structural summary distributions: 
+Number of mice: 4
+Cells per mouse: 4734, 5759, 4514, 5435
+Means cells per mouse: 5110.5
+Total cells: 20442
+
+Transforming raw data into laminar and columnar coordinates: 
 ----------------------------------------
 
-Warping factors, beta distributions... 
-Rate effects, Gaussian distribution... 
-Slope effects, Gaussian distribution... 
-tpoint effects, Gaussian distribution... 
-Making rate-count plots... 
+Mouse number 1: 
+Performing coordinate transform... 
+Grabbing coordinates and defining layers and hemispheres... 
+Step 1, correcting perspective to ensure consistent orientation: y-ant-top... 
+Step 2, centering each patch around the mean point of L5... 
+Step 3, rotating each patch so that L4 aligns with the x-axis and L1 (or L23, if L1 removed) is on top... 
+Step 4, linearly transforming each patch to vertically straighten them while preserving area... 
+Step 5, leveling all layers... 
+Binning transformed coordinates... 
+Smoothing bin edges with nonlinear transformation... 
+Estimating layer boundaries... 
 
-Printing child summary plots: 
+Mouse number 2: 
+Performing coordinate transform... 
+Grabbing coordinates and defining layers and hemispheres... 
+Step 1, correcting perspective to ensure consistent orientation: y-ant-top... 
+Step 2, centering each patch around the mean point of L5... 
+Step 3, rotating each patch so that L4 aligns with the x-axis and L1 (or L23, if L1 removed) is on top... 
+Step 4, linearly transforming each patch to vertically straighten them while preserving area... 
+Step 5, leveling all layers... 
+Binning transformed coordinates... 
+Smoothing bin edges with nonlinear transformation... 
+Estimating layer boundaries... 
+
+Mouse number 3: 
+Performing coordinate transform... 
+Grabbing coordinates and defining layers and hemispheres... 
+Step 1, correcting perspective to ensure consistent orientation: y-ant-top... 
+Step 2, centering each patch around the mean point of L5... 
+Step 3, rotating each patch so that L4 aligns with the x-axis and L1 (or L23, if L1 removed) is on top... 
+Step 4, linearly transforming each patch to vertically straighten them while preserving area... 
+Step 5, leveling all layers... 
+Binning transformed coordinates... 
+Smoothing bin edges with nonlinear transformation... 
+Estimating layer boundaries... 
+
+Mouse number 4: 
+Performing coordinate transform... 
+Grabbing coordinates and defining layers and hemispheres... 
+Step 1, correcting perspective to ensure consistent orientation: y-ant-top... 
+Step 2, centering each patch around the mean point of L5... 
+Step 3, rotating each patch so that L4 aligns with the x-axis and L1 (or L23, if L1 removed) is on top... 
+Step 4, linearly transforming each patch to vertically straighten them while preserving area... 
+Step 5, leveling all layers... 
+Binning transformed coordinates... 
+Smoothing bin edges with nonlinear transformation... 
+Estimating layer boundaries... $slice_plot
+
+$plot_untransformed
+
+$plot_perspective_correction
+
+$plot_recenter
+
+$plot_level_L4
+
+$plot_linear_skew
+
+$plot_level_all
+
+$plot_nonlinear_smoothing
+
+$hist_resids_plot
+
+$slice_plot
+
+$plot_untransformed
+
+$plot_perspective_correction
+
+$plot_recenter
+
+$plot_level_L4
+
+$plot_linear_skew
+
+$plot_level_all
+
+$plot_nonlinear_smoothing
+
+$hist_resids_plot
+
+$slice_plot
+
+$plot_untransformed
+
+$plot_perspective_correction
+
+$plot_recenter
+
+$plot_level_L4
+
+$plot_linear_skew
+
+$plot_level_all
+
+$plot_nonlinear_smoothing
+
+$hist_resids_plot
+
+oudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/MERFISH/data//ACxDev1_CBA-CAJ_FFPE_P12_z0-3_celltyped_filtered_withCCF.hdf5
+	mouse 2: /Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/MERFISH/data//ACxDev1_CBA-CAJ_FFPE_P18_celltyped_filtered_withCCF.hdf5
+	mouse 3: /Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/MERFISH/data//ACxDev1_CBA-CAJ_P12_celltyped_filtered_withCCF.hdf5
+	mouse 4: /Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/MERFISH/data//ACxDev1_CBA-CAJ_P18_celltyped_filtered_withCCF.hdf5
+Loading and parsing file for mouse number: 1, 2, 3, 4 
+
+Mean transcript counts per cell for each mouse: 1.722, 1.902, 0.897, 1.216
+Mean of means: 1.434
+Standard deviation of means: 0.461
+
+Total cells by type (Map My Cells):
+------------------------------
+
+      Astro-Epen          CB GABA     CNU-HYa GABA     CNU-MGE GABA CTX-CGE/MGE GABA         filtered          HY GABA           Immune       IT-ET Glut 
+            1255               24               12                7              652             6917               14              122             7388 
+        LSX GABA          MB GABA       MH-LH Glut          MY GABA   NP-CT-L6b Glut      OB-IMN GABA              OEC        OPC-Oligo           P GABA 
+              12               18                9              203             1365               51               16              242               68 
+ TSCRPT_filtered         Vascular          CB Glut     CNU-LGE GABA      DG-IMN Glut          MY Glut       OB-CR Glut          TH Glut     CNU-HYa Glut 
+               6             2015               19                4                7                2                0                1                1 
+   HY Gnrh1 Glut          MB Dopa           P Glut      Pineal Glut       MB-HB Sero 
+               2                2                2                5                1 
+----
+
+Number of mice: 4
+Cells per mouse: 4734, 5759, 4514, 5435
+Means cells per mouse: 5110.5
+Total cells: 20442
+
+Transforming raw data into laminar and columnar coordinates: 
 ----------------------------------------
 
-Making summary plots for cortex: Bcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2
+Mouse number 1: 
+Performing coordinate transform... 
+Grabbing coordinates and defining layers and hemispheres... 
+Step 1, correcting perspective to ensure consistent orientation: y-ant-top... 
+Step 2, centering each patch around the mean point of L5... 
+Step 3, rotating each patch so that L4 aligns with the x-axis and L1 (or L23, if L1 removed) is on top... 
+Step 4, linearly transforming each patch to vertically straighten them while preserving area... 
+Step 5, leveling all layers... 
+Binning transformed coordinates... 
+Smoothing bin edges with nonlinear transformation... 
+Estimating layer boundaries... 
+
+Mouse number 2: 
+Performing coordinate transform... 
+Grabbing coordinates and defining layers and hemispheres... 
+Step 1, correcting perspective to ensure consistent orientation: y-ant-top... 
+Step 2, centering each patch around the mean point of L5... 
+Step 3, rotating each patch so that L4 aligns with the x-axis and L1 (or L23, if L1 removed) is on top... 
+Step 4, linearly transforming each patch to vertically straighten them while preserving area... 
+Step 5, leveling all layers... 
+Binning transformed coordinates... 
+Smoothing bin edges with nonlinear transformation... 
+Estimating layer boundaries... 
+
+Mouse number 3: 
+Performing coordinate transform... 
+Grabbing coordinates and defining layers and hemispheres... 
+Step 1, correcting perspective to ensure consistent orientation: y-ant-top... 
+Step 2, centering each patch around the mean point of L5... 
+Step 3, rotating each patch so that L4 aligns with the x-axis and L1 (or L23, if L1 removed) is on top... 
+Step 4, linearly transforming each patch to vertically straighten them while preserving area... 
+Step 5, leveling all layers... 
+Binning transformed coordinates... 
+Smoothing bin edges with nonlinear transformation... 
+Estimating layer boundaries... 
+
+Mouse number 4: 
+Performing coordinate transform... 
+Grabbing coordinates and defining layers and hemispheres... 
+Step 1, correcting perspective to ensure consistent orientation: y-ant-top... 
+Step 2, centering each patch around the mean point of L5... 
+Step 3, rotating each patch so that L4 aligns with the x-axis and L1 (or L23, if L1 removed) is on top... 
+Step 4, linearly transforming each patch to vertically straighten them while preserving area... 
+Step 5, leveling all layers... 
+Binning transformed coordinates... 
+Smoothing bin edges with nonlinear transformation... 
+Estimating layer boundaries... $slice_plot
+
+$plot_untransformed
+
+$plot_perspective_correction
+
+$plot_recenter
+
+$plot_level_L4
+
+$plot_linear_skew
+
+$plot_level_all
+
+$plot_nonlinear_smoothing
+
+$hist_resids_plot
+
+$slice_plot
+
+$plot_untransformed
+
+$plot_perspective_correction
+
+$plot_recenter
+
+$plot_level_L4
+
+$plot_linear_skew
+
+$plot_level_all
+
+$plot_nonlinear_smoothing
+
+$hist_resids_plot
+
+$slice_plot
+
+$plot_untransformed
+
+$plot_perspective_correction
+
+$plot_recenter
+
+$plot_level_L4
+
+$plot_linear_skew
+
+$plot_level_all
+
+$plot_nonlinear_smoothing
+
+$hist_resids_plot
+
+       TH Glut     CNU-HYa Glut 
+               6             2015               19                4                7                2                0                1                1 
+   HY Gnrh1 Glut          MB Dopa           P Glut      Pineal Glut       MB-HB Sero 
+               2                2                2                5                1 
+----
+
+Number of mice: 4
+Cells per mouse: 4734, 5759, 4514, 5435
+Means cells per mouse: 5110.5
+Total cells: 20442
+
+Transforming raw data into laminar and columnar coordinates: 
+----------------------------------------
+
+Mouse number 1: 
+Performing coordinate transform... 
+Grabbing coordinates and defining layers and hemispheres... 
+Step 1, correcting perspective to ensure consistent orientation: y-ant-top... 
+Step 2, centering each patch around the mean point of L5... 
+Step 3, rotating each patch so that L4 aligns with the x-axis and L1 (or L23, if L1 removed) is on top... 
+Step 4, linearly transforming each patch to vertically straighten them while preserving area... 
+Step 5, leveling all layers... 
+Binning transformed coordinates... 
+Smoothing bin edges with nonlinear transformation... 
+Estimating layer boundaries... 
+
+Mouse number 2: 
+Performing coordinate transform... 
+Grabbing coordinates and defining layers and hemispheres... 
+Step 1, correcting perspective to ensure consistent orientation: y-ant-top... 
+Step 2, centering each patch around the mean point of L5... 
+Step 3, rotating each patch so that L4 aligns with the x-axis and L1 (or L23, if L1 removed) is on top... 
+Step 4, linearly transforming each patch to vertically straighten them while preserving area... 
+Step 5, leveling all layers... 
+Binning transformed coordinates... 
+Smoothing bin edges with nonlinear transformation... 
+Estimating layer boundaries... 
+
+Mouse number 3: 
+Performing coordinate transform... 
+Grabbing coordinates and defining layers and hemispheres... 
+Step 1, correcting perspective to ensure consistent orientation: y-ant-top... 
+Step 2, centering each patch around the mean point of L5... 
+Step 3, rotating each patch so that L4 aligns with the x-axis and L1 (or L23, if L1 removed) is on top... 
+Step 4, linearly transforming each patch to vertically straighten them while preserving area... 
+Step 5, leveling all layers... 
+Binning transformed coordinates... 
+Smoothing bin edges with nonlinear transformation... 
+Estimating layer boundaries... 
+
+Mouse number 4: 
+Performing coordinate transform... 
+Grabbing coordinates and defining layers and hemispheres... 
+Step 1, correcting perspective to ensure consistent orientation: y-ant-top... 
+Step 2, centering each patch around the mean point of L5... 
+Step 3, rotating each patch so that L4 aligns with the x-axis and L1 (or L23, if L1 removed) is on top... 
+Step 4, linearly transforming each patch to vertically straighten them while preserving area... 
+Step 5, leveling all layers... 
+Binning transformed coordinates... 
+Smoothing bin edges with nonlinear transformation... 
+Estimating layer boundaries... $slice_plot
+
+$plot_untransformed
+
+$plot_perspective_correction
+
+$plot_recenter
+
+$plot_level_L4
+
+$plot_linear_skew
+
+$plot_level_all
+
+$plot_nonlinear_smoothing
+
+$hist_resids_plot
+
+$slice_plot
+
+$plot_untransformed
+
+$plot_perspective_correction
+
+$plot_recenter
+
+$plot_level_L4
+
+$plot_linear_skew
+
+$plot_level_all
+
+$plot_nonlinear_smoothing
+
+$hist_resids_plot
+
+$slice_plot
+
+$plot_untransformed
+
+$plot_perspective_correction
+
+$plot_recenter
+
+$plot_level_L4
+
+$plot_linear_skew
+
+$plot_level_all
+
+$plot_nonlinear_smoothing
+
+$hist_resids_plot
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+
+Analysis of MERFISH data by Warped Sigmoid, Poisson-Process Mixed-Effects Model (WSPmm)
+: 
+
+Loading helper function definitions for preprocessing MERFISH data... 
+Setting flag to remove Layer 1 from the analysis... 
+
+Loading raw data: 
+----------------------------------------
+
+Found 4 HDF5 files.... 
+File names:
+	mouse 1: /Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/MERFISH/data//ACxDev1_CBA-CAJ_FFPE_P12_z0-3_celltyped_filtered_withCCF.hdf5
+	mouse 2: /Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/MERFISH/data//ACxDev1_CBA-CAJ_FFPE_P18_celltyped_filtered_withCCF.hdf5
+	mouse 3: /Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/MERFISH/data//ACxDev1_CBA-CAJ_P12_celltyped_filtered_withCCF.hdf5
+	mouse 4: /Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/MERFISH/data//ACxDev1_CBA-CAJ_P18_celltyped_filtered_withCCF.hdf5
+Loading and parsing file for mouse number: 1, 2, 3, 4 
+
+Mean transcript counts per cell for each mouse: 1.722, 1.902, 0.897, 1.216
+Mean of means: 1.434
+Standard deviation of means: 0.461
+
+Total cells by type (Map My Cells):
+------------------------------
+
+      Astro-Epen          CB GABA     CNU-HYa GABA     CNU-MGE GABA CTX-CGE/MGE GABA         filtered          HY GABA           Immune       IT-ET Glut 
+            1255               24               12                7              652             6917               14              122             7388 
+        LSX GABA          MB GABA       MH-LH Glut          MY GABA   NP-CT-L6b Glut      OB-IMN GABA              OEC        OPC-Oligo           P GABA 
+              12               18                9              203             1365               51               16              242               68 
+ TSCRPT_filtered         Vascular          CB Glut     CNU-LGE GABA      DG-IMN Glut          MY Glut       OB-CR Glut          TH Glut     CNU-HYa Glut 
+               6             2015               19                4                7                2                0                1                1 
+   HY Gnrh1 Glut          MB Dopa           P Glut      Pineal Glut       MB-HB Sero 
+               2                2                2                5                1 
+----
+
+Number of mice: 4
+Cells per mouse: 4734, 5759, 4514, 5435
+Means cells per mouse: 5110.5
+Total cells: 20442
+
+Transforming raw data into laminar and columnar coordinates: 
+----------------------------------------
+
+Mouse number 1: 
+Performing coordinate transform... 
+Grabbing coordinates and defining layers and hemispheres... 
+Step 1, correcting perspective to ensure consistent orientation: y-ant-top... 
+Step 2, centering each patch around the mean point of L5... 
+Step 3, rotating each patch so that L4 aligns with the x-axis and L1 (or L23, if L1 removed) is on top... 
+Step 4, linearly transforming each patch to vertically straighten them while preserving area... 
+Step 5, leveling all layers... 
+Binning transformed coordinates... 
+Smoothing bin edges with nonlinear transformation... 
+Estimating layer boundaries... 
+
+Mouse number 2: 
+Performing coordinate transform... 
+Grabbing coordinates and defining layers and hemispheres... 
+Step 1, correcting perspective to ensure consistent orientation: y-ant-top... 
+Step 2, centering each patch around the mean point of L5... 
+Step 3, rotating each patch so that L4 aligns with the x-axis and L1 (or L23, if L1 removed) is on top... 
+Step 4, linearly transforming each patch to vertically straighten them while preserving area... 
+Step 5, leveling all layers... 
+Binning transformed coordinates... 
+Smoothing bin edges with nonlinear transformation... 
+Estimating layer boundaries... 
+
+Mouse number 3: 
+Performing coordinate transform... 
+Grabbing coordinates and defining layers and hemispheres... 
+Step 1, correcting perspective to ensure consistent orientation: y-ant-top... 
+Step 2, centering each patch around the mean point of L5... 
+Step 3, rotating each patch so that L4 aligns with the x-axis and L1 (or L23, if L1 removed) is on top... 
+Step 4, linearly transforming each patch to vertically straighten them while preserving area... 
+Step 5, leveling all layers... 
+Binning transformed coordinates... 
+Smoothing bin edges with nonlinear transformation... 
+Estimating layer boundaries... 
+
+Mouse number 4: 
+Performing coordinate transform... 
+Grabbing coordinates and defining layers and hemispheres... 
+Step 1, correcting perspective to ensure consistent orientation: y-ant-top... 
+Step 2, centering each patch around the mean point of L5... 
+Step 3, rotating each patch so that L4 aligns with the x-axis and L1 (or L23, if L1 removed) is on top... 
+Step 4, linearly transforming each patch to vertically straighten them while preserving area... 
+Step 5, leveling all layers... 
+Binning transformed coordinates... 
+Smoothing bin edges with nonlinear transformation... 
+Estimating layer boundaries... $slice_plot
+
+$plot_untransformed
+
+$plot_perspective_correction
+
+$plot_recenter
+
+$plot_level_L4
+
+$plot_linear_skew
+
+$plot_level_all
+
+$plot_nonlinear_smoothing
+
+$hist_resids_plot
+
+$slice_plot
+
+$plot_untransformed
+
+$plot_perspective_correction
+
+$plot_recenter
+
+$plot_level_L4
+
+$plot_linear_skew
+
+$plot_level_all
+
+$plot_nonlinear_smoothing
+
+$hist_resids_plot
+
+$slice_plot
+
+$plot_untransformed
+
+$plot_perspective_correction
+
+$plot_recenter
+
+$plot_level_L4
+
+$plot_linear_skew
+
+$plot_level_all
+
+$plot_nonlinear_smoothing
+
+$hist_resids_plot
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   
+
+Analysis of MERFISH data by Warped Sigmoid, Poisson-Process Mixed-Effects Model (WSPmm)
+: 
+
+Loading helper function definitions for preprocessing MERFISH data... 
+Setting flag to remove Layer 1 from the analysis... 
+
+Loading raw data: 
+----------------------------------------
+
+Found 4 HDF5 files.... 
+File names:
+	mouse 1: /Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/MERFISH/data//ACxDev1_CBA-CAJ_FFPE_P12_z0-3_celltyped_filtered_withCCF.hdf5
+	mouse 2: /Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/MERFISH/data//ACxDev1_CBA-CAJ_FFPE_P18_celltyped_filtered_withCCF.hdf5
+	mouse 3: /Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/MERFISH/data//ACxDev1_CBA-CAJ_P12_celltyped_filtered_withCCF.hdf5
+	mouse 4: /Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/MERFISH/data//ACxDev1_CBA-CAJ_P18_celltyped_filtered_withCCF.hdf5
+Loading and parsing file for mouse number: 1, 2, 3, 4 
+
+Mean transcript counts per cell for each mouse: 1.722, 1.902, 0.897, 1.216
+Mean of means: 1.434
+Standard deviation of means: 0.461
+
+Total cells by type (Map My Cells):
+------------------------------
+
+      Astro-Epen          CB GABA     CNU-HYa GABA     CNU-MGE GABA CTX-CGE/MGE GABA         filtered          HY GABA           Immune       IT-ET Glut 
+            1255               24               12                7              652             6917               14              122             7388 
+        LSX GABA          MB GABA       MH-LH Glut          MY GABA   NP-CT-L6b Glut      OB-IMN GABA              OEC        OPC-Oligo           P GABA 
+              12               18                9              203             1365               51               16              242               68 
+ TSCRPT_filtered         Vascular          CB Glut     CNU-LGE GABA      DG-IMN Glut          MY Glut       OB-CR Glut          TH Glut     CNU-HYa Glut 
+               6             2015               19                4                7                2                0                1                1 
+   HY Gnrh1 Glut          MB Dopa           P Glut      Pineal Glut       MB-HB Sero 
+               2                2                2                5                1 
+----
+
+Number of mice: 4
+Cells per mouse: 4734, 5759, 4514, 5435
+Means cells per mouse: 5110.5
+Total cells: 20442
+
+Transforming raw data into laminar and columnar coordinates: 
+----------------------------------------
+
+Mouse number 1: 
+Performing coordinate transform... 
+Grabbing coordinates and defining layers and hemispheres... 
+Step 1, correcting perspective to ensure consistent orientation: y-ant-top... 
+Step 2, centering each patch around the mean point of L5... 
+Step 3, rotating each patch so that L4 aligns with the x-axis and L1 (or L23, if L1 removed) is on top... 
+Step 4, linearly transforming each patch to vertically straighten them while preserving area... 
+Step 5, leveling all layers... 
+Binning transformed coordinates... 
+Smoothing bin edges with nonlinear transformation... 
+Estimating layer boundaries... 
+
+Mouse number 2: 
+Performing coordinate transform... 
+Grabbing coordinates and defining layers and hemispheres... 
+Step 1, correcting perspective to ensure consistent orientation: y-ant-top... 
+Step 2, centering each patch around the mean point of L5... 
+Step 3, rotating each patch so that L4 aligns with the x-axis and L1 (or L23, if L1 removed) is on top... 
+Step 4, linearly transforming each patch to vertically straighten them while preserving area... 
+Step 5, leveling all layers... 
+Binning transformed coordinates... 
+Smoothing bin edges with nonlinear transformation... 
+Estimating layer boundaries... 
+
+Mouse number 3: 
+Performing coordinate transform... 
+Grabbing coordinates and defining layers and hemispheres... 
+Step 1, correcting perspective to ensure consistent orientation: y-ant-top... 
+Step 2, centering each patch around the mean point of L5... 
+Step 3, rotating each patch so that L4 aligns with the x-axis and L1 (or L23, if L1 removed) is on top... 
+Step 4, linearly transforming each patch to vertically straighten them while preserving area... 
+Step 5, leveling all layers... 
+Binning transformed coordinates... 
+Smoothing bin edges with nonlinear transformation... 
+Estimating layer boundaries... 
+
+Mouse number 4: 
+Performing coordinate transform... 
+Grabbing coordinates and defining layers and hemispheres... 
+Step 1, correcting perspective to ensure consistent orientation: y-ant-top... 
+Step 2, centering each patch around the mean point of L5... 
+Step 3, rotating each patch so that L4 aligns with the x-axis and L1 (or L23, if L1 removed) is on top... 
+Step 4, linearly transforming each patch to vertically straighten them while preserving area... 
+Step 5, leveling all layers... 
+Binning transformed coordinates... 
+Smoothing bin edges with nonlinear transformation... 
+Estimating layer boundaries... $slice_plot
+
+$plot_untransformed
+
+$plot_perspective_correction
+
+$plot_recenter
+
+$plot_level_L4
+
+$plot_linear_skew
+
+$plot_level_all
+
+$plot_nonlinear_smoothing
+
+$hist_resids_plot
+
+$slice_plot
+
+$plot_untransformed
+
+$plot_perspective_correction
+
+$plot_recenter
+
+$plot_level_L4
+
+$plot_linear_skew
+
+$plot_level_all
+
+$plot_nonlinear_smoothing
+
+$hist_resids_plot
+
+$slice_plot
+
+$plot_untransformed
+
+$plot_perspective_correction
+
+$plot_recenter
+
+$plot_level_L4
+
+$plot_linear_skew
+
+$plot_level_all
+
+$plot_nonlinear_smoothing
+
+$hist_resids_plot
+
+traighten them while preserving area... 
+Step 5, leveling all layers... 
+Binning transformed coordinates... 
+Smoothing bin edges with nonlinear transformation... 
+Estimating layer boundaries... 
+
+Mouse number 3: 
+Performing coordinate transform... 
+Grabbing coordinates and defining layers and hemispheres... 
+Step 1, correcting perspective to ensure consistent orientation: y-ant-top... 
+Step 2, centering each patch around the mean point of L5... 
+Step 3, rotating each patch so that L4 aligns with the x-axis and L1 (or L23, if L1 removed) is on top... 
+Step 4, linearly transforming each patch to vertically straighten them while preserving area... 
+Step 5, leveling all layers... 
+Binning transformed coordinates... 
+Smoothing bin edges with nonlinear transformation... 
+Estimating layer boundaries... 
+
+Mouse number 4: 
+Performing coordinate transform... 
+Grabbing coordinates and defining layers and hemispheres... 
+Step 1, correcting perspective to ensure consistent orientation: y-ant-top... 
+Step 2, centering each patch around the mean point of L5... 
+Step 3, rotating each patch so that L4 aligns with the x-axis and L1 (or L23, if L1 removed) is on top... 
+Step 4, linearly transforming each patch to vertically straighten them while preserving area... 
+Step 5, leveling all layers... 
+Binning transformed coordinates... 
+Smoothing bin edges with nonlinear transformation... 
+Estimating layer boundaries... $slice_plot
+
+$plot_untransformed
+
+$plot_perspective_correction
+
+$plot_recenter
+
+$plot_level_L4
+
+$plot_linear_skew
+
+$plot_level_all
+
+$plot_nonlinear_smoothing
+
+$hist_resids_plot
+
+$slice_plot
+
+$plot_untransformed
+
+$plot_perspective_correction
+
+$plot_recenter
+
+$plot_level_L4
+
+$plot_linear_skew
+
+$plot_level_all
+
+$plot_nonlinear_smoothing
+
+$hist_resids_plot
+
+$slice_plot
+
+$plot_untransformed
+
+$plot_perspective_correction
+
+$plot_recenter
+
+$plot_level_L4
+
+$plot_linear_skew
+
+$plot_level_all
+
+$plot_nonlinear_smoothing
+
+$hist_resids_plot
+
+tro-Epen          CB GABA     CNU-HYa GABA     CNU-MGE GABA CTX-CGE/MGE GABA         filtered          HY GABA           Immune       IT-ET Glut 
+            1255               24               12                7              652             6917               14              122             7388 
+        LSX GABA          MB GABA       MH-LH Glut          MY GABA   NP-CT-L6b Glut      OB-IMN GABA              OEC        OPC-Oligo           P GABA 
+              12               18                9              203             1365               51               16              242               68 
+ TSCRPT_filtered         Vascular          CB Glut     CNU-LGE GABA      DG-IMN Glut          MY Glut       OB-CR Glut          TH Glut     CNU-HYa Glut 
+               6             2015               19                4                7                2                0                1                1 
+   HY Gnrh1 Glut          MB Dopa           P Glut      Pineal Glut       MB-HB Sero 
+               2                2                2                5                1 
+----
+
+Number of mice: 4
+Cells per mouse: 4734, 5759, 4514, 5435
+Means cells per mouse: 5110.5
+Total cells: 20442
+
+Transforming raw data into laminar and columnar coordinates: 
+----------------------------------------
+
+Mouse number 1: 
+Performing coordinate transform... 
+Grabbing coordinates and defining layers and hemispheres... 
+Step 1, correcting perspective to ensure consistent orientation: y-ant-top... 
+Step 2, centering each patch around the mean point of L5... 
+Step 3, rotating each patch so that L4 aligns with the x-axis and L1 (or L23, if L1 removed) is on top... 
+Step 4, linearly transforming each patch to vertically straighten them while preserving area... 
+Step 5, leveling all layers... 
+Binning transformed coordinates... 
+Smoothing bin edges with nonlinear transformation... 
+Estimating layer boundaries... 
+
+Mouse number 2: 
+Performing coordinate transform... 
+Grabbing coordinates and defining layers and hemispheres... 
+Step 1, correcting perspective to ensure consistent orientation: y-ant-top... 
+Step 2, centering each patch around the mean point of L5... 
+Step 3, rotating each patch so that L4 aligns with the x-axis and L1 (or L23, if L1 removed) is on top... 
+Step 4, linearly transforming each patch to vertically straighten them while preserving area... 
+Step 5, leveling all layers... 
+Binning transformed coordinates... 
+Smoothing bin edges with nonlinear transformation... 
+Estimating layer boundaries... 
+
+Mouse number 3: 
+Performing coordinate transform... 
+Grabbing coordinates and defining layers and hemispheres... 
+Step 1, correcting perspective to ensure consistent orientation: y-ant-top... 
+Step 2, centering each patch around the mean point of L5... 
+Step 3, rotating each patch so that L4 aligns with the x-axis and L1 (or L23, if L1 removed) is on top... 
+Step 4, linearly transforming each patch to vertically straighten them while preserving area... 
+Step 5, leveling all layers... 
+Binning transformed coordinates... 
+Smoothing bin edges with nonlinear transformation... 
+Estimating layer boundaries... 
+
+Mouse number 4: 
+Performing coordinate transform... 
+Grabbing coordinates and defining layers and hemispheres... 
+Step 1, correcting perspective to ensure consistent orientation: y-ant-top... 
+Step 2, centering each patch around the mean point of L5... 
+Step 3, rotating each patch so that L4 aligns with the x-axis and L1 (or L23, if L1 removed) is on top... 
+Step 4, linearly transforming each patch to vertically straighten them while preserving area... 
+Step 5, leveling all layers... 
+Binning transformed coordinates... 
+Smoothing bin edges with nonlinear transformation... 
+Estimating layer boundaries... $slice_plot
+
+$plot_untransformed
+
+$plot_perspective_correction
+
+$plot_recenter
+
+$plot_level_L4
+
+$plot_linear_skew
+
+$plot_level_all
+
+$plot_nonlinear_smoothing
+
+$hist_resids_plot
+
+$slice_plot
+
+$plot_untransformed
+
+$plot_perspective_correction
+
+$plot_recenter
+
+$plot_level_L4
+
+$plot_linear_skew
+
+$plot_level_all
+
+$plot_nonlinear_smoothing
+
+$hist_resids_plot
+
+$slice_plot
+
+$plot_untransformed
+
+$plot_perspective_correction
+
+$plot_recenter
+
+$plot_level_L4
+
+$plot_linear_skew
+
+$plot_level_all
+
+$plot_nonlinear_smoothing
+
+$hist_resids_plot
+
