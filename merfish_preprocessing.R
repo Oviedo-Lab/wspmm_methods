@@ -331,6 +331,71 @@ make_count_data <- function(
 
 # Functions to transform into laminar and columnar coordinates #########################################################
 
+# Helper function for plotting
+plot_results <- function(
+    df, 
+    coordinates, 
+    mouse_num,
+    plot_title,
+    separate_hemi = TRUE
+  ) {
+   
+    # Check if mask has been applied 
+    mask <- df$mouse == mouse_num 
+    df <- df[mask,]
+    if (nrow(df) != nrow(coordinates)) coordinates <- coordinates[mask,]
+    
+    # Force correct coordinate labels 
+    x_coord <- "x_coord"
+    y_coord <- "y_coord"
+    colnames(coordinates) <- c(x_coord, y_coord)
+    range_limit <- range(c(coordinates[, x_coord], coordinates[, y_coord]), na.rm = TRUE)
+    
+    # Grab masks
+    mask_left <- df[,"hemisphere"] == "left"
+    mask_right <- df[,"hemisphere"] == "right"
+    
+    # Get right hemisphere data
+    layer_right <- df$layer[mask_right]
+    df_right <- coordinates[mask_right,]
+    if (separate_hemi) {
+      df_right[,x_coord] <- df_right[,x_coord] - min(df_right[,x_coord])
+      df_right[,y_coord] <- df_right[,y_coord] - min(df_right[,y_coord])
+    }
+    df_right <- cbind(df_right, layer_right)
+    colnames(df_right)[ncol(df_right)] <- "layer"
+    df_right$hemisphere <- "right"
+    
+    # Get left hemisphere data
+    layer_left <- df$layer[mask_left]
+    df_left <- coordinates[mask_left,]
+    if (separate_hemi) {
+      df_left[,x_coord] <- df_left[,x_coord] - min(df_left[,x_coord])
+      df_left[,y_coord] <- df_left[,y_coord] - min(df_left[,y_coord])
+    }
+    df_left <- cbind(df_left, layer_left)
+    colnames(df_left)[ncol(df_left)] <- "layer"
+    df_left$hemisphere <- "left"
+    
+    # Combine data
+    layers_both <- rbind(df_right, df_left)
+    
+    plot <- ggplot(layers_both, aes(x = x_coord, y = y_coord, color = layer)) +
+      geom_point(na.rm = TRUE) +
+      facet_wrap(~hemisphere) +
+      labs(x = "X Coordinate", y = "Y Coordinate", color = "Layer", title = plot_title) +
+      theme_minimal()
+    
+    if (!separate_hemi) {
+      plot <- plot + 
+        scale_x_continuous(limits = range_limit) + 
+        scale_y_continuous(limits = range_limit)
+    }
+    
+    return(plot)
+    
+  }
+
 # Define helper function for transforming coordinates
 coordinate_transform <- function(
     mouse_num, 
@@ -402,62 +467,13 @@ coordinate_transform <- function(
       scale_y_continuous(limits = range_limit)
     plot_list <- list(plot_untransformed = plot_untransformed)
     
-    # Helper function for plotting
-    plot_results <- function(
-      df, coordinates, 
-      mask, mask_right, mask_left, x_coord,
-      plot_title,
-      separate_hemi = TRUE
-    ) {
-      
-      # Get right hemisphere data
-      layer_right <- df$layer[mask][mask_right]
-      df_right <- coordinates[mask_right,]
-      if (separate_hemi) {
-        df_right[,x_coord] <- df_right[,x_coord] - min(df_right[,x_coord])
-        df_right[,y_coord] <- df_right[,y_coord] - min(df_right[,y_coord])
-      }
-      df_right <- cbind(df_right, layer_right)
-      colnames(df_right)[ncol(df_right)] <- "layer"
-      df_right$hemisphere <- "right"
-      
-      # Get left hemisphere data
-      layer_left <- df$layer[mask][mask_left]
-      df_left <- coordinates[mask_left,]
-      if (separate_hemi) {
-        df_left[,x_coord] <- df_left[,x_coord] - min(df_left[,x_coord])
-        df_left[,y_coord] <- df_left[,y_coord] - min(df_left[,y_coord])
-      }
-      df_left <- cbind(df_left, layer_left)
-      colnames(df_left)[ncol(df_left)] <- "layer"
-      df_left$hemisphere <- "left"
-      
-      # Combine data
-      layers_both <- rbind(df_right, df_left)
-      
-      plot <- ggplot(layers_both, aes(x = x_coord, y = y_coord, color = layer)) +
-        geom_point(na.rm = TRUE) +
-        facet_wrap(~hemisphere) +
-        labs(x = "X Coordinate", y = "Y Coordinate", color = "Layer", title = plot_title) +
-        theme_minimal()
-      
-      if (!separate_hemi) {
-        plot <- plot + 
-          scale_x_continuous(limits = range_limit) + 
-          scale_y_continuous(limits = range_limit)
-      }
-      
-      return(plot)
-      
-    }
-   
     # Step 1: Center each patch (left and right) around the mean point of L5
     if (verbose) snk.report...("Step 2, centering each patch around the mean point of L5")
     # Helper function for recentering data
-    recenter_coordinates <- function(
-    coord, 
-    mask_hemisphere = NULL, 
-    mask_layer = NULL
+      recenter_coordinates <- function(
+      coord, 
+      mask_hemisphere = NULL, 
+      mask_layer = NULL
     ) {
       
       if (is.null(mask_layer)) mask_layer <- TRUE
@@ -478,8 +494,7 @@ coordinate_transform <- function(
     
     # Test by plotting (recentered)
     plot_recenter <- plot_results(
-      df, coordinates, 
-      mask, mask_right, mask_left, x_coord,
+      df, coordinates, mouse_num,
       paste("Untransformed ACx layers (recentered), mouse", mouse_num)
     )
     plot_list <- c(plot_list, list(plot_recenter = plot_recenter))
@@ -503,10 +518,19 @@ coordinate_transform <- function(
         angle <- atan(slope)
       }
       if (verbose) cat("\nangle: ", angle*57.3)
-      # level
-      new_coord <- linear_transform(data[mask_hemisphere,], angle)
+      # Center layer on x axis 
+      y_mean <- mean(data[mask_layer, y_coord])
+      new_coord <- data[mask_hemisphere,]
       colnames(new_coord) <- colnames(data)
-      if (hemisphere == "right" && flip_right) new_coord[,y_coord] <- -new_coord[,y_coord]
+      new_coord[, y_coord] <- new_coord[, y_coord] - y_mean
+      # Level by rotating
+      new_coord <- linear_transform(new_coord, angle)
+      colnames(new_coord) <- colnames(data)
+      # Undo centering
+      new_coord[, y_coord] <- new_coord[, y_coord] + y_mean
+      data[mask_hemisphere,] <- new_coord 
+      # Flip right hemisphere if necessary
+      if (hemisphere == "right" && flip_right) new_coord[, y_coord] <- -new_coord[, y_coord]
       return(new_coord)
     }
     
@@ -517,8 +541,7 @@ coordinate_transform <- function(
     
     # Test by plotting (L4 leveled)
     plot_level_L4 <- plot_results(
-      df, coordinates, 
-      mask, mask_right, mask_left, x_coord,
+      df, coordinates, mouse_num,
       paste("Transformed ACx layers (L4 leveled), mouse", mouse_num)
     )
     plot_list <- c(plot_list, list(plot_level_L4 = plot_level_L4))
@@ -619,8 +642,7 @@ coordinate_transform <- function(
     
     # Test by plotting 
     plot_linear_skew <- plot_results(
-      df, coordinates, 
-      mask, mask_right, mask_left, x_coord,
+      df, coordinates, mouse_num,
       paste("Transformed ACx layers (linear skew), mouse", mouse_num)
     )
     plot_list <- c(plot_list, list(plot_linear_skew = plot_linear_skew))
@@ -635,13 +657,15 @@ coordinate_transform <- function(
       if (any(layer_rows_left[[layer]])) {
         
         # Find normalized distances
-        left_mean <- mean(coordinates[layer_rows_left[[layer]],y_coord])
-        right_mean <- mean(coordinates[layer_rows_right[[layer]],y_coord])
-        cat("\n", layer, "left mean y: ", left_mean, "right mean y: ", right_mean)
-        left_distances <- abs(coordinates[layer_rows_left[[layer]],y_coord] - left_mean)
-        right_distances <- abs(coordinates[layer_rows_right[[layer]],y_coord] - right_mean)
+        left_mean <- mean(coordinates[layer_rows_left[[layer]], y_coord])
+        right_mean <- mean(coordinates[layer_rows_right[[layer]], y_coord])
+        left_distances <- abs(coordinates[layer_rows_left[[layer]], y_coord] - left_mean)
+        right_distances <- abs(coordinates[layer_rows_right[[layer]], y_coord] - right_mean)
         left_distances <- (max(left_distances) - left_distances) / max(left_distances)
         right_distances <- (max(right_distances) - right_distances) / max(right_distances)
+        
+        plot(left_distances, main = paste("Layer", layer))
+        plot(right_distances, main = paste("Layer", layer))
         
         # Apply transformation to left
         left_transforms[layer_rows_left[[layer]],] <- as.matrix(coordinates[layer_rows_left[[layer]],]) * (1-left_distances) + 
@@ -673,8 +697,7 @@ coordinate_transform <- function(
     
     # Test by plotting 
     plot_level_all <- plot_results(
-      df, coordinates, 
-      mask, mask_right, mask_left, x_coord,
+      df, coordinates, mouse_num,
       paste0("Transformed ACx layers (level all layers), mouse ", mouse_num)
     )
     plot_list <- c(plot_list, list(plot_level_all = plot_level_all))
@@ -857,26 +880,11 @@ coordinate_binning <- function(
     # Save transformed coordinates
     df[mask,c("x_trans","y_trans")] <- coord_trans
     
-    # Make data frames for plotting
-    layer_right <- df$layer[mask_right]
-    df_right <- df[mask_right,c("x_bins","y_bins")]
-    df_right[,"x_bins"] <- df_right[,"x_bins"] + abs(min(df_right[,"x_bins"])) + 5
-    df_right <- cbind(df_right, layer_right)
-    colnames(df_right)[ncol(df_right)] <- "layer"
-    layer_left <- df$layer[mask_left]
-    df_left <- df[mask_left,c("x_bins","y_bins")]
-    df_left[,"x_bins"] <- df_left[,"x_bins"] - abs(max(df_left[,"x_bins"])) - 5
-    df_left <- cbind(df_left, layer_left)
-    colnames(df_left)[ncol(df_left)] <- "layer"
-    layers_both <- rbind(df_right, df_left)
-    
     # Make plot
-    plot_nonlinear_smoothing <- ggplot(layers_both, aes(x = x_bins, y = y_bins, color = layer)) +
-      geom_point(na.rm = TRUE) +
-      ylim(-75,175) +
-      xlim(-125,125) +
-      labs(x = "X Bin", y = "Y Bin", color = "Layer", title = paste0("Transformed ACx layers, mouse ", mouse_num)) +
-      theme_minimal()
+    plot_nonlinear_smoothing <- plot_results(
+      df, df[,c("x_bins","y_bins")], mouse_num,
+      paste0("Transformed ACx layers, mouse ", mouse_num)
+    )
     plot_list <- c(plot_list, list(plot_nonlinear_smoothing = plot_nonlinear_smoothing))
     
     # Estimate layer boundaries
