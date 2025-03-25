@@ -157,18 +157,10 @@ parse_hdf5 <- function(
     L5_right_mask <- L5_mask & right_mask
     right_xlarger <- mean(x_coord[L5_right_mask]) > mean(x_coord[L5_left_mask])
     tilt_slope <- mean(y_coord[L5_right_mask]) / mean(x_coord[L5_right_mask])
-    if (right_xlarger) {
-      if (tilt_slope < 0) {
-        y_tilt_radians <- -atan(-tilt_slope)
-      } else {
-        y_tilt_radians <- atan(tilt_slope)
-      }
+    if (tilt_slope < 0) {
+      y_tilt_radians <- -atan(-tilt_slope)
     } else {
-      if (tilt_slope < 0) {
-        y_tilt_radians <- -atan(-tilt_slope)
-      } else {
-        y_tilt_radians <- atan(tilt_slope)
-      }
+      y_tilt_radians <- atan(tilt_slope)
     }
     aligned_coord <- linear_transform(
       coord = cbind(x_coord, y_coord), 
@@ -513,7 +505,7 @@ coordinate_transform <- function(
       # Find slope and angle
       slope <- model$coefficients[x_coord]
       if (slope < 0) {
-        angle <- atan(1/abs(slope)) + pi/2
+        angle <- -atan(slope)
       } else {
         angle <- atan(slope)
       }
@@ -528,9 +520,9 @@ coordinate_transform <- function(
       colnames(new_coord) <- colnames(data)
       # Undo centering
       new_coord[, y_coord] <- new_coord[, y_coord] + y_mean
-      data[mask_hemisphere,] <- new_coord 
       # Flip right hemisphere if necessary
       if (hemisphere == "right" && flip_right) new_coord[, y_coord] <- -new_coord[, y_coord]
+      # Return just the transformed hemisphere
       return(new_coord)
     }
     
@@ -557,6 +549,7 @@ coordinate_transform <- function(
     ) {
       x_mins <- c()
       for (layer in names(mask)) {
+        if (length(mask[[layer]]) != nrow(df)) stop("Mask does not match data frame")
         if (any(mask[[layer]])) x_mins <- c(x_mins, min(df[mask[[layer]],x_coord]))
       }
       return(abs(min(x_mins)-max(x_mins)))
@@ -568,6 +561,7 @@ coordinate_transform <- function(
     ) {
       x_maxs <- c()
       for (layer in names(mask)) {
+        if (length(mask[[layer]]) != nrow(df)) stop("Mask does not match data frame")
         if (any(mask[[layer]])) x_maxs <- c(x_maxs, max(df[mask[[layer]],x_coord]))
       }
       return(abs(min(x_maxs)-max(x_maxs)))
@@ -663,9 +657,6 @@ coordinate_transform <- function(
         right_distances <- abs(coordinates[layer_rows_right[[layer]], y_coord] - right_mean)
         left_distances <- (max(left_distances) - left_distances) / max(left_distances)
         right_distances <- (max(right_distances) - right_distances) / max(right_distances)
-        
-        plot(left_distances, main = paste("Layer", layer))
-        plot(right_distances, main = paste("Layer", layer))
         
         # Apply transformation to left
         left_transforms[layer_rows_left[[layer]],] <- as.matrix(coordinates[layer_rows_left[[layer]],]) * (1-left_distances) + 

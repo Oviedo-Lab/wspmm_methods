@@ -57,9 +57,9 @@ count_data <- count_data$df
 columnar_check <- function() {
   
   # Reshape data
-  rcdX <- count_data[, c("mouse", "hemisphere", "x_cen", "x_bins")]
+  rcdX <- count_data[, c("mouse", "hemisphere", "x_coord", "x_bins")]
   colnames(rcdX) <- c("mouse", "hemisphere", "cen", "xbin")
-  rcdY <- count_data[, c("mouse", "hemisphere", "y_cen", "x_bins")]
+  rcdY <- count_data[, c("mouse", "hemisphere", "y_coord", "x_bins")]
   colnames(rcdY) <- c("mouse", "hemisphere", "cen", "xbin")
   axis <- rep("x", nrow(rcdX))
   rcdX <- cbind(rcdX, axis)
@@ -86,6 +86,7 @@ columnar_check <- function() {
   #     M4: y: 0 -> inf runs pos -> ant
   #  From the above slice plots, 
 }
+columnar_check()
 
 # Fit WSPmm model to MERFISH data ######################################################################################
 
