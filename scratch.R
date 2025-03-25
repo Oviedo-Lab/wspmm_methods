@@ -29,7 +29,7 @@ countdata <- read.csv("countdata.csv")
 # Note on spatial coordinates: 
 #  data from horizontal (axial) slice of mouse cortex, ACx
 #  y-axes: laminar, 0 is bottom of L6b, 100 is top of L2/3
-#  x-axes: columnar, 
+#  x-axes: columnar, 0 is most posterior, 100 is most anterior
 
 # Define list of genes to analyze
 gene.list <- c("Bcl11b", "Fezf2", "Rorb", "Satb2", "Nxph3", "Cux2", "Rorb") 

@@ -19,8 +19,7 @@ if (RemoveL1) {
 
 # Load raw data ########################################################################################################
 
-
-# Helper functions for rotational linear transformations
+# Helper functions, make rotation matrix
 rot_matrix <- function(
     theta
   ) {
@@ -33,6 +32,7 @@ rot_matrix <- function(
       )
   }
 
+# Helper function, linear transform
 linear_transform <- function(
     coord, 
     matrix_transform, # A matrix, or angle in radians
@@ -322,6 +322,10 @@ make_count_data <- function(
   }
 
 # Functions to transform into laminar and columnar coordinates #########################################################
+
+# Note: 
+#  laminar axis goes to y, with cortical surface in the positive direction (zero is deepest layer, L6)
+#  columnar axis goes to x, with anterior in the positive direction (zero is most posterior)
 
 # Helper function for plotting
 plot_results <- function(

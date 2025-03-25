@@ -41,6 +41,9 @@ if (sys_name == "Darwin") {
 count_data <- make_count_data(data_path)
 
 # Transform coordinates for each mouse into laminar and columnar axes and extract layer boundary estimates
+# Note: 
+#  laminar axis goes to y, with cortical surface in the positive direction (zero is deepest layer, L6)
+#  columnar axis goes to x, with anterior in the positive direction (zero is most posterior)
 count_data <- cortical_coordinate_transform(
   count_data = count_data, 
   total_bins = 100,        # Number of bins to use when binning data
@@ -96,6 +99,14 @@ gene.list.plasticity <- c(
   "Bcl11b", "Fezf2", "Rorb", "Satb2"
 )
 
+# Create count data for WSPmm object, from preprocessed count_data, using laminar axis (y)
+count.data.WSPmm.y <- create.count.data.WSPmm(
+  df.merfish = count_data,
+  bin.dim = "y_bins",
+  gene.list = gene.list.plasticity,
+  fixed.effect.names = c("hemisphere","age")
+)
+
 # Define fixed effects to test
 fixed.effect.names <- c("hemisphere", "age")
 
@@ -131,7 +142,7 @@ model.settings = list(
 
 merfish.laminar.model <- wisp(
   # Data to model
-  count.data.raw = countdata,
+  count.data.raw = count.data.WSPmm.y,
   # Variable labels
   variables = data.variables,
   # Local settings for specific fits, used on R side
