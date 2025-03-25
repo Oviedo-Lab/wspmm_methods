@@ -40,17 +40,9 @@ if (sys_name == "Darwin") {
 # Load and parse raw visgen data from files
 count_data <- make_count_data(data_path)
 
-# Define mouse slice orientations 
-slice_orientations <- data.frame(
-  Bisecting_axis = c("x", "x", "x", "y"),
-  direction = c("ant", "pos", "pos", "ant"),
-  view = c("bottom", "bottom", "bottom", "bottom")
-)
-
 # Transform coordinates for each mouse into laminar and columnar axes and extract layer boundary estimates
 count_data <- cortical_coordinate_transform(
   count_data = count_data, 
-  orientation.info = slice_orientations,
   total_bins = 100,        # Number of bins to use when binning data
   keep_plots = TRUE,       # Keep coordinate transformation plots? 
   verbose = TRUE
