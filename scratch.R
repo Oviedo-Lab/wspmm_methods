@@ -18,7 +18,7 @@ library(wispack)
 # Set bootstrap chunk size
 sys_name <- Sys.info()["sysname"]
 if (sys_name == "Darwin" || sys_name == "Linux") {
-  bs_chunksize <- 20
+  bs_chunksize <- 10
 } else {
   bs_chunksize <- 0
 }
@@ -65,7 +65,7 @@ model.settings = list(
   struc_values = c(                                     # values of structural parameters to test
     5.0,   # beta_shape_point
     5.0,   # beta_shape_rate
-    1.0    # sd_tslope_effect
+    5.0    # beta_shape_slope
   ),  
   buffer_factor = 0.05,                                 # buffer factor for penalizing distance from structural parameter values
   ctol = 1e-6,                                          # convergence tolerance
@@ -73,8 +73,7 @@ model.settings = list(
   LROcutoff = 2.0,                                      # cutoff for LROcp
   LROwindow_factor = 2.0,                               # window factor for LROcp, larger means larger rolling window
   LROfilter_ws_divisor = 2.0,                           # divisor for filter window size in likelihood ratio outlier detection (bigger is smaller window)
-  tslope_initial = 1.0,                                 # initial value for tslope
-  wf_initial = 0.15,                                    # initial value for wfactor
+  rise_threshold_factor = 0.8,                          # amount of detected rise as fraction of total required to end run
   max_evals = 1000,                                     # maximum number of evaluations for optimization
   rng_seed = 42                                         # random seed for optimization (controls bootstrap resamples only)
 )
@@ -98,10 +97,10 @@ merfish.laminar.model <- wisp(
   # Local settings for specific fits, used on R side
   use.median = FALSE,
   MCMC.burnin = 0,
-  MCMC.steps = 1e4,
+  MCMC.steps = 1e3,
   MCMC.step.size = 0.005,
   MCMC.prior = 0.5,                                     
-  bootstraps.num = 0,
+  bootstraps.num = 1e2,
   converged.resamples.only = FALSE,
   max.fork = bs_chunksize,
   dim.bounds = layer.boundary.bins,
