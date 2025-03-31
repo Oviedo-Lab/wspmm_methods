@@ -42,7 +42,7 @@ Extrapolated 'none' rows
 Took log of observed counts
 Found mean observed ran effect per ran level
 Estimated change points with LROcp and found initial parameter estimates for fixed-effect treatments
-Mean estimated tslope: 0.562049
+Initial mean estimated tslope: 0.562049
 Built initial beta (ref and fixed-effects) matrices
 Initialized random effect warping factors
 Made and mapped parameter vector
@@ -65,17 +65,17 @@ Checking feasibility of provided parameters
 ... no negative rates predicted
 Provided parameters are feasible
 Performing initial fit of full data
-Penalized neg_loglik: 1.62805
-Batch 1/10, 4.0138 sec/bs
-Batch 2/10, 2.10916 sec/bs
-Batch 3/10, 2.21973 sec/bs
-Batch 4/10, 4.43757 sec/bs
-Batch 5/10, 1.27546 sec/bs
-Batch 6/10, 1.62749 sec/bs
-Batch 7/10, 2.62333 sec/bs
-Batch 8/10, 2.24927 sec/bs
-Batch 9/10, 1.58963 sec/bs
-Batch 10/10, 2.13581 sec/bs
+Penalized neg_loglik: 1.62926
+Batch 1/10, 1.03039 sec/bs
+Batch 2/10, 1.09834 sec/bs
+Batch 3/10, 1.13191 sec/bs
+Batch 4/10, 0.966134 sec/bs
+Batch 5/10, 1.05052 sec/bs
+Batch 6/10, 1.0409 sec/bs
+Batch 7/10, 1.0544 sec/bs
+Batch 8/10, 1.02373 sec/bs
+Batch 9/10, 1.03971 sec/bs
+Batch 10/10, 0.97452 sec/bs
 All complete!
 
 Setting full-data fit as parameters... 
@@ -94,13 +94,13 @@ Estimating p-values from bootstraped parameters...
 
 Stat summary (head only):
 ------------------------------
-                                 parameter    estimate       CI.low    CI.high    p.value p.value.adj    alpha.adj significance
-1       baseline_cortex_Rt_Bcl11b_Tns/Blk1 2.763234383  2.669649775 2.86078936 0.00000000    0.000000 0.0001838235          ***
-2   beta_Rt_cortex_Bcl11b_right_X_Tns/Blk1 0.011595663  0.001787290 0.02160045 0.00000000    0.000000 0.0001845018          ***
-3      beta_Rt_cortex_Bcl11b_18_X_Tns/Blk1 0.012790297 -0.009587249 0.01728891 0.00990099    1.722772 0.0002873563           ns
-4 beta_Rt_cortex_Bcl11b_right18_X_Tns/Blk1 0.011229464  0.006105706 0.01930796 0.00000000    0.000000 0.0001851852          ***
-5       baseline_cortex_Rt_Bcl11b_Tns/Blk2 2.483171702  2.399619472 2.49551197 0.00000000    0.000000 0.0001858736          ***
-6   beta_Rt_cortex_Bcl11b_right_X_Tns/Blk2 0.002629487 -0.011464534 0.02074544 0.54455446   19.059406 0.0014285714           ns
+                                 parameter   estimate      CI.low   CI.high    p.value p.value.adj    alpha.adj significance
+1       baseline_cortex_Rt_Bcl11b_Tns/Blk1 2.48431490  2.30832287 2.5585729 0.00000000    0.000000 0.0001838235          ***
+2   beta_Rt_cortex_Bcl11b_right_X_Tns/Blk1 0.24947969  0.03143368 0.4527423 0.00000000    0.000000 0.0001845018          ***
+3      beta_Rt_cortex_Bcl11b_18_X_Tns/Blk1 0.43033585  0.16759385 0.6040697 0.00000000    0.000000 0.0001851852          ***
+4 beta_Rt_cortex_Bcl11b_right18_X_Tns/Blk1 0.05330803 -0.27436207 0.5275871 0.68316832   37.574257 0.0009090909           ns
+5       baseline_cortex_Rt_Bcl11b_Tns/Blk2 2.38014074  2.25004946 2.4180752 0.00000000    0.000000 0.0001858736          ***
+6   beta_Rt_cortex_Bcl11b_right_X_Tns/Blk2 0.07504876 -0.05637091 0.1522159 0.08910891    9.534653 0.0004672897           ns
 ----
 
 Analyzing residuals: 
@@ -113,23 +113,169 @@ Making plots and saving stats...
 Log-residual summary by grouping variables (head only):
 ------------------------------
          group      mean        sd  variance
-1          all 0.3539491 0.6630029 0.4395729
-2 ran_lvl_none 0.2744251 0.5682403 0.3228970
-3    ran_lvl_1 0.3855852 0.6578364 0.4327487
-4    ran_lvl_2 0.3358749 0.5965150 0.3558301
-5    ran_lvl_3 0.5275997 0.8017670 0.6428303
-6    ran_lvl_4 0.3257844 0.7189137 0.5168369
+1          all 0.3576221 0.5898124 0.3478786
+2 ran_lvl_none 0.3304627 0.4579487 0.2097170
+3    ran_lvl_1 0.3602037 0.6339489 0.4018912
+4    ran_lvl_2 0.2987293 0.5336968 0.2848323
+5    ran_lvl_3 0.5136026 0.7523242 0.5659917
+6    ran_lvl_4 0.3122717 0.6205123 0.3850355
 ----
 
 TPS test results (head only):
 ------------------------------
               cortex   gene TPS.ref TPS.right TPS.18 TPS.right18 Rt.18 tpoint.18 tslope.18 Rt.right tpoint.right tslope.right Rt.right18 tpoint.right18 tslope.right18
-Bcl11b.cortex cortex Bcl11b    TRUE      TRUE   TRUE        TRUE  TRUE      TRUE     FALSE     TRUE         TRUE        FALSE       TRUE          FALSE          FALSE
-Cux2.cortex   cortex   Cux2    TRUE      TRUE   TRUE        TRUE  TRUE     FALSE     FALSE     TRUE         TRUE        FALSE       TRUE           TRUE          FALSE
-Fezf2.cortex  cortex  Fezf2    TRUE      TRUE   TRUE        TRUE  TRUE      TRUE     FALSE     TRUE        FALSE        FALSE       TRUE           TRUE          FALSE
-Nxph3.cortex  cortex  Nxph3    TRUE      TRUE   TRUE        TRUE  TRUE      TRUE     FALSE     TRUE         TRUE         TRUE       TRUE           TRUE          FALSE
-Rorb.cortex   cortex   Rorb    TRUE      TRUE   TRUE        TRUE  TRUE     FALSE     FALSE     TRUE        FALSE        FALSE       TRUE          FALSE          FALSE
-Satb2.cortex  cortex  Satb2    TRUE      TRUE   TRUE        TRUE  TRUE     FALSE     FALSE     TRUE        FALSE        FALSE       TRUE          FALSE          FALSE
+Bcl11b.cortex cortex Bcl11b   FALSE      TRUE   TRUE        TRUE  TRUE      TRUE     FALSE     TRUE         TRUE        FALSE      FALSE          FALSE          FALSE
+Cux2.cortex   cortex   Cux2   FALSE      TRUE   TRUE        TRUE  TRUE      TRUE     FALSE     TRUE        FALSE        FALSE       TRUE           TRUE          FALSE
+Fezf2.cortex  cortex  Fezf2    TRUE      TRUE   TRUE        TRUE  TRUE      TRUE     FALSE     TRUE         TRUE        FALSE       TRUE           TRUE          FALSE
+Nxph3.cortex  cortex  Nxph3    TRUE      TRUE   TRUE        TRUE  TRUE      TRUE     FALSE    FALSE        FALSE         TRUE      FALSE          FALSE           TRUE
+Rorb.cortex   cortex   Rorb    TRUE      TRUE   TRUE        TRUE  TRUE     FALSE     FALSE     TRUE         TRUE        FALSE       TRUE           TRUE          FALSE
+Satb2.cortex  cortex  Satb2   FALSE      TRUE   TRUE        TRUE  TRUE      TRUE     FALSE     TRUE         TRUE        FALSE       TRUE           TRUE          FALSE
+----
+
+Printing structural summary distributions: 
+----------------------------------------
+
+Warping factors, beta distributions... 
+Rate effects, Gaussian distribution... 
+Slope effects, Gaussian distribution... 
+tpoint effects, Gaussian distribution... 
+Making rate-count plots... 
+
+Printing child summary plots: 
+----------------------------------------
+
+Making summary plots for cortex: Bcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2
+
+Initializing Cpp (wspc) model: 
+----------------------------------------
+
+Data structure check passed
+Saving tokenized count
+Found max bin: 100.000000
+Extracted fixed effects:
+"hemisphere" "age"
+Ref levels:
+"left" "12"
+Created treatment levels
+"ref" "right" "18" "right18"
+Created treatment-to-fix translation matrix
+Pre-computed weight matrix rows
+Extracted parent grouping variables:
+"cortex"
+Extracted child grouping variables:
+"Bcl11b" "Cux2" "Fezf2" "Nxph3" "Rorb" "Satb2"
+Extracted random-effect grouping variables:
+"none" "1" "2" "3" "4"
+Extracted tokenized count columns
+Grabbed size constants for summed count data, total rows: 12000
+Initialized columns for summed count data
+Initialized count indexes, number of rows with unique model components: 120
+Pre-computing bin masks
+Creating summed-count data columns ...
+Random level 0, 1/5 complete
+Random level 1, 2/5 complete
+Random level 2, 3/5 complete
+Random level 3, 4/5 complete
+Random level 4, 5/5 complete
+Extracted non-NA indexes
+Making extrapolation pool ...
+row: 480/2400
+row: 960/2400
+row: 1440/2400
+row: 1920/2400
+row: 2400/2400
+Extrapolated 'none' rows
+Took log of observed counts
+Found mean observed ran effect per ran level
+Estimated change points with LROcp and found initial parameter estimates for fixed-effect treatments
+Initial mean estimated tslope: 0.562049
+Built initial beta (ref and fixed-effects) matrices
+Initialized random effect warping factors
+Made and mapped parameter vector
+Number of parameters: 291
+Constructed grouping variable IDs
+Computed size of boundary vector: 1027
+Finished initializing wspc object
+Imported fe_difference_ratio_Rt: 1.529876
+Imported fe_difference_ratio_tpoint: 1.108012
+Imported fe_difference_ratio_tslope: 1.222597
+
+Estimating model parameters: 
+---------------
+Forking available and bootstrap requested.... 
+If bootstrapping not desired, set bootstraps.num = 0... 
+
+Running bootstrap fits (with forking): 
+Checking feasibility of provided parameters
+... no tpoints below buffer
+... no negative rates predicted
+Provided parameters are feasible
+Performing initial fit of full data
+Penalized neg_loglik: 1.62855
+Batch 1/10, 0.778763 sec/bs
+Batch 2/10, 0.851233 sec/bs
+Batch 3/10, 0.806548 sec/bs
+Batch 4/10, 0.787759 sec/bs
+Batch 5/10, 0.830276 sec/bs
+Batch 6/10, 0.805017 sec/bs
+Batch 7/10, 0.79201 sec/bs
+Batch 8/10, 0.786015 sec/bs
+Batch 9/10, 0.801973 sec/bs
+Batch 10/10, 0.786069 sec/bs
+All complete!
+
+Setting full-data fit as parameters... 
+Checking feasibility of provided parameters
+... no tpoints below buffer
+... no negative rates predicted
+Provided parameters are feasible
+
+Running stats on simulation results: 
+----------------------------------------
+
+Grabbing sample results... 
+Grabbing parameter values... 
+Computing 95% confidence intervals... 
+Estimating p-values from bootstraped parameters... 
+
+Stat summary (head only):
+------------------------------
+                                 parameter   estimate      CI.low   CI.high    p.value p.value.adj    alpha.adj significance
+1       baseline_cortex_Rt_Bcl11b_Tns/Blk1 2.51245056  2.33946931 2.5681379 0.00000000     0.00000 0.0001838235          ***
+2   beta_Rt_cortex_Bcl11b_right_X_Tns/Blk1 0.20973378  0.01007711 0.3782187 0.00990099     1.70297 0.0002906977           ns
+3      beta_Rt_cortex_Bcl11b_18_X_Tns/Blk1 0.41570816  0.11741955 0.5147796 0.00000000     0.00000 0.0001845018          ***
+4 beta_Rt_cortex_Bcl11b_right18_X_Tns/Blk1 0.06365741 -0.06329679 0.4445358 0.50495050    33.32673 0.0007575758           ns
+5       baseline_cortex_Rt_Bcl11b_Tns/Blk2 2.38098731  2.24519506 2.4056711 0.00000000     0.00000 0.0001851852          ***
+6   beta_Rt_cortex_Bcl11b_right_X_Tns/Blk2 0.03024145 -0.06026483 0.1321516 0.34653465    28.41584 0.0006097561           ns
+----
+
+Analyzing residuals: 
+----------------------------------------
+
+Computing residuals... 
+Making masks... 
+Making plots and saving stats... 
+
+Log-residual summary by grouping variables (head only):
+------------------------------
+         group      mean        sd  variance
+1          all 0.3555458 0.5940319 0.3528739
+2 ran_lvl_none 0.3226254 0.4669995 0.2180885
+3    ran_lvl_1 0.3574268 0.6362105 0.4047637
+4    ran_lvl_2 0.3032337 0.5341310 0.2852959
+5    ran_lvl_3 0.5116571 0.7594513 0.5767663
+6    ran_lvl_4 0.3157063 0.6201924 0.3846387
+----
+
+TPS test results (head only):
+------------------------------
+              cortex   gene TPS.ref TPS.right TPS.18 TPS.right18 Rt.18 tpoint.18 tslope.18 Rt.right tpoint.right tslope.right Rt.right18 tpoint.right18 tslope.right18
+Bcl11b.cortex cortex Bcl11b   FALSE      TRUE   TRUE        TRUE  TRUE      TRUE     FALSE    FALSE         TRUE        FALSE      FALSE          FALSE          FALSE
+Cux2.cortex   cortex   Cux2   FALSE      TRUE   TRUE        TRUE  TRUE      TRUE     FALSE    FALSE        FALSE        FALSE       TRUE          FALSE          FALSE
+Fezf2.cortex  cortex  Fezf2    TRUE      TRUE   TRUE        TRUE  TRUE      TRUE     FALSE     TRUE        FALSE        FALSE       TRUE          FALSE          FALSE
+Nxph3.cortex  cortex  Nxph3    TRUE      TRUE   TRUE        TRUE  TRUE      TRUE     FALSE    FALSE        FALSE         TRUE       TRUE          FALSE           TRUE
+Rorb.cortex   cortex   Rorb   FALSE      TRUE   TRUE        TRUE  TRUE     FALSE     FALSE     TRUE        FALSE        FALSE       TRUE          FALSE          FALSE
+Satb2.cortex  cortex  Satb2   FALSE      TRUE   TRUE        TRUE  TRUE     FALSE     FALSE     TRUE        FALSE        FALSE       TRUE          FALSE          FALSE
 ----
 
 Printing structural summary distributions: 

@@ -75,7 +75,8 @@ model.settings = list(
   LROfilter_ws_divisor = 2.0,                           # divisor for filter window size in likelihood ratio outlier detection (bigger is smaller window)
   rise_threshold_factor = 0.8,                          # amount of detected rise as fraction of total required to end run
   max_evals = 1000,                                     # maximum number of evaluations for optimization
-  rng_seed = 42                                         # random seed for optimization (controls bootstrap resamples only)
+  rng_seed = 42,                                        # random seed for optimization (controls bootstrap resamples only)
+  nll_effect_weight = 0.001                               # weight of effect log likelihood in total log likelihood calculation
 )
 
 # Setting suggestions: 
@@ -128,6 +129,11 @@ plot.MCMC.walks(merfish.laminar.model)
 
 
 
-
+bs_fitted_params <- merfish.laminar.model$sample.params
+tslope_effs_mask <- grepl("tslope", merfish.laminar.model$param.names) & grepl("baseline", merfish.laminar.model$param.names)
+tslope_effects <- c(bs_fitted_params[,tslope_effs_mask])
+hist(tslope_effects)
+mean(tslope_effects)
+sd(tslope_effects)
 
 
