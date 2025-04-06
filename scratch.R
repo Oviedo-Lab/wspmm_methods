@@ -6,7 +6,7 @@ rm(list = ls())
 
 projects_folder <- "/Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/"
 sink("output.txt", split = TRUE, append = FALSE, type = "output")
-Sys.setenv(CXXFLAGS="-fsanitize=address -g -O1")
+
 # Set random seed for reproducibility
 # ... R only. C++ seed set in its code
 ran.seed <- 12349999
@@ -18,7 +18,7 @@ library(wispack)
 # Set bootstrap chunk size
 sys_name <- Sys.info()["sysname"]
 if (sys_name == "Darwin" || sys_name == "Linux") {
-  bs_chunksize <- 10
+  bs_chunksize <- 2
 } else {
   bs_chunksize <- 0
 }
@@ -62,11 +62,6 @@ data.variables = list(
 # Model settings 
 model.settings = list(
   # ... these are global options needed to set up model
-  struc_values = c(                                     # values of structural parameters to test
-    5.0,   # beta_shape_point
-    5.0,   # beta_shape_rate
-    5.0    # beta_shape_slope
-  ),  
   buffer_factor = 0.05,                                 # buffer factor for penalizing distance from structural parameter values
   ctol = 1e-6,                                          # convergence tolerance
   max_penalty_at_distance_factor = 0.01,                # maximum penalty at distance from structural parameter values
@@ -76,7 +71,7 @@ model.settings = list(
   rise_threshold_factor = 0.8,                          # amount of detected rise as fraction of total required to end run
   max_evals = 1000,                                     # maximum number of evaluations for optimization
   rng_seed = 42,                                        # random seed for optimization (controls bootstrap resamples only)
-  nll_effect_weight = 0.001                               # weight of effect log likelihood in total log likelihood calculation
+  inf_warp = 1e3                                        # pseudo infinity value larger than any possible possible parameter value, representing unbound warping
 )
 
 # Setting suggestions: 
