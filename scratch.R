@@ -71,7 +71,8 @@ model.settings = list(
   rise_threshold_factor = 0.8,                          # amount of detected rise as fraction of total required to end run
   max_evals = 1000,                                     # maximum number of evaluations for optimization
   rng_seed = 42,                                        # random seed for optimization (controls bootstrap resamples only)
-  inf_warp = 1e3                                        # pseudo infinity value larger than any possible possible parameter value, representing unbound warping
+  inf_warp = 1e3,                                       # pseudo infinity value larger than any possible possible parameter value, representing unbound warping
+  effect_dist_weight = 0.000                            # weight for effect distribution likelihood
 )
 
 # Setting suggestions: 
@@ -96,7 +97,7 @@ merfish.laminar.model <- wisp(
   MCMC.steps = 1e3,
   MCMC.step.size = 0.005,
   MCMC.prior = 0.5,                                     
-  bootstraps.num = 1e2,
+  bootstraps.num = 10,
   converged.resamples.only = FALSE,
   max.fork = bs_chunksize,
   dim.bounds = layer.boundary.bins,
