@@ -18,7 +18,7 @@ library(wispack)
 # Set bootstrap chunk size
 sys_name <- Sys.info()["sysname"]
 if (sys_name == "Darwin" || sys_name == "Linux") {
-  bs_chunksize <- 2
+  bs_chunksize <- 10
 } else {
   bs_chunksize <- 0
 }
@@ -71,8 +71,8 @@ model.settings = list(
   rise_threshold_factor = 0.8,                          # amount of detected rise as fraction of total required to end run
   max_evals = 1000,                                     # maximum number of evaluations for optimization
   rng_seed = 42,                                        # random seed for optimization (controls bootstrap resamples only)
-  inf_warp = 1e3,                                       # pseudo infinity value larger than any possible possible parameter value, representing unbound warping
-  effect_dist_weight = 0.000                            # weight for effect distribution likelihood
+  warp_precision = 1e-7,                                # pseudo infinity value larger than any possible possible parameter value, representing unbound warping
+  effect_dist_weight = 0.001                            # weight for effect distribution likelihood
 )
 
 # Setting suggestions: 
@@ -97,7 +97,7 @@ merfish.laminar.model <- wisp(
   MCMC.steps = 1e3,
   MCMC.step.size = 0.005,
   MCMC.prior = 0.5,                                     
-  bootstraps.num = 10,
+  bootstraps.num = 0,
   converged.resamples.only = FALSE,
   max.fork = bs_chunksize,
   dim.bounds = layer.boundary.bins,
