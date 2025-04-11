@@ -81,13 +81,6 @@ columnar_check <- function() {
     theme_minimal()
   plot(transform_plot)
   
-  # Explanation 
-  #   From slice plots we know that: 
-  #     M1: x: 0 -> inf runs pos -> ant
-  #     M2: x: 0 -> inf runs ant -> pos
-  #     M3: y: 0 -> inf runs ant -> pos 
-  #     M4: y: 0 -> inf runs pos -> ant
-  #  From the above slice plots, 
 }
 columnar_check()
 
