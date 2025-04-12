@@ -94,7 +94,9 @@ make_slice_data <- function(
   }
 
 slice_data_back <- make_slice_data(slice = 30)
-slice_data_mid <- make_slice_data(slice = 35)
+slice_data_mid1 <- make_slice_data(slice = 32)
+slice_data_mid2 <- make_slice_data(slice = 35)
+slice_data_mid3 <- make_slice_data(slice = 38)
 slice_data_front <- make_slice_data(slice = 40)
 
 # genes_as_int <- as.integer(factor(slice_data$trscrpt_gene_symb))
@@ -118,33 +120,52 @@ for (m in 1:length(masks)) {
 
 library(rgl)
 mult <- 100
+xm <- 1320/mult
+ym <- 800/mult
+zm <- 1140/mult
 plot3d(
-  x = masks$ROI_mask_S1_L23[,1],
-  y = masks$ROI_mask_S1_L23[,2] + 200,
-  z = masks$ROI_mask_S1_L23[,3],
+  x = masks$ROI_mask_S1_L1[,1],
+  y = masks$ROI_mask_S1_L1[,2] + 180,
+  z = masks$ROI_mask_S1_L1[,3],
   col = "gray",
   ylim = c(0, 1000), xlim = c(0, 1000), zlim = c(0, 1000),
 )
 plot3d(
-  x = (13.4 - slice_data_back$z) * mult, 
-  y = slice_data_back$y * mult,
-  z = slice_data_back$x * mult,
+  x = (xm - slice_data_back$z) * mult, 
+  y = (slice_data_back$y) * mult,
+  z = (zm - slice_data_back$x) * mult,
   col = "red",
   add = TRUE,
   aspect = TRUE
 )
 plot3d(
-  x = (13.4 - slice_data_mid$z) * mult, 
-  y = slice_data_mid$y * mult,
-  z = slice_data_mid$x * mult,
+  x = (xm - slice_data_mid1$z) * mult, 
+  y = (slice_data_mid1$y) * mult,
+  z = (zm - slice_data_mid1$x) * mult,
+  col = "blue4",
+  add = TRUE,
+  aspect = TRUE
+)
+plot3d(
+  x = (xm - slice_data_mid2$z) * mult, 
+  y = (slice_data_mid2$y) * mult,
+  z = (zm - slice_data_mid2$x) * mult,
+  col = "blue2",
+  add = TRUE,
+  aspect = TRUE
+)
+plot3d(
+  x = (xm - slice_data_mid3$z) * mult, 
+  y = (slice_data_mid3$y) * mult,
+  z = (zm - slice_data_mid3$x) * mult,
   col = "blue",
   add = TRUE,
   aspect = TRUE
 )
 plot3d(
-  x = (13.4 - slice_data_front$z) * mult, 
-  y = slice_data_front$y * mult,
-  z = slice_data_front$x * mult,
+  x = (xm - slice_data_front$z) * mult, 
+  y = (slice_data_front$y) * mult,
+  z = (zm - slice_data_front$x) * mult,
   col = "green",
   add = TRUE,
   aspect = TRUE
