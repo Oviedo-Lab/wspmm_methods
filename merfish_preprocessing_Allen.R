@@ -113,6 +113,8 @@ for (m in 1:length(masks)) {
   colnames(masks[[m]]) <- dim_names
 }
 
+# our columnar axis is approx 1mm, these slices are 200um apart, should should be able to get 4 slices 
+
 # slice_ROI_mask <- masks$ROI_mask_S1_L23[,2] == 416
 # slice_ROI_mask <- TRUE
 # ROI <- masks$ROI_mask_S1_L23[slice_ROI_mask, c(1,3)]
