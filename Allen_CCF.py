@@ -30,7 +30,7 @@ from allensdk.core.reference_space_cache import ReferenceSpaceCache
 # ROI_mask_S1_L6b = rsp.make_structure_mask([719, 929, 1062, 510, 2, 1026, 461, 182305713])
 # ROI_mask_S1_L6b = np.argwhere(ROI_mask_S1_L6b == 1)
 
-def generate_roi_masks(output_dir = '.', reference_space_key = 'annotation/ccf_2017', resolution = 10):
+def generate_roi_masks(output_dir = '.', reference_space_key = 'annotation/ccf_2022', resolution = 10):
     # Initialize the ReferenceSpaceCache
     rspc = ReferenceSpaceCache(resolution, reference_space_key, manifest=Path(output_dir) / 'manifest.json')
     

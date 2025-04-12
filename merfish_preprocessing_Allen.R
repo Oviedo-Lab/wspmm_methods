@@ -93,29 +93,61 @@ make_slice_data <- function(
     
   }
 
-slice_data <- make_slice_data()
+slice_data_back <- make_slice_data(slice = 30)
+slice_data_mid <- make_slice_data(slice = 35)
+slice_data_front <- make_slice_data(slice = 40)
 
-genes_as_int <- as.integer(factor(slice_data$trscrpt_gene_symb))
-gene_colors <- rep("gray", nrow(slice_data)) 
-gene_colors[genes_as_int == 1] <- "red"
-gene_colors[genes_as_int == 2] <- "blue"
-plot(jitter(slice_data$x), jitter(slice_data$y), col = gene_colors, pch = 19, cex = 0.5)
+# genes_as_int <- as.integer(factor(slice_data$trscrpt_gene_symb))
+# gene_colors <- rep("gray", nrow(slice_data)) 
+# gene_colors[genes_as_int == 1] <- "red"
+# gene_colors[genes_as_int == 2] <- "blue"
+#plot(jitter(slice_data$x), jitter(slice_data$y), col = gene_colors, pch = 19, cex = 0.5)
 
 # These dimensions go x, z, y? 
 source_python("Allen_CCF.py")
 masks <- generate_roi_masks()
+dim_names <- c("AntPost", "SupInf", "LefRig")
+for (m in 1:length(masks)) {
+  colnames(masks[[m]]) <- dim_names
+}
 
-sort(unique(masks$ROI_mask_S1_L23[,2]))
-slice_ROI_mask <- masks$ROI_mask_S1_L23[,2] == 416
-slice_ROI_mask <- TRUE
-ROI <- masks$ROI_mask_S1_L23[slice_ROI_mask, c(1,3)]
-points(ROI[,2]/100, ROI[,1]/100, col = "black", pch = 19, cex = 0.5)
+# slice_ROI_mask <- masks$ROI_mask_S1_L23[,2] == 416
+# slice_ROI_mask <- TRUE
+# ROI <- masks$ROI_mask_S1_L23[slice_ROI_mask, c(1,3)]
+# points(ROI[,2]/100, ROI[,1]/100, col = "black", pch = 19, cex = 0.5)
 
 library(rgl)
+mult <- 100
 plot3d(
   x = masks$ROI_mask_S1_L23[,1],
-  y = masks$ROI_mask_S1_L23[,2],
-  z = masks$ROI_mask_S1_L23[,3]
+  y = masks$ROI_mask_S1_L23[,2] + 200,
+  z = masks$ROI_mask_S1_L23[,3],
+  col = "gray",
+  ylim = c(0, 1000), xlim = c(0, 1000), zlim = c(0, 1000),
+)
+plot3d(
+  x = (13.4 - slice_data_back$z) * mult, 
+  y = slice_data_back$y * mult,
+  z = slice_data_back$x * mult,
+  col = "red",
+  add = TRUE,
+  aspect = TRUE
+)
+plot3d(
+  x = (13.4 - slice_data_mid$z) * mult, 
+  y = slice_data_mid$y * mult,
+  z = slice_data_mid$x * mult,
+  col = "blue",
+  add = TRUE,
+  aspect = TRUE
+)
+plot3d(
+  x = (13.4 - slice_data_front$z) * mult, 
+  y = slice_data_front$y * mult,
+  z = slice_data_front$x * mult,
+  col = "green",
+  add = TRUE,
+  aspect = TRUE
 )
 
 
