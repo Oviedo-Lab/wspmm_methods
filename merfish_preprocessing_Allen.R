@@ -129,8 +129,84 @@ xm <- 1320/mult
 ym <- 800/mult
 zm <- 1140/mult
 
+to_polar <- function(p) {
+  if (is.null(dim(p))) {
+    p <- array(p, dim = c(1,length(p)))
+  }
+  colnames(p) <- c("x", "y")
+  r <- sqrt(p$x^2 + p$y^2)
+  theta <- atan(abs(p$y/p$x))
+  theta[p$x < 0 & p$y > 0] <- pi - theta[p$x < 0 & p$y > 0]
+  theta[p$x < 0 & p$y < 0] <- pi + theta[p$x < 0 & p$y < 0]
+  theta[p$x > 0 & p$y < 0] <- 2*pi - theta[p$x > 0 & p$y < 0]
+  return(data.frame(r, theta))
+}
+to_cart <- function(p) {
+  if (is.null(dim(p))) {
+    p <- array(p, dim = c(1,length(p)))
+  }
+  colnames(p) <- c("r", "theta")
+  x <- p$r * cos(p$theta)
+  y <- p$r * sin(p$theta)
+  return(data.frame(x, y))
+}
+translate <- function(p, p0) {
+  colnames(p) <- c("x", "y")
+  names(p0) <- c("x", "y")
+  p$x <- p$x - p0["x"]
+  p$y <- p$y - p0["y"]
+  return(p)
+}
+twist <- function(p, p0, AL, AR) {
+  p <- translate(p, p0)
+  pp <- to_polar(p)
+  pL <- data.frame(r = pp$r, theta = pp$theta + AL)
+  pR <- data.frame(r = pp$r, theta = pp$theta + AR)
+  pL <- to_cart(pL)
+  pR <- to_cart(pR)
+  max_right <- max(p$x)
+  max_left <- min(p$x)
+  mask_left <- p$x < 0
+  mask_right <- !mask_left
+  left_ratio <- p$x[mask_left] / max_left
+  right_ratio <- p$x[mask_right] / max_right
+  p$x[mask_left] <- p$x[mask_left] * (1 - left_ratio) + pL$x[mask_left] * left_ratio
+  p$y[mask_left] <- p$y[mask_left] * (1 - left_ratio) + pL$y[mask_left] * left_ratio
+  p$x[mask_right] <- p$x[mask_right] * (1 - right_ratio) + pR$x[mask_right] * right_ratio
+  p$y[mask_right] <- p$y[mask_right] * (1 - right_ratio) + pR$y[mask_right] * right_ratio
+  p <- translate(p, -p0)
+  return(p)
+}
+pinch <- function(p, p0, gammaL, gammaR) {
+  p <- translate(p, p0)
+  pp <- to_polar(p)
+  ppr2 <- pp$r^2
+  pL <- data.frame(r = sqrt(ppr2 * gammaL), theta = pp$theta)
+  pR <- data.frame(r = sqrt(ppr2 * gammaR), theta = pp$theta)
+  pL <- to_cart(pL)
+  pR <- to_cart(pR)
+  max_right <- max(p$x)
+  max_left <- min(p$x)
+  mask_left <- p$x < 0
+  mask_right <- !mask_left
+  left_ratio <- p$x[mask_left] / max_left
+  right_ratio <- p$x[mask_right] / max_right
+  p$x[mask_left] <- p$x[mask_left] * (1 - left_ratio) + pL$x[mask_left] * left_ratio
+  p$y[mask_left] <- p$y[mask_left] * (1 - left_ratio) + pL$y[mask_left] * left_ratio
+  p$x[mask_right] <- p$x[mask_right] * (1 - right_ratio) + pR$x[mask_right] * right_ratio
+  p$y[mask_right] <- p$y[mask_right] * (1 - right_ratio) + pR$y[mask_right] * right_ratio
+  p <- translate(p, -p0)
+  return(p)
+}
+
+
+
 plot_slice <- function(
     slicedata, 
+    pinchL,
+    pinchR,
+    twistL,
+    twistR,
     threeD = FALSE,
     slice_num = NULL
     ) {
@@ -189,9 +265,18 @@ plot_slice <- function(
       )
     } else {
       
+      # Find center 
+      center <- c(
+        min(slicedata_s$x) + (max(slicedata_s$x) - min(slicedata_s$x))/2, 
+        min(slicedata_s$y) + (max(slicedata_s$y) - min(slicedata_s$y))/2
+      )
+      
+      slicedata_s[,c("x", "y")] <- pinch(slicedata_s[,c("x", "y")], center, pinchL, pinchR)
+      slicedata_s[,c("x", "y")] <- twist(slicedata_s[,c("x", "y")], center, twistL, twistR)
+      
       # Plot background slice
       plot_title <- paste0("Slice ", slice_range[s], ", z = ", z_coord[s])
-      plot(slicedata_s$x, slicedata_s$y, col = "gray", pch = 19, cex = 0.5, main = plot_title)
+      plot(slicedata_s$x, slicedata_s$y, col = "gray", pch = 19, cex = 0.5, asp = 1, main = plot_title, ylim = c(0, 1000), xlim = c(0, 1200))
       
       # Grab z and set downsample size
       mask_z <- masks$AntPost == z_coord[s]
@@ -203,6 +288,7 @@ plot_slice <- function(
       for (i in seq_along(Layer_names)) {
         # Grab coordinates in this layer and z slice
         slidemask <- masks$Layer == Layer_names[i] & mask_z
+        if (sum(slidemask) == 0) next
         
         # Subset mask to slice
         leftright <- masks[slidemask, "LefRig"]
@@ -220,19 +306,16 @@ plot_slice <- function(
       }
       points(ds_array[,1], ds_array[,2], col = ds_array[,3], pch = 19, cex = 0.5)
       
-      # Find and plot center point 
-      center <- c(
-        min(slicedata_s$x) + (max(slicedata_s$x) - min(slicedata_s$x))/2, 
-        min(slicedata_s$y) + (max(slicedata_s$y) - min(slicedata_s$y))/2
-      )
-      points(center[1], center[2], col = "black", pch = 19, cex = 3)
+      # Plot center point 
+      names(center) <- c("x", "y")
+      points(center["x"], center["y"], col = "black", pch = 19, cex = 3)
       
       # Find normal of each slice mask
       # ... In 2D plot, x is LefRig, y is SupInf
       # ... make masks
       left_side <- masks[mask_z, "LefRig"] < center[1]
       layer1 <- masks[mask_z, "Layer"] == "L1"
-      layer6 <- masks[mask_z, "Layer"] == "L6b"
+      layer6 <- masks[mask_z, "Layer"] == "L6a"
       # ... find top and bottom points
       find_topbot <- function(this_side, this_layer) {
         SupInf_ <- c(masks$SupInf[mask_z])[this_side & this_layer] + superinf_adj
@@ -314,12 +397,34 @@ plot_slice <- function(
       lines(Lradius$x, Lradius$y, col = "black", lwd = 3)
       lines(Rradius$x, Rradius$y, col = "black", lwd = 3)
       
+      make_circle <- function(origin, r) {
+        names(origin) <- c("x", "y")
+        theta <- seq(0, 2*pi, length.out=100)
+        x <- origin["x"] + r * cos(theta)
+        y <- origin["y"] + r * sin(theta)
+        circ <- data.frame(x, y)
+      }
+      vec_dist <- function(p1, p2) {
+        names(p1) <- c("x", "y")
+        names(p2) <- c("x", "y")
+        dist <- sqrt((p1["x"] - p2["x"])^2 + (p1["y"] - p2["y"])^2)
+        return(dist)
+      }
+      # circ_Ltop <- make_circle(center, vec_dist(center, L1TB$Tp))
+      # circ_Rtop <- make_circle(center, vec_dist(center, R1TB$Tp))
+      # lines(circ_Ltop$x, circ_Ltop$y)
+      # lines(circ_Rtop$x, circ_Rtop$y)
+      
+      
+      
     }
     
   }
   
 }
-plot_slice(slice_data, slice_num = 35)
+plot_slice(slice_data, pinchL = 1, pinchR = 1, twistL = 0, twistR = 0, slice_num = 35)
+plot_slice(slice_data, pinchL = 0.95, pinchR = 1, twistL = 0, twistR = 0, slice_num = 35)
+plot_slice(slice_data, pinchL = 0.95, pinchR = 1, twistL = -0.25, twistR = 0, slice_num = 35)
 
 # our columnar axis is approx 1mm, these slices are 200um apart, should should be able to get 4 slices 
 # Need to estimate the SupInf coordinate of our horizontal slices!!!??
