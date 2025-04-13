@@ -6,3 +6,4 @@ src/*.so
 src/*.dll
 Read-and-delete-me
 .Rproj.user
+masks.csv

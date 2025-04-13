@@ -70,11 +70,13 @@ make_slice_data <- function(
     
     # Get cell locations and remove unlabeled cells
     cell_meta <- data.table::fread(data_path_cellmeta)
-    locatable_cells <- unique(cell_meta$cell_label)
-    data <- data[data$cell_id %in% locatable_cells, ]
+    data <- data[data$cell_id %in% cell_meta$cell_label, ]
     
     # Keep only genes of interest
     data <- data[data$trscrpt_gene_symb %in% gene.list, ]
+    
+    # Grab cluster ids 
+    data$cluster_id <- cell_meta$cluster_alias[match(data$cell_id, cell_meta$cell_label)]
     
     # Put spatial coordinates into data frame
     data <- merge(
@@ -86,45 +88,87 @@ make_slice_data <- function(
     )
     
     # Reorganize columns
-    data <- data[,c("trscrpt_ct", "trscrpt_gene_symb", "slice_num", "region", "x", "y", "z", "cell_id", "slice_id", "trscrpt_id", "trscrpt_gene_id")]
+    data <- data[,c("trscrpt_ct", "trscrpt_gene_symb", "slice_num", "region", "x", "y", "z", "cluster_id", "cell_id", "slice_id", "trscrpt_id", "trscrpt_gene_id")]
     
     # Return data 
     return(data)
     
   }
 
-slice_data_back <- make_slice_data(slice = 30)
-slice_data_mid1 <- make_slice_data(slice = 32)
-slice_data_mid2 <- make_slice_data(slice = 35)
-slice_data_mid3 <- make_slice_data(slice = 38)
-slice_data_front <- make_slice_data(slice = 40)
-
-# genes_as_int <- as.integer(factor(slice_data$trscrpt_gene_symb))
-# gene_colors <- rep("gray", nrow(slice_data)) 
-# gene_colors[genes_as_int == 1] <- "red"
-# gene_colors[genes_as_int == 2] <- "blue"
-#plot(jitter(slice_data$x), jitter(slice_data$y), col = gene_colors, pch = 19, cex = 0.5)
-
-# These dimensions go x, z, y? 
-source_python("Allen_CCF.py")
-masks <- generate_roi_masks()
-dim_names <- c("AntPost", "SupInf", "LefRig")
-for (m in 1:length(masks)) {
-  colnames(masks[[m]]) <- dim_names
+slice_data <- list()
+slice_range <- 30:40
+for (s in seq_along(slice_range)) {
+  cat("\nSlice data, slice", s)
+  slice_data[[s]] <- make_slice_data(slice = slice_range[s])
 }
 
-# our columnar axis is approx 1mm, these slices are 200um apart, should should be able to get 4 slices 
+# These dimensions go x, z, y? 
+make_masks <- FALSE 
+Layer_names <- c("L1", "L23", "L4", "L5", "L6a", "L6b")
+if (make_masks) {
+  source_python("Allen_CCF.py")
+  masks_list <- generate_roi_masks()
+  masks_list <- masks
+  dim_names <- c("AntPost", "SupInf", "LefRig", "Layer")
+  masks <- data.frame()
+  for (m in seq_along(masks_list)) {
+    masks_list[[m]] <- as.data.frame(masks_list[[m]])
+    masks_list[[m]]$Layer <- Layer_names[m]
+    colnames(masks_list[[m]]) <- dim_names
+    masks <- rbind(masks, masks_list[[m]])
+  }
+  rm(masks_list)
+  write.csv(masks, file = "masks.csv", row.names = FALSE)
+} else {
+  masks <- read.csv("masks.csv")
+}
 
-# slice_ROI_mask <- masks$ROI_mask_S1_L23[,2] == 416
-# slice_ROI_mask <- TRUE
-# ROI <- masks$ROI_mask_S1_L23[slice_ROI_mask, c(1,3)]
-# points(ROI[,2]/100, ROI[,1]/100, col = "black", pch = 19, cex = 0.5)
-
-library(rgl)
 mult <- 100
 xm <- 1320/mult
 ym <- 800/mult
 zm <- 1140/mult
+
+plot_slice <- function(slicedata) {
+  
+  # Find the z coordinates of these slices 
+  z_coord <- rep(0, length(slicedata))
+  
+  for (s in seq_along(slicedata)) {
+    
+    # Convert slice coordinates into CCF
+    slicedata[[s]]$x <- (zm - slicedata[[s]]$x) * mult
+    slicedata[[s]]$y <- (slicedata[[s]]$y) * mult
+    slicedata[[s]]$z <- (xm - slicedata[[s]]$z) * mult
+    
+    # Grab the z coordinate of the slice
+    z_coord[s] <- as.integer(slicedata[[s]]$z[1])
+    
+    # Plot background slice 
+    plot(slicedata[[s]]$x, slicedata[[s]]$y, col = "gray", pch = 19, cex = 0.5)
+    
+    mask_z <- masks$AntPost == z_coord[s]
+    for (i in seq_along(Layer_names)) {
+      # Grab coordinates in this layer and z slice
+      slidemask <- masks$Layer == Layer_names[i] & mask_z
+      # Plot
+      points(masks[slidemask, LefRig], masks[slidemask, SupInf] + 180, col = i, pch = 19, cex = 0.5)
+    }
+    
+    
+  }
+  
+}
+
+
+
+
+
+
+
+# our columnar axis is approx 1mm, these slices are 200um apart, should should be able to get 4 slices 
+# Need to estimate the SupInf coordinate of our horizontal slices!!!??
+
+library(rgl)
 plot3d(
   x = masks$ROI_mask_S1_L1[,1],
   y = masks$ROI_mask_S1_L1[,2] + 180,
@@ -132,6 +176,7 @@ plot3d(
   col = "gray",
   ylim = c(0, 1000), xlim = c(0, 1000), zlim = c(0, 1000),
 )
+
 plot3d(
   x = (xm - slice_data_back$z) * mult, 
   y = (slice_data_back$y) * mult,
@@ -173,4 +218,46 @@ plot3d(
   aspect = TRUE
 )
 
+sss <- 10
+
+plot3d(
+  x = (xm - slice_data_backS$z) * mult, 
+  y = (slice_data_backS$y) * mult,
+  z = (zm - slice_data_backS$x) * mult,
+  col = "black", size = sss,
+  add = TRUE,
+  aspect = TRUE
+)
+plot3d(
+  x = (xm - slice_data_mid1S$z) * mult, 
+  y = (slice_data_mid1S$y) * mult,
+  z = (zm - slice_data_mid1S$x) * mult,
+  col = "black", size = sss,
+  add = TRUE,
+  aspect = TRUE
+)
+plot3d(
+  x = (xm - slice_data_mid2S$z) * mult, 
+  y = (slice_data_mid2S$y) * mult,
+  z = (zm - slice_data_mid2S$x) * mult,
+  col = "black", size = sss,
+  add = TRUE,
+  aspect = TRUE
+)
+plot3d(
+  x = (xm - slice_data_mid3S$z) * mult, 
+  y = (slice_data_mid3S$y) * mult,
+  z = (zm - slice_data_mid3S$x) * mult,
+  col = "black", size = sss,
+  add = TRUE,
+  aspect = TRUE
+)
+plot3d(
+  x = (xm - slice_data_frontS$z) * mult, 
+  y = (slice_data_frontS$y) * mult,
+  z = (zm - slice_data_frontS$x) * mult,
+  col = "black", size = sss,
+  add = TRUE,
+  aspect = TRUE
+)
 
