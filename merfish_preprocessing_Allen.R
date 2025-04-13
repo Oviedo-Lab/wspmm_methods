@@ -157,24 +157,29 @@ translate <- function(p, p0) {
   p$y <- p$y - p0["y"]
   return(p)
 }
-twist <- function(p, p0, AL, AR) {
-  p <- translate(p, p0)
-  pp <- to_polar(p)
-  pL <- data.frame(r = pp$r, theta = pp$theta + AL)
-  pR <- data.frame(r = pp$r, theta = pp$theta + AR)
-  pL <- to_cart(pL)
-  pR <- to_cart(pR)
-  max_right <- max(p$x)
-  max_left <- min(p$x)
-  mask_left <- p$x < 0
-  mask_right <- !mask_left
-  left_ratio <- p$x[mask_left] / max_left
-  right_ratio <- p$x[mask_right] / max_right
-  p$x[mask_left] <- p$x[mask_left] * (1 - left_ratio) + pL$x[mask_left] * left_ratio
-  p$y[mask_left] <- p$y[mask_left] * (1 - left_ratio) + pL$y[mask_left] * left_ratio
-  p$x[mask_right] <- p$x[mask_right] * (1 - right_ratio) + pR$x[mask_right] * right_ratio
-  p$y[mask_right] <- p$y[mask_right] * (1 - right_ratio) + pR$y[mask_right] * right_ratio
-  p <- translate(p, -p0)
+twist <- function(p, p0L, p0R, AL, AR) {
+  pL <- translate(p, p0L)
+  pR <- translate(p, p0R)
+  pLp <- to_polar(pL)
+  pRp <- to_polar(pR)
+  rLratio <- pLp$r / max(pLp$r)
+  rRratio <- pRp$r / max(pRp$r)
+  pLr <- data.frame(r = pLp$r, theta = pLp$theta + AL*rLratio)
+  pRr <- data.frame(r = pRp$r, theta = pRp$theta + AR*rRratio)
+  pLr <- to_cart(pLr)
+  pRr <- to_cart(pRr)
+  max_right <- max(pR$x)
+  max_left <- min(pL$x)
+  mask_left <- pL$x < 0
+  mask_right <- pR$x >= 0
+  left_ratio <- pL$x[mask_left] / max_left
+  right_ratio <- pR$x[mask_right] / max_right
+  pL$x[mask_left] <- pL$x[mask_left] * (1 - left_ratio) + pLr$x[mask_left] * left_ratio
+  pL$y[mask_left] <- pL$y[mask_left] * (1 - left_ratio) + pLr$y[mask_left] * left_ratio
+  pR$x[mask_right] <- pR$x[mask_right] * (1 - right_ratio) + pRr$x[mask_right] * right_ratio
+  pR$y[mask_right] <- pR$y[mask_right] * (1 - right_ratio) + pRr$y[mask_right] * right_ratio
+  p[mask_left,] <- translate(pL, -p0L)[mask_left,]
+  p[mask_right,] <- translate(pR, -p0R)[mask_right,]
   return(p)
 }
 pinch <- function(p, p0, gammaL, gammaR) {
@@ -265,23 +270,35 @@ plot_slice <- function(
       )
     } else {
       
+      # Grab z and set downsample size
+      mask_z <- masks$AntPost == z_coord[s]
+      ds_size <- 1000 
+      superinf_adj <- 180
+      
       # Find center 
       center <- c(
         min(slicedata_s$x) + (max(slicedata_s$x) - min(slicedata_s$x))/2, 
         min(slicedata_s$y) + (max(slicedata_s$y) - min(slicedata_s$y))/2
       )
       
+      Lmask_mask <- masks$AntPost == z_coord[s] & masks$LefRig < center[1]
+      Rmask_mask <- masks$AntPost == z_coord[s] & masks$LefRig > center[1]
+      center_Lmask <- c(
+        min(masks$LefRig[Lmask_mask]) + (max(masks$LefRig[Lmask_mask]) - min(masks$LefRig[Lmask_mask]))/2, 
+        min(masks$SupInf[Lmask_mask]) + (max(masks$SupInf[Lmask_mask]) - min(masks$SupInf[Lmask_mask]))/2
+      )
+      center_Rmask <- c(
+        min(masks$LefRig[Rmask_mask]) + (max(masks$LefRig[Rmask_mask]) - min(masks$LefRig[Rmask_mask]))/2, 
+        min(masks$SupInf[Rmask_mask]) + (max(masks$SupInf[Rmask_mask]) - min(masks$SupInf[Rmask_mask]))/2
+      )
+      
+      
+      slicedata_s[,c("x", "y")] <- twist(slicedata_s[,c("x", "y")], center_Lmask, center_Rmask, twistL, twistR)
       slicedata_s[,c("x", "y")] <- pinch(slicedata_s[,c("x", "y")], center, pinchL, pinchR)
-      slicedata_s[,c("x", "y")] <- twist(slicedata_s[,c("x", "y")], center, twistL, twistR)
       
       # Plot background slice
       plot_title <- paste0("Slice ", slice_range[s], ", z = ", z_coord[s])
       plot(slicedata_s$x, slicedata_s$y, col = "gray", pch = 19, cex = 0.5, asp = 1, main = plot_title, ylim = c(0, 1000), xlim = c(0, 1200))
-      
-      # Grab z and set downsample size
-      mask_z <- masks$AntPost == z_coord[s]
-      ds_size <- 1000 
-      superinf_adj <- 180
       
       # Downsample mask
       ds_array <- array(0, dim = c(ds_size*length(Layer_names), 3))
@@ -423,8 +440,7 @@ plot_slice <- function(
   
 }
 plot_slice(slice_data, pinchL = 1, pinchR = 1, twistL = 0, twistR = 0, slice_num = 35)
-plot_slice(slice_data, pinchL = 0.95, pinchR = 1, twistL = 0, twistR = 0, slice_num = 35)
-plot_slice(slice_data, pinchL = 0.95, pinchR = 1, twistL = -0.25, twistR = 0, slice_num = 35)
+plot_slice(slice_data, pinchL = 0.7, pinchR = 1, twistL = 0.35, twistR = 0, slice_num = 35)
 
 # our columnar axis is approx 1mm, these slices are 200um apart, should should be able to get 4 slices 
 # Need to estimate the SupInf coordinate of our horizontal slices!!!??
