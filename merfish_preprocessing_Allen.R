@@ -123,73 +123,204 @@ if (make_masks) {
   masks <- read.csv("masks.csv")
 }
 
+library(rgl)
 mult <- 100
 xm <- 1320/mult
 ym <- 800/mult
 zm <- 1140/mult
 
-plot_slice <- function(slicedata) {
+plot_slice <- function(
+    slicedata, 
+    threeD = FALSE,
+    slice_num = NULL
+    ) {
+  
+  downsample_ratio <- 1/4
   
   # Find the z coordinates of these slices 
   z_coord <- rep(0, length(slicedata))
   
+  
+  if (threeD) {
+    these_rows <- sample(c(1:nrow(masks)), size = as.integer(nrow(masks)*downsample_ratio/2), replace = FALSE)
+    plot3d(
+      x = masks$AntPost[these_rows],
+      y = c(masks$SupInf + 180)[these_rows],
+      z = masks$LefRig[these_rows],
+      col = "steelblue",
+      ylim = c(0, 1000), xlim = c(0, 1000), zlim = c(0, 1000),
+    )
+  }
+  
   for (s in seq_along(slicedata)) {
     
-    # Convert slice coordinates into CCF
-    slicedata[[s]]$x <- (zm - slicedata[[s]]$x) * mult
-    slicedata[[s]]$y <- (slicedata[[s]]$y) * mult
-    slicedata[[s]]$z <- (xm - slicedata[[s]]$z) * mult
-    
-    # Grab the z coordinate of the slice
-    z_coord[s] <- as.integer(slicedata[[s]]$z[1])
-    
-    # Plot background slice 
-    plot(slicedata[[s]]$x, slicedata[[s]]$y, col = "gray", pch = 19, cex = 0.5)
-    
-    mask_z <- masks$AntPost == z_coord[s]
-    for (i in seq_along(Layer_names)) {
-      # Grab coordinates in this layer and z slice
-      slidemask <- masks$Layer == Layer_names[i] & mask_z
-      # Plot
-      points(masks[slidemask, "LefRig"], masks[slidemask, "SupInf"] + 180, col = i, pch = 19, cex = 0.5)
+    if (!is.null(slice_num)) {
+      if (slice_range[s] != slice_num) {
+        next
+      }
     }
     
+    cat("\nPlotting slice", slice_range[s])
+    
+    # Down-sample data
+    slicedata_s <- slicedata[[s]][
+      seq(
+        1, nrow(slicedata[[s]]), 
+        length.out = as.integer(nrow(slicedata[[s]])*downsample_ratio)
+        ), ]
+    
+    # Convert slice coordinates into CCF
+    slicedata_s$x <- (zm - slicedata_s$x) * mult
+    slicedata_s$y <- (slicedata_s$y) * mult
+    slicedata_s$z <- (xm - slicedata_s$z) * mult
+    
+    # Grab the z coordinate of the slice
+    z_coord[s] <- as.integer(slicedata_s$z[1])
+    
+    # Plot slice 
+    if (threeD) {
+      plot3d(
+        x = slicedata_s$z, 
+        y = slicedata_s$y,
+        z = slicedata_s$x,
+        col = "gray",
+        add = TRUE,
+        aspect = TRUE
+      )
+    } else {
+      
+      # Plot background slice
+      plot_title <- paste0("Slice ", slice_range[s], ", z = ", z_coord[s])
+      plot(slicedata_s$x, slicedata_s$y, col = "gray", pch = 19, cex = 0.5, main = plot_title)
+      
+      # Grab z and set downsample size
+      mask_z <- masks$AntPost == z_coord[s]
+      ds_size <- 1000 
+      superinf_adj <- 180
+      
+      # Downsample mask
+      ds_array <- array(0, dim = c(ds_size*length(Layer_names), 3))
+      for (i in seq_along(Layer_names)) {
+        # Grab coordinates in this layer and z slice
+        slidemask <- masks$Layer == Layer_names[i] & mask_z
+        
+        # Subset mask to slice
+        leftright <- masks[slidemask, "LefRig"]
+        superinf <- masks[slidemask, "SupInf"] + superinf_adj
+        
+        # Down-sample 
+        n_slidemask <- sum(slidemask)
+        these_rows <- sample(c(1:n_slidemask), size = ds_size, replace = n_slidemask < ds_size)
+        row_range <- ((i-1)*ds_size + 1):(i*ds_size)
+        
+        # Fill array
+        ds_array[row_range, 1] <- leftright[these_rows]
+        ds_array[row_range, 2] <- superinf[these_rows]
+        ds_array[row_range, 3] <- i + 1
+      }
+      points(ds_array[,1], ds_array[,2], col = ds_array[,3], pch = 19, cex = 0.5)
+      
+      # Find and plot center point 
+      center <- c(
+        min(slicedata_s$x) + (max(slicedata_s$x) - min(slicedata_s$x))/2, 
+        min(slicedata_s$y) + (max(slicedata_s$y) - min(slicedata_s$y))/2
+      )
+      points(center[1], center[2], col = "black", pch = 19, cex = 3)
+      
+      # Find normal of each slice mask
+      # ... In 2D plot, x is LefRig, y is SupInf
+      # ... make masks
+      left_side <- masks[mask_z, "LefRig"] < center[1]
+      layer1 <- masks[mask_z, "Layer"] == "L1"
+      layer6 <- masks[mask_z, "Layer"] == "L6b"
+      # ... find top and bottom points
+      find_topbot <- function(this_side, this_layer) {
+        SupInf_ <- c(masks$SupInf[mask_z])[this_side & this_layer] + superinf_adj
+        LefRig_ <- c(masks$LefRig[mask_z])[this_side & this_layer]
+        Top_idx <- which.max(SupInf_)
+        Top_ <- c(
+          LefRig_[Top_idx], 
+          SupInf_[Top_idx]
+        )
+        Bot_idx <- which.min(SupInf_)
+        Bot_ <- c(
+          LefRig_[Bot_idx], 
+          SupInf_[Bot_idx]
+        )
+        out <- cbind(Top_, Bot_)
+        colnames(out) <- c("Tp", "Bt")
+        rownames(out) <- c("x", "y")
+        out <- as.data.frame(out)
+        return(out)
+      }
+      L1TB <- find_topbot(left_side, layer1)
+      L6TB <- find_topbot(left_side, layer6)
+      R1TB <- find_topbot(!left_side, layer1)
+      R6TB <- find_topbot(!left_side, layer6)
+      
+      find_midpoint <- function(p1, p2) {
+        names(p1) <- c("x", "y") 
+        names(p2) <- c("x", "y")
+        points(p1["x"], p1["y"], col = "black", pch = 19, cex = 1.5)
+        points(p2["x"], p2["y"], col = "black", pch = 19, cex = 1.5)
+        x_ <- p1["x"] + (p2["x"] - p1["x"])/2 
+        y_ <- p1["y"] + (p2["y"] - p1["y"])/2
+        p <- c(x_, y_)
+        names(p) <- c("x", "y")
+        return(p)
+      }
+      L1mid <- find_midpoint(L1TB$Tp, L1TB$Bt)
+      L6mid <- find_midpoint(L6TB$Tp, L6TB$Bt)
+      R1mid <- find_midpoint(R1TB$Tp, R1TB$Bt)
+      R6mid <- find_midpoint(R6TB$Tp, R6TB$Bt)
+      points(L1mid["x"], L1mid["y"], col = "black", pch = 19, cex = 2)
+      points(L6mid["x"], L6mid["y"], col = "black", pch = 19, cex = 2)
+      points(R1mid["x"], R1mid["y"], col = "black", pch = 19, cex = 2)
+      points(R6mid["x"], R6mid["y"], col = "black", pch = 19, cex = 2)
+      
+      line_slopeInter <- function(origin, point) {
+        intercept <- (point["x"]*origin["y"] - point["y"]*origin["x"])/(point["x"] - origin["x"])
+        slope <- (point["y"] - intercept)/point["x"]
+        param <- c(slope, intercept)
+        names(param) <- c("slope", "intercept")
+        return(param)
+      }
+      
+      Lnorm_slopeInter <- line_slopeInter(L1mid, L6mid)
+      Rnorm_slopeInter <- line_slopeInter(R1mid, R6mid)
+      
+      Lradius_slopeInter <- line_slopeInter(L1mid, center)
+      Rradius_slopeInter <- line_slopeInter(R1mid, center)
+      
+      make_line <- function(slopeInter, x_range) {
+        slope <- slopeInter["slope"]
+        intercept <- slopeInter["intercept"]
+        y_range <- slope*x_range + intercept
+        line_ <- as.data.frame(cbind(x_range, y_range))
+        colnames(line_) <- c("x", "y")
+        return(line_)
+      }
+      
+      Lnorm <- make_line(Lnorm_slopeInter, 1:1000)
+      Rnorm <- make_line(Rnorm_slopeInter, 1:1000)
+      
+      Lradius <- make_line(Lradius_slopeInter, 1:1000)
+      Rradius <- make_line(Rradius_slopeInter, 1:1000)
+      
+      
+      lines(Lnorm$x, Lnorm$y, col = "black", lwd = 3)
+      lines(Rnorm$x, Rnorm$y, col = "black", lwd = 3)
+      
+      lines(Lradius$x, Lradius$y, col = "black", lwd = 3)
+      lines(Rradius$x, Rradius$y, col = "black", lwd = 3)
+      
+    }
     
   }
   
 }
-plot_slice(slice_data)
+plot_slice(slice_data, slice_num = 35)
 
 # our columnar axis is approx 1mm, these slices are 200um apart, should should be able to get 4 slices 
 # Need to estimate the SupInf coordinate of our horizontal slices!!!??
 
-library(rgl)
-plot_slice_3d <- function(slicedata) {
-  
-  plot3d(
-    x = masks$AntPost,
-    y = masks$SupInf + 180,
-    z = masks$LefRig,
-    col = "steelblue",
-    ylim = c(0, 1000), xlim = c(0, 1000), zlim = c(0, 1000),
-  )
-  for (s in seq_along(slicedata)) {
-    # Convert slice coordinates into CCF
-    slicedata[[s]]$x <- (zm - slicedata[[s]]$x) * mult
-    slicedata[[s]]$y <- (slicedata[[s]]$y) * mult
-    slicedata[[s]]$z <- (xm - slicedata[[s]]$z) * mult
-    
-    # Plot background slice 
-    plot3d(
-      x = slicedata[[s]]$z, 
-      y = slicedata[[s]]$y,
-      z = slicedata[[s]]$x,
-      col = "gray",
-      add = TRUE,
-      aspect = TRUE
-    )
-  }
-  
-  
-}
-plot_slice_3d(slice_data)
