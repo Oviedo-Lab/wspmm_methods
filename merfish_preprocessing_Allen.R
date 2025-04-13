@@ -151,113 +151,45 @@ plot_slice <- function(slicedata) {
       # Grab coordinates in this layer and z slice
       slidemask <- masks$Layer == Layer_names[i] & mask_z
       # Plot
-      points(masks[slidemask, LefRig], masks[slidemask, SupInf] + 180, col = i, pch = 19, cex = 0.5)
+      points(masks[slidemask, "LefRig"], masks[slidemask, "SupInf"] + 180, col = i, pch = 19, cex = 0.5)
     }
     
     
   }
   
 }
-
-
-
-
-
-
+plot_slice(slice_data)
 
 # our columnar axis is approx 1mm, these slices are 200um apart, should should be able to get 4 slices 
 # Need to estimate the SupInf coordinate of our horizontal slices!!!??
 
 library(rgl)
-plot3d(
-  x = masks$ROI_mask_S1_L1[,1],
-  y = masks$ROI_mask_S1_L1[,2] + 180,
-  z = masks$ROI_mask_S1_L1[,3],
-  col = "gray",
-  ylim = c(0, 1000), xlim = c(0, 1000), zlim = c(0, 1000),
-)
-
-plot3d(
-  x = (xm - slice_data_back$z) * mult, 
-  y = (slice_data_back$y) * mult,
-  z = (zm - slice_data_back$x) * mult,
-  col = "red",
-  add = TRUE,
-  aspect = TRUE
-)
-plot3d(
-  x = (xm - slice_data_mid1$z) * mult, 
-  y = (slice_data_mid1$y) * mult,
-  z = (zm - slice_data_mid1$x) * mult,
-  col = "blue4",
-  add = TRUE,
-  aspect = TRUE
-)
-plot3d(
-  x = (xm - slice_data_mid2$z) * mult, 
-  y = (slice_data_mid2$y) * mult,
-  z = (zm - slice_data_mid2$x) * mult,
-  col = "blue2",
-  add = TRUE,
-  aspect = TRUE
-)
-plot3d(
-  x = (xm - slice_data_mid3$z) * mult, 
-  y = (slice_data_mid3$y) * mult,
-  z = (zm - slice_data_mid3$x) * mult,
-  col = "blue",
-  add = TRUE,
-  aspect = TRUE
-)
-plot3d(
-  x = (xm - slice_data_front$z) * mult, 
-  y = (slice_data_front$y) * mult,
-  z = (zm - slice_data_front$x) * mult,
-  col = "green",
-  add = TRUE,
-  aspect = TRUE
-)
-
-sss <- 10
-
-plot3d(
-  x = (xm - slice_data_backS$z) * mult, 
-  y = (slice_data_backS$y) * mult,
-  z = (zm - slice_data_backS$x) * mult,
-  col = "black", size = sss,
-  add = TRUE,
-  aspect = TRUE
-)
-plot3d(
-  x = (xm - slice_data_mid1S$z) * mult, 
-  y = (slice_data_mid1S$y) * mult,
-  z = (zm - slice_data_mid1S$x) * mult,
-  col = "black", size = sss,
-  add = TRUE,
-  aspect = TRUE
-)
-plot3d(
-  x = (xm - slice_data_mid2S$z) * mult, 
-  y = (slice_data_mid2S$y) * mult,
-  z = (zm - slice_data_mid2S$x) * mult,
-  col = "black", size = sss,
-  add = TRUE,
-  aspect = TRUE
-)
-plot3d(
-  x = (xm - slice_data_mid3S$z) * mult, 
-  y = (slice_data_mid3S$y) * mult,
-  z = (zm - slice_data_mid3S$x) * mult,
-  col = "black", size = sss,
-  add = TRUE,
-  aspect = TRUE
-)
-plot3d(
-  x = (xm - slice_data_frontS$z) * mult, 
-  y = (slice_data_frontS$y) * mult,
-  z = (zm - slice_data_frontS$x) * mult,
-  col = "black", size = sss,
-  add = TRUE,
-  aspect = TRUE
-)
-
+plot_slice_3d <- function(slicedata) {
+  
+  plot3d(
+    x = masks$AntPost,
+    y = masks$SupInf + 180,
+    z = masks$LefRig,
+    col = "steelblue",
+    ylim = c(0, 1000), xlim = c(0, 1000), zlim = c(0, 1000),
+  )
+  for (s in seq_along(slicedata)) {
+    # Convert slice coordinates into CCF
+    slicedata[[s]]$x <- (zm - slicedata[[s]]$x) * mult
+    slicedata[[s]]$y <- (slicedata[[s]]$y) * mult
+    slicedata[[s]]$z <- (xm - slicedata[[s]]$z) * mult
+    
+    # Plot background slice 
+    plot3d(
+      x = slicedata[[s]]$z, 
+      y = slicedata[[s]]$y,
+      z = slicedata[[s]]$x,
+      col = "gray",
+      add = TRUE,
+      aspect = TRUE
+    )
+  }
+  
+  
+}
+plot_slice_3d(slice_data)
