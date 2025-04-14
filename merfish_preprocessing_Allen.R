@@ -467,6 +467,7 @@ process_slice <- function(
         
         # Extract layers from mask
         if (make_plots) ds_array <- array(0, dim = c(ds_size*length(Layer_names), 3))
+        cat("\nROI search,", ntrans, "transcripts: ")
         for (i in seq_along(Layer_names)) {
           
           # Grab coordinates in this layer and z slice
@@ -478,8 +479,12 @@ process_slice <- function(
           superinf <- masks[slidemask, "SupInf"] + superinf_adj
           
           # Identify transcripts in data falling near these points 
+          ntrans <- nrow(slicedata_s)
+          cat("\nLayer", Layer_names[i], " ")
           mask_df <- data.frame(x = leftright, y = superinf)
-          for (j in seq_along(1:nrow(slicedata_s))) {
+          tracker <- as.integer(seq(1, ntrans, length.out = 10))
+          for (j in seq_along(1:ntrans)) {
+            if (any(j == tracker)) cat("*")
             layer_distances[j, i] <- -min(vec_dist(slicedata_s[j, c("x", "y")], mask_df))
           }
           
