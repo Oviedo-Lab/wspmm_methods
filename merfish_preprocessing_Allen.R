@@ -25,7 +25,7 @@ data_path_cellmeta <- "/Users/michaelbarkasi/Library/CloudStorage/OneDrive-Washi
 # Helper function to get slice data
 make_slice_data <- function(
     slice = 21, 
-    gene.list = c("Bcl11b", "Rorb") 
+    gene.list = c("Bcl11b", "Rorb", "Gad2", "Foxb1", "Pvalb", "Slc38a1") 
   ) {
     
     # Load sparse-matrix data
@@ -78,10 +78,11 @@ make_slice_data <- function(
     data <- data[data$cell_id %in% cell_meta$cell_label, ]
     
     # Keep only genes of interest
-    ##data <- data[data$trscrpt_gene_symb %in% gene.list, ]
-    n_rows <- nrow(data)
-    test_rows <- sample(c(1:n_rows), size = as.integer(n_rows/10), replace = FALSE)
-    data <- data[test_rows, ]
+    data <- data[data$trscrpt_gene_symb %in% gene.list, ]
+    # ... random downsampling, for when doing registration
+    # n_rows <- nrow(data)
+    # test_rows <- sample(c(1:n_rows), size = as.integer(n_rows/10), replace = FALSE)
+    # data <- data[test_rows, ]
     
     # Grab cluster ids 
     data$cluster_id <- cell_meta$cluster_alias[match(data$cell_id, cell_meta$cell_label)]
@@ -108,7 +109,7 @@ slice_data <- list()
 slice_range <- c(30, 31, 33, 35, 36, 37, 38)
 # ... 30:40 cover S1, but throw out 32, 34, 39, 40 for bad quality
 for (s in seq_along(slice_range)) {
-  cat("\nSlice data, slice", s)
+  cat("\nSlice data, slice", slice_range[s])
   slice_data[[s]] <- make_slice_data(slice = slice_range[s])
 }
 names(slice_data) <- paste0("slice_", slice_range)
@@ -328,194 +329,196 @@ process_slice <- function(
     rotateR = 0,
     bendL = 0,
     bendR = 0,
-    make_plots = TRUE,
+    make_plots = FALSE,
     threeD = FALSE,
     slice_num = NULL
-    ) {
-  
-  # ... For registration, use "1/20" and randomly sample transcript rows for representative image of slice
-  downsample_ratio <- 1/10
-  
-  # Find the z coordinates of these slices 
-  z_coord <- rep(0, length(slicedata))
-  
-  # Initialize 3D plot with masks
-  if (!make_plots) threeD <- FALSE
-  if (threeD) {
-    these_rows <- sample(c(1:nrow(masks)), size = as.integer(nrow(masks)*downsample_ratio/2), replace = FALSE)
-    plot3d(
-      x = masks$AntPost[these_rows],
-      y = c(masks$SupInf + 180)[these_rows],
-      z = masks$LefRig[these_rows],
-      col = "steelblue",
-      ylim = c(0, 1000), xlim = c(0, 1000), zlim = c(0, 1000),
-    )
-  }
-  
-  # Process each coronal slice
-  for (s in seq_along(slicedata)) {
+  ) {
     
-    # ... skip if not indicated
-    if (!is.null(slice_num)) {
-      if (slice_range[s] != slice_num) { next}
-    }
+    # ... For registration, use "1/20" and randomly sample transcript rows for representative image of slice
+    downsample_ratio <- 1/10
     
-    cat("\nPlotting slice", slice_range[s])
+    # Find the z coordinates of these slices 
+    z_coord <- rep(0, length(slicedata))
     
-    # Down-sample data
-    if (make_plots) {
-      slicedata_s <- slicedata[[s]][
-        seq(
-          1, nrow(slicedata[[s]]), 
-          length.out = as.integer(nrow(slicedata[[s]])*downsample_ratio)
-        ), ]
-    } else {
-      slicedata_s <- slicedata[[s]]
-    }
-    
-    # Convert slice coordinates into CCF
-    mult <- 100
-    xm <- 1320/mult
-    ym <- 800/mult
-    zm <- 1140/mult
-    slicedata_s$x <- (zm - slicedata_s$x) * mult
-    slicedata_s$y <- (slicedata_s$y) * mult
-    slicedata_s$z <- (xm - slicedata_s$z) * mult
-    
-    # Grab the z coordinate of the slice
-    z_coord[s] <- as.integer(slicedata_s$z[1])
-    
-    # Plot slice 
+    # Initialize 3D plot with masks
+    if (!make_plots) threeD <- FALSE
     if (threeD) {
+      these_rows <- sample(c(1:nrow(masks)), size = as.integer(nrow(masks)*downsample_ratio/2), replace = FALSE)
       plot3d(
-        x = slicedata_s$z, 
-        y = slicedata_s$y,
-        z = slicedata_s$x,
-        col = "gray",
-        add = TRUE,
-        aspect = TRUE
+        x = masks$AntPost[these_rows],
+        y = c(masks$SupInf + 180)[these_rows],
+        z = masks$LefRig[these_rows],
+        col = "steelblue",
+        ylim = c(0, 1000), xlim = c(0, 1000), zlim = c(0, 1000),
       )
-    } else {
+    }
+    
+    # Process each coronal slice
+    for (s in seq_along(slicedata)) {
       
-      # Grab z and set down-sample size
-      mask_z <- masks$AntPost == z_coord[s]
-      ds_size <- 1000 
-      superinf_adj <- 180
-      
-      # Find center of mass of whole slice and label hemispherse
-      center <- c(
-        min(slicedata_s$x) + (max(slicedata_s$x) - min(slicedata_s$x))/2, 
-        min(slicedata_s$y) + (max(slicedata_s$y) - min(slicedata_s$y))/2
-      )
-      left_rows <- slicedata_s$x < center[1]
-      slicedata_s[left_rows, "hemi"] <- "left"
-      slicedata_s[!left_rows, "hemi"] <- "right"
-      
-      # Find the center of mass of the mask in each hemisphere
-      Lmask_mask <- masks$AntPost == z_coord[s] & masks$LefRig < center[1]
-      Rmask_mask <- masks$AntPost == z_coord[s] & masks$LefRig > center[1]
-      center_Lmask <- c(
-        min(masks$LefRig[Lmask_mask]) + (max(masks$LefRig[Lmask_mask]) - min(masks$LefRig[Lmask_mask]))/2, 
-        min(masks$SupInf[Lmask_mask]) + (max(masks$SupInf[Lmask_mask]) - min(masks$SupInf[Lmask_mask]))/2
-      )
-      center_Rmask <- c(
-        min(masks$LefRig[Rmask_mask]) + (max(masks$LefRig[Rmask_mask]) - min(masks$LefRig[Rmask_mask]))/2, 
-        min(masks$SupInf[Rmask_mask]) + (max(masks$SupInf[Rmask_mask]) - min(masks$SupInf[Rmask_mask]))/2
-      )
-      
-      # Find slopes of Left and Right regions of interest
-      left_side <- masks[mask_z, "LefRig"] < center[1]
-      layer1 <- masks[mask_z, "Layer"] == "L1"
-      layer6 <- masks[mask_z, "Layer"] == "L6a"
-      L1TB <- find_topbot(left_side, layer1, mask_z, superinf_adj)
-      L6TB <- find_topbot(left_side, layer6, mask_z, superinf_adj)
-      R1TB <- find_topbot(!left_side, layer1, mask_z, superinf_adj)
-      R6TB <- find_topbot(!left_side, layer6, mask_z, superinf_adj)
-      L1mid <- find_midpoint(L1TB$Tp, L1TB$Bt)
-      L6mid <- find_midpoint(L6TB$Tp, L6TB$Bt)
-      R1mid <- find_midpoint(R1TB$Tp, R1TB$Bt)
-      R6mid <- find_midpoint(R6TB$Tp, R6TB$Bt)
-      Lnorm_slopeInter <- line_slopeInter(L1mid, L6mid)
-      Rnorm_slopeInter <- line_slopeInter(R1mid, R6mid)
-      Lslope <- Lnorm_slopeInter["slope"]
-      Rslope <- Rnorm_slopeInter["slope"]
-      
-      # Coordinate Transforms for alignment with CCF ("registration")
-      slicedata_s[,c("x", "y")] <- translate(slicedata_s[,c("x", "y")], transL, transR, center)
-      slicedata_s[,c("x", "y")] <- rotate(slicedata_s[,c("x", "y")], center, center_Lmask, center_Rmask, rotateL, rotateR)
-      slicedata_s[,c("x", "y")] <- bend(slicedata_s[,c("x", "y")], center, center_Lmask, center_Rmask, Lslope, Rslope, bendL, bendR)
-      slicedata_s[,c("x", "y")] <- pinch(slicedata_s[,c("x", "y")], center, pinchL, pinchR)
-      
-      # Plot background slice
-      if (make_plots) {
-        plot_title <- paste0("Slice ", slice_range[s], ", z = ", z_coord[s])
-        plot(slicedata_s$x, slicedata_s$y, col = "gray", pch = 19, cex = 0.5, asp = 1, main = plot_title, ylim = c(0, 1000), xlim = c(0, 1200))
+      # ... skip if not indicated
+      if (!is.null(slice_num)) {
+        if (slice_range[s] != slice_num) { next}
       }
       
-      # Find candidate points for annotation
-      leftright <- masks[mask_z, "LefRig"]
-      superinf <- masks[mask_z, "SupInf"] + superinf_adj
-      min_x <- min(leftright)
-      max_x <- max(leftright)
-      min_y <- min(superinf)
-      max_y <- max(superinf)
-      candidate_rows <- slicedata_s$x < max_x & slicedata_s$x > min_x & slicedata_s$y < max_y & slicedata_s$y > min_y
-      slicedata_s <- slicedata_s[candidate_rows, ]
-      layer_distances <- array(NA, dim = c(nrow(slicedata_s), length(Layer_names)))
+      if (make_plots) cat("\nPlotting slice", slice_range[s])
+      else cat("\nProcessing slice", slice_range[s])
       
-      # Extract layers from mask
-      if (make_plots) ds_array <- array(0, dim = c(ds_size*length(Layer_names), 3))
-      for (i in seq_along(Layer_names)) {
-        
-        # Grab coordinates in this layer and z slice
-        slidemask <- masks$Layer == Layer_names[i] & mask_z
-        if (sum(slidemask) == 0) next
-        
-        # Subset mask to slice
-        leftright <- masks[slidemask, "LefRig"]
-        superinf <- masks[slidemask, "SupInf"] + superinf_adj
-        
-        # Identify transcripts in data falling near these points 
-        for (j in seq_along(1:nrow(slicedata_s))) {
-          layer_distances[j, i] <- -min(vec_dist(slicedata_s[j, c("x", "y")], cbind(leftright, superinf)))
-        }
-        
-        # Down-sample 
-        n_slidemask <- sum(slidemask)
-        these_rows <- sample(c(1:n_slidemask), size = ds_size, replace = n_slidemask < ds_size)
-        row_range <- ((i-1)*ds_size + 1):(i*ds_size)
-        
-        # Fill array
-        if (make_plots) {
-          ds_array[row_range, 1] <- leftright[these_rows]
-          ds_array[row_range, 2] <- superinf[these_rows]
-          ds_array[row_range, 3] <- i + 1
-        }
-        
-      }
-      
-      # Extract layer annotations 
-      slicedata_s$layer <- Layer_names[max.col(layer_distances)]
-      
-      # Make plots or save data
+      # Down-sample data
       if (make_plots) {
-        points(ds_array[,1], ds_array[,2], col = ds_array[,3], pch = 19, cex = 0.5)
-        # Plot center point 
-        names(center) <- c("x", "y")
-        points(center["x"], center["y"], col = "black", pch = 19, cex = 3)
+        slicedata_s <- slicedata[[s]][
+          seq(
+            1, nrow(slicedata[[s]]), 
+            length.out = as.integer(nrow(slicedata[[s]])*downsample_ratio)
+          ), ]
       } else {
-        slicedata[[s]] <- slicedata_s
+        slicedata_s <- slicedata[[s]]
+      }
+      
+      # Convert slice coordinates into CCF
+      mult <- 100
+      xm <- 1320/mult
+      ym <- 800/mult
+      zm <- 1140/mult
+      slicedata_s$x <- (zm - slicedata_s$x) * mult
+      slicedata_s$y <- (slicedata_s$y) * mult
+      slicedata_s$z <- (xm - slicedata_s$z) * mult
+      
+      # Grab the z coordinate of the slice
+      z_coord[s] <- as.integer(slicedata_s$z[1])
+      
+      # Plot slice 
+      if (threeD) {
+        plot3d(
+          x = slicedata_s$z, 
+          y = slicedata_s$y,
+          z = slicedata_s$x,
+          col = "gray",
+          add = TRUE,
+          aspect = TRUE
+        )
+      } else {
+        
+        # Grab z and set down-sample size
+        mask_z <- masks$AntPost == z_coord[s]
+        ds_size <- 1000 
+        superinf_adj <- 180
+        
+        # Find center of mass of whole slice and label hemispherse
+        center <- c(
+          min(slicedata_s$x) + (max(slicedata_s$x) - min(slicedata_s$x))/2, 
+          min(slicedata_s$y) + (max(slicedata_s$y) - min(slicedata_s$y))/2
+        )
+        left_rows <- slicedata_s$x < center[1]
+        slicedata_s[left_rows, "hemi"] <- "left"
+        slicedata_s[!left_rows, "hemi"] <- "right"
+        
+        # Find the center of mass of the mask in each hemisphere
+        Lmask_mask <- masks$AntPost == z_coord[s] & masks$LefRig < center[1]
+        Rmask_mask <- masks$AntPost == z_coord[s] & masks$LefRig > center[1]
+        center_Lmask <- c(
+          min(masks$LefRig[Lmask_mask]) + (max(masks$LefRig[Lmask_mask]) - min(masks$LefRig[Lmask_mask]))/2, 
+          min(masks$SupInf[Lmask_mask]) + (max(masks$SupInf[Lmask_mask]) - min(masks$SupInf[Lmask_mask]))/2
+        )
+        center_Rmask <- c(
+          min(masks$LefRig[Rmask_mask]) + (max(masks$LefRig[Rmask_mask]) - min(masks$LefRig[Rmask_mask]))/2, 
+          min(masks$SupInf[Rmask_mask]) + (max(masks$SupInf[Rmask_mask]) - min(masks$SupInf[Rmask_mask]))/2
+        )
+        
+        # Find slopes of Left and Right regions of interest
+        left_side <- masks[mask_z, "LefRig"] < center[1]
+        layer1 <- masks[mask_z, "Layer"] == "L1"
+        layer6 <- masks[mask_z, "Layer"] == "L6a"
+        L1TB <- find_topbot(left_side, layer1, mask_z, superinf_adj)
+        L6TB <- find_topbot(left_side, layer6, mask_z, superinf_adj)
+        R1TB <- find_topbot(!left_side, layer1, mask_z, superinf_adj)
+        R6TB <- find_topbot(!left_side, layer6, mask_z, superinf_adj)
+        L1mid <- find_midpoint(L1TB$Tp, L1TB$Bt)
+        L6mid <- find_midpoint(L6TB$Tp, L6TB$Bt)
+        R1mid <- find_midpoint(R1TB$Tp, R1TB$Bt)
+        R6mid <- find_midpoint(R6TB$Tp, R6TB$Bt)
+        Lnorm_slopeInter <- line_slopeInter(L1mid, L6mid)
+        Rnorm_slopeInter <- line_slopeInter(R1mid, R6mid)
+        Lslope <- Lnorm_slopeInter["slope"]
+        Rslope <- Rnorm_slopeInter["slope"]
+        
+        # Coordinate Transforms for alignment with CCF ("registration")
+        slicedata_s[,c("x", "y")] <- translate(slicedata_s[,c("x", "y")], transL, transR, center)
+        slicedata_s[,c("x", "y")] <- rotate(slicedata_s[,c("x", "y")], center, center_Lmask, center_Rmask, rotateL, rotateR)
+        slicedata_s[,c("x", "y")] <- bend(slicedata_s[,c("x", "y")], center, center_Lmask, center_Rmask, Lslope, Rslope, bendL, bendR)
+        slicedata_s[,c("x", "y")] <- pinch(slicedata_s[,c("x", "y")], center, pinchL, pinchR)
+        
+        # Plot background slice
+        if (make_plots) {
+          plot_title <- paste0("Slice ", slice_range[s], ", z = ", z_coord[s])
+          plot(slicedata_s$x, slicedata_s$y, col = "gray", pch = 19, cex = 0.5, asp = 1, main = plot_title, ylim = c(0, 1000), xlim = c(0, 1200))
+        }
+        
+        # Find candidate points for annotation
+        leftright <- masks[mask_z, "LefRig"]
+        superinf <- masks[mask_z, "SupInf"] + superinf_adj
+        min_x <- min(leftright)
+        max_x <- max(leftright)
+        min_y <- min(superinf)
+        max_y <- max(superinf)
+        candidate_rows <- slicedata_s$x < max_x & slicedata_s$x > min_x & slicedata_s$y < max_y & slicedata_s$y > min_y
+        slicedata_s <- slicedata_s[candidate_rows, ]
+        layer_distances <- array(NA, dim = c(nrow(slicedata_s), length(Layer_names)))
+        
+        # Extract layers from mask
+        if (make_plots) ds_array <- array(0, dim = c(ds_size*length(Layer_names), 3))
+        for (i in seq_along(Layer_names)) {
+          
+          # Grab coordinates in this layer and z slice
+          slidemask <- masks$Layer == Layer_names[i] & mask_z
+          if (sum(slidemask) == 0) next
+          
+          # Subset mask to slice
+          leftright <- masks[slidemask, "LefRig"]
+          superinf <- masks[slidemask, "SupInf"] + superinf_adj
+          
+          # Identify transcripts in data falling near these points 
+          mask_df <- data.frame(x = leftright, y = superinf)
+          for (j in seq_along(1:nrow(slicedata_s))) {
+            layer_distances[j, i] <- -min(vec_dist(slicedata_s[j, c("x", "y")], mask_df))
+          }
+          
+          # Down-sample 
+          n_slidemask <- sum(slidemask)
+          these_rows <- sample(c(1:n_slidemask), size = ds_size, replace = n_slidemask < ds_size)
+          row_range <- ((i-1)*ds_size + 1):(i*ds_size)
+          
+          # Fill array
+          if (make_plots) {
+            ds_array[row_range, 1] <- leftright[these_rows]
+            ds_array[row_range, 2] <- superinf[these_rows]
+            ds_array[row_range, 3] <- i + 1
+          }
+          
+        }
+        
+        # Extract layer annotations 
+        slicedata_s$layer <- Layer_names[max.col(layer_distances)]
+        
+        # Make plots or save data
+        if (make_plots) {
+          points(ds_array[,1], ds_array[,2], col = ds_array[,3], pch = 19, cex = 0.5)
+          # Plot center point 
+          names(center) <- c("x", "y")
+          points(center["x"], center["y"], col = "black", pch = 19, cex = 3)
+        } else {
+          slicedata[[s]] <- slicedata_s
+        }
+        
       }
       
     }
     
+    if (!make_plots) {
+      return(slicedata)
+    }
+    
   }
-  
-  if (!make_plots) {
-    return(slicedata)
-  }
-  
-}
 
 # ... throw out, 32, 34, 39, 40
 
