@@ -649,9 +649,8 @@ for (m in unique(S1_allen_slice_data_annotated$mouse)) {
     separate_hemi = TRUE)
   }
 
-debug <- S1_allen_slice_data_annotated$mouse == 1
 count_data <- list(
-  count_data = S1_allen_slice_data_annotated[debug, ],
+  count_data = S1_allen_slice_data_annotated,
   slice_plots = slice_plots
 )
 

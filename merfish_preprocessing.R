@@ -562,24 +562,24 @@ coordinate_transform <- function(
       
       # Fit curve
       model <- nls(
-        y_coord ~ -c * (x_coord - a)^4 - d * (x_coord - a)^2 + b,
+        y_coord ~ -c * (x_coord - a)^2 + b,
         data = data_sampled,
-        start = list(a = 0, b = 1, c = 0.001, d = 0.1)
+        start = list(a = 0, b = 1, c = 0.001)
       )
       
       # Get coefficients
       pars <- model$m$getPars()
       
       # Define function to flatten data 
-      uw <- function(x, b, a, c, d) {
-        c*(x - a)^4 + d*(x - a)^2 + b
+      uw <- function(x, b, a, c) {
+        c*(x - a)^2 + b
       }
       
       # Flatten this hemisphere 
       data[mask_hemisphere, y_coord] <- uw(
         x = data[mask_hemisphere, x_coord], 
         b = data[mask_hemisphere, y_coord], 
-        pars["a"], pars["c"], pars["d"]
+        pars["a"], pars["c"]
         )
       
       return(data[mask_hemisphere,])
