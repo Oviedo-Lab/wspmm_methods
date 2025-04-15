@@ -1,0 +1,50 @@
+
+
+Analysis of MERFISH data by Warped Sigmoid, Poisson-Process Mixed-Effects Model (WSPmm)
+: 
+
+Loading helper function definitions for preprocessing MERFISH data... 
+Setting flag to remove Layer 1 from the analysis... 
+Slice data, slice 30
+Slice data, slice 31
+Slice data, slice 33
+Slice data, slice 35
+Slice data, slice 36
+Slice data, slice 37
+Slice data, slice 38
+Processing slice 30
+ROI search, 166300 transcripts: 
+Layer L1  **********
+Layer L23  **********
+Layer L4  **********
+Layer L5  **********
+Layer L6a  **********
+Layer L6b  **********
+Processing slice 31
+ROI search, 284582 transcripts: 
+Layer L1  **********
+Layer L23  **********
+Layer L4  **********
+Layer L5  **********
+Layer L6a  **********
+Layer L6b  **********
+Processing slice 33
+ROI search, 225667 transcripts: 
+Layer L1  **********
+Layer L23  **********
+Layer L4  **********
+Layer L5  **********
+Layer L6a  **********
+Layer L6b  **********
+Processing slice 35
+ROI search, 279706 transcripts: 
+Layer L1  **********
+Layer L23  **********
+Layer L4  **********
+Layer L5  **********
+Layer L6a  **********
+Layer L6b  **********
+Processing slice 36
+ROI search, 295026 transcripts: 
+Layer L1  **********
+Layer L23  *

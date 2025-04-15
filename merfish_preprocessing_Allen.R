@@ -1,36 +1,42 @@
 
-# Load library to source Python code snippets
-if ( !is.element("package:reticulate", search()) ) { # only try to load if not already loaded
-  if(!require(reticulate)) {                         # if not installed, install
-    install.packages("reticulate")                   # install if needed
-    library(reticulate)                              # load
+
+make_ROImasks <- FALSE 
+process_slices <- TRUE
+
+if (make_ROImasks) {
+  
+  # Orientation of reference-atlas space: 
+  # ... * (z) Anterior -> Posterior * (y) Superior -> Inferior * (x) Left -> Right
+  # ... The Left -> Right on Low -> High X matches my orientation for laminar axis
+  
+  # Load library to source Python code snippets
+  if ( !is.element("package:reticulate", search()) ) { # only try to load if not already loaded
+    if(!require(reticulate)) {                         # if not installed, install
+      install.packages("reticulate")                   # install if needed
+      library(reticulate)                              # load
+    }
   }
+  
+  # What version of python are we using? (For grabbing ROI masks)
+  # ... use_python("/usr/local/bin/python3.12")
+  use_virtualenv("~/envs/allen-env", required = TRUE)
+  
 }
 
-# Load rgl for 3D plotting
-library(rgl)
-
-# What version of python are we using? (For grabbing ROI masks)
-# ... use_python("/usr/local/bin/python3.12")
-use_virtualenv("~/envs/allen-env", required = TRUE)
-
-# Orientation of reference-atlas space: 
-# ... * (z) Anterior -> Posterior * (y) Superior -> Inferior * (x) Left -> Right
-# ... The Left -> Right on Low -> High X matches my orientation for laminar axis
-
 # Set paths to files
-data_path <- "/Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/MERFISH/development_work/data/Allen_data/Allen_data.csv"
-data_path_h5 <- "/Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/MERFISH/development_work/data/Allen_data/C57BL6J-638850-raw.h5ad"
-data_path_cellmeta <- "/Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/MERFISH/development_work/data/Allen_data/cell_metadata.csv"
+data_path_allen_h5 <- "/Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/MERFISH/development_work/data/Allen_data/C57BL6J-638850-raw.h5ad"
+data_path_allen_cellmeta <- "/Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/MERFISH/development_work/data/Allen_data/cell_metadata.csv"
 
 # Helper function to get slice data
-make_slice_data <- function(
-    slice = 21, 
-    gene.list = c("Bcl11b", "Rorb", "Gad2", "Foxb1", "Pvalb", "Slc38a1") 
+parse_hdf5_allen <- function(
+    slice,
+    data_path_h5,
+    data_path_cellmeta,
+    gene.list = c("Rorb", "Pvalb", "Gad2", "Vip", "Grik3", "Grm1", "Slc32a1", "Sox6", "Reln", "Npsr1", "Dscaml1", "Calb1") 
   ) {
     
     # Load sparse-matrix data
-    file <- hdf5r::H5File$new(data_path_h5, mode = "r")
+    file <- hdf5r::H5File$new(data_path_allen_h5, mode = "r")
     #list.groups(file)
     #list.datasets(file)
     
@@ -75,9 +81,9 @@ make_slice_data <- function(
     data <- data[!blank_mask, ]
     
     # Get cell locations and remove unlabeled cells
-    cell_meta <- data.table::fread(data_path_cellmeta)
+    cell_meta <- data.table::fread(data_path_allen_cellmeta)
     data <- data[data$cell_id %in% cell_meta$cell_label, ]
-    
+    allen_genes <<- data$trscrpt_gene_symb
     # Keep only genes of interest
     data <- data[data$trscrpt_gene_symb %in% gene.list, ]
     # ... random downsampling, for when doing registration
@@ -106,34 +112,39 @@ make_slice_data <- function(
   }
 
 # Make slice data
-slice_data <- list()
-slice_range <- c(30, 31, 33, 35, 36, 37, 38)
-# ... 30:40 cover S1, but throw out 32, 34, 39, 40 for bad quality
-for (s in seq_along(slice_range)) {
-  cat("\nSlice data, slice", slice_range[s])
-  slice_data[[s]] <- make_slice_data(slice = slice_range[s])
-}
-names(slice_data) <- paste0("slice_", slice_range)
 
-# These dimensions go x, z, y? 
-make_masks <- FALSE 
-Layer_names <- c("L1", "L23", "L4", "L5", "L6a", "L6b")
-if (make_masks) {
-  source_python("Allen_CCF.py")
-  masks_list <- generate_roi_masks()
-  masks_list <- masks
-  dim_names <- c("AntPost", "SupInf", "LefRig", "Layer")
-  masks <- data.frame()
-  for (m in seq_along(masks_list)) {
-    masks_list[[m]] <- as.data.frame(masks_list[[m]])
-    masks_list[[m]]$Layer <- Layer_names[m]
-    colnames(masks_list[[m]]) <- dim_names
-    masks <- rbind(masks, masks_list[[m]])
+make_count_data_allen <- function(
+    slice_range,
+    data_path_h5,
+    data_path_cellmeta
+  ) {
+    slice_data <- list()
+    for (s in seq_along(slice_range)) {
+      cat("\nSlice data, slice", slice_range[s])
+      slice_data[[s]] <- parse_hdf5_allen(slice = slice_range[s], data_path_h5, data_path_cellmeta)
+    }
+    names(slice_data) <- paste0("slice_", slice_range)
+    return(slice_data)
   }
-  rm(masks_list)
-  write.csv(masks, file = "masks.csv", row.names = FALSE)
+
+
+# Make ROI masks
+Layer_names <- c("L1", "L23", "L4", "L5", "L6a", "L6b")
+if (make_ROImasks) {
+  source_python("Allen_CCF.py")
+  ROImasks_list <- generate_roi_masks()
+  dim_names <- c("AntPost", "SupInf", "LefRig", "Layer")
+  ROImasks <- data.frame()
+  for (m in seq_along(ROImasks_list)) {
+    ROImasks_list[[m]] <- as.data.frame(ROImasks_list[[m]])
+    ROImasks_list[[m]]$Layer <- Layer_names[m]
+    colnames(ROImasks_list[[m]]) <- dim_names
+    ROImasks <- rbind(ROImasks, ROImasks_list[[m]])
+  }
+  rm(ROImasks_list)
+  write.csv(ROImasks, file = "ROImasks.csv", row.names = FALSE)
 } else {
-  masks <- read.csv("masks.csv")
+  ROImasks <- read.csv("ROImasks.csv")
 }
 
 # Define helper functions
@@ -165,8 +176,8 @@ find_midpoint <- function(p1, p2) {
   return(p)
 }
 find_topbot <- function(this_side, this_layer, base_mask, superinf_adj) {
-  SupInf_ <- c(masks$SupInf[base_mask])[this_side & this_layer] + superinf_adj
-  LefRig_ <- c(masks$LefRig[base_mask])[this_side & this_layer]
+  SupInf_ <- c(ROImasks$SupInf[base_mask])[this_side & this_layer] + superinf_adj
+  LefRig_ <- c(ROImasks$LefRig[base_mask])[this_side & this_layer]
   Top_idx <- which.max(SupInf_)
   Top_ <- c(
     LefRig_[Top_idx], 
@@ -321,8 +332,9 @@ pinch <- function(p, p0, gammaL, gammaR) {
 }
 
 # Define function to transform and plot slices
-process_slice <- function(
+process_slice_allen <- function(
     slicedata, 
+    slice_range,
     transL = c(0, 0),
     transR = c(0, 0),
     pinchL = 1,
@@ -345,11 +357,11 @@ process_slice <- function(
     # Initialize 3D plot with masks
     if (!make_plots) threeD <- FALSE
     if (threeD) {
-      these_rows <- sample(c(1:nrow(masks)), size = as.integer(nrow(masks)*downsample_ratio/2), replace = FALSE)
-      plot3d(
-        x = masks$AntPost[these_rows],
-        y = c(masks$SupInf + 180)[these_rows],
-        z = masks$LefRig[these_rows],
+      these_rows <- sample(c(1:nrow(ROImasks)), size = as.integer(nrow(ROImasks)*downsample_ratio/2), replace = FALSE)
+      rgl::plot3d(
+        x = ROImasks$AntPost[these_rows],
+        y = c(ROImasks$SupInf + 180)[these_rows],
+        z = ROImasks$LefRig[these_rows],
         col = "steelblue",
         ylim = c(0, 1000), xlim = c(0, 1000), zlim = c(0, 1000),
       )
@@ -391,7 +403,7 @@ process_slice <- function(
       
       # Plot slice 
       if (threeD) {
-        plot3d(
+        rgl::plot3d(
           x = slicedata_s$z, 
           y = slicedata_s$y,
           z = slicedata_s$x,
@@ -402,7 +414,7 @@ process_slice <- function(
       } else {
         
         # Grab z and set down-sample size
-        mask_z <- masks$AntPost == z_coord[s]
+        mask_z <- ROImasks$AntPost == z_coord[s]
         ds_size <- 1000 
         superinf_adj <- 180
         
@@ -416,21 +428,21 @@ process_slice <- function(
         slicedata_s[!left_rows, "hemi"] <- "right"
         
         # Find the center of mass of the mask in each hemisphere
-        Lmask_mask <- masks$AntPost == z_coord[s] & masks$LefRig < center[1]
-        Rmask_mask <- masks$AntPost == z_coord[s] & masks$LefRig > center[1]
+        Lmask_mask <- ROImasks$AntPost == z_coord[s] & ROImasks$LefRig < center[1]
+        Rmask_mask <- ROImasks$AntPost == z_coord[s] & ROImasks$LefRig > center[1]
         center_Lmask <- c(
-          min(masks$LefRig[Lmask_mask]) + (max(masks$LefRig[Lmask_mask]) - min(masks$LefRig[Lmask_mask]))/2, 
-          min(masks$SupInf[Lmask_mask]) + (max(masks$SupInf[Lmask_mask]) - min(masks$SupInf[Lmask_mask]))/2
+          min(ROImasks$LefRig[Lmask_mask]) + (max(ROImasks$LefRig[Lmask_mask]) - min(ROImasks$LefRig[Lmask_mask]))/2, 
+          min(ROImasks$SupInf[Lmask_mask]) + (max(ROImasks$SupInf[Lmask_mask]) - min(ROImasks$SupInf[Lmask_mask]))/2
         )
         center_Rmask <- c(
-          min(masks$LefRig[Rmask_mask]) + (max(masks$LefRig[Rmask_mask]) - min(masks$LefRig[Rmask_mask]))/2, 
-          min(masks$SupInf[Rmask_mask]) + (max(masks$SupInf[Rmask_mask]) - min(masks$SupInf[Rmask_mask]))/2
+          min(ROImasks$LefRig[Rmask_mask]) + (max(ROImasks$LefRig[Rmask_mask]) - min(ROImasks$LefRig[Rmask_mask]))/2, 
+          min(ROImasks$SupInf[Rmask_mask]) + (max(ROImasks$SupInf[Rmask_mask]) - min(ROImasks$SupInf[Rmask_mask]))/2
         )
         
         # Find slopes of Left and Right regions of interest
-        left_side <- masks[mask_z, "LefRig"] < center[1]
-        layer1 <- masks[mask_z, "Layer"] == "L1"
-        layer6 <- masks[mask_z, "Layer"] == "L6a"
+        left_side <- ROImasks[mask_z, "LefRig"] < center[1]
+        layer1 <- ROImasks[mask_z, "Layer"] == "L1"
+        layer6 <- ROImasks[mask_z, "Layer"] == "L6a"
         L1TB <- find_topbot(left_side, layer1, mask_z, superinf_adj)
         L6TB <- find_topbot(left_side, layer6, mask_z, superinf_adj)
         R1TB <- find_topbot(!left_side, layer1, mask_z, superinf_adj)
@@ -457,8 +469,8 @@ process_slice <- function(
         }
         
         # Find candidate points for annotation
-        leftright <- masks[mask_z, "LefRig"]
-        superinf <- masks[mask_z, "SupInf"] + superinf_adj
+        leftright <- ROImasks[mask_z, "LefRig"]
+        superinf <- ROImasks[mask_z, "SupInf"] + superinf_adj
         min_x <- min(leftright)
         max_x <- max(leftright)
         min_y <- min(superinf)
@@ -475,15 +487,12 @@ process_slice <- function(
         for (i in seq_along(Layer_names)) {
           
           # Grab coordinates in this layer and z slice
-          slidemask <- masks$Layer == Layer_names[i] & mask_z
+          slidemask <- ROImasks$Layer == Layer_names[i] & mask_z
           if (sum(slidemask) == 0) next
           
           # Subset mask to slice
-          leftright <- masks[slidemask, "LefRig"]
-          superinf <- masks[slidemask, "SupInf"] + superinf_adj
-          
-          
-          # threshold = 0.05
+          leftright <- ROImasks[slidemask, "LefRig"]
+          superinf <- ROImasks[slidemask, "SupInf"] + superinf_adj
           
           # Identify transcripts in data falling near these points 
           cat("\nLayer", Layer_names[i], " ")
@@ -535,100 +544,119 @@ process_slice <- function(
     
   }
 
-# ... throw out, 32, 34, 39, 40
-
-# Slice 30
-slice_data <- process_slice(
-  slice_data, 
-  pinchL = 1.09, pinchR = 1.15, 
-  rotateL = -0.075, rotateR = 0.1, 
-  bendL = 0.05, bendR = 0.25,
-  slice_num = 30
+if (process_slices) {
+  
+  slice_range <- c(30, 31, 33, 35, 36, 37, 38) # ... 30:40 cover S1, but throw out 32, 34, 39, 40 for bad quality
+  
+  # Load data
+  slice_data <- make_count_data_allen(
+    slice_range = slice_range,
+    data_path_h5 = data_path_allen_h5,
+    data_path_cellmeta = data_path_allen_cellmeta
   )
-
-# Slice 31
-slice_data <- process_slice(
-  slice_data, 
-  transL = c(0, -20), transR = c(0, 0),
-  pinchL = 1.01, pinchR = 0.96, 
-  rotateL = -0.1, rotateR = 0.08, 
-  bendL = -0.075, bendR = 0,
-  slice_num = 31
-)
-
-# Slice 33
-slice_data <- process_slice(
-  slice_data, 
-  transL = c(0, -45), transR = c(0, -10),
-  pinchL = 1.025, pinchR = 0.95, 
-  rotateL = -0.05, rotateR = 0.03, 
-  slice_num = 33
-)
-
-# Slice 35
-slice_data <- process_slice(
-  slice_data, 
-  transL = c(0, -68), transR = c(0, -32),
-  pinchL = 0.97, pinchR = 1.02, 
-  rotateL = -0.055, rotateR = 0.04, 
-  bendL = -0.45, bendR = 0.1,
-  slice_num = 35
-)
-
-# Slice 36
-slice_data <- process_slice(
-  slice_data, 
-  pinchL = 0.95, pinchR = 1, 
-  rotateL = -0.025, rotateR = 0.15, 
-  bendL = 0, bendR = 0,
-  slice_num = 36
-)
-
-# Slice 37
-slice_data <- process_slice(
-  slice_data, 
-  transL = c(0, -60), transR = c(0, 0),
-  pinchL = 1.01, pinchR = 0.95, 
-  rotateL = -0.025, rotateR = 0.06, 
-  bendL = 0, bendR = -0.35,
-  slice_num = 37
-)
-
-# Slice 38 
-slice_data <- process_slice(
-  slice_data, 
-  transL = c(0, -50), transR = c(0, -30),
-  pinchL = 0.99, pinchR = 1, 
-  rotateL = -0.06, rotateR = 0.16, 
-  bendL = 0, bendR = 0,
-  slice_num = 38
-)
-
-# Combine data and save 
-S1_allen_slice_data_annotated <- data.frame()
-for (d in seq_along(slice_data)) {
-  S1_allen_slice_data_annotated <- rbind(S1_allen_slice_data_annotated, slice_data[[d]])
+  
+  # Align loaded slices to the CCF
+  
+  # ... Slice 30
+  slice_data <- process_slice_allen(
+    slice_data, slice_range,
+    pinchL = 1.09, pinchR = 1.15, 
+    rotateL = -0.075, rotateR = 0.1, 
+    bendL = 0.05, bendR = 0.25,
+    slice_num = 30
+  )
+  
+  # ... Slice 31
+  slice_data <- process_slice_allen(
+    slice_data, slice_range,
+    transL = c(0, -20), transR = c(0, 0),
+    pinchL = 1.01, pinchR = 0.96, 
+    rotateL = -0.1, rotateR = 0.08, 
+    bendL = -0.075, bendR = 0,
+    slice_num = 31
+  )
+  
+  # ... Slice 33
+  slice_data <- process_slice_allen(
+    slice_data, slice_range,
+    transL = c(0, -45), transR = c(0, -10),
+    pinchL = 1.025, pinchR = 0.95, 
+    rotateL = -0.05, rotateR = 0.03, 
+    slice_num = 33
+  )
+  
+  # ... Slice 35
+  slice_data <- process_slice_allen(
+    slice_data, slice_range,
+    transL = c(0, -68), transR = c(0, -32),
+    pinchL = 0.97, pinchR = 1.02, 
+    rotateL = -0.055, rotateR = 0.04, 
+    bendL = -0.45, bendR = 0.1,
+    slice_num = 35
+  )
+  
+  # ... Slice 36
+  slice_data <- process_slice_allen(
+    slice_data, slice_range,
+    pinchL = 0.95, pinchR = 1, 
+    rotateL = -0.025, rotateR = 0.15, 
+    bendL = 0, bendR = 0,
+    slice_num = 36
+  )
+  
+  # ... Slice 37
+  slice_data <- process_slice_allen(
+    slice_data, slice_range,
+    transL = c(0, -60), transR = c(0, 0),
+    pinchL = 1.01, pinchR = 0.95, 
+    rotateL = -0.025, rotateR = 0.06, 
+    bendL = 0, bendR = -0.35,
+    slice_num = 37
+  )
+  
+  # ... Slice 38 
+  slice_data <- process_slice_allen(
+    slice_data, slice_range,
+    transL = c(0, -50), transR = c(0, -30),
+    pinchL = 0.99, pinchR = 1, 
+    rotateL = -0.06, rotateR = 0.16, 
+    bendL = 0, bendR = 0,
+    slice_num = 38
+  )
+  
+  # Combine data and save 
+  S1_allen_slice_data_annotated <- data.frame()
+  for (d in seq_along(slice_data)) {
+    S1_allen_slice_data_annotated <- rbind(S1_allen_slice_data_annotated, slice_data[[d]])
+  }
+  rm(slice_data) 
+  
+  # Manually prune off L6b "tab"
+  cutoff <- S1_allen_slice_data_annotated$y < 565
+  S1_allen_slice_data_annotated <- S1_allen_slice_data_annotated[cutoff, ]
+  
+  # Save so this only has to be done once
+  write.csv(
+    S1_allen_slice_data_annotated, 
+    file = "S1_allen_slice_data_annotated.csv",
+    row.names = FALSE
+  )
+  
+} else {
+  
+  S1_allen_slice_data_annotated <- read.csv("S1_allen_slice_data_annotated.csv")
+  
 }
-rm(slice_data) 
 
-# Prune off L6b tab
-cutoff <- S1_allen_slice_data_annotated$y < 565
-S1_allen_slice_data_annotated <- S1_allen_slice_data_annotated[cutoff, ]
-
-write.csv(
-  S1_allen_slice_data_annotated, 
-  file = "S1_allen_slice_data_annotated.csv",
-  row.names = FALSE
-)
-
-plot3d(
-  x = S1_allen_slice_data_annotated$x,
-  y = S1_allen_slice_data_annotated$y,
-  z = S1_allen_slice_data_annotated$z,
-  col = as.integer(as.factor(S1_allen_slice_data_annotated$layer))
-)
-
-S1_allen_slice_data_annotated <- read.csv("S1_allen_slice_data_annotated.csv")
+# 3D inspection
+if (FALSE) {
+  rgl::plot3d(
+    x = S1_allen_slice_data_annotated$x,
+    y = S1_allen_slice_data_annotated$y,
+    z = S1_allen_slice_data_annotated$z,
+    col = as.integer(as.factor(S1_allen_slice_data_annotated$layer))
+  )
+}
 
 # Rename columns for coordinate transform code
 new_names <- colnames(S1_allen_slice_data_annotated)

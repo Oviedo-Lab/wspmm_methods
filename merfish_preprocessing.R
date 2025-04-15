@@ -465,7 +465,7 @@ coordinate_transform <- function(
     plot_list <- list(plot_untransformed = plot_untransformed)
     
     # Step 1: Center each patch (left and right) around the mean point of L5
-    if (verbose) snk.report...("Step 2, centering each patch around the mean point of L5")
+    if (verbose) snk.report...("Step 1, centering each patch around the mean point of L5")
     # Helper function for recentering data
       recenter_coordinates <- function(
       coord, 
@@ -534,8 +534,8 @@ coordinate_transform <- function(
       return(new_coord)
     }
     
-    # Step 3: Rotate each patch so that L4 aligns with the x-axis and L1 (or L23, if L1 removed) is on top
-    if (verbose) snk.report...("Step 3, rotating each patch so that L4 aligns with the x-axis with anterior in positive y direction")
+    # Step 2: Rotate each patch so that L4 aligns with the x-axis and L1 (or L23, if L1 removed) is on top
+    if (verbose) snk.report...("Step 2, rotating each patch so that L4 aligns with the x-axis with anterior in positive y direction")
     coordinates[mask_right,] <- level_layer(coordinates, "right", mask_right, mask_right_L4)
     coordinates[mask_left,] <- level_layer(coordinates, "left", mask_left, mask_left_L4, natural_left = nat_left)
     
@@ -546,8 +546,8 @@ coordinate_transform <- function(
     )
     plot_list <- c(plot_list, list(plot_level_L4 = plot_level_L4))
     
-    # Step 4: Model and flatten laminar curve based on L4
-    if (verbose) snk.report...("Step 4, modeling and flattening laminar curve based on L4")
+    # Step 3: Model and flatten laminar curve based on L4
+    if (verbose) snk.report...("Step 3, modeling and flattening laminar curve based on L4")
     
     # Helper function for flattening data
     flatten <- function(
