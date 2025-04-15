@@ -7,13 +7,61 @@ process_slices <- TRUE
 data_path_allen_h5 <- "/Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/MERFISH/development_work/data/Allen_data/C57BL6J-638850-raw.h5ad"
 data_path_allen_cellmeta <- "/Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/MERFISH/development_work/data/Allen_data/cell_metadata.csv"
 
-# Helper functions to get slice data
+########################################################################################################################
+# Make ROI masks
 
+Layer_names <- c("L1", "L23", "L4", "L5", "L6a", "L6b")
+if (make_ROImasks) {
+  
+  # Orientation of reference-atlas space: 
+  # ... * (z) Anterior -> Posterior * (y) Superior -> Inferior * (x) Left -> Right
+  # ... The Left -> Right on Low -> High X matches my orientation for laminar axis
+  
+  # Load library to source Python code snippets
+  if ( !is.element("package:reticulate", search()) ) { # only try to load if not already loaded
+    if(!require(reticulate)) {                         # if not installed, install
+      install.packages("reticulate")                   # install if needed
+      library(reticulate)                              # load
+    }
+  }
+  
+  # What version of python are we using? (For grabbing ROI masks)
+  # ... use_python("/usr/local/bin/python3.12")
+  use_virtualenv("~/envs/allen-env", required = TRUE)
+  
+  # Run python script to setup function to generate masks
+  source_python("Allen_CCF.py")
+  
+  # Generate ROI masks
+  ROImasks_list <- generate_roi_masks()
+  
+  # Reformat them
+  dim_names <- c("AntPost", "SupInf", "LefRig", "Layer")
+  ROImasks <- data.frame()
+  for (m in seq_along(ROImasks_list)) {
+    ROImasks_list[[m]] <- as.data.frame(ROImasks_list[[m]])
+    ROImasks_list[[m]]$Layer <- Layer_names[m]
+    colnames(ROImasks_list[[m]]) <- dim_names
+    ROImasks <- rbind(ROImasks, ROImasks_list[[m]])
+  }
+  
+  # Cleanup and save
+  rm(ROImasks_list)
+  write.csv(ROImasks, file = "ROImasks.csv", row.names = FALSE)
+  
+} else if (process_slices) {
+  ROImasks <- read.csv("ROImasks.csv")
+}
+
+########################################################################################################################
+# Functions for registration to CCF and other slice processing
+
+# Helper functions to get slice data
 parse_hdf5_allen <- function(
     slice,
     data_path_h5,
     data_path_cellmeta,
-    gene.list = c("Rorb", "Pvalb", "Gad2", "Vip", "Grik3", "Grm1", "Slc32a1", "Sox6", "Reln", "Npsr1", "Dscaml1", "Calb1") 
+    gene.list = 
   ) {
     
     # Load sparse-matrix data
@@ -105,51 +153,6 @@ make_count_data_allen <- function(
     names(slice_data) <- paste0("slice_", slice_range)
     return(slice_data)
   }
-
-
-# Make ROI masks
-Layer_names <- c("L1", "L23", "L4", "L5", "L6a", "L6b")
-if (make_ROImasks) {
-  
-  # Orientation of reference-atlas space: 
-  # ... * (z) Anterior -> Posterior * (y) Superior -> Inferior * (x) Left -> Right
-  # ... The Left -> Right on Low -> High X matches my orientation for laminar axis
-  
-  # Load library to source Python code snippets
-  if ( !is.element("package:reticulate", search()) ) { # only try to load if not already loaded
-    if(!require(reticulate)) {                         # if not installed, install
-      install.packages("reticulate")                   # install if needed
-      library(reticulate)                              # load
-    }
-  }
-  
-  # What version of python are we using? (For grabbing ROI masks)
-  # ... use_python("/usr/local/bin/python3.12")
-  use_virtualenv("~/envs/allen-env", required = TRUE)
-  
-  # Run python script to setup function to generate masks
-  source_python("Allen_CCF.py")
-  
-  # Generate ROI masks
-  ROImasks_list <- generate_roi_masks()
-  
-  # Reformat them
-  dim_names <- c("AntPost", "SupInf", "LefRig", "Layer")
-  ROImasks <- data.frame()
-  for (m in seq_along(ROImasks_list)) {
-    ROImasks_list[[m]] <- as.data.frame(ROImasks_list[[m]])
-    ROImasks_list[[m]]$Layer <- Layer_names[m]
-    colnames(ROImasks_list[[m]]) <- dim_names
-    ROImasks <- rbind(ROImasks, ROImasks_list[[m]])
-  }
-  
-  # Cleanup and save
-  rm(ROImasks_list)
-  write.csv(ROImasks, file = "ROImasks.csv", row.names = FALSE)
-  
-} else if (process_slices) {
-  ROImasks <- read.csv("ROImasks.csv")
-}
 
 # Define helper functions for transformations
 logistic1 <- function(x, a = 10) {
@@ -487,7 +490,7 @@ process_slice_allen <- function(
         # Extract layers from mask
         if (make_plots) ds_array <- array(0, dim = c(ds_size*length(Layer_names), 3))
         ntrans <- nrow(slicedata_s)
-        cat("\nROI search,", ntrans, "transcripts: ")
+        cat("\nROI search,", ntrans, "cell-gene combinations (rows): ")
         tracker <- as.integer(seq(1, ntrans, length.out = 10))
         for (i in seq_along(Layer_names)) {
           
@@ -548,6 +551,9 @@ process_slice_allen <- function(
     }
     
   }
+
+########################################################################################################################
+# Registration to CCF and other slice processing
 
 if (process_slices) {
   

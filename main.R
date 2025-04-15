@@ -87,16 +87,13 @@ columnar_check()
 # Fit WSPmm model to MERFISH data ######################################################################################
 
 # Define list of genes to analyze
-gene.list.plasticity <- c(
-  "Dlx2", "Grin2a", "Arc", "Nptxr", "Camk2a", "Nr4a2", "Ncdn",
-  "Bcl11b", "Fezf2", "Rorb", "Satb2"
-)
+gene.list <- c("Rorb", "Pvalb", "Gad2", "Vip", "Grik3", "Grm1", "Slc32a1", "Sox6", "Reln", "Npsr1", "Dscaml1", "Calb1") 
 
 # Create count data for WSPmm object, from preprocessed count_data, using laminar axis (y)
 count.data.WSPmm.y <- create.count.data.WSPmm(
   df.merfish = count_data,
   bin.dim = "y_bins",
-  gene.list = gene.list.plasticity,
+  gene.list = gene.list,
   fixed.effect.names = c("hemisphere","age")
 )
 
