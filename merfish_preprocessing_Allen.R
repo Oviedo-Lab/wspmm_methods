@@ -15,7 +15,8 @@ library(rgl)
 use_virtualenv("~/envs/allen-env", required = TRUE)
 
 # Orientation of reference-atlas space: 
-# ... * Anterior -> Posterior * Superior -> Inferior * Left -> Right
+# ... * (z) Anterior -> Posterior * (y) Superior -> Inferior * (x) Left -> Right
+# ... The Left -> Right on Low -> High X matches my orientation for laminar axis
 
 # Set paths to files
 data_path <- "/Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/MERFISH/development_work/data/Allen_data/Allen_data.csv"
@@ -603,7 +604,62 @@ slice_data <- process_slice(
   slice_num = 38
 )
 
+# Combine data and save 
+S1_allen_slice_data_annotated <- data.frame()
+for (d in seq_along(slice_data)) {
+  S1_allen_slice_data_annotated <- rbind(S1_allen_slice_data_annotated, slice_data[[d]])
+}
+rm(slice_data) 
 
+# Prune off L6b tab
+cutoff <- S1_allen_slice_data_annotated$y < 565
+S1_allen_slice_data_annotated <- S1_allen_slice_data_annotated[cutoff, ]
+
+write.csv(
+  S1_allen_slice_data_annotated, 
+  file = "S1_allen_slice_data_annotated.csv",
+  row.names = FALSE
+)
+
+plot3d(
+  x = S1_allen_slice_data_annotated$x,
+  y = S1_allen_slice_data_annotated$y,
+  z = S1_allen_slice_data_annotated$z,
+  col = as.integer(as.factor(S1_allen_slice_data_annotated$layer))
+)
+
+# Rename columns for coordinate transform code
+new_names <- colnames(S1_allen_slice_data_annotated)
+new_names[c(3)] <- "mouse" # ... for now, treat layers as mice
+new_names[c(4)] <- "hemisphere"
+new_names[c(6, 7)] <- c("x_coord", "y_coord")
+colnames(S1_allen_slice_data_annotated) <- new_names
+# ... renumber the mouse column 
+S1_allen_slice_data_annotated$mouse <- as.integer(as.factor(S1_allen_slice_data_annotated$mouse))
+
+slice_plots <- list() 
+for (m in unique(S1_allen_slice_data_annotated$mouse)) {
+  slice_plots[[paste0("slice_plot", m)]] <- plot_results(
+    S1_allen_slice_data_annotated, 
+    S1_allen_slice_data_annotated[S1_allen_slice_data_annotated$mouse == m, c("x_coord", "y_coord")], 
+    m,
+    paste0("Registered S1 Allen slice data, slice ", m),
+    separate_hemi = TRUE)
+  }
+
+count_data <- list(
+  count_data = S1_allen_slice_data_annotated,
+  slice_plots = slice_plots
+)
+
+count_data <- cortical_coordinate_transform(
+  count_data = count_data, 
+  total_bins = 100,        # Number of bins to use when binning data
+  keep_plots = TRUE,       # Keep coordinate transformation plots? 
+  L1_removed = FALSE, 
+  nat_left = TRUE, 
+  verbose = TRUE
+)
 
 
 # our columnar axis is approx 1mm, these slices are 200um apart, should should be able to get 4 slices 

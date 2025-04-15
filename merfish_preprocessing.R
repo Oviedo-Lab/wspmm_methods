@@ -19,7 +19,7 @@ if (RemoveL1) {
 
 # Load raw data ########################################################################################################
 
-# Helper functions, make rotation matrix
+# Helper function, make rotation matrix
 rot_matrix <- function(
     theta
   ) {
@@ -396,6 +396,7 @@ plot_results <- function(
 coordinate_transform <- function(
     mouse_num, 
     df,
+    nat_left = FALSE, 
     verbose = TRUE
   ) {
     
@@ -502,6 +503,7 @@ coordinate_transform <- function(
       mask_hemisphere, 
       mask_layer, 
       flip_right = TRUE,
+      natural_left = FALSE,
       verbose = FALSE
     ) {
       # Fit linear model to the mask_layer coordinates to get the angle of the slice
@@ -510,6 +512,7 @@ coordinate_transform <- function(
       slope <- model$coefficients[x_coord]
       if (slope < 0) {
         angle <- -atan(slope)
+        if (natural_left) angle <- -angle
       } else {
         angle <- atan(slope)
       }
@@ -526,6 +529,7 @@ coordinate_transform <- function(
       new_coord[, y_coord] <- new_coord[, y_coord] + y_mean
       # Flip right hemisphere if necessary
       if (hemisphere == "right" && flip_right) new_coord[, y_coord] <- -new_coord[, y_coord]
+      if (natural_left) new_coord[, y_coord] <- -new_coord[, y_coord]
       # Return just the transformed hemisphere
       return(new_coord)
     }
@@ -533,7 +537,7 @@ coordinate_transform <- function(
     # Step 3: Rotate each patch so that L4 aligns with the x-axis and L1 (or L23, if L1 removed) is on top
     if (verbose) snk.report...("Step 3, rotating each patch so that L4 aligns with the x-axis with anterior in positive y direction")
     coordinates[mask_right,] <- level_layer(coordinates, "right", mask_right, mask_right_L4)
-    coordinates[mask_left,] <- level_layer(coordinates, "left", mask_left, mask_left_L4)
+    coordinates[mask_left,] <- level_layer(coordinates, "left", mask_left, mask_left_L4, natural_left = nat_left)
     
     # Test by plotting (L4 leveled)
     plot_level_L4 <- plot_results(
@@ -712,6 +716,7 @@ coordinate_binning <- function(
     layer_names,
     df,
     L1_removed = RemoveL1,
+    nat_left = FALSE,
     verbose = TRUE
   ) {
     
@@ -722,7 +727,7 @@ coordinate_binning <- function(
     
     # Apply coordinate transform to those rows
     if (verbose) snk.report...("Performing coordinate transform")
-    coord_trans <- coordinate_transform(mouse_num, df)
+    coord_trans <- coordinate_transform(mouse_num, df, nat_left = nat_left)
     plot_list <- coord_trans$plot_list
     coord_trans <- coord_trans$coord
     
@@ -907,8 +912,12 @@ cortical_coordinate_transform <- function(
     count_data,
     total_bins,
     keep_plots = FALSE,
+    L1_removed = RemoveL1,
+    nat_left = FALSE,
     verbose = TRUE
   ) {
+    
+    # Count_data input should have genes across in columns, not stacked in rows
     
     if (verbose) {
       snk.report("Transforming raw data into laminar and columnar coordinates")
@@ -932,7 +941,7 @@ cortical_coordinate_transform <- function(
       assign(paste0("plot_list_m", mouse_num), list(slice_plot = slice_plots[[paste0("slice_plot", mouse_num)]]))
       
       # Transform and bin coordinates
-      count_data <- coordinate_binning(mouse_num, total_bins, layer_names, count_data)
+      count_data <- coordinate_binning(mouse_num, total_bins, layer_names, count_data, L1_removed, nat_left)
       
       # Extract layer boundary estimates and plots 
       layer_boundary_bins[mouse_num,] <- count_data$layer_boundary_bins
@@ -959,15 +968,19 @@ cortical_coordinate_transform <- function(
       
     }
     
-    # Rearrange count_data columns 
-    n <- which(colnames(count_data) == "y_coord") # last column before genes
-    m <- which(colnames(count_data) == "x_trans") # first column after genes
-    t <- ncol(count_data) # last column
-    count_data <- count_data[,c(1:n,m:t,(n+1):(m-1))]
-    
-    # Make cell_num column on front 
-    cell_num <- rownames(count_data)
-    count_data <- cbind(cell_num, count_data)
+    if (!("trscrpt_gene_symb" %in% colnames(count_data))) {
+      # ... Allen data formatted differently
+      
+      # Rearrange count_data columns 
+      n <- which(colnames(count_data) == "y_coord") # last column before genes
+      m <- which(colnames(count_data) == "x_trans") # first column after genes
+      t <- ncol(count_data) # last column
+      count_data <- count_data[,c(1:n,m:t,(n+1):(m-1))]
+      
+      # Make cell_num column on front 
+      cell_num <- rownames(count_data)
+      count_data <- cbind(cell_num, count_data)
+    }
     
     return(
       list(
