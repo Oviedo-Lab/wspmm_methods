@@ -24,16 +24,9 @@ sink("output.txt", split = TRUE, append = FALSE, type = "output")
 snk.report("Analysis of MERFISH data by Warped Sigmoid, Poisson-Process Mixed-Effects Model (WSPmm)\n")
 
 # Set file paths and bootstrap chunk size
-sys_name <- Sys.info()["sysname"]
-if (sys_name == "Darwin") {
-  source("merfish_preprocessing.R")
-  data_path <- paste0(projects_folder, "MERFISH/data/")
-  bs_chunksize <- 10
-} else if (sys_name == "Linux") {
-  source("~/MERFISH/MERFISH-ACx-Spatial-Density/merfish_preprocessing.R")
-  data_path <- "/mnt/c/OviedoLab/MERFISH/MERFISH_Data/All_HDF5/"
-  bs_chunksize <- 25
-}
+source("merfish_preprocessing.R")
+data_path <- paste0(projects_folder, "MERFISH/data_SSp/")
+bs_chunksize <- 10
 
 # Define list of genes to analyze
 gene.list <- c("Rorb", "Pvalb", "Gad2", "Vip", "Grik3", "Grm1", "Slc32a1", "Sox6", "Reln", "Npsr1", "Dscaml1", "Calb1") 
@@ -41,7 +34,11 @@ gene.list <- c("Rorb", "Pvalb", "Gad2", "Vip", "Grik3", "Grm1", "Slc32a1", "Sox6
 # Preprocessing MERFISH data ###########################################################################################
 
 # Load and parse raw visgen data from files
-count_data <- make_count_data(data_path)
+count_data <- make_count_data(
+  data_path,
+  remove_L1 = FALSE,
+  ROIname = "Primary somatosensory area"
+  )
 
 # Transform coordinates for each mouse into laminar and columnar axes and extract layer boundary estimates
 # Note: 
@@ -51,6 +48,7 @@ count_data <- cortical_coordinate_transform(
   count_data = count_data, 
   total_bins = 100,        # Number of bins to use when binning data
   keep_plots = TRUE,       # Keep coordinate transformation plots? 
+  nat_right = TRUE,
   verbose = TRUE
 )
 
@@ -66,23 +64,16 @@ process_slices <- FALSE
 
 # Source code / load data
 if (make_ROImasks || process_slices) {
-  if (sys_name == "Darwin") {
-    source("merfish_preprocessing_Allen.R")
-  } else if (sys_name == "Linux") {
-    source("~/MERFISH/MERFISH-ACx-Spatial-Density/merfish_preprocessing_Allen.R")
-  }
+  source("merfish_preprocessing_Allen.R")
 } else {
-  if (sys_name == "Darwin") {
-    S1_allen_slice_data_annotated <- read.csv("S1_allen_slice_data_annotated.csv")
-  } else if (sys_name == "Linux") {
-    S1_allen_slice_data_annotated <- read.csv("~/MERFISH/MERFISH-ACx-Spatial-Density/S1_allen_slice_data_annotated.csv")
-  }
+  S1_allen_slice_data_annotated <- read.csv("S1_allen_slice_data_annotated.csv")
 }
 
 # Define helper functions to format registered Allen data for coordinate transformation
 
 reformat_good_allen_data <- function(
-    S1_allen_slice_data_annotated
+    S1_allen_slice_data_annotated,
+    keep_slice
   ) {
     
     # Rename columns for coordinate transform code
@@ -93,9 +84,8 @@ reformat_good_allen_data <- function(
     colnames(S1_allen_slice_data_annotated) <- new_names
     # ... renumber the mouse column 
     S1_allen_slice_data_annotated$mouse <- as.integer(as.factor(S1_allen_slice_data_annotated$mouse))
-    # ... from visual inspection, slices 6, 5, and 4 are the cleanest, so collapse together into one mouse. 
-    good_layer_mask <- S1_allen_slice_data_annotated$mouse == 6 | S1_allen_slice_data_annotated$mouse == 5 | S1_allen_slice_data_annotated$mouse == 4
-    S1_allen_slice_data_annotated <- S1_allen_slice_data_annotated[good_layer_mask,]
+    # ... from visual inspection, slices 6, 5, and 4 are the cleanest, with 5 the best
+    S1_allen_slice_data_annotated <- S1_allen_slice_data_annotated[S1_allen_slice_data_annotated$mouse == keep_slice,]
     S1_allen_slice_data_annotated$mouse <- 1
     return(S1_allen_slice_data_annotated)
     
@@ -119,7 +109,7 @@ make_allen_slice_plots <- function(
   }
 
 # Put data into form expected for coordinate transformations
-S1_allen_slice_data_annotated <- reformat_good_allen_data(S1_allen_slice_data_annotated)
+S1_allen_slice_data_annotated <- reformat_good_allen_data(S1_allen_slice_data_annotated, keep_slice = 5)
 count_data_allen <- list(
   count_data = S1_allen_slice_data_annotated,
   slice_plots = make_allen_slice_plots(S1_allen_slice_data_annotated)
@@ -135,21 +125,38 @@ count_data_allen <- cortical_coordinate_transform(
   verbose = TRUE
 )
 
+# Extract data
+layer.boundary.bins <- rbind(layer.boundary.bins, count_data_allen$layer.boundary.bins)
+coordinate_transform_plots <- c(coordinate_transform_plots, count_data_allen$plots[1])
+count_data_allen <- count_data_allen$df
+
 # Cleanup 
 rm(S1_allen_slice_data_annotated)
 
 # Fit WSPmm model to MERFISH data ######################################################################################
 
+# Define fixed effects to test
+fixed.effect.names <- c("hemisphere", "age")
+
 # Create count data for WSPmm object, from preprocessed count_data, using laminar axis (y)
+
 count.data.WSPmm.y <- create.count.data.WSPmm(
   df.merfish = count_data,
   bin.dim = "y_bins",
   gene.list = gene.list,
-  fixed.effect.names = c("hemisphere","age")
+  fixed.effect.names = fixed.effect.names
 )
 
-# Define fixed effects to test
-fixed.effect.names <- c("hemisphere", "age")
+count.data.WSPmm.y.allen <- create.count.data.WSPmm.allen(
+    df.merfish = count_data_allen, 
+    bin.dim = "y_bins", 
+    fixed.effect.names = fixed.effect.names
+)
+
+# ... combine data 
+count.data.WSPmm.y.allen$mouse <- as.factor(5)
+count.data.WSPmm.y$age <- as.factor("young")
+count.data.WSPmm.y.combined <- rbind(count.data.WSPmm.y, count.data.WSPmm.y.allen)
 
 # Define variables in the dataframe for the model
 data.variables = list(
@@ -164,32 +171,29 @@ data.variables = list(
 # Model settings 
 model.settings = list(
   # ... these are global options needed to set up model
-  struc_values = c(                                     # values of structural parameters to test
-    5.0,   # beta_shape_point
-    5.0,   # beta_shape_rate
-    1.0    # sd_tslope_effect
-  ),  
   buffer_factor = 0.05,                                 # buffer factor for penalizing distance from structural parameter values
   ctol = 1e-6,                                          # convergence tolerance
   max_penalty_at_distance_factor = 0.01,                # maximum penalty at distance from structural parameter values
   LROcutoff = 2.0,                                      # cutoff for LROcp
   LROwindow_factor = 2.0,                               # window factor for LROcp, larger means larger rolling window
   LROfilter_ws_divisor = 2.0,                           # divisor for filter window size in likelihood ratio outlier detection (bigger is smaller window)
-  tslope_initial = 1.0,                                 # initial value for tslope
-  wf_initial = 0.15,                                    # initial value for wfactor
+  rise_threshold_factor = 0.8,                          # amount of detected rise as fraction of total required to end run
   max_evals = 1000,                                     # maximum number of evaluations for optimization
-  rng_seed = 42                                         # random seed for optimization (controls bootstrap resamples only)
+  rng_seed = 42,                                        # random seed for optimization (controls bootstrap resamples only)
+  warp_precision = 1e-7,                                # pseudo infinity value larger than any possible possible parameter value, representing unbound warping
+  effect_dist_weight = 0.001                            # weight for effect distribution likelihood
 )
 
+# Fit model
 merfish.laminar.model <- wisp(
   # Data to model
-  count.data.raw = count.data.WSPmm.y,
+  count.data.raw = count.data.WSPmm.y.combined,
   # Variable labels
   variables = data.variables,
   # Local settings for specific fits, used on R side
   use.median = FALSE,
   MCMC.burnin = 0,
-  MCMC.steps = 1e4,
+  MCMC.steps = 1e3,
   MCMC.step.size = 0.005,
   MCMC.prior = 0.5,                                     
   bootstraps.num = 0,
@@ -201,6 +205,7 @@ merfish.laminar.model <- wisp(
   # Global settings for initializing model, passed to C++ side
   model.settings = model.settings
 )
+
 
 
 

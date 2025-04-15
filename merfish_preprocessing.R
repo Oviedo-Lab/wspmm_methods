@@ -11,11 +11,6 @@ library(hdf5r)
 # Report 
 snk.report...("Loading helper function definitions for preprocessing MERFISH data", initial_breaks = 2)
 RemoveL1 <- TRUE
-if (RemoveL1) {
-  snk.report...("Setting flag to remove Layer 1 from the analysis")
-} else {
-  snk.report...("Setting flag to keep Layer 1 in the analysis")
-}
 
 # Load raw data ########################################################################################################
 
@@ -50,8 +45,9 @@ parse_hdf5 <- function(
     mouse_num,
     z_view_bottom = TRUE,
     raw = TRUE,
-    ACx_only = TRUE,
-    remove_L1 = RemoveL1
+    ROI_only = TRUE,
+    remove_L1 = RemoveL1,
+    ROIname = "Primary auditory area"
   ) {
     
     # Load data
@@ -84,18 +80,18 @@ parse_hdf5 <- function(
     
     # Grab rows for cortical layers
     ROI_names <- list(
-      LL1 = "/obs/ROI__Left Primary auditory area, layer 1",
-      LL23 = "/obs/ROI__Left Primary auditory area, layer 2/3",
-      LL4 = "/obs/ROI__Left Primary auditory area, layer 4",
-      LL5 = "/obs/ROI__Left Primary auditory area, layer 5",
-      LL6a = "/obs/ROI__Left Primary auditory area, layer 6a",
-      LL6b = "/obs/ROI__Left Primary auditory area, layer 6b",
-      RL1 = "/obs/ROI__Right Primary auditory area, layer 1",
-      RL23 = "/obs/ROI__Right Primary auditory area, layer 2/3",
-      RL4 = "/obs/ROI__Right Primary auditory area, layer 4",
-      RL5 = "/obs/ROI__Right Primary auditory area, layer 5",
-      RL6a = "/obs/ROI__Right Primary auditory area, layer 6a",
-      RL6b = "/obs/ROI__Right Primary auditory area, layer 6b"
+      LL1 = paste0("/obs/ROI__Left ", ROIname, ", layer 1"),
+      LL23 = paste0("/obs/ROI__Left ", ROIname, ", layer 2/3"),
+      LL4 = paste0("/obs/ROI__Left ", ROIname, ", layer 4"),
+      LL5 = paste0("/obs/ROI__Left ", ROIname, ", layer 5"),
+      LL6a = paste0("/obs/ROI__Left ", ROIname, ", layer 6a"),
+      LL6b = paste0("/obs/ROI__Left ", ROIname, ", layer 6b"),
+      RL1 = paste0("/obs/ROI__Right ", ROIname, ", layer 1"),
+      RL23 = paste0("/obs/ROI__Right ", ROIname, ", layer 2/3"),
+      RL4 = paste0("/obs/ROI__Right ", ROIname, ", layer 4"),
+      RL5 = paste0("/obs/ROI__Right ", ROIname, ", layer 5"),
+      RL6a = paste0("/obs/ROI__Right ", ROIname, ", layer 6a"),
+      RL6b = paste0("/obs/ROI__Right ", ROIname, ", layer 6b")
     )
     L1_mask <- file[[ROI_names[["LL1"]]]][] | file[[ROI_names[["RL1"]]]][]
     L23_mask <- file[[ROI_names[["LL23"]]]][] | file[[ROI_names[["RL23"]]]][]
@@ -103,7 +99,7 @@ parse_hdf5 <- function(
     L5_mask <- file[[ROI_names[["LL5"]]]][] | file[[ROI_names[["RL5"]]]][]
     L6a_mask <- file[[ROI_names[["LL6a"]]]][] | file[[ROI_names[["RL6a"]]]][]
     L6b_mask <- file[[ROI_names[["LL6b"]]]][] | file[[ROI_names[["RL6b"]]]][]
-    layer <- rep("notACx", n_cells)
+    layer <- rep("notROI", n_cells)
     layer[L1_mask] <- "L1"
     layer[L23_mask] <- "L23"
     layer[L4_mask] <- "L4"
@@ -125,7 +121,7 @@ parse_hdf5 <- function(
       file[[ROI_names[["RL5"]]]][] | 
       file[[ROI_names[["RL6a"]]]][] | 
       file[[ROI_names[["RL6b"]]]][]
-    hemisphere <- rep("notACx", n_cells)
+    hemisphere <- rep("notROI", n_cells)
     hemisphere[left_mask] <- "left"
     hemisphere[right_mask] <- "right"
     hemisphere <- as.factor(hemisphere)
@@ -149,11 +145,11 @@ parse_hdf5 <- function(
     mouse <- as.factor(rep(mouse_num, n_cells))
     
     # Reorient spatial coordinates of whole slice 
-    # ... center around middle of L5 left ACx
+    # ... center around middle of L5 left cortical area
     L5_left_mask <- L5_mask & left_mask
     x_coord <- x_coord - mean(x_coord[L5_left_mask])
     y_coord <- y_coord - mean(y_coord[L5_left_mask])
-    # ... align x axis and line through L5 ACx regions
+    # ... align x axis and line through L5 cortical regions
     L5_right_mask <- L5_mask & right_mask
     right_xlarger <- mean(x_coord[L5_right_mask]) > mean(x_coord[L5_left_mask])
     tilt_slope <- mean(y_coord[L5_right_mask]) / mean(x_coord[L5_right_mask])
@@ -169,7 +165,7 @@ parse_hdf5 <- function(
     # ... save transformed coordinates 
     x_coord <- aligned_coord[, 1]
     y_coord <- aligned_coord[, 2]
-    # ... align y axis and perpendicular bisection of ACx regions 
+    # ... align y axis and perpendicular bisection of cortical regions 
     x_coord <- x_coord - mean(x_coord[L5_mask])
     # ... make sure anterior is up
     if (z_view_bottom) {
@@ -198,17 +194,16 @@ parse_hdf5 <- function(
     )
     
     # Make plot of whole cortical slice 
-    layer_colors <- c("notACx" = "gray", "L1" = "gray4", "L23" = "tomato1", "L4" = "orange", "L5" = "springgreen2", "L6a" = "steelblue1", "L6b" = "purple") 
+    layer_colors <- c("notROI" = "gray", "L1" = "gray4", "L23" = "tomato1", "L4" = "orange", "L5" = "springgreen2", "L6a" = "steelblue1", "L6b" = "purple") 
     slice_plot <- ggplot(transcript_counts, aes(x = x_coord, y = y_coord, color = factor(layer))) +
       geom_point() +
       scale_color_manual(values = layer_colors) +
       labs(title = paste("Mouse", mouse_num), color = "Layer") +
       theme_minimal() + theme(legend.position = "none")
     
-    # Prune to just ACx
-    if (ACx_only) {
-      ACx_cells <- hemisphere != "notACx"
-      transcript_counts <- transcript_counts[ACx_cells,]
+    # Prune to just ROI
+    if (ROI_only) {
+      transcript_counts <- transcript_counts[hemisphere != "notROI",]
     }
     
     # Replace cell type number with cell type name
@@ -239,6 +234,8 @@ parse_hdf5 <- function(
 # Load and parse data
 make_count_data <- function(
     data_path, 
+    remove_L1 = RemoveL1,
+    ROIname = "Primary auditory area",
     verbose = TRUE
   ) {
     
@@ -264,7 +261,7 @@ make_count_data <- function(
     for (f in seq_along(files)) {
       if (f < length(files)) cat(f, ", ", sep="")
       else cat(f, "\n")
-      assign(paste0("mouse", f), parse_hdf5(file_path = files[f], mouse_num = f, raw = TRUE))
+      assign(paste0("mouse", f), parse_hdf5(file_path = files[f], mouse_num = f, raw = TRUE, remove_L1 = remove_L1, ROIname = ROIname))
       slice_plots[[paste0("slice_plot", f)]] <- get(paste0("mouse", f))$slice_plot
       assign(paste0("mouse", f), get(paste0("mouse", f))$transcript_counts)
       ind_var_fields <- which(colnames(get(paste0("mouse", f))) %in% c(
@@ -397,6 +394,7 @@ coordinate_transform <- function(
     mouse_num, 
     df,
     nat_left = FALSE, 
+    nat_right = FALSE,
     verbose = TRUE
   ) {
     
@@ -492,7 +490,7 @@ coordinate_transform <- function(
     # Test by plotting (recentered)
     plot_recenter <- plot_results(
       df, coordinates, mouse_num,
-      paste("Untransformed ACx layers (recentered), mouse", mouse_num)
+      paste("Untransformed cortical layers (recentered), mouse", mouse_num)
     )
     plot_list <- c(plot_list, list(plot_recenter = plot_recenter))
     
@@ -504,6 +502,7 @@ coordinate_transform <- function(
       mask_layer, 
       flip_right = TRUE,
       natural_left = FALSE,
+      natural_right = FALSE,
       verbose = FALSE
     ) {
       # Fit linear model to the mask_layer coordinates to get the angle of the slice
@@ -512,7 +511,7 @@ coordinate_transform <- function(
       slope <- model$coefficients[x_coord]
       if (slope < 0) {
         angle <- -atan(slope)
-        if (natural_left) angle <- -angle
+        if (natural_left || natural_right) angle <- -angle
       } else {
         angle <- atan(slope)
       }
@@ -527,8 +526,9 @@ coordinate_transform <- function(
       colnames(new_coord) <- colnames(data)
       # Undo centering
       new_coord[, y_coord] <- new_coord[, y_coord] + y_mean
-      # Flip right hemisphere if necessary
-      if (hemisphere == "right" && flip_right) new_coord[, y_coord] <- -new_coord[, y_coord]
+      # Flip hemispheres if necessary
+      if (hemisphere == "right" && flip_right && !natural_right) new_coord[, y_coord] <- -new_coord[, y_coord]
+      if (hemisphere == "right" && flip_right && natural_right) new_coord[, x_coord] <- -new_coord[, x_coord]
       if (natural_left) new_coord[, y_coord] <- -new_coord[, y_coord]
       # Return just the transformed hemisphere
       return(new_coord)
@@ -536,13 +536,13 @@ coordinate_transform <- function(
     
     # Step 2: Rotate each patch so that L4 aligns with the x-axis and L1 (or L23, if L1 removed) is on top
     if (verbose) snk.report...("Step 2, rotating each patch so that L4 aligns with the x-axis with anterior in positive y direction")
-    coordinates[mask_right,] <- level_layer(coordinates, "right", mask_right, mask_right_L4)
+    coordinates[mask_right,] <- level_layer(coordinates, "right", mask_right, mask_right_L4, natural_right = nat_right)
     coordinates[mask_left,] <- level_layer(coordinates, "left", mask_left, mask_left_L4, natural_left = nat_left)
     
     # Test by plotting (L4 leveled)
     plot_level_L4 <- plot_results(
       df, coordinates, mouse_num,
-      paste("Transformed ACx layers (L4 leveled), mouse", mouse_num)
+      paste("Transformed cortical layers (L4 leveled), mouse", mouse_num)
     )
     plot_list <- c(plot_list, list(plot_level_L4 = plot_level_L4))
     
@@ -593,7 +593,7 @@ coordinate_transform <- function(
     # Test by plotting (flattened)
     plot_flattened <- plot_results(
       df, coordinates, mouse_num,
-      paste("Transformed ACx layers (curve flattened), mouse", mouse_num)
+      paste("Transformed cortical layers (curve flattened), mouse", mouse_num)
     )
     plot_list <- c(plot_list, list(plot_flattened = plot_flattened))
     
@@ -696,7 +696,7 @@ coordinate_transform <- function(
     # Test by plotting 
     plot_linear_skew <- plot_results(
       df, coordinates, mouse_num,
-      paste("Transformed ACx layers (linear skew), mouse", mouse_num)
+      paste("Transformed cortical layers (linear skew), mouse", mouse_num)
     )
     plot_list <- c(plot_list, list(plot_linear_skew = plot_linear_skew))
     
@@ -748,7 +748,7 @@ coordinate_transform <- function(
     # Test by plotting 
     plot_level_all <- plot_results(
       df, coordinates, mouse_num,
-      paste0("Transformed ACx layers (level all layers), mouse ", mouse_num)
+      paste0("Transformed cortical layers (level all layers), mouse ", mouse_num)
     )
     plot_list <- c(plot_list, list(plot_level_all = plot_level_all))
     
@@ -768,6 +768,7 @@ coordinate_binning <- function(
     df,
     L1_removed = RemoveL1,
     nat_left = FALSE,
+    nat_right = FALSE,
     verbose = TRUE
   ) {
     
@@ -778,7 +779,7 @@ coordinate_binning <- function(
     
     # Apply coordinate transform to those rows
     if (verbose) snk.report...("Performing coordinate transform")
-    coord_trans <- coordinate_transform(mouse_num, df, nat_left = nat_left)
+    coord_trans <- coordinate_transform(mouse_num, df, nat_left = nat_left, nat_right = nat_right)
     plot_list <- coord_trans$plot_list
     coord_trans <- coord_trans$coord
     
@@ -934,7 +935,7 @@ coordinate_binning <- function(
     # Make plot
     plot_nonlinear_smoothing <- plot_results(
       df, df[,c("x_bins","y_bins")], mouse_num,
-      paste0("Transformed ACx layers, mouse ", mouse_num)
+      paste0("Transformed cortical layers, mouse ", mouse_num)
     )
     plot_list <- c(plot_list, list(plot_nonlinear_smoothing = plot_nonlinear_smoothing))
     
@@ -965,6 +966,7 @@ cortical_coordinate_transform <- function(
     keep_plots = FALSE,
     L1_removed = RemoveL1,
     nat_left = FALSE,
+    nat_right = FALSE,
     verbose = TRUE
   ) {
     
@@ -992,7 +994,7 @@ cortical_coordinate_transform <- function(
       assign(paste0("plot_list_m", mouse_num), list(slice_plot = slice_plots[[paste0("slice_plot", mouse_num)]]))
       
       # Transform and bin coordinates
-      count_data <- coordinate_binning(mouse_num, total_bins, layer_names, count_data, L1_removed, nat_left)
+      count_data <- coordinate_binning(mouse_num, total_bins, layer_names, count_data, L1_removed, nat_left, nat_right)
       
       # Extract layer boundary estimates and plots 
       layer_boundary_bins[mouse_num,] <- count_data$layer_boundary_bins
@@ -1088,7 +1090,7 @@ create.count.data.WSPmm <- function(
       count_data_fe[,fe] <- rep(df.merfish[,fe], num_genes)
     }
     
-    # Combine into one df and add column names
+    # Combine into one df 
     count_data <- cbind(count_data, count_data_fe)
     
     # Fill in the count data
@@ -1104,4 +1106,52 @@ create.count.data.WSPmm <- function(
     
   }
 
+
+# Function to convert to WSPmm format
+create.count.data.WSPmm.allen <- function(
+    df.merfish,                                    # data frame of MERFISH data, produced by the above functions
+    bin.dim = c("x_bins", "y_bins"),               # dimension by which to bin; must be one of these two; will collapse along the other
+    fixed.effect.names, 
+    parent = NULL                                  # parent level for fixed effects; if NULL, will use "cortex"
+  ) { 
+    
+    # Make count data column names and find its dimensions 
+    num_genes <- length(gene.list)
+    if (is.null(parent)) parent <- "cortex"
+    numrow <- nrow(df.merfish)
+    
+    # Make parent column 
+    if (parent == "cortex") parent_col <- rep("cortex", numrow)
+    else parent_col <- rep(df.merfish[,parent], num_genes)
+    
+    # Grab data
+    count_data <- data.frame(
+      count = df.merfish$trscrpt_ct,
+      bin = df.merfish[,bin.dim],
+      parent = parent_col,
+      gene = df.merfish$trscrpt_gene_symb,
+      mouse = df.merfish$mouse,
+      cell_num = df.merfish$cluster_id
+    )
+    colnames(count_data)[3] <- parent
+    
+    # Add age column 
+    df.merfish$age <- as.factor("adult")
+    
+    # Fill out the fixed-effect columns
+    count_data_fe <- data.frame(
+      matrix(rep(as.character(NA), numrow * length(fixed.effect.names)), nrow = numrow, ncol = length(fixed.effect.names))
+    )
+    colnames(count_data_fe) <- fixed.effect.names
+    for (fe in fixed.effect.names) {
+      count_data_fe[,fe] <- df.merfish[,fe]
+    }
+    
+    # Combine into one df 
+    count_data <- cbind(count_data, count_data_fe)
+   
+    # return data frames and token_counts vector 
+    return(count_data)
+    
+  }
 
