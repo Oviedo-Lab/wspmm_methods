@@ -23,16 +23,14 @@ Standard deviation of means: 0.388
 Total cells by type (Map My Cells):
 ------------------------------
 
-      Astro-Epen          CB GABA          CB Glut     CNU-HYa GABA     CNU-HYa Glut     CNU-LGE GABA     CNU-MGE GABA CTX-CGE/MGE GABA 
-            4905               85               20               12                2              672               21             1483 
-     DG-IMN Glut         filtered          HY GABA           Immune       IT-ET Glut         LSX GABA          MB GABA          MB Glut 
-              11            19204               38              361            16440               29               79                5 
-      MB-HB Sero       MH-LH Glut          MY GABA          MY Glut   NP-CT-L6b Glut      OB-IMN GABA              OEC        OPC-Oligo 
-               1               16              450               21             4926              153               23             1530 
-          P GABA  TSCRPT_filtered         Vascular          HY Glut    HY Gnrh1 Glut           P Glut      Pineal Glut          TH Glut 
-             151              112             6939                1                1                2                7               12 
-         MB Dopa       OB-CR Glut 
-               2                3 
+      Astro-Epen          CB GABA          CB Glut     CNU-HYa GABA     CNU-HYa Glut     CNU-LGE GABA     CNU-MGE GABA CTX-CGE/MGE GABA      DG-IMN Glut         filtered 
+            4905               85               20               12                2              672               21             1483               11            19204 
+         HY GABA           Immune       IT-ET Glut         LSX GABA          MB GABA          MB Glut       MB-HB Sero       MH-LH Glut          MY GABA          MY Glut 
+              38              361            16440               29               79                5                1               16              450               21 
+  NP-CT-L6b Glut      OB-IMN GABA              OEC        OPC-Oligo           P GABA  TSCRPT_filtered         Vascular          HY Glut    HY Gnrh1 Glut           P Glut 
+            4926              153               23             1530              151              112             6939                1                1                2 
+     Pineal Glut          TH Glut          MB Dopa       OB-CR Glut 
+               7               12                2                3 
 ----
 
 Number of mice: 4
@@ -105,21 +103,6 @@ Step 5, leveling all layers...
 Binning transformed coordinates... 
 Smoothing bin edges with nonlinear transformation... 
 Estimating layer boundaries... 
-Enter a frame number, or 0 to exit   
-
-1: create.count.data.WSPmm(df.merfish = count_data, bin.dim = "y_bins", gene.list = gene.list, fixed.effect.names = fixed.effect.names)
-2: merfish_preprocessing.R#1061: c("mouse", "cell_num", fixed.effect.names, parent) %in% colnames(df.merfish)
-
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-No suitable frames for recover()
-[1] young adult
-Levels: young adult
-
 
 Initializing Cpp (wspc) model: 
 ----------------------------------------
@@ -133,9 +116,9 @@ Found max bin: 100.000000
 Extracted fixed effects:
 "hemisphere" "age"
 Ref levels:
-"left" "adult"
+"left" "p1x"
 Created treatment levels
-"ref" "right" "young" "rightyoung"
+"ref" "right" "p5x" "rightp5x"
 Created treatment-to-fix translation matrix
 Pre-computed weight matrix rows
 Extracted parent grouping variables:
@@ -169,159 +152,9 @@ Estimated change points with LROcp and found initial parameter estimates for fix
 Built initial beta (ref and fixed-effects) matrices
 Initialized random effect warping factors
 Made and mapped parameter vector
-Number of parameters: 516
+Number of parameters: 612
 Constructed grouping variable IDs
-Computed size of boundary vector: 1728
-Finished initializing wspc object
-
-Estimating model parameters: 
----------------
-
-Running MCMC stimulations (single-threaded): 
-Checking feasibility of provided parameters
-... tpoints found below buffer
-Provided parameters not feasible, searching nearby
-Initial boundary distance (want to make >0): -3.00838
-Numer of evals: 4
-Success code: 2
-Final boundary distance: 0.099091
-Nearby feasible parameters found!
-Performing initial fit of full data
-Penalized neg_loglik: 1.85434
-
-Enter a frame number, or 0 to exit   
-
-1: wisp(count.data.raw = count.data.WSPmm.y.combined, variables = data.variables, use.median = FALSE, MCMC.burnin = 0, MCMC.steps = 1000, MCMC.step.size = 0.005, MCMC.prior = 0.5, bootstraps.num = 0, converged
-2: cpp_model$MCMC(MCMC.steps + MCMC.burnin, MCMC.step.size, MCMC.prior, verbose)
-
-
-
-Initializing Cpp (wspc) model: 
-----------------------------------------
-
-warp_precision: 1e-07
-eps_: 2.22045e-16
-inf_warp: 4.5036e+08
-Data structure check passed
-Saving tokenized count
-Found max bin: 100.000000
-Extracted fixed effects:
-"hemisphere" "age"
-Ref levels:
-"left" "adult"
-Created treatment levels
-"ref" "right" "young" "rightyoung"
-Created treatment-to-fix translation matrix
-Pre-computed weight matrix rows
-Extracted parent grouping variables:
-"cortex"
-Extracted child grouping variables:
-"Calb1" "Dscaml1" "Gad2" "Grik3" "Grm1" "Npsr1" "Pvalb" "Reln" "Rorb" "Slc32a1" "Sox6" "Vip"
-Extracted random-effect grouping variables:
-"none" "1" "2" "3" "4" "5"
-Extracted tokenized count columns
-Grabbed size constants for summed count data, total rows: 28800
-Initialized columns for summed count data
-Initialized count indexes, number of rows with unique model components: 288
-Pre-computing bin masks
-Creating summed-count data columns ...
-Random level 0, 1/6 complete
-Random level 1, 2/6 complete
-Random level 2, 3/6 complete
-Random level 3, 4/6 complete
-Random level 4, 5/6 complete
-Random level 5, 6/6 complete
-Extracted non-NA indexes
-Making extrapolation pool ...
-row: 960/4800
-row: 1920/4800
-row: 2880/4800
-row: 3840/4800
-row: 4800/4800
-Extrapolated 'none' rows
-Took log of observed counts
-Estimated change points with LROcp and found initial parameter estimates for fixed-effect treatments
-Built initial beta (ref and fixed-effects) matrices
-Initialized random effect warping factors
-Made and mapped parameter vector
-Number of parameters: 516
-Constructed grouping variable IDs
-Computed size of boundary vector: 1728
-Finished initializing wspc object
-
-Estimating model parameters: 
----------------
-
-Running MCMC stimulations (single-threaded): 
-Checking feasibility of provided parameters
-... tpoints found below buffer
-Provided parameters not feasible, searching nearby
-Initial boundary distance (want to make >0): -3.00838
-Numer of evals: 4
-Success code: 2
-Final boundary distance: 0.099091
-Nearby feasible parameters found!
-Performing initial fit of full data
-Penalized neg_loglik: 1.8495
-
-Enter a frame number, or 0 to exit   
-
-1: wisp(count.data.raw = count.data.WSPmm.y.combined, variables = data.variables, use.median = FALSE, MCMC.burnin = 0, MCMC.steps = 1000, MCMC.step.size = 0.005, MCMC.prior = 0.5, bootstraps.num = 0, converged
-2: cpp_model$MCMC(MCMC.steps + MCMC.burnin, MCMC.step.size, MCMC.prior, verbose)
-
-
-
-Initializing Cpp (wspc) model: 
-----------------------------------------
-
-warp_precision: 1e-07
-eps_: 2.22045e-16
-inf_warp: 4.5036e+08
-Data structure check passed
-Saving tokenized count
-Found max bin: 100.000000
-Extracted fixed effects:
-"hemisphere" "age"
-Ref levels:
-"left" "adult"
-Created treatment levels
-"ref" "right" "young" "rightyoung"
-Created treatment-to-fix translation matrix
-Pre-computed weight matrix rows
-Extracted parent grouping variables:
-"cortex"
-Extracted child grouping variables:
-"Calb1" "Dscaml1" "Gad2" "Grik3" "Grm1" "Npsr1" "Pvalb" "Reln" "Rorb" "Slc32a1" "Sox6" "Vip"
-Extracted random-effect grouping variables:
-"none" "1" "2" "3" "4" "5"
-Extracted tokenized count columns
-Grabbed size constants for summed count data, total rows: 28800
-Initialized columns for summed count data
-Initialized count indexes, number of rows with unique model components: 288
-Pre-computing bin masks
-Creating summed-count data columns ...
-Random level 0, 1/6 complete
-Random level 1, 2/6 complete
-Random level 2, 3/6 complete
-Random level 3, 4/6 complete
-Random level 4, 5/6 complete
-Random level 5, 6/6 complete
-Extracted non-NA indexes
-Making extrapolation pool ...
-row: 960/4800
-row: 1920/4800
-row: 2880/4800
-row: 3840/4800
-row: 4800/4800
-Extrapolated 'none' rows
-Took log of observed counts
-Estimated change points with LROcp and found initial parameter estimates for fixed-effect treatments
-Built initial beta (ref and fixed-effects) matrices
-Initialized random effect warping factors
-Made and mapped parameter vector
-Number of parameters: 516
-Constructed grouping variable IDs
-Computed size of boundary vector: 1728
+Computed size of boundary vector: 2112
 Finished initializing wspc object
 
 Estimating model parameters: 
@@ -333,314 +166,30 @@ Running bootstrap fits (with forking):
 Checking feasibility of provided parameters
 ... tpoints found below buffer
 Provided parameters not feasible, searching nearby
-Initial boundary distance (want to make >0): -3.00838
-Numer of evals: 4
+Initial boundary distance (want to make >0): -3.01083
+Numer of evals: 28
 Success code: 2
-Final boundary distance: 0.099091
+Final boundary distance: 0.0256776
 Nearby feasible parameters found!
 Performing initial fit of full data
-Penalized neg_loglik: 1.8495
-Batch 1/10, 1.69516 sec/bs
-Batch 2/10, 1.67201 sec/bs
-Batch 3/10, 1.5583 sec/bs
-Batch 4/10, 1.42811 sec/bs
-Batch 5/10, 1.75927 sec/bs
-Batch 6/10, 1.67659 sec/bs
-Batch 7/10, 1.58499 sec/bs
-Batch 8/10, 1.75531 sec/bs
-Batch 9/10, 1.98037 sec/bs
-Batch 10/10, 1.33429 sec/bs
+Penalized neg_loglik: 1.01e+100
+Batch 1/5, 0.429113 sec/bs
+Batch 2/5, 0.349781 sec/bs
+Batch 3/5, 0.341508 sec/bs
+Batch 4/5, 0.342948 sec/bs
+Batch 5/5, 0.345314 sec/bs
 All complete!
 
 Setting full-data fit as parameters... 
 Checking feasibility of provided parameters
 ... no tpoints below buffer
-... no negative rates predicted
-Provided parameters are feasible
-
-Running stats on simulation results: 
-----------------------------------------
-
-Grabbing sample results... 
-Grabbing parameter values... 
-Computing 95% confidence intervals... 
-Estimating p-values from bootstraped parameters... 
-
-Stat summary (head only):
-------------------------------
-                                   parameter   estimate      CI.low    CI.high    p.value p.value.adj    alpha.adj significance
-1          baseline_cortex_Rt_Calb1_Tns/Blk1  6.0305570  5.85282262  6.1274432 0.00000000    0.000000 0.0001016260          ***
-2      beta_Rt_cortex_Calb1_right_X_Tns/Blk1  0.3097931  0.30992278  0.6593596 0.00000000    0.000000 0.0001018330          ***
-3      beta_Rt_cortex_Calb1_young_X_Tns/Blk1 -2.7964341 -2.91865912 -2.6013007 0.00000000    0.000000 0.0001020408          ***
-4 beta_Rt_cortex_Calb1_rightyoung_X_Tns/Blk1 -0.2537501 -0.63659744 -0.2538751 0.00000000    0.000000 0.0001022495          ***
-5          baseline_cortex_Rt_Calb1_Tns/Blk2  8.0588841  7.62160174  8.0588313 0.00000000    0.000000 0.0001024590          ***
-6      beta_Rt_cortex_Calb1_right_X_Tns/Blk2  0.2084836 -0.09025718  0.3526058 0.01980198    3.029703 0.0003267974           ns
-----
-
-Analyzing residuals: 
-----------------------------------------
-
-Computing residuals... 
-Making masks... 
-Making plots and saving stats... 
-
-Log-residual summary by grouping variables (head only):
-------------------------------
-         group      mean        sd  variance
-1          all 0.6327317 0.7234917 0.5234403
-2 ran_lvl_none 0.5369769 0.6672303 0.4451963
-3    ran_lvl_1 0.6971848 0.7093940 0.5032398
-4    ran_lvl_2 0.6083067 0.6734268 0.4535036
-5    ran_lvl_3 0.8782683 0.7805191 0.6092101
-6    ran_lvl_4 0.7406435 0.7619543 0.5805743
-----
-
-TPS test results (head only):
-------------------------------
-               cortex    gene TPS.ref TPS.right TPS.young TPS.rightyoung Rt.right tpoint.right tslope.right Rt.rightyoung tpoint.rightyoung tslope.rightyoung Rt.young tpoint.young tslope.young
-Calb1.cortex   cortex   Calb1   FALSE      TRUE      TRUE           TRUE     TRUE         TRUE        FALSE          TRUE              TRUE             FALSE     TRUE        FALSE         TRUE
-Dscaml1.cortex cortex Dscaml1    TRUE      TRUE      TRUE           TRUE     TRUE         TRUE         TRUE          TRUE              TRUE              TRUE     TRUE         TRUE         TRUE
-Gad2.cortex    cortex    Gad2    TRUE      TRUE      TRUE           TRUE     TRUE         TRUE         TRUE         FALSE              TRUE              TRUE     TRUE         TRUE         TRUE
-Grik3.cortex   cortex   Grik3   FALSE      TRUE      TRUE          FALSE     TRUE         TRUE        FALSE         FALSE              TRUE             FALSE     TRUE         TRUE        FALSE
-Grm1.cortex    cortex    Grm1    TRUE      TRUE      TRUE           TRUE     TRUE         TRUE         TRUE          TRUE              TRUE              TRUE     TRUE         TRUE         TRUE
-Npsr1.cortex   cortex   Npsr1    TRUE      TRUE      TRUE           TRUE    FALSE         TRUE         TRUE          TRUE              TRUE              TRUE     TRUE         TRUE         TRUE
-----
-
-Printing effect distributions: 
-----------------------------------------
-
-Warping factors distributions... 
-Rate effects distribution... 
-Slope effects distribution... 
-tpoint effects distribution... 
-Making rate-count plots... 
-
-Printing child summary plots: 
-----------------------------------------
-
-Making summary plots for cortex: Calb1
-Enter a frame number, or 0 to exit   
-
- 1: wisp(count.data.raw = count.data.WSPmm.y.combined, variables = data.variables, use.median = FALSE, MCMC.burnin = 0, MCMC.steps = 1000, MCMC.step.size = 0.005, MCMC.prior = 0.5, bootstraps.num = 100, converg
- 2: plot.child.summary(wisp.results = results, these.parents = NULL, these.childs = NULL, log.scale = TRUE, verbose = TRUE)
- 3: arrangeGrob(ggplotGrob(p_rates[[1]]), resids, ncol = 1)
- 4: ggplotGrob(p_rates[[1]])
- 5: ggplot_gtable(ggplot_build(x))
- 6: attach_plot_env(data$plot$plot_env)
- 7: options(ggplot2_plot_env = env)
- 8: ggplot_build(x)
- 9: ggplot_build.ggplot(x)
-10: by_layer(function(l, d) l$compute_aesthetics(d, plot), layers, data, "computing aesthetics")
-11: try_fetch(for (i in seq_along(data)) {
-    out[[i]] <- f(l = layers[[i]], d = data[[i]])
-}, error = function(cnd) {
-    cli::cli_abort(c("Problem while {step}.", i = "Error occurred in the {ordinal(i)} layer."
-12: tryCatch(withCallingHandlers(expr, condition = function(cnd) {
-    {
-        .__handler_frame__. <- TRUE
-        .__setup_frame__. <- frame
-        if (inherits(cnd, "message")) {
-            except <- c("warnin
-13: tryCatchList(expr, classes, parentenv, handlers)
-14: tryCatchOne(expr, names, parentenv, handlers[[1]])
-15: doTryCatch(return(expr), name, parentenv, handler)
-16: withCallingHandlers(expr, condition = function(cnd) {
-    {
-        .__handler_frame__. <- TRUE
-        .__setup_frame__. <- frame
-        if (inherits(cnd, "message")) {
-            except <- c("warning", "erro
-17: f(l = layers[[i]], d = data[[i]])
-18: l$compute_aesthetics(d, plot)
-19: compute_aesthetics(..., self = self)
-20: check_aesthetics(evaled, n)
-21: cli::cli_abort(c("Aesthetics must be either length 1 or the same as the data ({n}).", x = "Fix the following mappings: {.col {names(which(!good))}}."))
-22: rlang::abort(message, ..., call = call, use_cli_format = TRUE, .frame = .frame)
-23: signal_abort(cnd, .file)
-24: signalCondition(cnd)
-25: (function (cnd) 
-{
-    {
-        .__handler_frame__. <- TRUE
-        .__setup_frame__. <- frame
-        if (inherits(cnd, "message")) {
-            except <- c("warning", "error")
-        }
-        else if (inherit
-26: handlers[[1]](cnd)
-27: cli::cli_abort(c("Problem while {step}.", i = "Error occurred in the {ordinal(i)} layer."), call = layers[[i]]$constructor, parent = cnd)
-28: rlang::abort(message, ..., call = call, use_cli_format = TRUE, .frame = .frame)
-29: signal_abort(cnd, .file)
-
-Enter an item from the menu, or 0 to exit
-Called from: rlang::abort(message, ..., call = call, use_cli_format = TRUE, 
-    .frame = .frame)
-$plot_pred_parent_cortex_fixEff_Calb1
-[1] "cortex"
-[1] "Calb1"
-           cortex
-Calb1   5.6311897
-Dscaml1 0.5513085
-Gad2    1.8667826
-Grik3   1.6099642
-Grm1    2.4566520
-Npsr1   0.6201431
-Pvalb   2.7063050
-Reln    3.5190401
-Rorb    5.2793406
-Slc32a1 0.7685842
-Sox6    2.1506320
-Vip     2.9292124
-
-Enter a frame number, or 0 to exit   
-
- 1: wisp(count.data.raw = count.data.WSPmm.y.combined, variables = data.variables, use.median = FALSE, MCMC.burnin = 0, MCMC.steps = 1000, MCMC.step.size = 0.005, MCMC.prior = 0.5, bootstraps.num = 100, converg
- 2: plot.child.summary(wisp.results = results, these.parents = NULL, these.childs = NULL, log.scale = TRUE, verbose = TRUE)
- 3: arrangeGrob(ggplotGrob(p_rates[[1]]), resids, ncol = 1)
- 4: ggplotGrob(p_rates[[1]])
- 5: ggplot_gtable(ggplot_build(x))
- 6: attach_plot_env(data$plot$plot_env)
- 7: options(ggplot2_plot_env = env)
- 8: ggplot_build(x)
- 9: ggplot_build.ggplot(x)
-10: by_layer(function(l, d) l$compute_aesthetics(d, plot), layers, data, "computing aesthetics")
-11: try_fetch(for (i in seq_along(data)) {
-    out[[i]] <- f(l = layers[[i]], d = data[[i]])
-}, error = function(cnd) {
-    cli::cli_abort(c("Problem while {step}.", i = "Error occurred in the {ordinal(i)} layer."
-12: tryCatch(withCallingHandlers(expr, condition = function(cnd) {
-    {
-        .__handler_frame__. <- TRUE
-        .__setup_frame__. <- frame
-        if (inherits(cnd, "message")) {
-            except <- c("warnin
-13: tryCatchList(expr, classes, parentenv, handlers)
-14: tryCatchOne(expr, names, parentenv, handlers[[1]])
-15: doTryCatch(return(expr), name, parentenv, handler)
-16: withCallingHandlers(expr, condition = function(cnd) {
-    {
-        .__handler_frame__. <- TRUE
-        .__setup_frame__. <- frame
-        if (inherits(cnd, "message")) {
-            except <- c("warning", "erro
-17: f(l = layers[[i]], d = data[[i]])
-18: l$compute_aesthetics(d, plot)
-19: compute_aesthetics(..., self = self)
-20: check_aesthetics(evaled, n)
-21: cli::cli_abort(c("Aesthetics must be either length 1 or the same as the data ({n}).", x = "Fix the following mappings: {.col {names(which(!good))}}."))
-22: rlang::abort(message, ..., call = call, use_cli_format = TRUE, .frame = .frame)
-23: signal_abort(cnd, .file)
-24: signalCondition(cnd)
-25: (function (cnd) 
-{
-    {
-        .__handler_frame__. <- TRUE
-        .__setup_frame__. <- frame
-        if (inherits(cnd, "message")) {
-            except <- c("warning", "error")
-        }
-        else if (inherit
-26: handlers[[1]](cnd)
-27: cli::cli_abort(c("Problem while {step}.", i = "Error occurred in the {ordinal(i)} layer."), call = layers[[i]]$constructor, parent = cnd)
-28: rlang::abort(message, ..., call = call, use_cli_format = TRUE, .frame = .frame)
-29: signal_abort(cnd, .file)
-
-Called from: cli::cli_abort(c("Problem while {step}.", i = "Error occurred in the {ordinal(i)} layer."), 
-    call = layers[[i]]$constructor, parent = cnd)
-  [,1] [,2] [,3] [,4] [,5] [,6]
-1   78   61   44   27    1    0
-2   82   68   57   35    1    0
-3   85   68   54   35    1    0
-4   85   67   56   37    1    0
-1   87   62   49   31    2    0
-
-
-Initializing Cpp (wspc) model: 
-----------------------------------------
-
-warp_precision: 1e-07
-eps_: 2.22045e-16
-inf_warp: 4.5036e+08
-Data structure check passed
-Saving tokenized count
-Found max bin: 100.000000
-Extracted fixed effects:
-"hemisphere" "age"
-Ref levels:
-"left" "adult"
-Created treatment levels
-"ref" "right" "young" "rightyoung"
-Created treatment-to-fix translation matrix
-Pre-computed weight matrix rows
-Extracted parent grouping variables:
-"cortex"
-Extracted child grouping variables:
-"Calb1" "Dscaml1" "Gad2" "Grik3" "Grm1" "Npsr1" "Pvalb" "Reln" "Rorb" "Slc32a1" "Sox6" "Vip"
-Extracted random-effect grouping variables:
-"none" "1" "2" "3" "4" "5"
-Extracted tokenized count columns
-Grabbed size constants for summed count data, total rows: 28800
-Initialized columns for summed count data
-Initialized count indexes, number of rows with unique model components: 288
-Pre-computing bin masks
-Creating summed-count data columns ...
-Random level 0, 1/6 complete
-Random level 1, 2/6 complete
-Random level 2, 3/6 complete
-Random level 3, 4/6 complete
-Random level 4, 5/6 complete
-Random level 5, 6/6 complete
-Extracted non-NA indexes
-Making extrapolation pool ...
-row: 960/4800
-row: 1920/4800
-row: 2880/4800
-row: 3840/4800
-row: 4800/4800
-Extrapolated 'none' rows
-Took log of observed counts
-Estimated change points with LROcp and found initial parameter estimates for fixed-effect treatments
-Built initial beta (ref and fixed-effects) matrices
-Initialized random effect warping factors
-Made and mapped parameter vector
-Number of parameters: 516
-Constructed grouping variable IDs
-Computed size of boundary vector: 1728
-Finished initializing wspc object
-
-Estimating model parameters: 
----------------
-Forking available and bootstrap requested.... 
-If bootstrapping not desired, set bootstraps.num = 0... 
-
-Running bootstrap fits (with forking): 
-Checking feasibility of provided parameters
-... tpoints found below buffer
+... negative rates predicted
 Provided parameters not feasible, searching nearby
-Initial boundary distance (want to make >0): -3.00838
-Numer of evals: 4
+Initial boundary distance (want to make >0): 0.0256776
+Numer of evals: 1
 Success code: 2
-Final boundary distance: 0.099091
+Final boundary distance: 0.0256776
 Nearby feasible parameters found!
-Performing initial fit of full data
-Penalized neg_loglik: 1.8495
-Batch 1/10, 1.69537 sec/bs
-Batch 2/10, 1.66908 sec/bs
-Batch 3/10, 1.54919 sec/bs
-Batch 4/10, 1.41797 sec/bs
-Batch 5/10, 1.74304 sec/bs
-Batch 6/10, 1.61653 sec/bs
-Batch 7/10, 1.54266 sec/bs
-Batch 8/10, 1.68523 sec/bs
-Batch 9/10, 1.88647 sec/bs
-Batch 10/10, 1.35532 sec/bs
-All complete!
-
-Setting full-data fit as parameters... 
-Checking feasibility of provided parameters
-... no tpoints below buffer
-... no negative rates predicted
-Provided parameters are feasible
 
 Running stats on simulation results: 
 ----------------------------------------
@@ -652,13 +201,13 @@ Estimating p-values from bootstraped parameters...
 
 Stat summary (head only):
 ------------------------------
-                                   parameter   estimate      CI.low    CI.high    p.value p.value.adj    alpha.adj significance
-1          baseline_cortex_Rt_Calb1_Tns/Blk1  6.0305570  5.85282262  6.1274432 0.00000000    0.000000 0.0001016260          ***
-2      beta_Rt_cortex_Calb1_right_X_Tns/Blk1  0.3097931  0.30992278  0.6593596 0.00000000    0.000000 0.0001018330          ***
-3      beta_Rt_cortex_Calb1_young_X_Tns/Blk1 -2.7964341 -2.91865912 -2.6013007 0.00000000    0.000000 0.0001020408          ***
-4 beta_Rt_cortex_Calb1_rightyoung_X_Tns/Blk1 -0.2537501 -0.63659744 -0.2538751 0.00000000    0.000000 0.0001022495          ***
-5          baseline_cortex_Rt_Calb1_Tns/Blk2  8.0588841  7.62160174  8.0588313 0.00000000    0.000000 0.0001024590          ***
-6      beta_Rt_cortex_Calb1_right_X_Tns/Blk2  0.2084836 -0.09025718  0.3526058 0.01980198    3.029703 0.0003267974           ns
+                                 parameter  estimate    CI.low   CI.high p.value p.value.adj    alpha.adj significance
+1        baseline_cortex_Rt_Calb1_Tns/Blk1 1.4382929 1.4382929 1.4382929       0           0 8.818342e-05          ***
+2    beta_Rt_cortex_Calb1_right_X_Tns/Blk1 0.1341834 0.1341834 0.1341834       0           0 8.833922e-05          ***
+3      beta_Rt_cortex_Calb1_p5x_X_Tns/Blk1 0.4293026 0.4293026 0.4293026       0           0 8.849558e-05          ***
+4 beta_Rt_cortex_Calb1_rightp5x_X_Tns/Blk1 0.8447139 0.8447139 0.8447139       0           0 8.865248e-05          ***
+5        baseline_cortex_Rt_Calb1_Tns/Blk2 1.8441534 1.8441534 1.8441534       0           0 8.880995e-05          ***
+6    beta_Rt_cortex_Calb1_right_X_Tns/Blk2 0.1721221 0.1721221 0.1721221       0           0 8.896797e-05          ***
 ----
 
 Analyzing residuals: 
@@ -670,36 +219,159 @@ Making plots and saving stats...
 
 Log-residual summary by grouping variables (head only):
 ------------------------------
-         group      mean        sd  variance
-1          all 0.6327317 0.7234917 0.5234403
-2 ran_lvl_none 0.5369769 0.6672303 0.4451963
-3    ran_lvl_1 0.6971848 0.7093940 0.5032398
-4    ran_lvl_2 0.6083067 0.6734268 0.4535036
-5    ran_lvl_3 0.8782683 0.7805191 0.6092101
-6    ran_lvl_4 0.7406435 0.7619543 0.5805743
+         group        mean        sd  variance
+1          all  0.01870621 0.6940713 0.4817350
+2 ran_lvl_none -0.04247451 0.6557450 0.4300014
+3    ran_lvl_1 -0.01766828 0.5607451 0.3144351
+4    ran_lvl_2 -0.42479394 0.5492402 0.3016648
+5    ran_lvl_3  0.54542410 0.5651058 0.3193446
+6    ran_lvl_4  0.09385340 0.6037398 0.3645017
 ----
 
-TPS test results (head only):
-------------------------------
-               cortex    gene TPS.ref TPS.right TPS.young TPS.rightyoung Rt.right tpoint.right tslope.right Rt.rightyoung tpoint.rightyoung tslope.rightyoung Rt.young tpoint.young tslope.young
-Calb1.cortex   cortex   Calb1   FALSE      TRUE      TRUE           TRUE     TRUE         TRUE        FALSE          TRUE              TRUE             FALSE     TRUE        FALSE         TRUE
-Dscaml1.cortex cortex Dscaml1    TRUE      TRUE      TRUE           TRUE     TRUE         TRUE         TRUE          TRUE              TRUE              TRUE     TRUE         TRUE         TRUE
-Gad2.cortex    cortex    Gad2    TRUE      TRUE      TRUE           TRUE     TRUE         TRUE         TRUE         FALSE              TRUE              TRUE     TRUE         TRUE         TRUE
-Grik3.cortex   cortex   Grik3   FALSE      TRUE      TRUE          FALSE     TRUE         TRUE        FALSE         FALSE              TRUE             FALSE     TRUE         TRUE        FALSE
-Grm1.cortex    cortex    Grm1    TRUE      TRUE      TRUE           TRUE     TRUE         TRUE         TRUE          TRUE              TRUE              TRUE     TRUE         TRUE         TRUE
-Npsr1.cortex   cortex   Npsr1    TRUE      TRUE      TRUE           TRUE    FALSE         TRUE         TRUE          TRUE              TRUE              TRUE     TRUE         TRUE         TRUE
-----
+Enter a frame number, or 0 to exit   
 
-Printing effect distributions: 
-----------------------------------------
+1: wisp(count.data.raw = count.data.WSPmm.y.combined, variables = data.variables, use.median = FALSE, MCMC.burnin = 0, MCMC.steps = 1000, MCMC.step.size = 0.005, MCMC.prior = 0.5, bo
+2: check.tpoint.stability(wisp.results = results, verbose = verbose)
 
-Warping factors distributions... 
-Rate effects distribution... 
-Slope effects distribution... 
-tpoint effects distribution... 
-Making rate-count plots... 
-
-Printing child summary plots: 
-----------------------------------------
-
-Making summary plots for cortex: Calb1, Dscaml1, Gad2, Grik3, Grm1, Npsr1, Pvalb, Reln, Rorb, Slc32a1, Sox6, Vip[1] 83.4 65.2 52.0 33.0  1.2  0.0
+Called from: top level 
+[1] 612
+[1] 2
+[1] 0.05
+                                     parameter     estimate       CI.low      CI.high p.value p.value.adj    alpha.adj significance
+1            baseline_cortex_Rt_Calb1_Tns/Blk1  1.438292903  1.438292903  1.438292903       0           0 8.818342e-05          ***
+2        beta_Rt_cortex_Calb1_right_X_Tns/Blk1  0.134183370  0.134183370  0.134183370       0           0 8.833922e-05          ***
+3          beta_Rt_cortex_Calb1_p5x_X_Tns/Blk1  0.429302557  0.429302557  0.429302557       0           0 8.849558e-05          ***
+4     beta_Rt_cortex_Calb1_rightp5x_X_Tns/Blk1  0.844713918  0.844713918  0.844713918       0           0 8.865248e-05          ***
+5            baseline_cortex_Rt_Calb1_Tns/Blk2  1.844153376  1.844153376  1.844153376       0           0 8.880995e-05          ***
+6        beta_Rt_cortex_Calb1_right_X_Tns/Blk2  0.172122085  0.172122085  0.172122085       0           0 8.896797e-05          ***
+7          beta_Rt_cortex_Calb1_p5x_X_Tns/Blk2  2.299432812  2.299432812  2.299432812       0           0 8.912656e-05          ***
+8     beta_Rt_cortex_Calb1_rightp5x_X_Tns/Blk2  0.223069028  0.223069028  0.223069028       0           0 8.928571e-05          ***
+9            baseline_cortex_Rt_Calb1_Tns/Blk3  1.507862571  1.507862571  1.507862571       0           0 8.944544e-05          ***
+10       beta_Rt_cortex_Calb1_right_X_Tns/Blk3 -0.023682181 -0.023682181 -0.023682181       0           0 8.960573e-05          ***
+11         beta_Rt_cortex_Calb1_p5x_X_Tns/Blk3  2.793936207  2.793936207  2.793936207       0           0 8.976661e-05          ***
+12    beta_Rt_cortex_Calb1_rightp5x_X_Tns/Blk3  0.456207624  0.456207624  0.456207624       0           0 8.992806e-05          ***
+13         baseline_cortex_Rt_Dscaml1_Tns/Blk1  4.645178373  4.645178373  4.645178373       0           0 9.009009e-05          ***
+14     beta_Rt_cortex_Dscaml1_right_X_Tns/Blk1  0.142540262  0.142540262  0.142540262       0           0 9.025271e-05          ***
+15       beta_Rt_cortex_Dscaml1_p5x_X_Tns/Blk1 -3.161586434 -3.161586434 -3.161586434       0           0 9.041591e-05          ***
+16  beta_Rt_cortex_Dscaml1_rightp5x_X_Tns/Blk1 -0.373272516 -0.373272516 -0.373272516       0           0 9.057971e-05          ***
+17         baseline_cortex_Rt_Dscaml1_Tns/Blk2  3.987580917  3.987580917  3.987580917       0           0 9.074410e-05          ***
+18     beta_Rt_cortex_Dscaml1_right_X_Tns/Blk2  0.010514450  0.010514450  0.010514450       0           0 9.090909e-05          ***
+19       beta_Rt_cortex_Dscaml1_p5x_X_Tns/Blk2 -2.937822226 -2.937822226 -2.937822226       0           0 9.107468e-05          ***
+20  beta_Rt_cortex_Dscaml1_rightp5x_X_Tns/Blk2 -0.273596477 -0.273596477 -0.273596477       0           0 9.124088e-05          ***
+21         baseline_cortex_Rt_Dscaml1_Tns/Blk3  4.151148698  4.151148698  4.151148698       0           0 9.140768e-05          ***
+22     beta_Rt_cortex_Dscaml1_right_X_Tns/Blk3 -0.095356250 -0.095356250 -0.095356250       0           0 9.157509e-05          ***
+23       beta_Rt_cortex_Dscaml1_p5x_X_Tns/Blk3 -1.989343864 -1.989343864 -1.989343864       0           0 9.174312e-05          ***
+24  beta_Rt_cortex_Dscaml1_rightp5x_X_Tns/Blk3 -0.560834841 -0.560834841 -0.560834841       0           0 9.191176e-05          ***
+25            baseline_cortex_Rt_Gad2_Tns/Blk1  3.744558427  3.744558427  3.744558427       0           0 9.208103e-05          ***
+26        beta_Rt_cortex_Gad2_right_X_Tns/Blk1  0.236289566  0.236289566  0.236289566       0           0 9.225092e-05          ***
+27          beta_Rt_cortex_Gad2_p5x_X_Tns/Blk1 -0.366271633 -0.366271633 -0.366271633       0           0 9.242144e-05          ***
+28     beta_Rt_cortex_Gad2_rightp5x_X_Tns/Blk1  0.747029710  0.747029710  0.747029710       0           0 9.259259e-05          ***
+29            baseline_cortex_Rt_Gad2_Tns/Blk2  3.746675475  3.746675475  3.746675475       0           0 9.276438e-05          ***
+30        beta_Rt_cortex_Gad2_right_X_Tns/Blk2 -0.193558149 -0.193558149 -0.193558149       0           0 9.293680e-05          ***
+31          beta_Rt_cortex_Gad2_p5x_X_Tns/Blk2 -1.363932089 -1.363932089 -1.363932089       0           0 9.310987e-05          ***
+32     beta_Rt_cortex_Gad2_rightp5x_X_Tns/Blk2  0.843453411  0.843453411  0.843453411       0           0 9.328358e-05          ***
+33            baseline_cortex_Rt_Gad2_Tns/Blk3  3.857298568  3.857298568  3.857298568       0           0 9.345794e-05          ***
+34        beta_Rt_cortex_Gad2_right_X_Tns/Blk3  0.128398138  0.128398138  0.128398138       0           0 9.363296e-05          ***
+35          beta_Rt_cortex_Gad2_p5x_X_Tns/Blk3 -0.436972272 -0.436972272 -0.436972272       0           0 9.380863e-05          ***
+36     beta_Rt_cortex_Gad2_rightp5x_X_Tns/Blk3 -0.044648647 -0.044648647 -0.044648647       0           0 9.398496e-05          ***
+37            baseline_cortex_Rt_Gad2_Tns/Blk4  3.940390053  3.940390053  3.940390053       0           0 9.416196e-05          ***
+38        beta_Rt_cortex_Gad2_right_X_Tns/Blk4  0.073122656  0.073122656  0.073122656       0           0 9.433962e-05          ***
+39          beta_Rt_cortex_Gad2_p5x_X_Tns/Blk4 -0.493762841 -0.493762841 -0.493762841       0           0 9.451796e-05          ***
+40     beta_Rt_cortex_Gad2_rightp5x_X_Tns/Blk4 -0.209949626 -0.209949626 -0.209949626       0           0 9.469697e-05          ***
+41           baseline_cortex_Rt_Grik3_Tns/Blk1  5.020555730  5.020555730  5.020555730       0           0 9.487666e-05          ***
+42       beta_Rt_cortex_Grik3_right_X_Tns/Blk1 -0.049707399 -0.049707399 -0.049707399       0           0 9.505703e-05          ***
+43         beta_Rt_cortex_Grik3_p5x_X_Tns/Blk1 -1.155267375 -1.155267375 -1.155267375       0           0 9.523810e-05          ***
+44    beta_Rt_cortex_Grik3_rightp5x_X_Tns/Blk1  0.106608560  0.106608560  0.106608560       0           0 9.541985e-05          ***
+45           baseline_cortex_Rt_Grik3_Tns/Blk2  3.998197991  3.998197991  3.998197991       0           0 9.560229e-05          ***
+46       beta_Rt_cortex_Grik3_right_X_Tns/Blk2 -0.264084746 -0.264084746 -0.264084746       0           0 9.578544e-05          ***
+47         beta_Rt_cortex_Grik3_p5x_X_Tns/Blk2 -1.286434835 -1.286434835 -1.286434835       0           0 9.596929e-05          ***
+48    beta_Rt_cortex_Grik3_rightp5x_X_Tns/Blk2  0.489069748  0.489069748  0.489069748       0           0 9.615385e-05          ***
+49           baseline_cortex_Rt_Grik3_Tns/Blk3  2.171609704  2.171609704  2.171609704       0           0 9.633911e-05          ***
+50       beta_Rt_cortex_Grik3_right_X_Tns/Blk3 -0.116358555 -0.116358555 -0.116358555       0           0 9.652510e-05          ***
+51         beta_Rt_cortex_Grik3_p5x_X_Tns/Blk3 -1.242192253 -1.242192253 -1.242192253       0           0 9.671180e-05          ***
+52    beta_Rt_cortex_Grik3_rightp5x_X_Tns/Blk3  0.343854492  0.343854492  0.343854492       0           0 9.689922e-05          ***
+53            baseline_cortex_Rt_Grm1_Tns/Blk1  2.345280367  2.345280367  2.345280367       0           0 9.708738e-05          ***
+54        beta_Rt_cortex_Grm1_right_X_Tns/Blk1  0.226864192  0.226864192  0.226864192       0           0 9.727626e-05          ***
+55          beta_Rt_cortex_Grm1_p5x_X_Tns/Blk1 -1.086006791 -1.086006791 -1.086006791       0           0 9.746589e-05          ***
+56     beta_Rt_cortex_Grm1_rightp5x_X_Tns/Blk1  0.148494059  0.148494059  0.148494059       0           0 9.765625e-05          ***
+57            baseline_cortex_Rt_Grm1_Tns/Blk2  2.486934619  2.486934619  2.486934619       0           0 9.784736e-05          ***
+58        beta_Rt_cortex_Grm1_right_X_Tns/Blk2  0.086986449  0.086986449  0.086986449       0           0 9.803922e-05          ***
+59          beta_Rt_cortex_Grm1_p5x_X_Tns/Blk2 -1.365284093 -1.365284093 -1.365284093       0           0 9.823183e-05          ***
+60     beta_Rt_cortex_Grm1_rightp5x_X_Tns/Blk2  0.051083401  0.051083401  0.051083401       0           0 9.842520e-05          ***
+61            baseline_cortex_Rt_Grm1_Tns/Blk3  2.634493174  2.634493174  2.634493174       0           0 9.861933e-05          ***
+62        beta_Rt_cortex_Grm1_right_X_Tns/Blk3  0.069538765  0.069538765  0.069538765       0           0 9.881423e-05          ***
+63          beta_Rt_cortex_Grm1_p5x_X_Tns/Blk3 -1.197003399 -1.197003399 -1.197003399       0           0 9.900990e-05          ***
+64     beta_Rt_cortex_Grm1_rightp5x_X_Tns/Blk3 -0.838152650 -0.838152650 -0.838152650       0           0 9.920635e-05          ***
+65            baseline_cortex_Rt_Grm1_Tns/Blk4  2.233405201  2.233405201  2.233405201       0           0 9.940358e-05          ***
+66        beta_Rt_cortex_Grm1_right_X_Tns/Blk4 -0.030476040 -0.030476040 -0.030476040       0           0 9.960159e-05          ***
+67          beta_Rt_cortex_Grm1_p5x_X_Tns/Blk4 -1.013326411 -1.013326411 -1.013326411       0           0 9.980040e-05          ***
+68     beta_Rt_cortex_Grm1_rightp5x_X_Tns/Blk4  0.006233848  0.006233848  0.006233848       0           0 1.000000e-04          ***
+69           baseline_cortex_Rt_Npsr1_Tns/Blk1  1.399223537  1.399223537  1.399223537       0           0 1.002004e-04          ***
+70       beta_Rt_cortex_Npsr1_right_X_Tns/Blk1  0.105073146  0.105073146  0.105073146       0           0 1.004016e-04          ***
+71         beta_Rt_cortex_Npsr1_p5x_X_Tns/Blk1 -1.318187844 -1.318187844 -1.318187844       0           0 1.006036e-04          ***
+72    beta_Rt_cortex_Npsr1_rightp5x_X_Tns/Blk1 -0.068058597 -0.068058597 -0.068058597       0           0 1.008065e-04          ***
+73           baseline_cortex_Rt_Npsr1_Tns/Blk2  1.665004168  1.665004168  1.665004168       0           0 1.010101e-04          ***
+74       beta_Rt_cortex_Npsr1_right_X_Tns/Blk2  0.043715964  0.043715964  0.043715964       0           0 1.012146e-04          ***
+75         beta_Rt_cortex_Npsr1_p5x_X_Tns/Blk2 -1.705295581 -1.705295581 -1.705295581       0           0 1.014199e-04          ***
+76    beta_Rt_cortex_Npsr1_rightp5x_X_Tns/Blk2 -0.084007377 -0.084007377 -0.084007377       0           0 1.016260e-04          ***
+77           baseline_cortex_Rt_Npsr1_Tns/Blk3  1.509359184  1.509359184  1.509359184       0           0 1.018330e-04          ***
+78       beta_Rt_cortex_Npsr1_right_X_Tns/Blk3  0.127658008  0.127658008  0.127658008       0           0 1.020408e-04          ***
+79         beta_Rt_cortex_Npsr1_p5x_X_Tns/Blk3 -0.920465223 -0.920465223 -0.920465223       0           0 1.022495e-04          ***
+80    beta_Rt_cortex_Npsr1_rightp5x_X_Tns/Blk3  0.461235953  0.461235953  0.461235953       0           0 1.024590e-04          ***
+81           baseline_cortex_Rt_Pvalb_Tns/Blk1  2.399655815  2.399655815  2.399655815       0           0 1.026694e-04          ***
+82       beta_Rt_cortex_Pvalb_right_X_Tns/Blk1 -0.046697832 -0.046697832 -0.046697832       0           0 1.028807e-04          ***
+83         beta_Rt_cortex_Pvalb_p5x_X_Tns/Blk1 -1.923767851 -1.923767851 -1.923767851       0           0 1.030928e-04          ***
+84    beta_Rt_cortex_Pvalb_rightp5x_X_Tns/Blk1  0.467304101  0.467304101  0.467304101       0           0 1.033058e-04          ***
+85           baseline_cortex_Rt_Pvalb_Tns/Blk2  3.204782208  3.204782208  3.204782208       0           0 1.035197e-04          ***
+86       beta_Rt_cortex_Pvalb_right_X_Tns/Blk2 -0.126706231 -0.126706231 -0.126706231       0           0 1.037344e-04          ***
+87         beta_Rt_cortex_Pvalb_p5x_X_Tns/Blk2 -1.597045533 -1.597045533 -1.597045533       0           0 1.039501e-04          ***
+88    beta_Rt_cortex_Pvalb_rightp5x_X_Tns/Blk2 -0.065788409 -0.065788409 -0.065788409       0           0 1.041667e-04          ***
+89           baseline_cortex_Rt_Pvalb_Tns/Blk3  3.825182465  3.825182465  3.825182465       0           0 1.043841e-04          ***
+90       beta_Rt_cortex_Pvalb_right_X_Tns/Blk3 -0.084853140 -0.084853140 -0.084853140       0           0 1.046025e-04          ***
+91         beta_Rt_cortex_Pvalb_p5x_X_Tns/Blk3 -0.339088317 -0.339088317 -0.339088317       0           0 1.048218e-04          ***
+92    beta_Rt_cortex_Pvalb_rightp5x_X_Tns/Blk3  0.015656460  0.015656460  0.015656460       0           0 1.050420e-04          ***
+93           baseline_cortex_Rt_Pvalb_Tns/Blk4  3.326992955  3.326992955  3.326992955       0           0 1.052632e-04          ***
+94       beta_Rt_cortex_Pvalb_right_X_Tns/Blk4  0.013814972  0.013814972  0.013814972       0           0 1.054852e-04          ***
+95         beta_Rt_cortex_Pvalb_p5x_X_Tns/Blk4 -0.409022048 -0.409022048 -0.409022048       0           0 1.057082e-04          ***
+96    beta_Rt_cortex_Pvalb_rightp5x_X_Tns/Blk4  0.141999554  0.141999554  0.141999554       0           0 1.059322e-04          ***
+97           baseline_cortex_Rt_Pvalb_Tns/Blk5  2.411316756  2.411316756  2.411316756       0           0 1.061571e-04          ***
+98       beta_Rt_cortex_Pvalb_right_X_Tns/Blk5  0.109676583  0.109676583  0.109676583       0           0 1.063830e-04          ***
+99         beta_Rt_cortex_Pvalb_p5x_X_Tns/Blk5 -1.124296009 -1.124296009 -1.124296009       0           0 1.066098e-04          ***
+100   beta_Rt_cortex_Pvalb_rightp5x_X_Tns/Blk5  0.479180218  0.479180218  0.479180218       0           0 1.068376e-04          ***
+101           baseline_cortex_Rt_Reln_Tns/Blk1  1.162220276  1.162220276  1.162220276       0           0 1.070664e-04          ***
+102       beta_Rt_cortex_Reln_right_X_Tns/Blk1  0.092199034  0.092199034  0.092199034       0           0 1.072961e-04          ***
+103         beta_Rt_cortex_Reln_p5x_X_Tns/Blk1 -0.001424703 -0.001424703 -0.001424703       0           0 1.075269e-04          ***
+104    beta_Rt_cortex_Reln_rightp5x_X_Tns/Blk1  1.462549444  1.462549444  1.462549444       0           0 1.077586e-04          ***
+105           baseline_cortex_Rt_Reln_Tns/Blk2  1.253318218  1.253318218  1.253318218       0           0 1.079914e-04          ***
+106       beta_Rt_cortex_Reln_right_X_Tns/Blk2 -0.030082820 -0.030082820 -0.030082820       0           0 1.082251e-04          ***
+107         beta_Rt_cortex_Reln_p5x_X_Tns/Blk2 -0.503349940 -0.503349940 -0.503349940       0           0 1.084599e-04          ***
+108    beta_Rt_cortex_Reln_rightp5x_X_Tns/Blk2  0.510844670  0.510844670  0.510844670       0           0 1.086957e-04          ***
+109           baseline_cortex_Rt_Reln_Tns/Blk3  1.568565489  1.568565489  1.568565489       0           0 1.089325e-04          ***
+110       beta_Rt_cortex_Reln_right_X_Tns/Blk3 -0.005174023 -0.005174023 -0.005174023       0           0 1.091703e-04          ***
+111         beta_Rt_cortex_Reln_p5x_X_Tns/Blk3  0.052627537  0.052627537  0.052627537       0           0 1.094092e-04          ***
+112    beta_Rt_cortex_Reln_rightp5x_X_Tns/Blk3 -0.065437367 -0.065437367 -0.065437367       0           0 1.096491e-04          ***
+113           baseline_cortex_Rt_Reln_Tns/Blk4  1.594919932  1.594919932  1.594919932       0           0 1.098901e-04          ***
+114       beta_Rt_cortex_Reln_right_X_Tns/Blk4 -0.270643298 -0.270643298 -0.270643298       0           0 1.101322e-04          ***
+115         beta_Rt_cortex_Reln_p5x_X_Tns/Blk4  0.614047930  0.614047930  0.614047930       0           0 1.103753e-04          ***
+116    beta_Rt_cortex_Reln_rightp5x_X_Tns/Blk4 -0.102873474 -0.102873474 -0.102873474       0           0 1.106195e-04          ***
+117           baseline_cortex_Rt_Rorb_Tns/Blk1  3.066325632  3.066325632  3.066325632       0           0 1.108647e-04          ***
+118       beta_Rt_cortex_Rorb_right_X_Tns/Blk1  0.158853810  0.158853810  0.158853810       0           0 1.111111e-04          ***
+119         beta_Rt_cortex_Rorb_p5x_X_Tns/Blk1 -1.776048081 -1.776048081 -1.776048081       0           0 1.113586e-04          ***
+120    beta_Rt_cortex_Rorb_rightp5x_X_Tns/Blk1  0.699821248  0.699821248  0.699821248       0           0 1.116071e-04          ***
+121           baseline_cortex_Rt_Rorb_Tns/Blk2  4.239847880  4.239847880  4.239847880       0           0 1.118568e-04          ***
+122       beta_Rt_cortex_Rorb_right_X_Tns/Blk2  0.078824030  0.078824030  0.078824030       0           0 1.121076e-04          ***
+123         beta_Rt_cortex_Rorb_p5x_X_Tns/Blk2  0.023553673  0.023553673  0.023553673       0           0 1.123596e-04          ***
+124    beta_Rt_cortex_Rorb_rightp5x_X_Tns/Blk2  0.613794507  0.613794507  0.613794507       0           0 1.126126e-04          ***
+125           baseline_cortex_Rt_Rorb_Tns/Blk3  3.431256417  3.431256417  3.431256417       0           0 1.128668e-04          ***
+ [ reached 'max' / getOption("max.print") -- omitted 487 rows ]
+  [1]  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0
+ [60]  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0
+[119]  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0
+[178]  0  0  0  0  0  0  0  0 NA  0  0  0 NA  0  0  0  0  0  0  0 NA  0  0  0  0  0  0  0 NA  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0 NA  0 NA  0 NA  0  0
+[237]  0  0  0  0  0  0  0  0  0 NA  0  0  0  0  0  0  0  0  0  0  0  0 NA  0  0  0  0  0  0  0  0  0  0  0  0  0  0 NA  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0
+[296]  0  0  0  0  0  0  0  0  0 NA  0  0  0 NA  0  0  0 NA  0  0  0 NA  0  0  0 NA  0  0  0 NA  0  0  0 NA  0  0  0 NA  0  0  0 NA  0  0  0 NA  0  0  0 NA  0  0  0 NA  0 NA  0 NA  0
+[355]  0  0 NA  0  0  0 NA  0  0  0 NA  0  0  0 NA  0  0  0 NA  0  0  0 NA  0  0  0 NA NA  0  0 NA  0  0  0 NA  0  0  0 NA  0  0  0 NA  0  0  0 NA  0  0  0 NA  0  0  0 NA  0  0  0 NA
+[414]  0  0  0 NA  0  0  0 NA  0  0  0 NA NA  0  0 NA  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0
+[473]  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0
+[532]  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0
+[591]  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0  0

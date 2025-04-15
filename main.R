@@ -26,7 +26,7 @@ snk.report("Analysis of MERFISH data by Warped Sigmoid, Poisson-Process Mixed-Ef
 # Set file paths and bootstrap chunk size
 source("merfish_preprocessing.R")
 data_path <- paste0(projects_folder, "MERFISH/data_SSp/")
-bs_chunksize <- 10
+bs_chunksize <- 2
 
 # Define list of genes to analyze
 gene.list <- c("Rorb", "Pvalb", "Gad2", "Vip", "Grik3", "Grm1", "Slc32a1", "Sox6", "Reln", "Npsr1", "Dscaml1", "Calb1") 
@@ -37,7 +37,8 @@ gene.list <- c("Rorb", "Pvalb", "Gad2", "Vip", "Grik3", "Grm1", "Slc32a1", "Sox6
 count_data <- make_count_data(
   data_path,
   remove_L1 = FALSE,
-  ROIname = "Primary somatosensory area"
+  ROIname = "Primary somatosensory area",
+  raw = TRUE
   )
 
 # Transform coordinates for each mouse into laminar and columnar axes and extract layer boundary estimates
@@ -151,17 +152,22 @@ count.data.WSPmm.y.allen <- create.count.data.WSPmm.allen(
     df.merfish = count_data_allen, 
     bin.dim = "y_bins", 
     fixed.effect.names = fixed.effect.names
-)
+  )
+
+# ... adjust counts for Allen data so medians match
+count.data.WSPmm.y.allen$count <- as.integer(count.data.WSPmm.y.allen$count * 0.1072386)
 
 # ... combine data 
 count.data.WSPmm.y.allen$mouse <- as.factor(5)
-count.data.WSPmm.y$age <- as.factor("young")
+count.data.WSPmm.y$age <- as.factor("p1x")
 count.data.WSPmm.y.combined <- rbind(count.data.WSPmm.y, count.data.WSPmm.y.allen)
 write.csv(
   count.data.WSPmm.y.combined, 
   file = "S1_laminar_countdata.csv",
   row.names = FALSE
 )
+
+#count.data.WSPmm.y.combined <- read.csv("S1_laminar_countdata.csv")
 
 # Define variables in the dataframe for the model
 data.variables = list(
@@ -201,17 +207,51 @@ merfish.laminar.model <- wisp(
   MCMC.steps = 1e3,
   MCMC.step.size = 0.005,
   MCMC.prior = 0.5,                                     
-  bootstraps.num = 100,
+  bootstraps.num = 1000,
   converged.resamples.only = FALSE,
   max.fork = bs_chunksize,
-  dim.bounds = colMeans(layer.boundary.bins),
+  dim.bounds = NULL, #colMeans(layer.boundary.bins),
   verbose = TRUE,
   print.child.summaries = TRUE,
   # Global settings for initializing model, passed to C++ side
   model.settings = model.settings
 )
 
-
+# Function used to find adjustment ratio
+find_adj_ratio <- function() {
+  # ... Note: This was calculated after first finding the counts for the young (p12, p18) data using 
+  #      counts normalized by cell volume.
+  
+  count_data_summed <- merfish.laminar.model[["count.data.summed"]]
+  mice <- unique(count_data_summed$ran)
+  
+  for (m in mice) {
+    
+    mask <- count_data_summed$ran == m
+    cat("\nmouse:", m)
+    cat("\nrows:", sum(mask))
+    cat("\nmean:", mean(count_data_summed[mask, "count"], na.rm = TRUE))
+    cat("\nmedian:", median(count_data_summed[mask, "count"], na.rm = TRUE))
+    hist(count_data_summed[mask, "count"], breaks = 25, main = paste("mouse", m))
+    
+  }
+  
+  maskN <- count_data_summed$ran == "none"
+  mask5 <- count_data_summed$ran == "5"
+  meanY <- mean(count_data_summed[!maskN & !mask5, "count"], na.rm = TRUE)
+  medianY <- median(count_data_summed[!maskN & !mask5, "count"], na.rm = TRUE)
+  mean5 <- mean(count_data_summed[mask5, "count"], na.rm = TRUE)
+  median5 <- median(count_data_summed[mask5, "count"], na.rm = TRUE)
+  cat("\nmean (young):", meanY)
+  cat("\nmedian (young):", medianY)
+  cat("\nmean (5):", mean5)
+  cat("\nmedian (5):", median5)
+  ratio_mean <- meanY / mean5
+  ratio_median <- medianY / median5
+  cat("\nmean ratio (young/5):", ratio_mean)
+  cat("\nmedian ratio (young/5):", ratio_median)
+  
+}
 
 
 

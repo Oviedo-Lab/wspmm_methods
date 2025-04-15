@@ -236,6 +236,7 @@ make_count_data <- function(
     data_path, 
     remove_L1 = RemoveL1,
     ROIname = "Primary auditory area",
+    raw = TRUE,
     verbose = TRUE
   ) {
     
@@ -261,7 +262,7 @@ make_count_data <- function(
     for (f in seq_along(files)) {
       if (f < length(files)) cat(f, ", ", sep="")
       else cat(f, "\n")
-      assign(paste0("mouse", f), parse_hdf5(file_path = files[f], mouse_num = f, raw = TRUE, remove_L1 = remove_L1, ROIname = ROIname))
+      assign(paste0("mouse", f), parse_hdf5(file_path = files[f], mouse_num = f, raw = raw, remove_L1 = remove_L1, ROIname = ROIname))
       slice_plots[[paste0("slice_plot", f)]] <- get(paste0("mouse", f))$slice_plot
       assign(paste0("mouse", f), get(paste0("mouse", f))$transcript_counts)
       ind_var_fields <- which(colnames(get(paste0("mouse", f))) %in% c(
@@ -1136,7 +1137,7 @@ create.count.data.WSPmm.allen <- function(
     colnames(count_data)[3] <- parent
     
     # Add age column 
-    df.merfish$age <- as.factor("adult")
+    df.merfish$age <- as.factor("p5x")
     
     # Fill out the fixed-effect columns
     count_data_fe <- data.frame(
