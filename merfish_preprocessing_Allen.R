@@ -1,8 +1,4 @@
 
-
-make_ROImasks <- FALSE 
-process_slices <- TRUE
-
 # Set paths to files
 data_path_allen_h5 <- "/Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/MERFISH/development_work/data/Allen_data/C57BL6J-638850-raw.h5ad"
 data_path_allen_cellmeta <- "/Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/MERFISH/development_work/data/Allen_data/cell_metadata.csv"
@@ -61,7 +57,7 @@ parse_hdf5_allen <- function(
     slice,
     data_path_h5,
     data_path_cellmeta,
-    gene.list = 
+    gene.list = gene.list
   ) {
     
     # Load sparse-matrix data
@@ -143,12 +139,13 @@ parse_hdf5_allen <- function(
 make_count_data_allen <- function(
     slice_range,
     data_path_h5,
-    data_path_cellmeta
+    data_path_cellmeta,
+    gene.list = gene.list
   ) {
     slice_data <- list()
     for (s in seq_along(slice_range)) {
       cat("\nSlice data, slice", slice_range[s])
-      slice_data[[s]] <- parse_hdf5_allen(slice = slice_range[s], data_path_h5, data_path_cellmeta)
+      slice_data[[s]] <- parse_hdf5_allen(slice = slice_range[s], data_path_h5, data_path_cellmeta, gene.list)
     }
     names(slice_data) <- paste0("slice_", slice_range)
     return(slice_data)
@@ -563,7 +560,8 @@ if (process_slices) {
   slice_data <- make_count_data_allen(
     slice_range = slice_range,
     data_path_h5 = data_path_allen_h5,
-    data_path_cellmeta = data_path_allen_cellmeta
+    data_path_cellmeta = data_path_allen_cellmeta, 
+    gene.list = gene.list
   )
   
   # Align loaded slices to the CCF
@@ -653,11 +651,7 @@ if (process_slices) {
     row.names = FALSE
   )
   
-} else {
-  
-  S1_allen_slice_data_annotated <- read.csv("S1_allen_slice_data_annotated.csv")
-  
-}
+} 
 
 # 3D inspection
 if (FALSE) {
@@ -668,64 +662,4 @@ if (FALSE) {
     col = as.integer(as.factor(S1_allen_slice_data_annotated$layer))
   )
 }
-
-# Rename columns for coordinate transform code
-new_names <- colnames(S1_allen_slice_data_annotated)
-new_names[c(3)] <- "mouse" # ... for now, treat layers as mice
-new_names[c(4)] <- "hemisphere"
-new_names[c(6, 7)] <- c("x_coord", "y_coord")
-colnames(S1_allen_slice_data_annotated) <- new_names
-# ... renumber the mouse column 
-S1_allen_slice_data_annotated$mouse <- as.integer(as.factor(S1_allen_slice_data_annotated$mouse))
-
-slice_plots <- list() 
-for (m in unique(S1_allen_slice_data_annotated$mouse)) {
-  slice_plots[[paste0("slice_plot", m)]] <- plot_results(
-    S1_allen_slice_data_annotated, 
-    S1_allen_slice_data_annotated[S1_allen_slice_data_annotated$mouse == m, c("x_coord", "y_coord")], 
-    m,
-    paste0("Registered S1 Allen slice data, slice ", m),
-    separate_hemi = TRUE)
-  }
-
-count_data <- list(
-  count_data = S1_allen_slice_data_annotated,
-  slice_plots = slice_plots
-)
-
-count_data <- cortical_coordinate_transform(
-  count_data = count_data, 
-  total_bins = 100,        # Number of bins to use when binning data
-  keep_plots = TRUE,       # Keep coordinate transformation plots? 
-  L1_removed = FALSE, 
-  nat_left = TRUE, 
-  verbose = TRUE
-)
-
-
-# our columnar axis is approx 1mm, these slices are 200um apart, should should be able to get 4 slices 
-# Need to estimate the SupInf coordinate of our horizontal slices!!!??
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

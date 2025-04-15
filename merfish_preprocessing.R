@@ -457,7 +457,7 @@ coordinate_transform <- function(
         x = "X Coordinate", 
         y = "Y Coordinate", 
         color = "Layer", 
-        title = paste("Untransformed ACx layers, mouse", mouse_num)
+        title = paste("Untransformed Cortical layers, mouse", mouse_num)
       ) +
       theme_minimal() +
       scale_x_continuous(limits = range_limit) + 

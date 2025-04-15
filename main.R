@@ -35,6 +35,9 @@ if (sys_name == "Darwin") {
   bs_chunksize <- 25
 }
 
+# Define list of genes to analyze
+gene.list <- c("Rorb", "Pvalb", "Gad2", "Vip", "Grik3", "Grm1", "Slc32a1", "Sox6", "Reln", "Npsr1", "Dscaml1", "Calb1") 
+
 # Preprocessing MERFISH data ###########################################################################################
 
 # Load and parse raw visgen data from files
@@ -56,38 +59,86 @@ layer.boundary.bins <- count_data$layer.boundary.bins
 coordinate_transform_plots <- count_data$plots
 count_data <- count_data$df
 
-# Check orientation of columnar axes in bin coordinates 
-columnar_check <- function() {
-  
-  # Reshape data
-  rcdX <- count_data[, c("mouse", "hemisphere", "x_coord", "x_bins")]
-  colnames(rcdX) <- c("mouse", "hemisphere", "cen", "xbin")
-  rcdY <- count_data[, c("mouse", "hemisphere", "y_coord", "x_bins")]
-  colnames(rcdY) <- c("mouse", "hemisphere", "cen", "xbin")
-  axis <- rep("x", nrow(rcdX))
-  rcdX <- cbind(rcdX, axis)
-  axis <- rep("y", nrow(rcdY))
-  rcdY <- cbind(rcdY, axis)
-  rcd <- rbind(rcdX, rcdY)
-  HxA <- paste0(rcd$hemisphere, "_", rcd$axis)
-  HxAxM <- paste0(rcd$hemisphere, "_", rcd$axis, "_", rcd$mouse)
-  rcd <- cbind(rcd, HxA, HxAxM)
-  
-  # Make plot
-  transform_plot <- ggplot(rcd) +
-    geom_point(aes(x = cen, y = xbin, color = factor(mouse))) +
-    facet_wrap(~HxAxM, scales = "free_x") +
-    labs(title = "Coordinate transforms") +
-    theme_minimal()
-  plot(transform_plot)
-  
+# Preprocessing MERFISH data, Allen ####################################################################################
+
+make_ROImasks <- FALSE 
+process_slices <- FALSE
+
+# Source code / load data
+if (make_ROImasks || process_slices) {
+  if (sys_name == "Darwin") {
+    source("merfish_preprocessing_Allen.R")
+  } else if (sys_name == "Linux") {
+    source("~/MERFISH/MERFISH-ACx-Spatial-Density/merfish_preprocessing_Allen.R")
+  }
+} else {
+  if (sys_name == "Darwin") {
+    S1_allen_slice_data_annotated <- read.csv("S1_allen_slice_data_annotated.csv")
+  } else if (sys_name == "Linux") {
+    S1_allen_slice_data_annotated <- read.csv("~/MERFISH/MERFISH-ACx-Spatial-Density/S1_allen_slice_data_annotated.csv")
+  }
 }
-columnar_check()
+
+# Define helper functions to format registered Allen data for coordinate transformation
+
+reformat_good_allen_data <- function(
+    S1_allen_slice_data_annotated
+  ) {
+    
+    # Rename columns for coordinate transform code
+    new_names <- colnames(S1_allen_slice_data_annotated)
+    new_names[c(3)] <- "mouse" # ... for now, treat layers as mice
+    new_names[c(4)] <- "hemisphere"
+    new_names[c(6, 7)] <- c("x_coord", "y_coord")
+    colnames(S1_allen_slice_data_annotated) <- new_names
+    # ... renumber the mouse column 
+    S1_allen_slice_data_annotated$mouse <- as.integer(as.factor(S1_allen_slice_data_annotated$mouse))
+    # ... from visual inspection, slices 6, 5, and 4 are the cleanest, so collapse together into one mouse. 
+    good_layer_mask <- S1_allen_slice_data_annotated$mouse == 6 | S1_allen_slice_data_annotated$mouse == 5 | S1_allen_slice_data_annotated$mouse == 4
+    S1_allen_slice_data_annotated <- S1_allen_slice_data_annotated[good_layer_mask,]
+    S1_allen_slice_data_annotated$mouse <- 1
+    return(S1_allen_slice_data_annotated)
+    
+  }
+
+make_allen_slice_plots <- function(
+    S1_allen_slice_data_annotated
+  ) {
+    
+    slice_plots <- list() 
+    for (m in unique(S1_allen_slice_data_annotated$mouse)) {
+      slice_plots[[paste0("slice_plot", m)]] <- plot_results(
+        S1_allen_slice_data_annotated, 
+        S1_allen_slice_data_annotated[S1_allen_slice_data_annotated$mouse == m, c("x_coord", "y_coord")], 
+        m,
+        paste0("Registered S1 Allen slice data, slice ", m),
+        separate_hemi = TRUE)
+    }
+    return(slice_plots)
+    
+  }
+
+# Put data into form expected for coordinate transformations
+S1_allen_slice_data_annotated <- reformat_good_allen_data(S1_allen_slice_data_annotated)
+count_data_allen <- list(
+  count_data = S1_allen_slice_data_annotated,
+  slice_plots = make_allen_slice_plots(S1_allen_slice_data_annotated)
+)
+
+# Perform coordinate transformations and binnings
+count_data_allen <- cortical_coordinate_transform(
+  count_data = count_data_allen, 
+  total_bins = 100,        # Number of bins to use when binning data
+  keep_plots = TRUE,       # Keep coordinate transformation plots? 
+  L1_removed = FALSE, 
+  nat_left = TRUE, 
+  verbose = TRUE
+)
+
+# Cleanup 
+rm(S1_allen_slice_data_annotated)
 
 # Fit WSPmm model to MERFISH data ######################################################################################
-
-# Define list of genes to analyze
-gene.list <- c("Rorb", "Pvalb", "Gad2", "Vip", "Grik3", "Grm1", "Slc32a1", "Sox6", "Reln", "Npsr1", "Dscaml1", "Calb1") 
 
 # Create count data for WSPmm object, from preprocessed count_data, using laminar axis (y)
 count.data.WSPmm.y <- create.count.data.WSPmm(
