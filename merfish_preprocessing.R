@@ -546,6 +546,57 @@ coordinate_transform <- function(
     )
     plot_list <- c(plot_list, list(plot_level_L4 = plot_level_L4))
     
+    # Step 4: Model and flatten laminar curve based on L4
+    if (verbose) snk.report...("Step 4, modeling and flattening laminar curve based on L4")
+    
+    # Helper function for flattening data
+    flatten <- function(
+      data, 
+      mask_hemisphere, 
+      mask_layer
+    ) {
+      
+      # Down-sample data 
+      just_these <- sample(1:sum(mask_layer), as.integer(sum(mask_layer)/2))
+      data_sampled <- data[mask_layer,][just_these,]
+      
+      # Fit curve
+      model <- nls(
+        y_coord ~ -c * (x_coord - a)^4 - d * (x_coord - a)^2 + b,
+        data = data_sampled,
+        start = list(a = 0, b = 1, c = 0.001, d = 0.1)
+      )
+      
+      # Get coefficients
+      pars <- model$m$getPars()
+      
+      # Define function to flatten data 
+      uw <- function(x, b, a, c, d) {
+        c*(x - a)^4 + d*(x - a)^2 + b
+      }
+      
+      # Flatten this hemisphere 
+      data[mask_hemisphere, y_coord] <- uw(
+        x = data[mask_hemisphere, x_coord], 
+        b = data[mask_hemisphere, y_coord], 
+        pars["a"], pars["c"], pars["d"]
+        )
+      
+      return(data[mask_hemisphere,])
+      
+    }
+    
+    # Flatten each hemisphere
+    coordinates[mask_right,] <- flatten(coordinates, mask_right, mask_right_L4)
+    coordinates[mask_left,] <- flatten(coordinates, mask_left, mask_left_L4)
+    
+    # Test by plotting (flattened)
+    plot_flattened <- plot_results(
+      df, coordinates, mouse_num,
+      paste("Transformed ACx layers (curve flattened), mouse", mouse_num)
+    )
+    plot_list <- c(plot_list, list(plot_flattened = plot_flattened))
+    
     # Step 4: Linearly transform each patch to vertically "straighten" them while preserving area
     if (verbose) snk.report...("Step 4, linearly transforming each patch to vertically straighten them while preserving area")
     

@@ -628,6 +628,8 @@ plot3d(
   col = as.integer(as.factor(S1_allen_slice_data_annotated$layer))
 )
 
+S1_allen_slice_data_annotated <- read.csv("S1_allen_slice_data_annotated.csv")
+
 # Rename columns for coordinate transform code
 new_names <- colnames(S1_allen_slice_data_annotated)
 new_names[c(3)] <- "mouse" # ... for now, treat layers as mice
@@ -647,8 +649,9 @@ for (m in unique(S1_allen_slice_data_annotated$mouse)) {
     separate_hemi = TRUE)
   }
 
+debug <- S1_allen_slice_data_annotated$mouse == 1
 count_data <- list(
-  count_data = S1_allen_slice_data_annotated,
+  count_data = S1_allen_slice_data_annotated[debug, ],
   slice_plots = slice_plots
 )
 
