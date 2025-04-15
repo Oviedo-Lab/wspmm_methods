@@ -119,3 +119,587 @@ Enter an item from the menu, or 0 to exit
 No suitable frames for recover()
 [1] young adult
 Levels: young adult
+
+
+Initializing Cpp (wspc) model: 
+----------------------------------------
+
+warp_precision: 1e-07
+eps_: 2.22045e-16
+inf_warp: 4.5036e+08
+Data structure check passed
+Saving tokenized count
+Found max bin: 100.000000
+Extracted fixed effects:
+"hemisphere" "age"
+Ref levels:
+"left" "adult"
+Created treatment levels
+"ref" "right" "young" "rightyoung"
+Created treatment-to-fix translation matrix
+Pre-computed weight matrix rows
+Extracted parent grouping variables:
+"cortex"
+Extracted child grouping variables:
+"Calb1" "Dscaml1" "Gad2" "Grik3" "Grm1" "Npsr1" "Pvalb" "Reln" "Rorb" "Slc32a1" "Sox6" "Vip"
+Extracted random-effect grouping variables:
+"none" "1" "2" "3" "4" "5"
+Extracted tokenized count columns
+Grabbed size constants for summed count data, total rows: 28800
+Initialized columns for summed count data
+Initialized count indexes, number of rows with unique model components: 288
+Pre-computing bin masks
+Creating summed-count data columns ...
+Random level 0, 1/6 complete
+Random level 1, 2/6 complete
+Random level 2, 3/6 complete
+Random level 3, 4/6 complete
+Random level 4, 5/6 complete
+Random level 5, 6/6 complete
+Extracted non-NA indexes
+Making extrapolation pool ...
+row: 960/4800
+row: 1920/4800
+row: 2880/4800
+row: 3840/4800
+row: 4800/4800
+Extrapolated 'none' rows
+Took log of observed counts
+Estimated change points with LROcp and found initial parameter estimates for fixed-effect treatments
+Built initial beta (ref and fixed-effects) matrices
+Initialized random effect warping factors
+Made and mapped parameter vector
+Number of parameters: 516
+Constructed grouping variable IDs
+Computed size of boundary vector: 1728
+Finished initializing wspc object
+
+Estimating model parameters: 
+---------------
+
+Running MCMC stimulations (single-threaded): 
+Checking feasibility of provided parameters
+... tpoints found below buffer
+Provided parameters not feasible, searching nearby
+Initial boundary distance (want to make >0): -3.00838
+Numer of evals: 4
+Success code: 2
+Final boundary distance: 0.099091
+Nearby feasible parameters found!
+Performing initial fit of full data
+Penalized neg_loglik: 1.85434
+
+Enter a frame number, or 0 to exit   
+
+1: wisp(count.data.raw = count.data.WSPmm.y.combined, variables = data.variables, use.median = FALSE, MCMC.burnin = 0, MCMC.steps = 1000, MCMC.step.size = 0.005, MCMC.prior = 0.5, bootstraps.num = 0, converged
+2: cpp_model$MCMC(MCMC.steps + MCMC.burnin, MCMC.step.size, MCMC.prior, verbose)
+
+
+
+Initializing Cpp (wspc) model: 
+----------------------------------------
+
+warp_precision: 1e-07
+eps_: 2.22045e-16
+inf_warp: 4.5036e+08
+Data structure check passed
+Saving tokenized count
+Found max bin: 100.000000
+Extracted fixed effects:
+"hemisphere" "age"
+Ref levels:
+"left" "adult"
+Created treatment levels
+"ref" "right" "young" "rightyoung"
+Created treatment-to-fix translation matrix
+Pre-computed weight matrix rows
+Extracted parent grouping variables:
+"cortex"
+Extracted child grouping variables:
+"Calb1" "Dscaml1" "Gad2" "Grik3" "Grm1" "Npsr1" "Pvalb" "Reln" "Rorb" "Slc32a1" "Sox6" "Vip"
+Extracted random-effect grouping variables:
+"none" "1" "2" "3" "4" "5"
+Extracted tokenized count columns
+Grabbed size constants for summed count data, total rows: 28800
+Initialized columns for summed count data
+Initialized count indexes, number of rows with unique model components: 288
+Pre-computing bin masks
+Creating summed-count data columns ...
+Random level 0, 1/6 complete
+Random level 1, 2/6 complete
+Random level 2, 3/6 complete
+Random level 3, 4/6 complete
+Random level 4, 5/6 complete
+Random level 5, 6/6 complete
+Extracted non-NA indexes
+Making extrapolation pool ...
+row: 960/4800
+row: 1920/4800
+row: 2880/4800
+row: 3840/4800
+row: 4800/4800
+Extrapolated 'none' rows
+Took log of observed counts
+Estimated change points with LROcp and found initial parameter estimates for fixed-effect treatments
+Built initial beta (ref and fixed-effects) matrices
+Initialized random effect warping factors
+Made and mapped parameter vector
+Number of parameters: 516
+Constructed grouping variable IDs
+Computed size of boundary vector: 1728
+Finished initializing wspc object
+
+Estimating model parameters: 
+---------------
+
+Running MCMC stimulations (single-threaded): 
+Checking feasibility of provided parameters
+... tpoints found below buffer
+Provided parameters not feasible, searching nearby
+Initial boundary distance (want to make >0): -3.00838
+Numer of evals: 4
+Success code: 2
+Final boundary distance: 0.099091
+Nearby feasible parameters found!
+Performing initial fit of full data
+Penalized neg_loglik: 1.8495
+
+Enter a frame number, or 0 to exit   
+
+1: wisp(count.data.raw = count.data.WSPmm.y.combined, variables = data.variables, use.median = FALSE, MCMC.burnin = 0, MCMC.steps = 1000, MCMC.step.size = 0.005, MCMC.prior = 0.5, bootstraps.num = 0, converged
+2: cpp_model$MCMC(MCMC.steps + MCMC.burnin, MCMC.step.size, MCMC.prior, verbose)
+
+
+
+Initializing Cpp (wspc) model: 
+----------------------------------------
+
+warp_precision: 1e-07
+eps_: 2.22045e-16
+inf_warp: 4.5036e+08
+Data structure check passed
+Saving tokenized count
+Found max bin: 100.000000
+Extracted fixed effects:
+"hemisphere" "age"
+Ref levels:
+"left" "adult"
+Created treatment levels
+"ref" "right" "young" "rightyoung"
+Created treatment-to-fix translation matrix
+Pre-computed weight matrix rows
+Extracted parent grouping variables:
+"cortex"
+Extracted child grouping variables:
+"Calb1" "Dscaml1" "Gad2" "Grik3" "Grm1" "Npsr1" "Pvalb" "Reln" "Rorb" "Slc32a1" "Sox6" "Vip"
+Extracted random-effect grouping variables:
+"none" "1" "2" "3" "4" "5"
+Extracted tokenized count columns
+Grabbed size constants for summed count data, total rows: 28800
+Initialized columns for summed count data
+Initialized count indexes, number of rows with unique model components: 288
+Pre-computing bin masks
+Creating summed-count data columns ...
+Random level 0, 1/6 complete
+Random level 1, 2/6 complete
+Random level 2, 3/6 complete
+Random level 3, 4/6 complete
+Random level 4, 5/6 complete
+Random level 5, 6/6 complete
+Extracted non-NA indexes
+Making extrapolation pool ...
+row: 960/4800
+row: 1920/4800
+row: 2880/4800
+row: 3840/4800
+row: 4800/4800
+Extrapolated 'none' rows
+Took log of observed counts
+Estimated change points with LROcp and found initial parameter estimates for fixed-effect treatments
+Built initial beta (ref and fixed-effects) matrices
+Initialized random effect warping factors
+Made and mapped parameter vector
+Number of parameters: 516
+Constructed grouping variable IDs
+Computed size of boundary vector: 1728
+Finished initializing wspc object
+
+Estimating model parameters: 
+---------------
+Forking available and bootstrap requested.... 
+If bootstrapping not desired, set bootstraps.num = 0... 
+
+Running bootstrap fits (with forking): 
+Checking feasibility of provided parameters
+... tpoints found below buffer
+Provided parameters not feasible, searching nearby
+Initial boundary distance (want to make >0): -3.00838
+Numer of evals: 4
+Success code: 2
+Final boundary distance: 0.099091
+Nearby feasible parameters found!
+Performing initial fit of full data
+Penalized neg_loglik: 1.8495
+Batch 1/10, 1.69516 sec/bs
+Batch 2/10, 1.67201 sec/bs
+Batch 3/10, 1.5583 sec/bs
+Batch 4/10, 1.42811 sec/bs
+Batch 5/10, 1.75927 sec/bs
+Batch 6/10, 1.67659 sec/bs
+Batch 7/10, 1.58499 sec/bs
+Batch 8/10, 1.75531 sec/bs
+Batch 9/10, 1.98037 sec/bs
+Batch 10/10, 1.33429 sec/bs
+All complete!
+
+Setting full-data fit as parameters... 
+Checking feasibility of provided parameters
+... no tpoints below buffer
+... no negative rates predicted
+Provided parameters are feasible
+
+Running stats on simulation results: 
+----------------------------------------
+
+Grabbing sample results... 
+Grabbing parameter values... 
+Computing 95% confidence intervals... 
+Estimating p-values from bootstraped parameters... 
+
+Stat summary (head only):
+------------------------------
+                                   parameter   estimate      CI.low    CI.high    p.value p.value.adj    alpha.adj significance
+1          baseline_cortex_Rt_Calb1_Tns/Blk1  6.0305570  5.85282262  6.1274432 0.00000000    0.000000 0.0001016260          ***
+2      beta_Rt_cortex_Calb1_right_X_Tns/Blk1  0.3097931  0.30992278  0.6593596 0.00000000    0.000000 0.0001018330          ***
+3      beta_Rt_cortex_Calb1_young_X_Tns/Blk1 -2.7964341 -2.91865912 -2.6013007 0.00000000    0.000000 0.0001020408          ***
+4 beta_Rt_cortex_Calb1_rightyoung_X_Tns/Blk1 -0.2537501 -0.63659744 -0.2538751 0.00000000    0.000000 0.0001022495          ***
+5          baseline_cortex_Rt_Calb1_Tns/Blk2  8.0588841  7.62160174  8.0588313 0.00000000    0.000000 0.0001024590          ***
+6      beta_Rt_cortex_Calb1_right_X_Tns/Blk2  0.2084836 -0.09025718  0.3526058 0.01980198    3.029703 0.0003267974           ns
+----
+
+Analyzing residuals: 
+----------------------------------------
+
+Computing residuals... 
+Making masks... 
+Making plots and saving stats... 
+
+Log-residual summary by grouping variables (head only):
+------------------------------
+         group      mean        sd  variance
+1          all 0.6327317 0.7234917 0.5234403
+2 ran_lvl_none 0.5369769 0.6672303 0.4451963
+3    ran_lvl_1 0.6971848 0.7093940 0.5032398
+4    ran_lvl_2 0.6083067 0.6734268 0.4535036
+5    ran_lvl_3 0.8782683 0.7805191 0.6092101
+6    ran_lvl_4 0.7406435 0.7619543 0.5805743
+----
+
+TPS test results (head only):
+------------------------------
+               cortex    gene TPS.ref TPS.right TPS.young TPS.rightyoung Rt.right tpoint.right tslope.right Rt.rightyoung tpoint.rightyoung tslope.rightyoung Rt.young tpoint.young tslope.young
+Calb1.cortex   cortex   Calb1   FALSE      TRUE      TRUE           TRUE     TRUE         TRUE        FALSE          TRUE              TRUE             FALSE     TRUE        FALSE         TRUE
+Dscaml1.cortex cortex Dscaml1    TRUE      TRUE      TRUE           TRUE     TRUE         TRUE         TRUE          TRUE              TRUE              TRUE     TRUE         TRUE         TRUE
+Gad2.cortex    cortex    Gad2    TRUE      TRUE      TRUE           TRUE     TRUE         TRUE         TRUE         FALSE              TRUE              TRUE     TRUE         TRUE         TRUE
+Grik3.cortex   cortex   Grik3   FALSE      TRUE      TRUE          FALSE     TRUE         TRUE        FALSE         FALSE              TRUE             FALSE     TRUE         TRUE        FALSE
+Grm1.cortex    cortex    Grm1    TRUE      TRUE      TRUE           TRUE     TRUE         TRUE         TRUE          TRUE              TRUE              TRUE     TRUE         TRUE         TRUE
+Npsr1.cortex   cortex   Npsr1    TRUE      TRUE      TRUE           TRUE    FALSE         TRUE         TRUE          TRUE              TRUE              TRUE     TRUE         TRUE         TRUE
+----
+
+Printing effect distributions: 
+----------------------------------------
+
+Warping factors distributions... 
+Rate effects distribution... 
+Slope effects distribution... 
+tpoint effects distribution... 
+Making rate-count plots... 
+
+Printing child summary plots: 
+----------------------------------------
+
+Making summary plots for cortex: Calb1
+Enter a frame number, or 0 to exit   
+
+ 1: wisp(count.data.raw = count.data.WSPmm.y.combined, variables = data.variables, use.median = FALSE, MCMC.burnin = 0, MCMC.steps = 1000, MCMC.step.size = 0.005, MCMC.prior = 0.5, bootstraps.num = 100, converg
+ 2: plot.child.summary(wisp.results = results, these.parents = NULL, these.childs = NULL, log.scale = TRUE, verbose = TRUE)
+ 3: arrangeGrob(ggplotGrob(p_rates[[1]]), resids, ncol = 1)
+ 4: ggplotGrob(p_rates[[1]])
+ 5: ggplot_gtable(ggplot_build(x))
+ 6: attach_plot_env(data$plot$plot_env)
+ 7: options(ggplot2_plot_env = env)
+ 8: ggplot_build(x)
+ 9: ggplot_build.ggplot(x)
+10: by_layer(function(l, d) l$compute_aesthetics(d, plot), layers, data, "computing aesthetics")
+11: try_fetch(for (i in seq_along(data)) {
+    out[[i]] <- f(l = layers[[i]], d = data[[i]])
+}, error = function(cnd) {
+    cli::cli_abort(c("Problem while {step}.", i = "Error occurred in the {ordinal(i)} layer."
+12: tryCatch(withCallingHandlers(expr, condition = function(cnd) {
+    {
+        .__handler_frame__. <- TRUE
+        .__setup_frame__. <- frame
+        if (inherits(cnd, "message")) {
+            except <- c("warnin
+13: tryCatchList(expr, classes, parentenv, handlers)
+14: tryCatchOne(expr, names, parentenv, handlers[[1]])
+15: doTryCatch(return(expr), name, parentenv, handler)
+16: withCallingHandlers(expr, condition = function(cnd) {
+    {
+        .__handler_frame__. <- TRUE
+        .__setup_frame__. <- frame
+        if (inherits(cnd, "message")) {
+            except <- c("warning", "erro
+17: f(l = layers[[i]], d = data[[i]])
+18: l$compute_aesthetics(d, plot)
+19: compute_aesthetics(..., self = self)
+20: check_aesthetics(evaled, n)
+21: cli::cli_abort(c("Aesthetics must be either length 1 or the same as the data ({n}).", x = "Fix the following mappings: {.col {names(which(!good))}}."))
+22: rlang::abort(message, ..., call = call, use_cli_format = TRUE, .frame = .frame)
+23: signal_abort(cnd, .file)
+24: signalCondition(cnd)
+25: (function (cnd) 
+{
+    {
+        .__handler_frame__. <- TRUE
+        .__setup_frame__. <- frame
+        if (inherits(cnd, "message")) {
+            except <- c("warning", "error")
+        }
+        else if (inherit
+26: handlers[[1]](cnd)
+27: cli::cli_abort(c("Problem while {step}.", i = "Error occurred in the {ordinal(i)} layer."), call = layers[[i]]$constructor, parent = cnd)
+28: rlang::abort(message, ..., call = call, use_cli_format = TRUE, .frame = .frame)
+29: signal_abort(cnd, .file)
+
+Enter an item from the menu, or 0 to exit
+Called from: rlang::abort(message, ..., call = call, use_cli_format = TRUE, 
+    .frame = .frame)
+$plot_pred_parent_cortex_fixEff_Calb1
+[1] "cortex"
+[1] "Calb1"
+           cortex
+Calb1   5.6311897
+Dscaml1 0.5513085
+Gad2    1.8667826
+Grik3   1.6099642
+Grm1    2.4566520
+Npsr1   0.6201431
+Pvalb   2.7063050
+Reln    3.5190401
+Rorb    5.2793406
+Slc32a1 0.7685842
+Sox6    2.1506320
+Vip     2.9292124
+
+Enter a frame number, or 0 to exit   
+
+ 1: wisp(count.data.raw = count.data.WSPmm.y.combined, variables = data.variables, use.median = FALSE, MCMC.burnin = 0, MCMC.steps = 1000, MCMC.step.size = 0.005, MCMC.prior = 0.5, bootstraps.num = 100, converg
+ 2: plot.child.summary(wisp.results = results, these.parents = NULL, these.childs = NULL, log.scale = TRUE, verbose = TRUE)
+ 3: arrangeGrob(ggplotGrob(p_rates[[1]]), resids, ncol = 1)
+ 4: ggplotGrob(p_rates[[1]])
+ 5: ggplot_gtable(ggplot_build(x))
+ 6: attach_plot_env(data$plot$plot_env)
+ 7: options(ggplot2_plot_env = env)
+ 8: ggplot_build(x)
+ 9: ggplot_build.ggplot(x)
+10: by_layer(function(l, d) l$compute_aesthetics(d, plot), layers, data, "computing aesthetics")
+11: try_fetch(for (i in seq_along(data)) {
+    out[[i]] <- f(l = layers[[i]], d = data[[i]])
+}, error = function(cnd) {
+    cli::cli_abort(c("Problem while {step}.", i = "Error occurred in the {ordinal(i)} layer."
+12: tryCatch(withCallingHandlers(expr, condition = function(cnd) {
+    {
+        .__handler_frame__. <- TRUE
+        .__setup_frame__. <- frame
+        if (inherits(cnd, "message")) {
+            except <- c("warnin
+13: tryCatchList(expr, classes, parentenv, handlers)
+14: tryCatchOne(expr, names, parentenv, handlers[[1]])
+15: doTryCatch(return(expr), name, parentenv, handler)
+16: withCallingHandlers(expr, condition = function(cnd) {
+    {
+        .__handler_frame__. <- TRUE
+        .__setup_frame__. <- frame
+        if (inherits(cnd, "message")) {
+            except <- c("warning", "erro
+17: f(l = layers[[i]], d = data[[i]])
+18: l$compute_aesthetics(d, plot)
+19: compute_aesthetics(..., self = self)
+20: check_aesthetics(evaled, n)
+21: cli::cli_abort(c("Aesthetics must be either length 1 or the same as the data ({n}).", x = "Fix the following mappings: {.col {names(which(!good))}}."))
+22: rlang::abort(message, ..., call = call, use_cli_format = TRUE, .frame = .frame)
+23: signal_abort(cnd, .file)
+24: signalCondition(cnd)
+25: (function (cnd) 
+{
+    {
+        .__handler_frame__. <- TRUE
+        .__setup_frame__. <- frame
+        if (inherits(cnd, "message")) {
+            except <- c("warning", "error")
+        }
+        else if (inherit
+26: handlers[[1]](cnd)
+27: cli::cli_abort(c("Problem while {step}.", i = "Error occurred in the {ordinal(i)} layer."), call = layers[[i]]$constructor, parent = cnd)
+28: rlang::abort(message, ..., call = call, use_cli_format = TRUE, .frame = .frame)
+29: signal_abort(cnd, .file)
+
+Called from: cli::cli_abort(c("Problem while {step}.", i = "Error occurred in the {ordinal(i)} layer."), 
+    call = layers[[i]]$constructor, parent = cnd)
+  [,1] [,2] [,3] [,4] [,5] [,6]
+1   78   61   44   27    1    0
+2   82   68   57   35    1    0
+3   85   68   54   35    1    0
+4   85   67   56   37    1    0
+1   87   62   49   31    2    0
+
+
+Initializing Cpp (wspc) model: 
+----------------------------------------
+
+warp_precision: 1e-07
+eps_: 2.22045e-16
+inf_warp: 4.5036e+08
+Data structure check passed
+Saving tokenized count
+Found max bin: 100.000000
+Extracted fixed effects:
+"hemisphere" "age"
+Ref levels:
+"left" "adult"
+Created treatment levels
+"ref" "right" "young" "rightyoung"
+Created treatment-to-fix translation matrix
+Pre-computed weight matrix rows
+Extracted parent grouping variables:
+"cortex"
+Extracted child grouping variables:
+"Calb1" "Dscaml1" "Gad2" "Grik3" "Grm1" "Npsr1" "Pvalb" "Reln" "Rorb" "Slc32a1" "Sox6" "Vip"
+Extracted random-effect grouping variables:
+"none" "1" "2" "3" "4" "5"
+Extracted tokenized count columns
+Grabbed size constants for summed count data, total rows: 28800
+Initialized columns for summed count data
+Initialized count indexes, number of rows with unique model components: 288
+Pre-computing bin masks
+Creating summed-count data columns ...
+Random level 0, 1/6 complete
+Random level 1, 2/6 complete
+Random level 2, 3/6 complete
+Random level 3, 4/6 complete
+Random level 4, 5/6 complete
+Random level 5, 6/6 complete
+Extracted non-NA indexes
+Making extrapolation pool ...
+row: 960/4800
+row: 1920/4800
+row: 2880/4800
+row: 3840/4800
+row: 4800/4800
+Extrapolated 'none' rows
+Took log of observed counts
+Estimated change points with LROcp and found initial parameter estimates for fixed-effect treatments
+Built initial beta (ref and fixed-effects) matrices
+Initialized random effect warping factors
+Made and mapped parameter vector
+Number of parameters: 516
+Constructed grouping variable IDs
+Computed size of boundary vector: 1728
+Finished initializing wspc object
+
+Estimating model parameters: 
+---------------
+Forking available and bootstrap requested.... 
+If bootstrapping not desired, set bootstraps.num = 0... 
+
+Running bootstrap fits (with forking): 
+Checking feasibility of provided parameters
+... tpoints found below buffer
+Provided parameters not feasible, searching nearby
+Initial boundary distance (want to make >0): -3.00838
+Numer of evals: 4
+Success code: 2
+Final boundary distance: 0.099091
+Nearby feasible parameters found!
+Performing initial fit of full data
+Penalized neg_loglik: 1.8495
+Batch 1/10, 1.69537 sec/bs
+Batch 2/10, 1.66908 sec/bs
+Batch 3/10, 1.54919 sec/bs
+Batch 4/10, 1.41797 sec/bs
+Batch 5/10, 1.74304 sec/bs
+Batch 6/10, 1.61653 sec/bs
+Batch 7/10, 1.54266 sec/bs
+Batch 8/10, 1.68523 sec/bs
+Batch 9/10, 1.88647 sec/bs
+Batch 10/10, 1.35532 sec/bs
+All complete!
+
+Setting full-data fit as parameters... 
+Checking feasibility of provided parameters
+... no tpoints below buffer
+... no negative rates predicted
+Provided parameters are feasible
+
+Running stats on simulation results: 
+----------------------------------------
+
+Grabbing sample results... 
+Grabbing parameter values... 
+Computing 95% confidence intervals... 
+Estimating p-values from bootstraped parameters... 
+
+Stat summary (head only):
+------------------------------
+                                   parameter   estimate      CI.low    CI.high    p.value p.value.adj    alpha.adj significance
+1          baseline_cortex_Rt_Calb1_Tns/Blk1  6.0305570  5.85282262  6.1274432 0.00000000    0.000000 0.0001016260          ***
+2      beta_Rt_cortex_Calb1_right_X_Tns/Blk1  0.3097931  0.30992278  0.6593596 0.00000000    0.000000 0.0001018330          ***
+3      beta_Rt_cortex_Calb1_young_X_Tns/Blk1 -2.7964341 -2.91865912 -2.6013007 0.00000000    0.000000 0.0001020408          ***
+4 beta_Rt_cortex_Calb1_rightyoung_X_Tns/Blk1 -0.2537501 -0.63659744 -0.2538751 0.00000000    0.000000 0.0001022495          ***
+5          baseline_cortex_Rt_Calb1_Tns/Blk2  8.0588841  7.62160174  8.0588313 0.00000000    0.000000 0.0001024590          ***
+6      beta_Rt_cortex_Calb1_right_X_Tns/Blk2  0.2084836 -0.09025718  0.3526058 0.01980198    3.029703 0.0003267974           ns
+----
+
+Analyzing residuals: 
+----------------------------------------
+
+Computing residuals... 
+Making masks... 
+Making plots and saving stats... 
+
+Log-residual summary by grouping variables (head only):
+------------------------------
+         group      mean        sd  variance
+1          all 0.6327317 0.7234917 0.5234403
+2 ran_lvl_none 0.5369769 0.6672303 0.4451963
+3    ran_lvl_1 0.6971848 0.7093940 0.5032398
+4    ran_lvl_2 0.6083067 0.6734268 0.4535036
+5    ran_lvl_3 0.8782683 0.7805191 0.6092101
+6    ran_lvl_4 0.7406435 0.7619543 0.5805743
+----
+
+TPS test results (head only):
+------------------------------
+               cortex    gene TPS.ref TPS.right TPS.young TPS.rightyoung Rt.right tpoint.right tslope.right Rt.rightyoung tpoint.rightyoung tslope.rightyoung Rt.young tpoint.young tslope.young
+Calb1.cortex   cortex   Calb1   FALSE      TRUE      TRUE           TRUE     TRUE         TRUE        FALSE          TRUE              TRUE             FALSE     TRUE        FALSE         TRUE
+Dscaml1.cortex cortex Dscaml1    TRUE      TRUE      TRUE           TRUE     TRUE         TRUE         TRUE          TRUE              TRUE              TRUE     TRUE         TRUE         TRUE
+Gad2.cortex    cortex    Gad2    TRUE      TRUE      TRUE           TRUE     TRUE         TRUE         TRUE         FALSE              TRUE              TRUE     TRUE         TRUE         TRUE
+Grik3.cortex   cortex   Grik3   FALSE      TRUE      TRUE          FALSE     TRUE         TRUE        FALSE         FALSE              TRUE             FALSE     TRUE         TRUE        FALSE
+Grm1.cortex    cortex    Grm1    TRUE      TRUE      TRUE           TRUE     TRUE         TRUE         TRUE          TRUE              TRUE              TRUE     TRUE         TRUE         TRUE
+Npsr1.cortex   cortex   Npsr1    TRUE      TRUE      TRUE           TRUE    FALSE         TRUE         TRUE          TRUE              TRUE              TRUE     TRUE         TRUE         TRUE
+----
+
+Printing effect distributions: 
+----------------------------------------
+
+Warping factors distributions... 
+Rate effects distribution... 
+Slope effects distribution... 
+tpoint effects distribution... 
+Making rate-count plots... 
+
+Printing child summary plots: 
+----------------------------------------
+
+Making summary plots for cortex: Calb1, Dscaml1, Gad2, Grik3, Grm1, Npsr1, Pvalb, Reln, Rorb, Slc32a1, Sox6, Vip[1] 83.4 65.2 52.0 33.0  1.2  0.0

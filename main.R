@@ -157,6 +157,11 @@ count.data.WSPmm.y.allen <- create.count.data.WSPmm.allen(
 count.data.WSPmm.y.allen$mouse <- as.factor(5)
 count.data.WSPmm.y$age <- as.factor("young")
 count.data.WSPmm.y.combined <- rbind(count.data.WSPmm.y, count.data.WSPmm.y.allen)
+write.csv(
+  count.data.WSPmm.y.combined, 
+  file = "S1_laminar_countdata.csv",
+  row.names = FALSE
+)
 
 # Define variables in the dataframe for the model
 data.variables = list(
@@ -181,7 +186,7 @@ model.settings = list(
   max_evals = 1000,                                     # maximum number of evaluations for optimization
   rng_seed = 42,                                        # random seed for optimization (controls bootstrap resamples only)
   warp_precision = 1e-7,                                # pseudo infinity value larger than any possible possible parameter value, representing unbound warping
-  effect_dist_weight = 0.001                            # weight for effect distribution likelihood
+  effect_dist_weight = 0.00                            # weight for effect distribution likelihood
 )
 
 # Fit model
@@ -196,10 +201,10 @@ merfish.laminar.model <- wisp(
   MCMC.steps = 1e3,
   MCMC.step.size = 0.005,
   MCMC.prior = 0.5,                                     
-  bootstraps.num = 0,
+  bootstraps.num = 100,
   converged.resamples.only = FALSE,
   max.fork = bs_chunksize,
-  dim.bounds = layer.boundary.bins,
+  dim.bounds = colMeans(layer.boundary.bins),
   verbose = TRUE,
   print.child.summaries = TRUE,
   # Global settings for initializing model, passed to C++ side
