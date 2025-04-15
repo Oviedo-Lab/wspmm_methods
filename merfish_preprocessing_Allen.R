@@ -183,9 +183,10 @@ find_topbot <- function(this_side, this_layer, base_mask, superinf_adj) {
   return(out)
 }
 vec_dist <- function(point, point_set) {
-  names(point) <- c("x", "y")
+  point <- array(point, dim = c(1,length(point)))
   colnames(point_set) <- c("x", "y")
-  dist <- sqrt((point["x"] - point_set$x)^2 + (point["y"] - point_set$y)^2)
+  colnames(point) <- c("x", "y")
+  dist <- sqrt((unlist(point[, "x"]) - point_set[, "x"])^2 + (unlist(point[, "y"]) - point_set[,"y"])^2)
   return(dist)
 }
 
@@ -467,7 +468,9 @@ process_slice <- function(
         
         # Extract layers from mask
         if (make_plots) ds_array <- array(0, dim = c(ds_size*length(Layer_names), 3))
+        ntrans <- nrow(slicedata_s)
         cat("\nROI search,", ntrans, "transcripts: ")
+        tracker <- as.integer(seq(1, ntrans, length.out = 10))
         for (i in seq_along(Layer_names)) {
           
           # Grab coordinates in this layer and z slice
@@ -478,14 +481,18 @@ process_slice <- function(
           leftright <- masks[slidemask, "LefRig"]
           superinf <- masks[slidemask, "SupInf"] + superinf_adj
           
+          
+          # threshold = 0.05
+          
           # Identify transcripts in data falling near these points 
-          ntrans <- nrow(slicedata_s)
           cat("\nLayer", Layer_names[i], " ")
           mask_df <- data.frame(x = leftright, y = superinf)
           tracker <- as.integer(seq(1, ntrans, length.out = 10))
           for (j in seq_along(1:ntrans)) {
             if (any(j == tracker)) cat("*")
-            layer_distances[j, i] <- -min(vec_dist(slicedata_s[j, c("x", "y")], mask_df))
+            these_dist <- vec_dist(slicedata_s[j, c("x", "y")], mask_df)
+            these_dist <- these_dist[these_dist != 0]
+            layer_distances[j, i] <- -min(these_dist)
           }
           
           # Down-sample 
@@ -503,6 +510,8 @@ process_slice <- function(
         }
         
         # Extract layer annotations 
+        row_mins <- apply(-layer_distances, 1, FUN = min)
+        inside_ROI <- row_mins < 0.05 * mult
         slicedata_s$layer <- Layer_names[max.col(layer_distances)]
         
         # Make plots or save data
@@ -512,7 +521,7 @@ process_slice <- function(
           names(center) <- c("x", "y")
           points(center["x"], center["y"], col = "black", pch = 19, cex = 3)
         } else {
-          slicedata[[s]] <- slicedata_s
+          slicedata[[s]] <- slicedata_s[inside_ROI, ]
         }
         
       }
