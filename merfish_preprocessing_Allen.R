@@ -3,31 +3,12 @@
 make_ROImasks <- FALSE 
 process_slices <- TRUE
 
-if (make_ROImasks) {
-  
-  # Orientation of reference-atlas space: 
-  # ... * (z) Anterior -> Posterior * (y) Superior -> Inferior * (x) Left -> Right
-  # ... The Left -> Right on Low -> High X matches my orientation for laminar axis
-  
-  # Load library to source Python code snippets
-  if ( !is.element("package:reticulate", search()) ) { # only try to load if not already loaded
-    if(!require(reticulate)) {                         # if not installed, install
-      install.packages("reticulate")                   # install if needed
-      library(reticulate)                              # load
-    }
-  }
-  
-  # What version of python are we using? (For grabbing ROI masks)
-  # ... use_python("/usr/local/bin/python3.12")
-  use_virtualenv("~/envs/allen-env", required = TRUE)
-  
-}
-
 # Set paths to files
 data_path_allen_h5 <- "/Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/MERFISH/development_work/data/Allen_data/C57BL6J-638850-raw.h5ad"
 data_path_allen_cellmeta <- "/Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/MERFISH/development_work/data/Allen_data/cell_metadata.csv"
 
-# Helper function to get slice data
+# Helper functions to get slice data
+
 parse_hdf5_allen <- function(
     slice,
     data_path_h5,
@@ -111,8 +92,6 @@ parse_hdf5_allen <- function(
     
   }
 
-# Make slice data
-
 make_count_data_allen <- function(
     slice_range,
     data_path_h5,
@@ -131,8 +110,30 @@ make_count_data_allen <- function(
 # Make ROI masks
 Layer_names <- c("L1", "L23", "L4", "L5", "L6a", "L6b")
 if (make_ROImasks) {
+  
+  # Orientation of reference-atlas space: 
+  # ... * (z) Anterior -> Posterior * (y) Superior -> Inferior * (x) Left -> Right
+  # ... The Left -> Right on Low -> High X matches my orientation for laminar axis
+  
+  # Load library to source Python code snippets
+  if ( !is.element("package:reticulate", search()) ) { # only try to load if not already loaded
+    if(!require(reticulate)) {                         # if not installed, install
+      install.packages("reticulate")                   # install if needed
+      library(reticulate)                              # load
+    }
+  }
+  
+  # What version of python are we using? (For grabbing ROI masks)
+  # ... use_python("/usr/local/bin/python3.12")
+  use_virtualenv("~/envs/allen-env", required = TRUE)
+  
+  # Run python script to setup function to generate masks
   source_python("Allen_CCF.py")
+  
+  # Generate ROI masks
   ROImasks_list <- generate_roi_masks()
+  
+  # Reformat them
   dim_names <- c("AntPost", "SupInf", "LefRig", "Layer")
   ROImasks <- data.frame()
   for (m in seq_along(ROImasks_list)) {
@@ -141,13 +142,16 @@ if (make_ROImasks) {
     colnames(ROImasks_list[[m]]) <- dim_names
     ROImasks <- rbind(ROImasks, ROImasks_list[[m]])
   }
+  
+  # Cleanup and save
   rm(ROImasks_list)
   write.csv(ROImasks, file = "ROImasks.csv", row.names = FALSE)
-} else {
+  
+} else if (process_slices) {
   ROImasks <- read.csv("ROImasks.csv")
 }
 
-# Define helper functions
+# Define helper functions for transformations
 logistic1 <- function(x, a = 10) {
   return((2/(1 + exp(-a*x))) - 1)
 }
@@ -175,7 +179,7 @@ find_midpoint <- function(p1, p2) {
   names(p) <- c("x", "y")
   return(p)
 }
-find_topbot <- function(this_side, this_layer, base_mask, superinf_adj) {
+find_topbot <- function(ROImasks, this_side, this_layer, base_mask, superinf_adj) {
   SupInf_ <- c(ROImasks$SupInf[base_mask])[this_side & this_layer] + superinf_adj
   LefRig_ <- c(ROImasks$LefRig[base_mask])[this_side & this_layer]
   Top_idx <- which.max(SupInf_)
@@ -335,6 +339,7 @@ pinch <- function(p, p0, gammaL, gammaR) {
 process_slice_allen <- function(
     slicedata, 
     slice_range,
+    ROImasks,
     transL = c(0, 0),
     transR = c(0, 0),
     pinchL = 1,
@@ -443,10 +448,10 @@ process_slice_allen <- function(
         left_side <- ROImasks[mask_z, "LefRig"] < center[1]
         layer1 <- ROImasks[mask_z, "Layer"] == "L1"
         layer6 <- ROImasks[mask_z, "Layer"] == "L6a"
-        L1TB <- find_topbot(left_side, layer1, mask_z, superinf_adj)
-        L6TB <- find_topbot(left_side, layer6, mask_z, superinf_adj)
-        R1TB <- find_topbot(!left_side, layer1, mask_z, superinf_adj)
-        R6TB <- find_topbot(!left_side, layer6, mask_z, superinf_adj)
+        L1TB <- find_topbot(ROImasks, left_side, layer1, mask_z, superinf_adj)
+        L6TB <- find_topbot(ROImasks, left_side, layer6, mask_z, superinf_adj)
+        R1TB <- find_topbot(ROImasks, !left_side, layer1, mask_z, superinf_adj)
+        R6TB <- find_topbot(ROImasks, !left_side, layer6, mask_z, superinf_adj)
         L1mid <- find_midpoint(L1TB$Tp, L1TB$Bt)
         L6mid <- find_midpoint(L6TB$Tp, L6TB$Bt)
         R1mid <- find_midpoint(R1TB$Tp, R1TB$Bt)
@@ -559,7 +564,7 @@ if (process_slices) {
   
   # ... Slice 30
   slice_data <- process_slice_allen(
-    slice_data, slice_range,
+    slice_data, slice_range, ROImasks,
     pinchL = 1.09, pinchR = 1.15, 
     rotateL = -0.075, rotateR = 0.1, 
     bendL = 0.05, bendR = 0.25,
@@ -568,7 +573,7 @@ if (process_slices) {
   
   # ... Slice 31
   slice_data <- process_slice_allen(
-    slice_data, slice_range,
+    slice_data, slice_range, ROImasks,
     transL = c(0, -20), transR = c(0, 0),
     pinchL = 1.01, pinchR = 0.96, 
     rotateL = -0.1, rotateR = 0.08, 
@@ -578,7 +583,7 @@ if (process_slices) {
   
   # ... Slice 33
   slice_data <- process_slice_allen(
-    slice_data, slice_range,
+    slice_data, slice_range, ROImasks,
     transL = c(0, -45), transR = c(0, -10),
     pinchL = 1.025, pinchR = 0.95, 
     rotateL = -0.05, rotateR = 0.03, 
@@ -587,7 +592,7 @@ if (process_slices) {
   
   # ... Slice 35
   slice_data <- process_slice_allen(
-    slice_data, slice_range,
+    slice_data, slice_range, ROImasks,
     transL = c(0, -68), transR = c(0, -32),
     pinchL = 0.97, pinchR = 1.02, 
     rotateL = -0.055, rotateR = 0.04, 
@@ -597,7 +602,7 @@ if (process_slices) {
   
   # ... Slice 36
   slice_data <- process_slice_allen(
-    slice_data, slice_range,
+    slice_data, slice_range, ROImasks,
     pinchL = 0.95, pinchR = 1, 
     rotateL = -0.025, rotateR = 0.15, 
     bendL = 0, bendR = 0,
@@ -606,7 +611,7 @@ if (process_slices) {
   
   # ... Slice 37
   slice_data <- process_slice_allen(
-    slice_data, slice_range,
+    slice_data, slice_range, ROImasks,
     transL = c(0, -60), transR = c(0, 0),
     pinchL = 1.01, pinchR = 0.95, 
     rotateL = -0.025, rotateR = 0.06, 
@@ -616,7 +621,7 @@ if (process_slices) {
   
   # ... Slice 38 
   slice_data <- process_slice_allen(
-    slice_data, slice_range,
+    slice_data, slice_range, ROImasks,
     transL = c(0, -50), transR = c(0, -30),
     pinchL = 0.99, pinchR = 1, 
     rotateL = -0.06, rotateR = 0.16, 

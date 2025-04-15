@@ -47,4 +47,15 @@ Layer L6b  **********
 Processing slice 36
 ROI search, 295026 transcripts: 
 Layer L1  **********
-Layer L23  *
+Layer L23  **********
+Layer L4  **********
+Layer L5  **********
+Layer L6a  **********
+Layer L6b  **********
+Processing slice 37
+ROI search, 290651 transcripts: 
+Layer L1  **********
+Layer L23  **********
+Layer L4  **********
+Layer L5  **********
+Layer L6a  ***
