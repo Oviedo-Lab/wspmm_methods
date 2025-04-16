@@ -154,9 +154,6 @@ count.data.WSPmm.y.allen <- create.count.data.WSPmm.allen(
     fixed.effect.names = fixed.effect.names
   )
 
-# ... adjust counts for Allen data so medians match
-count.data.WSPmm.y.allen$count <- as.integer(count.data.WSPmm.y.allen$count * 0.1072386) + 1
-
 # ... combine data 
 count.data.WSPmm.y.allen$mouse <- as.factor(5)
 count.data.WSPmm.y$age <- as.factor("p1x")
