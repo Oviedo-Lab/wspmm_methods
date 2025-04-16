@@ -26,7 +26,7 @@ snk.report("Analysis of MERFISH data by Warped Sigmoid, Poisson-Process Mixed-Ef
 # Set file paths and bootstrap chunk size
 source("merfish_preprocessing.R")
 data_path <- paste0(projects_folder, "MERFISH/data_SSp/")
-bs_chunksize <- 2
+bs_chunksize <- 10
 
 # Define list of genes to analyze
 gene.list <- c("Rorb", "Pvalb", "Gad2", "Vip", "Grik3", "Grm1", "Slc32a1", "Sox6", "Reln", "Npsr1", "Dscaml1", "Calb1") 
@@ -36,9 +36,9 @@ gene.list <- c("Rorb", "Pvalb", "Gad2", "Vip", "Grik3", "Grm1", "Slc32a1", "Sox6
 # Load and parse raw visgen data from files
 count_data <- make_count_data(
   data_path,
-  remove_L1 = FALSE,
+  remove_L1 = TRUE,
   ROIname = "Primary somatosensory area",
-  raw = TRUE
+  raw = FALSE
   )
 
 # Transform coordinates for each mouse into laminar and columnar axes and extract layer boundary estimates
@@ -69,6 +69,8 @@ if (make_ROImasks || process_slices) {
 } else {
   S1_allen_slice_data_annotated <- read.csv("S1_allen_slice_data_annotated.csv")
 }
+# ... remove L1 before coordinate transform
+S1_allen_slice_data_annotated <- S1_allen_slice_data_annotated[S1_allen_slice_data_annotated$layer != "L1",]
 
 # Define helper functions to format registered Allen data for coordinate transformation
 
@@ -121,7 +123,6 @@ count_data_allen <- cortical_coordinate_transform(
   count_data = count_data_allen, 
   total_bins = 100,        # Number of bins to use when binning data
   keep_plots = TRUE,       # Keep coordinate transformation plots? 
-  L1_removed = FALSE, 
   nat_left = TRUE, 
   verbose = TRUE
 )
@@ -130,6 +131,11 @@ count_data_allen <- cortical_coordinate_transform(
 layer.boundary.bins <- rbind(layer.boundary.bins, count_data_allen$layer.boundary.bins)
 coordinate_transform_plots <- c(coordinate_transform_plots, count_data_allen$plots[1])
 count_data_allen <- count_data_allen$df
+write.csv(
+  layer.boundary.bins,
+  file = "layer_boundary_bins.csv",
+  row.names = FALSE
+)
 
 # Cleanup 
 rm(S1_allen_slice_data_annotated)
@@ -207,12 +213,45 @@ merfish.laminar.model <- wisp(
   bootstraps.num = 100,
   converged.resamples.only = FALSE,
   max.fork = bs_chunksize,
-  dim.bounds = NULL, #colMeans(layer.boundary.bins),
+  dim.bounds = colMeans(layer.boundary.bins),
   verbose = TRUE,
   print.child.summaries = TRUE,
   # Global settings for initializing model, passed to C++ side
   model.settings = model.settings
 )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+plots.ratecount <- plot.ratecount(
+  wisp.results = merfish.laminar.model,
+  pred.type = "pred.log",
+  count.type = "count.log",
+  dim.boundaries = colMeans(layer.boundary.bins)
+)
+
 
 # Function used to find adjustment ratio
 find_adj_ratio <- function() {
@@ -251,5 +290,20 @@ find_adj_ratio <- function() {
 }
 find_adj_ratio()
 
+
+x_size <- rep(NA, 100)
+y_size <- rep(NA, 100)
+for (i in 1:100) {
+  
+  maskx <- count_data$x_bins == i & count_data$mouse == 3
+  masky <- count_data$y_bins == i & count_data$mouse == 3
+  x <- count_data_allen$x_trans[maskx]
+  y <- count_data_allen$y_trans[masky]
+  x_size[i] <- (max(x, na.rm = TRUE) - min(x, na.rm = TRUE)) * 1
+  y_size[i] <- (max(y, na.rm = TRUE) - min(y, na.rm = TRUE)) * 1
+  
+}
+plot(x_size)
+plot(y_size)
 
 

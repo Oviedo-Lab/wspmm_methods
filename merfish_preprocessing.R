@@ -1002,12 +1002,17 @@ cortical_coordinate_transform <- function(
       assign(paste0("plot_list_m", mouse_num), c(get(paste0("plot_list_m", mouse_num)), count_data$plot_list))
       count_data <- count_data$df
       
-      # Make histogram of cell distribution across laminar axis
-      hist_resids_plot <- ggplot(count_data[count_data$mouse == mouse_num,], aes(x=y_bins)) +
+      # Make histogram of cell distribution across cortical axis
+      if ("trscrpt_gene_symb" %in% colnames(count_data)) {
+        this_data <- count_data[count_data$mouse == mouse_num & count_data$trscrpt_gene_symb == count_data$trscrpt_gene_symb[1],]
+      } else {
+        this_data <- count_data[count_data$mouse == mouse_num,]
+      }
+      hist_distro_plot <- ggplot(this_data, aes(x=y_bins)) +
         geom_histogram(bins = total_bins, fill = "steelblue", color = "black", na.rm = TRUE) + 
-        labs(x = "bin num (laminar axis)", y = "cells per bin", title = "Histograms of Laminar (y-axis) Cell Distribution") +
+        labs(x = "bin num (cortical axis)", y = "cells per bin", title = "Histograms of Laminar (y-axis) Cell Distribution") +
         theme_minimal()
-      assign(paste0("plot_list_m", mouse_num), c(get(paste0("plot_list_m", mouse_num)), list(hist_resids_plot = hist_resids_plot)))
+      assign(paste0("plot_list_m", mouse_num), c(get(paste0("plot_list_m", mouse_num)), list(hist_distro_plot = hist_distro_plot)))
       
       # Save plots
       if (keep_plots) plots <- c(plots, list(get(paste0("plot_list_m", mouse_num))))
@@ -1015,7 +1020,7 @@ cortical_coordinate_transform <- function(
       
       # Combine and print plots of interest
       main_title <- textGrob(paste("Coordinate Transformation, mouse", mouse_num), gp = gpar(fontsize = 20, fontface = "bold"))
-      make_plots <- get(paste0("plot_list_m", mouse_num))[c("slice_plot", "plot_nonlinear_smoothing", "hist_resids_plot")]
+      make_plots <- get(paste0("plot_list_m", mouse_num))[c("slice_plot", "plot_nonlinear_smoothing", "hist_distro_plot")]
       make_plots <- do.call(arrangeGrob, c(make_plots, ncol = length(make_plots)))
       make_plots <- arrangeGrob(main_title, make_plots, ncol = 1, heights = c(0.05, 0.95))
       grid.arrange(make_plots)
