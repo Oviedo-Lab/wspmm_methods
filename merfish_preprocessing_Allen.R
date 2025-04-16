@@ -66,8 +66,9 @@ parse_hdf5_allen <- function(
     #list.datasets(file)
     
     # Grab data from H5 file
-    gene_codes <- file[["/X"]][["indices"]][]
-    cell_id_idx <- file[["/X"]][["indptr"]][]
+    trscrpt_ct_nonzero = file[["/X"]][["data"]] # sparse matrix data
+    gene_codes <- file[["/X"]][["indices"]][]   # column indices
+    cell_id_idx <- file[["/X"]][["indptr"]][]   # row pointers, i.e., positions in data where each row starts and stops
     cell_id_list <- file[["/obs/cell_label"]][]
     slice_id_list <- file[["/obs/brain_section_label/categories"]][]
     slice_num_list <- file[["/obs/brain_section_label/codes"]][]
@@ -76,29 +77,51 @@ parse_hdf5_allen <- function(
     trscrpt_gene_id_list <- file[["/var/gene_identifier"]][]
     run_lengths <- diff(cell_id_idx)
     gene_idx <- gene_codes + 1
+    num_genes <- max(gene_idx)
     
-    # Mask gene_idx for this slice
-    gene_idx_mask = rep(slice_num_list, times = run_lengths) == slice
-    gene_idx <- gene_idx[gene_idx_mask]
+    # ... Think: rows as cells, columns as genes
+    #  - Each slice masks a set of cells, pruning down the rows to just those cells in the slice
+    #  - But each slice does *not* prune down the columns, as potentially any gene can be expressed in any slice
     
-    # Mask cell_id for this slice
+    # Get rows (cells) in this slice
     slice_mask <- slice_num_list == slice
-    slice_num_list <- slice_num_list[slice_mask]
-    cell_id_list <- cell_id_list[slice_mask]
-    run_lengths <- run_lengths[slice_mask]
+    row_idx <- which(slice_mask)
+    num_cells <- length(row_idx)
     
-    # Reorganize masked data into data frame
-    num_initial_rows <- sum(gene_idx_mask)
+    # Set number of rows for reconstructed data
+    num_initial_rows <- num_cells * num_genes
+    
+    # Get counts 
+    trscrpt_ct <- rep(0, num_initial_rows)
+    for (j in seq_along(row_idx)) {
+      
+      # Get the row index for this cell
+      i <- row_idx[j]
+      
+      # Identify the start and end points in trscrpt_ct_nonzero holding values for this row (i.e., cell)
+      start <- cell_id_idx[i] + 1
+      end <- cell_id_idx[i + 1]
+      
+      # Get the count and gene (column) indices 
+      gens <- gene_idx[start:end]
+      cts <- trscrpt_ct_nonzero[start:end]
+      # ... i.e., the value cts[j] is the count of gene gens[j] in cell i
+      gene_idx_i <- num_genes * (j - 1) + gens
+      trscrpt_ct[gene_idx_i] <- cts
+      
+    }
+    
+    # Put reorganized data into data frame
     data <- data.frame(
-      trscrpt_ct = file[["/X"]][["data"]][gene_idx_mask],
-      trscrpt_gene_symb = trscrpt_gene_symb_list[gene_idx],
-      slice_num = rep(slice_num_list, times = run_lengths),
+      trscrpt_ct = trscrpt_ct,
+      trscrpt_gene_symb = rep(trscrpt_gene_symb_list, num_cells),
+      slice_num = rep(slice, num_initial_rows),
       hemi = rep(NA, num_initial_rows),
       layer = rep(NA, num_initial_rows),
-      cell_id = rep(cell_id_list, times = run_lengths),
-      slice_id = rep(slice_id_list[slice_num_list + 1], times = run_lengths),
-      trscrpt_id = trscrpt_id_list[gene_idx],
-      trscrpt_gene_id = trscrpt_gene_id_list[gene_idx]
+      cell_id = rep(cell_id_list[slice_mask], num_genes),
+      slice_id = rep(slice_id_list[slice + 1], num_initial_rows),
+      trscrpt_id = rep(trscrpt_id_list, num_cells),
+      trscrpt_gene_id = rep(trscrpt_gene_id_list, num_cells)
     )
     
     # Remove blanks
@@ -108,7 +131,7 @@ parse_hdf5_allen <- function(
     # Get cell locations and remove unlabeled cells
     cell_meta <- data.table::fread(data_path_allen_cellmeta)
     data <- data[data$cell_id %in% cell_meta$cell_label, ]
-    allen_genes <<- data$trscrpt_gene_symb
+    
     # Keep only genes of interest
     data <- data[data$trscrpt_gene_symb %in% gene.list, ]
     # ... random downsampling, for when doing registration
