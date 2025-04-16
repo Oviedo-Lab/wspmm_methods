@@ -155,7 +155,7 @@ count.data.WSPmm.y.allen <- create.count.data.WSPmm.allen(
   )
 
 # ... adjust counts for Allen data so medians match
-count.data.WSPmm.y.allen$count <- as.integer(count.data.WSPmm.y.allen$count * 0.1072386)
+count.data.WSPmm.y.allen$count <- as.integer(count.data.WSPmm.y.allen$count * 0.1072386) + 1
 
 # ... combine data 
 count.data.WSPmm.y.allen$mouse <- as.factor(5)
@@ -207,7 +207,7 @@ merfish.laminar.model <- wisp(
   MCMC.steps = 1e3,
   MCMC.step.size = 0.005,
   MCMC.prior = 0.5,                                     
-  bootstraps.num = 1000,
+  bootstraps.num = 100,
   converged.resamples.only = FALSE,
   max.fork = bs_chunksize,
   dim.bounds = NULL, #colMeans(layer.boundary.bins),
@@ -252,7 +252,7 @@ find_adj_ratio <- function() {
   cat("\nmedian ratio (young/5):", ratio_median)
   
 }
-
+find_adj_ratio()
 
 
 
