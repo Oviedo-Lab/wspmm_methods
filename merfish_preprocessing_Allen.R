@@ -75,13 +75,8 @@ parse_hdf5_allen <- function(
     trscrpt_id_list <- file[["/var/transcript_identifier"]][]
     trscrpt_gene_symb_list <- file[["/var/gene_symbol"]][]
     trscrpt_gene_id_list <- file[["/var/gene_identifier"]][]
-    run_lengths <- diff(cell_id_idx)
     gene_idx <- gene_codes + 1
     num_genes <- max(gene_idx)
-    
-    # ... Think: rows as cells, columns as genes
-    #  - Each slice masks a set of cells, pruning down the rows to just those cells in the slice
-    #  - But each slice does *not* prune down the columns, as potentially any gene can be expressed in any slice
     
     # Get rows (cells) in this slice
     slice_mask <- slice_num_list == slice
