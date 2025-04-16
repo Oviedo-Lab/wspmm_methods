@@ -110,7 +110,7 @@ model.settings = list(
   max_evals = 1000,                                     # maximum number of evaluations for optimization
   rng_seed = 42,                                        # random seed for optimization (controls bootstrap resamples only)
   warp_precision = 1e-7,                                # pseudo infinity value larger than any possible possible parameter value, representing unbound warping
-  effect_dist_weight = 0.00                            # weight for effect distribution likelihood
+  effect_dist_weight = 0.001                            # weight for effect distribution likelihood
 )
 
 # Fit model
@@ -125,7 +125,7 @@ merfish.laminar.model <- wisp(
   MCMC.steps = 1e3,
   MCMC.step.size = 0.005,
   MCMC.prior = 0.5,                                     
-  bootstraps.num = 100,
+  bootstraps.num = 0,
   converged.resamples.only = FALSE,
   max.fork = bs_chunksize,
   dim.bounds = colMeans(layer.boundary.bins),
@@ -153,18 +153,5 @@ merfish.laminar.model <- wisp(
 
 
 
-
-
-
-
-
-
-
-plots.ratecount <- plot.ratecount(
-  wisp.results = merfish.laminar.model,
-  pred.type = "pred.log",
-  count.type = "count.log",
-  dim.boundaries = colMeans(layer.boundary.bins)
-)
 
 
