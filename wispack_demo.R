@@ -32,7 +32,7 @@ countdata <- read.csv("countdata.csv")
 #  x-axes: columnar, 0 is most posterior, 100 is most anterior
 
 # Define list of genes to analyze
-gene.list <- c("Rorb", "Pvalb", "Gad2", "Vip", "Grik3", "Grm1", "Slc32a1", "Sox6", "Reln", "Npsr1", "Dscaml1", "Calb1") 
+gene.list <- c("Bcl11b", "Fezf2", "Satb2", "Nxph3", "Cux2", "Rorb")  
 
 # Define cortical layer boundaries
 # ... Numbers represent the lower boundary of each layer, in bins
