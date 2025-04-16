@@ -16,27 +16,27 @@ File names:
 	mouse 4: /Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/MERFISH/data_SSp//Somatosensory_ACxDev1_CBA-CAJ_P18_celltyped_filtered_withCCF.hdf5
 Loading and parsing file for mouse number: 1, 2, 3, 4 
 
-Mean transcript counts per cell for each mouse: 1.637, 1.817, 0.993, 1.166
-Mean of means: 1.403
-Standard deviation of means: 0.388
+Mean transcript counts per cell for each mouse: 2.84, 3.269, 1.755, 1.977
+Mean of means: 2.46
+Standard deviation of means: 0.714
 
 Total cells by type (Map My Cells):
 ------------------------------
 
       Astro-Epen          CB GABA          CB Glut     CNU-HYa GABA     CNU-HYa Glut     CNU-LGE GABA     CNU-MGE GABA CTX-CGE/MGE GABA      DG-IMN Glut         filtered          HY GABA 
-            4905               85               20               12                2              672               21             1483               11            19204               38 
+            3952               82               19               12                2              671               20             1351               11            18208               37 
           Immune       IT-ET Glut         LSX GABA          MB GABA          MB Glut       MB-HB Sero       MH-LH Glut          MY GABA          MY Glut   NP-CT-L6b Glut      OB-IMN GABA 
-             361            16440               29               79                5                1               16              450               21             4926              153 
+             331            16066               29               79                5                1               15              430               21             4922              149 
              OEC        OPC-Oligo           P GABA  TSCRPT_filtered         Vascular          HY Glut    HY Gnrh1 Glut           P Glut      Pineal Glut          TH Glut          MB Dopa 
-              23             1530              151              112             6939                1                1                2                7               12                2 
+              23             1499              142               99             5914                1                1                2                5               12                2 
       OB-CR Glut 
                3 
 ----
 
 Number of mice: 4
-Cells per mouse: 13940, 18194, 11116, 14467
-Means cells per mouse: 14429.25
-Total cells: 57717
+Cells per mouse: 13237, 16954, 10444, 13481
+Means cells per mouse: 13529
+Total cells: 54116
 
 Transforming raw data into laminar and columnar coordinates: 
 ----------------------------------------
@@ -88,69 +88,6 @@ Step 5, leveling all layers...
 Binning transformed coordinates... 
 Smoothing bin edges with nonlinear transformation... 
 Estimating layer boundaries... 
-Slice data, slice 30
-Slice data, slice 31
-Slice data, slice 33
-Slice data, slice 35
-Slice data, slice 36
-Slice data, slice 37
-Slice data, slice 38
-Processing slice 30
-ROI search, 435744 cell-gene combinations (rows): 
-Layer L1  **********
-Layer L23  **********
-Layer L4  **********
-Layer L5  **********
-Layer L6a  **********
-Layer L6b  **********
-Processing slice 31
-ROI search, 605428 cell-gene combinations (rows): 
-Layer L1  **********
-Layer L23  **********
-Layer L4  **********
-Layer L5  **********
-Layer L6a  **********
-Layer L6b  **********
-Processing slice 33
-ROI search, 586656 cell-gene combinations (rows): 
-Layer L1  **********
-Layer L23  **********
-Layer L4  **********
-Layer L5  **********
-Layer L6a  **********
-Layer L6b  **********
-Processing slice 35
-ROI search, 589990 cell-gene combinations (rows): 
-Layer L1  **********
-Layer L23  **********
-Layer L4  **********
-Layer L5  **********
-Layer L6a  **********
-Layer L6b  **********
-Processing slice 36
-ROI search, 736596 cell-gene combinations (rows): 
-Layer L1  **********
-Layer L23  **********
-Layer L4  **********
-Layer L5  **********
-Layer L6a  **********
-Layer L6b  **********
-Processing slice 37
-ROI search, 646580 cell-gene combinations (rows): 
-Layer L1  **********
-Layer L23  **********
-Layer L4  **********
-Layer L5  **********
-Layer L6a  **********
-Layer L6b  **********
-Processing slice 38
-ROI search, 690800 cell-gene combinations (rows): 
-Layer L1  **********
-Layer L23  **********
-Layer L4  **********
-Layer L5  **********
-Layer L6a  **********
-Layer L6b  **********
 
 Transforming raw data into laminar and columnar coordinates: 
 ----------------------------------------
@@ -215,9 +152,9 @@ Estimated change points with LROcp and found initial parameter estimates for fix
 Built initial beta (ref and fixed-effects) matrices
 Initialized random effect warping factors
 Made and mapped parameter vector
-Number of parameters: 600
+Number of parameters: 564
 Constructed grouping variable IDs
-Computed size of boundary vector: 2064
+Computed size of boundary vector: 1920
 Finished initializing wspc object
 
 Estimating model parameters: 
@@ -229,63 +166,23 @@ Running bootstrap fits (with forking):
 Checking feasibility of provided parameters
 ... tpoints found below buffer
 Provided parameters not feasible, searching nearby
-Initial boundary distance (want to make >0): -3.00852
-Numer of evals: 3
+Initial boundary distance (want to make >0): -1.0149
+Numer of evals: 4
 Success code: 2
-Final boundary distance: 0.099091
+Final boundary distance: 0.0992724
 Nearby feasible parameters found!
 Performing initial fit of full data
-Penalized neg_loglik: 1.78012
-Batch 1/50, 3.80256 sec/bs
-Batch 2/50, 4.04321 sec/bs
-Batch 3/50, 3.8491 sec/bs
-Batch 4/50, 4.84884 sec/bs
-Batch 5/50, 4.92701 sec/bs
-Batch 6/50, 6.89615 sec/bs
-Batch 7/50, 6.137 sec/bs
-Batch 8/50, 5.55563 sec/bs
-Batch 9/50, 4.43809 sec/bs
-Batch 10/50, 2.63826 sec/bs
-Batch 11/50, 3.40468 sec/bs
-Batch 12/50, 5.19738 sec/bs
-Batch 13/50, 5.36848 sec/bs
-Batch 14/50, 2.95555 sec/bs
-Batch 15/50, 3.65765 sec/bs
-Batch 16/50, 3.18525 sec/bs
-Batch 17/50, 3.89925 sec/bs
-Batch 18/50, 6.43887 sec/bs
-Batch 19/50, 4.54783 sec/bs
-Batch 20/50, 3.71532 sec/bs
-Batch 21/50, 2.52665 sec/bs
-Batch 22/50, 5.51402 sec/bs
-Batch 23/50, 5.81249 sec/bs
-Batch 24/50, 4.48823 sec/bs
-Batch 25/50, 3.71937 sec/bs
-Batch 26/50, 3.72316 sec/bs
-Batch 27/50, 4.58487 sec/bs
-Batch 28/50, 3.49461 sec/bs
-Batch 29/50, 5.13429 sec/bs
-Batch 30/50, 3.96701 sec/bs
-Batch 31/50, 3.44071 sec/bs
-Batch 32/50, 4.81289 sec/bs
-Batch 33/50, 5.68459 sec/bs
-Batch 34/50, 4.10057 sec/bs
-Batch 35/50, 6.05075 sec/bs
-Batch 36/50, 5.99715 sec/bs
-Batch 37/50, 4.89381 sec/bs
-Batch 38/50, 3.15404 sec/bs
-Batch 39/50, 7.5302 sec/bs
-Batch 40/50, 3.05187 sec/bs
-Batch 41/50, 4.04562 sec/bs
-Batch 42/50, 2.89754 sec/bs
-Batch 43/50, 3.26187 sec/bs
-Batch 44/50, 6.07923 sec/bs
-Batch 45/50, 3.38961 sec/bs
-Batch 46/50, 4.77092 sec/bs
-Batch 47/50, 3.35709 sec/bs
-Batch 48/50, 3.6729 sec/bs
-Batch 49/50, 4.539 sec/bs
-Batch 50/50, 4.24709 sec/bs
+Penalized neg_loglik: 1.82324
+Batch 1/10, 1.52339 sec/bs
+Batch 2/10, 1.19439 sec/bs
+Batch 3/10, 1.52616 sec/bs
+Batch 4/10, 1.40405 sec/bs
+Batch 5/10, 1.48505 sec/bs
+Batch 6/10, 1.52484 sec/bs
+Batch 7/10, 1.52299 sec/bs
+Batch 8/10, 1.662 sec/bs
+Batch 9/10, 1.43367 sec/bs
+Batch 10/10, 1.57306 sec/bs
 All complete!
 
 Setting full-data fit as parameters... 
@@ -304,13 +201,13 @@ Estimating p-values from bootstraped parameters...
 
 Stat summary (head only):
 ------------------------------
-                                 parameter   estimate        CI.low   CI.high    p.value p.value.adj    alpha.adj significance
-1        baseline_cortex_Rt_Calb1_Tns/Blk1 2.70257823  2.6651940804 2.7194890 0.00000000    0.000000 8.787346e-05          ***
-2    beta_Rt_cortex_Calb1_right_X_Tns/Blk1 0.05186036  0.0188671089 0.1097615 0.00990099    2.287129 2.164502e-04           ns
-3      beta_Rt_cortex_Calb1_p5x_X_Tns/Blk1 3.83430955  3.6964510634 3.9017556 0.00000000    0.000000 8.802817e-05          ***
-4 beta_Rt_cortex_Calb1_rightp5x_X_Tns/Blk1 0.04243661 -0.0825276943 0.1982123 0.37623762   31.603960 5.952381e-04           ns
-5        baseline_cortex_Rt_Calb1_Tns/Blk2 2.86623726  2.8037815756 2.9011336 0.00000000    0.000000 8.818342e-05          ***
-6    beta_Rt_cortex_Calb1_right_X_Tns/Blk2 0.08906441  0.0003657829 0.1687230 0.00000000    0.000000 8.833922e-05          ***
+                                 parameter    estimate      CI.low    CI.high   p.value p.value.adj    alpha.adj significance
+1        baseline_cortex_Rt_Calb1_Tns/Blk1  2.53005364  2.50209140 2.55668406 0.0000000     0.00000 9.328358e-05          ***
+2    beta_Rt_cortex_Calb1_right_X_Tns/Blk1  0.01826291 -0.02704391 0.05314343 0.2178218    22.00000 4.950495e-04           ns
+3      beta_Rt_cortex_Calb1_p5x_X_Tns/Blk1  3.92818765  3.82135218 3.97116290 0.0000000     0.00000 9.345794e-05          ***
+4 beta_Rt_cortex_Calb1_rightp5x_X_Tns/Blk1 -0.01544094 -0.10928057 0.14406575 0.6633663    23.88119 1.388889e-03           ns
+5        baseline_cortex_Rt_Calb1_Tns/Blk2  2.63301608  2.53191337 2.66292446 0.0000000     0.00000 9.363296e-05          ***
+6    beta_Rt_cortex_Calb1_right_X_Tns/Blk2 -0.02492578 -0.13335544 0.06457133 0.5148515    31.92079 8.064516e-04           ns
 ----
 
 Analyzing residuals: 
@@ -323,23 +220,23 @@ Making plots and saving stats...
 Log-residual summary by grouping variables (head only):
 ------------------------------
          group      mean        sd  variance
-1          all 0.4680448 0.5993315 0.3591983
-2 ran_lvl_none 0.3810012 0.4877439 0.2378941
-3    ran_lvl_1 0.5221222 0.6235687 0.3888379
-4    ran_lvl_2 0.4428979 0.5769121 0.3328276
-5    ran_lvl_3 0.6912714 0.7130794 0.5084822
-6    ran_lvl_4 0.5689532 0.6743950 0.4548086
+1          all 0.5464112 0.7691713 0.5916245
+2 ran_lvl_none 0.4306356 0.5822982 0.3390712
+3    ran_lvl_1 0.6645352 0.8796770 0.7738316
+4    ran_lvl_2 0.5919728 0.8442256 0.7127169
+5    ran_lvl_3 0.7511131 0.8928484 0.7971782
+6    ran_lvl_4 0.6688207 0.8652893 0.7487255
 ----
 
 TPS test results (head only):
 ------------------------------
                cortex    gene TPS.ref TPS.right TPS.p5x TPS.rightp5x Rt.p5x tpoint.p5x tslope.p5x Rt.right tpoint.right tslope.right Rt.rightp5x tpoint.rightp5x tslope.rightp5x
-Calb1.cortex   cortex   Calb1    TRUE      TRUE    TRUE         TRUE   TRUE       TRUE       TRUE     TRUE         TRUE         TRUE       FALSE            TRUE            TRUE
-Dscaml1.cortex cortex Dscaml1    TRUE      TRUE    TRUE         TRUE   TRUE       TRUE       TRUE     TRUE         TRUE         TRUE       FALSE            TRUE            TRUE
+Calb1.cortex   cortex   Calb1    TRUE      TRUE    TRUE         TRUE   TRUE       TRUE       TRUE    FALSE         TRUE         TRUE        TRUE            TRUE            TRUE
+Dscaml1.cortex cortex Dscaml1   FALSE      TRUE    TRUE         TRUE   TRUE       TRUE       TRUE     TRUE         TRUE        FALSE        TRUE            TRUE            TRUE
 Gad2.cortex    cortex    Gad2    TRUE      TRUE    TRUE         TRUE   TRUE       TRUE       TRUE    FALSE         TRUE         TRUE       FALSE            TRUE            TRUE
-Grik3.cortex   cortex   Grik3    TRUE      TRUE    TRUE         TRUE   TRUE       TRUE       TRUE    FALSE         TRUE        FALSE        TRUE            TRUE            TRUE
-Grm1.cortex    cortex    Grm1    TRUE      TRUE    TRUE         TRUE   TRUE       TRUE       TRUE     TRUE         TRUE         TRUE       FALSE            TRUE            TRUE
-Npsr1.cortex   cortex   Npsr1    TRUE      TRUE    TRUE         TRUE   TRUE       TRUE       TRUE     TRUE         TRUE        FALSE       FALSE            TRUE           FALSE
+Grik3.cortex   cortex   Grik3    TRUE      TRUE    TRUE         TRUE   TRUE       TRUE       TRUE    FALSE         TRUE        FALSE       FALSE            TRUE            TRUE
+Grm1.cortex    cortex    Grm1    TRUE      TRUE    TRUE         TRUE   TRUE       TRUE       TRUE     TRUE         TRUE         TRUE        TRUE            TRUE           FALSE
+Npsr1.cortex   cortex   Npsr1    TRUE      TRUE    TRUE         TRUE   TRUE       TRUE       TRUE     TRUE         TRUE         TRUE        TRUE            TRUE            TRUE
 ----
 
 Printing effect distributions: 
@@ -354,88 +251,37 @@ Making rate-count plots...
 Printing child summary plots: 
 ----------------------------------------
 
-Making summary plots for cortex: Calb1, Dscaml1, Gad2, Grik3, Grm1, Npsr1, Pvalb, Reln, Rorb, Slc32a1, Sox6, Vip$plot_pred.log_parent_cortex
-
-$plot_pred.log_parent_cortex_fixEff_Calb1
-
-$plot_pred.log_parent_cortex_fixEff_Dscaml1
-
-$plot_pred.log_parent_cortex_fixEff_Gad2
-
-$plot_pred.log_parent_cortex_fixEff_Grik3
-
-$plot_pred.log_parent_cortex_fixEff_Grm1
-
-$plot_pred.log_parent_cortex_fixEff_Npsr1
-
-$plot_pred.log_parent_cortex_fixEff_Pvalb
-
-$plot_pred.log_parent_cortex_fixEff_Reln
-
-$plot_pred.log_parent_cortex_fixEff_Rorb
-
-$plot_pred.log_parent_cortex_fixEff_Slc32a1
-
-$plot_pred.log_parent_cortex_fixEff_Sox6
-
-$plot_pred.log_parent_cortex_fixEff_Vip
-
-
+Making summary plots for cortex: Calb1, Dscaml1, Gad2, Grik3, Grm1, Npsr1, Pvalb, Reln, Rorb, Slc32a1, Sox6, Vip
 mouse: none
 rows: 4800
-mean: 171.7185
-median: 83
+mean: 164.5048
+median: 95
 mouse: 1
 rows: 4800
-mean: 43.91417
-median: 19
+mean: 60.67458
+median: 21
 mouse: 2
 rows: 4800
-mean: 66.745
-median: 32.5
+mean: 93.46
+median: 27
 mouse: 3
 rows: 4800
-mean: 27.07542
-median: 10
+mean: 40.10292
+median: 11
 mouse: 4
 rows: 4800
-mean: 41.43125
-median: 21
+mean: 57.57792
+median: 23
 mouse: 5
 rows: 4800
-mean: 298.5204
-median: 226
-mean (young): 44.79146
-median (young): 18
-mean (5): 298.5204
-median (5): 226
-mean ratio (young/5): 0.1500449
-median ratio (young/5): 0.07964602[1] 0.55
-[1] 0.7037037
-  [1] 1639.22171 1591.36266 1502.11654 1482.92861 1431.24933 1365.64162 1398.57376 1262.99323 1243.55758 1294.97625 1281.21174 1248.46755 1177.03246 1183.53095 1172.02686 1115.56860 1107.68367 1076.84046 1016.44804  891.08038 1765.88547
- [22]  914.40054  808.24867  886.76335  839.87926  787.92814  789.80147  721.88312  665.48897  655.88116  650.41911  593.91387  562.15005  544.27373  492.33112  469.50955  466.44784  419.21217  376.02135  330.29492  328.35867  281.11483
- [43]  235.96223  233.86229  212.95607  140.02822  134.63835   93.43662   46.34744   86.95176   89.89991  129.67094  180.38266  225.82034  254.45260  275.85206  371.45499  335.62130  386.04584  322.00670  564.78820  520.70188  610.26980
- [64]  653.64197  599.80198  815.59875  591.86466  776.18252  694.23596  823.07518  939.41953 1112.39932  798.52645  990.19579  788.27909  892.15199 1191.79322 1390.23624 1026.44632 1111.94137 1151.23167 1278.87479 1684.75097 1423.68890
- [85] 1617.29514 1513.04635 1471.49688 1680.47934 1636.03453 1633.62868 1447.78866 2057.91800 1770.41315 2163.20955 1895.58993 1272.69330 1747.27442 1734.96396 1179.25848 1527.90695
-$slice_plot
-
-$plot_untransformed
-
-$plot_recenter
-
-$plot_level_L4
-
-$plot_flattened
-
-$plot_linear_skew
-
-$plot_level_all
-
-$plot_nonlinear_smoothing
-
-$hist_resids_plot
-
-$plot_pred.log_parent_cortex
+mean: 265.9254
+median: 199.5
+mean (young): 62.95385
+median (young): 19
+mean (5): 265.9254
+median (5): 199.5
+mean ratio (young/5): 0.236735
+median ratio (young/5): 0.0952381$plot_pred.log_parent_cortex
 
 $plot_pred.log_parent_cortex_fixEff_Calb1
 
@@ -461,12 +307,3 @@ $plot_pred.log_parent_cortex_fixEff_Sox6
 
 $plot_pred.log_parent_cortex_fixEff_Vip
 
-[1] 12
- [1] "ENSMUST00000044306" "ENSMUST00000045738" "ENSMUST00000059650" "ENSMUST00000160791" "ENSMUST00000029876" "ENSMUST00000005860" "ENSMUST00000028123" "ENSMUST00000206034" "ENSMUST00000030676"
-[10] "ENSMUST00000112832" "ENSMUST00000019906" "ENSMUST00000034592"
-[1] 12
-[1] 22922
-[1] 13940
-[1] 18194
-[1] 11116
-[1] 14467
