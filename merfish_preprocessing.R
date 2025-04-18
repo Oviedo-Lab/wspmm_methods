@@ -27,16 +27,28 @@ rot_matrix <- function(
       )
   }
 
-# Helper function, linear transform
-linear_transform <- function(
+# Helper function, matrix transform
+matrix_transform <- function(
     coord, 
-    matrix_transform, # A matrix, or angle in radians
-    y_adj = 1
+    transform           # A matrix, or angle in radians
   ) {
-    if (is.null(dim(matrix_transform))) matrix_transform <- rot_matrix(matrix_transform)
-    coord <- as.matrix(coord) %*% t(matrix_transform)
-    coord[, 2] <- coord[, 2] * y_adj
-    return(coord)
+    if (is.null(dim(transform))) transform <- rot_matrix(transform)
+    return(as.matrix(coord) %*% t(transform))
+  }
+
+# Helper function for parameterized affine transforms
+affine <- function(
+    coord, 
+    scale_H = 1,
+    scale_W = 1,
+    theta = 0,
+    shear_x = 0,
+    shear_y = 0
+  ) {
+    scale_matrix <- matrix(c(scale_W, 0, 0, scale_H), nrow = 2)
+    rot_matrix <- rot_matrix(theta)
+    shear_matrix <- matrix(c(1, shear_y, shear_x, 1), nrow = 2)
+    return(as.matrix(coord) %*% t(scale_matrix %*% rot_matrix %*% shear_matrix))
   }
 
 # Helper function to load and parse data
@@ -158,9 +170,9 @@ parse_hdf5 <- function(
     } else {
       y_tilt_radians <- atan(tilt_slope)
     }
-    aligned_coord <- linear_transform(
+    aligned_coord <- matrix_transform(
       coord = cbind(x_coord, y_coord), 
-      matrix_transform = y_tilt_radians
+      transform = y_tilt_radians
     )
     # ... save transformed coordinates 
     x_coord <- aligned_coord[, 1]
@@ -523,7 +535,7 @@ coordinate_transform <- function(
       colnames(new_coord) <- colnames(data)
       new_coord[, y_coord] <- new_coord[, y_coord] - y_mean
       # Level by rotating
-      new_coord <- linear_transform(new_coord, angle)
+      new_coord <- matrix_transform(new_coord, angle)
       colnames(new_coord) <- colnames(data)
       # Undo centering
       new_coord[, y_coord] <- new_coord[, y_coord] + y_mean
@@ -610,7 +622,7 @@ coordinate_transform <- function(
       x_mins <- c()
       for (layer in names(mask)) {
         if (length(mask[[layer]]) != nrow(df)) stop("Mask does not match data frame")
-        if (any(mask[[layer]])) x_mins <- c(x_mins, min(df[mask[[layer]],x_coord]))
+        if (any(mask[[layer]])) x_mins <- c(x_mins, min(df[mask[[layer]], x_coord]))
       }
       return(abs(min(x_mins)-max(x_mins)))
     }
@@ -622,7 +634,7 @@ coordinate_transform <- function(
       x_maxs <- c()
       for (layer in names(mask)) {
         if (length(mask[[layer]]) != nrow(df)) stop("Mask does not match data frame")
-        if (any(mask[[layer]])) x_maxs <- c(x_maxs, max(df[mask[[layer]],x_coord]))
+        if (any(mask[[layer]])) x_maxs <- c(x_maxs, max(df[mask[[layer]], x_coord]))
       }
       return(abs(min(x_maxs)-max(x_maxs)))
     }
@@ -636,20 +648,24 @@ coordinate_transform <- function(
       initial_height, 
       initial_width
     ) {
-      
-      # Convert parameter vector into matrix 
-      y_adj <- parameters[5]
-      parameters <- matrix(parameters[1:4], nrow = 2, byrow = TRUE) 
-      
+     
       # Apply the transformation to the coordinates
-      coord[mask_hemisphere,] <- linear_transform(coord[mask_hemisphere,], parameters, y_adj)
+      coord[mask_hemisphere,] <- affine(
+        coord[mask_hemisphere,], 
+        scale_H = parameters[1],
+        scale_W = parameters[2],
+        theta = parameters[3],
+        shear_x = parameters[4],
+        shear_y = parameters[5]
+        )
       
       # Find current height and width 
       current_height <- max(coord[mask_hemisphere,y_coord]) - min(coord[mask_hemisphere,y_coord])
       current_width <- max(coord[mask_hemisphere,x_coord]) - min(coord[mask_hemisphere,x_coord])
       
       # Find distance from initial height and width
-      distance <- sqrt((current_height - initial_height)^2 + (current_width - initial_width)^2)
+      #distance <- sqrt((current_height - initial_height)^2 + (current_width - initial_width)^2)
+      distance <- abs(current_height - initial_height) + abs(current_width - initial_width)
       
       # Find and return loss
       return(
@@ -668,7 +684,7 @@ coordinate_transform <- function(
     
     # Find linear transformation which minimizes loss for each hemisphere, by x-distance ("skew")
     parameters_left <- optim(
-      par = c(1,0,0,1,1), 
+      par = c(1,1,0,0,0), 
       fn = transform_loss, 
       coord = coordinates, 
       mask_hemisphere = mask_left, 
@@ -677,7 +693,7 @@ coordinate_transform <- function(
       initial_width = initial_width_left
     )$par
     parameters_right <- optim(
-      par = c(1,0,0,1,1), 
+      par = c(1,1,0,0,0), 
       fn = transform_loss, 
       coord = coordinates, 
       mask_hemisphere = mask_right, 
@@ -685,14 +701,24 @@ coordinate_transform <- function(
       initial_height = initial_height_right,
       initial_width = initial_width_right
     )$par
-    linear_left <- matrix(parameters_left[1:4], nrow = 2, byrow = TRUE)
-    linear_right <- matrix(parameters_right[1:4], nrow = 2, byrow = TRUE)
-    y_adj_left <- parameters_left[5]
-    y_adj_right <- parameters_right[5]
     
     # Apply the linear transformation to the coordinates
-    coordinates[mask_left,] <- linear_transform(coordinates[mask_left,], linear_left, y_adj_left)
-    coordinates[mask_right,] <- linear_transform(coordinates[mask_right,], linear_right, y_adj_right)
+    coordinates[mask_left,] <- affine(
+      coordinates[mask_left,], 
+      scale_H = parameters_left[1],
+      scale_W = parameters_left[2],
+      theta = parameters_left[3],
+      shear_x = parameters_left[4],
+      shear_y = parameters_left[5]
+      )
+    coordinates[mask_right,] <- affine(
+      coordinates[mask_right,], 
+      scale_H = parameters_right[1],
+      scale_W = parameters_right[2],
+      theta = parameters_right[3],
+      shear_x = parameters_right[4],
+      shear_y = parameters_right[5]
+      )
     
     # Test by plotting 
     plot_linear_skew <- plot_results(
