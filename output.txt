@@ -138,160 +138,9 @@ Estimated change points with LROcp and found initial parameter estimates for fix
 Built initial beta (ref and fixed-effects) matrices
 Initialized random effect warping factors
 Made and mapped parameter vector
-Number of parameters: 288
+Number of parameters: 240
 Constructed grouping variable IDs
-Computed size of boundary vector: 880
-Finished initializing wspc object
-
-Estimating model parameters: 
----------------
-Forking available and bootstrap requested.... 
-If bootstrapping not desired, set bootstraps.num = 0... 
-
-Running bootstrap fits (with forking): 
-Checking feasibility of provided parameters
-... no tpoints below buffer
-... no negative rates predicted
-Provided parameters are feasible
-Performing initial fit of full data
-Penalized neg_loglik: 1.76281
-Batch 1/10, 0.080636 sec/bs
-Batch 2/10, 0.0797286 sec/bs
-Batch 3/10, 0.0796411 sec/bs
-Batch 4/10, 0.0798238 sec/bs
-Batch 5/10, 0.0806065 sec/bs
-Batch 6/10, 0.0795063 sec/bs
-Batch 7/10, 0.0781059 sec/bs
-Batch 8/10, 0.0783906 sec/bs
-Batch 9/10, 0.079705 sec/bs
-Batch 10/10, 0.076913 sec/bs
-All complete!
-
-Setting full-data fit as parameters... 
-Checking feasibility of provided parameters
-... no tpoints below buffer
-... no negative rates predicted
-Provided parameters are feasible
-
-Running stats on simulation results: 
-----------------------------------------
-
-Grabbing sample results... 
-Grabbing parameter values... 
-Computing 95% confidence intervals... 
-Estimating p-values from bootstraped parameters... 
-
-Stat summary (head only):
-------------------------------
-                                 parameter    estimate      CI.low     CI.high p.value p.value.adj    alpha.adj significance
-1       baseline_cortex_Rt_Bcl11b_Tns/Blk1  4.21203296  4.21203296  4.21203296       0           0 0.0001838235          ***
-2   beta_Rt_cortex_Bcl11b_right_X_Tns/Blk1 -0.56353819 -0.56353819 -0.56353819       0           0 0.0001845018          ***
-3      beta_Rt_cortex_Bcl11b_18_X_Tns/Blk1  0.39808285  0.39808285  0.39808285       0           0 0.0001851852          ***
-4 beta_Rt_cortex_Bcl11b_right18_X_Tns/Blk1  1.08830975  1.08830975  1.08830975       0           0 0.0001858736          ***
-5       baseline_cortex_Rt_Bcl11b_Tns/Blk2  3.61167255  3.61167255  3.61167255       0           0 0.0001865672          ***
-6   beta_Rt_cortex_Bcl11b_right_X_Tns/Blk2  0.09793516  0.09793516  0.09793516       0           0 0.0001872659          ***
-----
-
-Analyzing residuals: 
-----------------------------------------
-
-Computing residuals... 
-Making masks... 
-Making plots and saving stats... 
-
-Log-residual summary by grouping variables (head only):
-------------------------------
-         group      mean        sd  variance
-1          all 0.3359216 0.6048147 0.3658008
-2 ran_lvl_none 0.2716748 0.4587475 0.2104493
-3    ran_lvl_1 0.2664849 0.6465152 0.4179819
-4    ran_lvl_2 0.2493115 0.5974703 0.3569707
-5    ran_lvl_3 0.6040947 0.7331657 0.5375320
-6    ran_lvl_4 0.3522887 0.6082201 0.3699317
-----
-
-TPS test results (head only):
-------------------------------
-              cortex   gene TPS.ref TPS.right TPS.18 TPS.right18 Rt.18 tpoint.18 tslope.18 Rt.right tpoint.right
-Bcl11b.cortex cortex Bcl11b    TRUE      TRUE   TRUE        TRUE  TRUE      TRUE      TRUE     TRUE         TRUE
-Cux2.cortex   cortex   Cux2    TRUE      TRUE   TRUE        TRUE  TRUE      TRUE      TRUE     TRUE         TRUE
-Fezf2.cortex  cortex  Fezf2    TRUE      TRUE   TRUE        TRUE  TRUE      TRUE      TRUE     TRUE         TRUE
-Nxph3.cortex  cortex  Nxph3    TRUE      TRUE   TRUE        TRUE  TRUE      TRUE      TRUE     TRUE         TRUE
-Rorb.cortex   cortex   Rorb    TRUE      TRUE   TRUE        TRUE  TRUE      TRUE      TRUE     TRUE         TRUE
-Satb2.cortex  cortex  Satb2    TRUE      TRUE   TRUE        TRUE  TRUE      TRUE      TRUE     TRUE         TRUE
-              tslope.right Rt.right18 tpoint.right18 tslope.right18
-Bcl11b.cortex         TRUE       TRUE           TRUE           TRUE
-Cux2.cortex           TRUE       TRUE           TRUE           TRUE
-Fezf2.cortex          TRUE       TRUE           TRUE           TRUE
-Nxph3.cortex          TRUE       TRUE           TRUE           TRUE
-Rorb.cortex           TRUE       TRUE           TRUE           TRUE
-Satb2.cortex          TRUE       TRUE           TRUE           TRUE
-----
-
-Printing effect distributions: 
-----------------------------------------
-
-Warping factors distributions... 
-Rate effects distribution... 
-Slope effects distribution... 
-tpoint effects distribution... 
-Making rate-count plots... 
-
-Printing child summary plots: 
-----------------------------------------
-
-Making summary plots for cortex: Bcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2
-
-Initializing Cpp (wspc) model: 
-----------------------------------------
-
-warp_precision: 1e-07
-eps_: 2.22045e-16
-inf_warp: 4.5036e+08
-Data structure check passed
-Saving tokenized count
-Found max bin: 100.000000
-Extracted fixed effects:
-"hemisphere" "age"
-Ref levels:
-"left" "12"
-Created treatment levels
-"ref" "right" "18" "right18"
-Created treatment-to-fix translation matrix
-Pre-computed weight matrix rows
-Extracted parent grouping variables:
-"cortex"
-Extracted child grouping variables:
-"Bcl11b" "Cux2" "Fezf2" "Nxph3" "Rorb" "Satb2"
-Extracted random-effect grouping variables:
-"none" "1" "2" "3" "4"
-Extracted tokenized count columns
-Grabbed size constants for summed count data, total rows: 12000
-Initialized columns for summed count data
-Initialized count indexes, number of rows with unique model components: 120
-Pre-computing bin masks
-Creating summed-count data columns ...
-Random level 0, 1/5 complete
-Random level 1, 2/5 complete
-Random level 2, 3/5 complete
-Random level 3, 4/5 complete
-Random level 4, 5/5 complete
-Extracted non-NA indexes
-Making extrapolation pool ...
-row: 480/2400
-row: 960/2400
-row: 1440/2400
-row: 1920/2400
-row: 2400/2400
-Extrapolated 'none' rows
-Took log of observed counts
-Estimated change points with LROcp and found initial parameter estimates for fixed-effect treatments
-Built initial beta (ref and fixed-effects) matrices
-Initialized random effect warping factors
-Made and mapped parameter vector
-Number of parameters: 288
-Constructed grouping variable IDs
-Computed size of boundary vector: 880
+Computed size of boundary vector: 720
 Finished initializing wspc object
 
 Estimating model parameters: 
@@ -303,98 +152,355 @@ Checking feasibility of provided parameters
 ... no negative rates predicted
 Provided parameters are feasible
 Performing initial fit of full data
-Penalized neg_loglik: 1.76281
-step: 100/1000
-step: 200/1000
-step: 300/1000
-step: 400/1000
-step: 500/1000
-step: 600/1000
-step: 700/1000
-step: 800/1000
-step: 900/1000
-step: 1000/1000
-All complete!
-Acceptance rate: 0.120376
-
-Setting full-data fit as parameters... 
+Penalized neg_loglik: 1.80323
 Checking feasibility of provided parameters
 ... no tpoints below buffer
 ... no negative rates predicted
 Provided parameters are feasible
+Infinite loop suspected, initiating feasibility check
+Checking feasibility of provided parameters
+--- tpoint below buffer ---
+tpoint for block: 1
+deg: 2
+bin_num: 100
+size of tpoint_ext: 4
+tpoint1: 0
+tpoint2: 0
+buffer_dist: -5
+wf: 0.0471836
+row r: 2400
+... tpoints found below buffer
+Provided parameters not feasible, searching nearby
+Initial boundary distance (want to make >0): -inf
+Optimization failed: nlopt failure
+Numer of evals: 1
+Success code: 0
+Final boundary distance: -inf
+Could not find a nearby feasible parameters, returning provided ones
+Infinite loop suspected, initiating feasibility check
+Checking feasibility of provided parameters
+--- tpoint below buffer ---
+tpoint for block: 1
+deg: 2
+bin_num: 100
+size of tpoint_ext: 4
+tpoint1: 0
+tpoint2: 0
+buffer_dist: -5
+wf: 0.0475221
+row r: 2400
+... tpoints found below buffer
+Provided parameters not feasible, searching nearby
+Initial boundary distance (want to make >0): -inf
+Optimization failed: nlopt failure
+Numer of evals: 1
+Success code: 0
+Final boundary distance: -inf
+Could not find a nearby feasible parameters, returning provided ones
+Infinite loop suspected, initiating feasibility check
+Checking feasibility of provided parameters
+--- tpoint below buffer ---
+tpoint for block: 1
+deg: 2
+bin_num: 100
+size of tpoint_ext: 4
+tpoint1: 0
+tpoint2: 0
+buffer_dist: -5
+wf: 0.0478592
+row r: 2400
+... tpoints found below buffer
+Provided parameters not feasible, searching nearby
+Initial boundary distance (want to make >0): -inf
+Optimization failed: nlopt failure
+Numer of evals: 1
+Success code: 0
+Final boundary distance: -inf
+Could not find a nearby feasible parameters, returning provided ones
+Infinite loop suspected, initiating feasibility check
+Checking feasibility of provided parameters
+--- tpoint below buffer ---
+tpoint for block: 1
+deg: 2
+bin_num: 100
+size of tpoint_ext: 4
+tpoint1: 0
+tpoint2: 0
+buffer_dist: -5
+wf: 0.0473321
+row r: 2400
+... tpoints found below buffer
+Provided parameters not feasible, searching nearby
+Initial boundary distance (want to make >0): -inf
+Optimization failed: nlopt failure
+Numer of evals: 1
+Success code: 0
+Final boundary distance: -inf
+Could not find a nearby feasible parameters, returning provided ones
+Infinite loop suspected, initiating feasibility check
+Checking feasibility of provided parameters
+--- tpoint below buffer ---
+tpoint for block: 1
+deg: 2
+bin_num: 100
+size of tpoint_ext: 4
+tpoint1: 0
+tpoint2: 0
+buffer_dist: -5
+wf: 0.0470296
+row r: 2400
+... tpoints found below buffer
+Provided parameters not feasible, searching nearby
+Initial boundary distance (want to make >0): -inf
+Optimization failed: nlopt failure
+Numer of evals: 1
+Success code: 0
+Final boundary distance: -inf
+Could not find a nearby feasible parameters, returning provided ones
 
-Running stats on simulation results: 
-----------------------------------------
+Enter a frame number, or 0 to exit   
 
-Grabbing sample results... 
-Grabbing parameter values... 
-Computing 95% confidence intervals... 
-Estimating p-values from bootstraped parameters... 
+1: wisp(count.data.raw = count.data.WSPmm, variables = data.variables, use.median = FALSE, MCMC.burnin = 0, MCMC.steps = 1000, MC
+2: cpp_model$MCMC(MCMC.steps + MCMC.burnin, MCMC.step.size, MCMC.prior, verbose)
 
-Stat summary (head only):
-------------------------------
-                                 parameter   estimate      CI.low    CI.high    p.value p.value.adj    alpha.adj
-1       baseline_cortex_Rt_Bcl11b_Tns/Blk1  4.2011427  3.77365282  4.5697487 0.00000000    0.000000 0.0001838235
-2   beta_Rt_cortex_Bcl11b_right_X_Tns/Blk1 -0.5424710 -1.83241636 -0.4981276 0.09418838    7.723447 0.0006097561
-3      beta_Rt_cortex_Bcl11b_18_X_Tns/Blk1  0.4007035  0.31696203  0.5108206 0.00000000    0.000000 0.0001845018
-4 beta_Rt_cortex_Bcl11b_right18_X_Tns/Blk1  1.0926198  1.01925793  2.1242105 0.00000000    0.000000 0.0001851852
-5       baseline_cortex_Rt_Bcl11b_Tns/Blk2  3.6142046  3.61456250  4.9111970 0.00000000    0.000000 0.0001858736
-6   beta_Rt_cortex_Bcl11b_right_X_Tns/Blk2  0.1011424  0.08916195  0.3594740 0.07414830    6.376754 0.0005813953
-  significance
-1          ***
-2           ns
-3          ***
-4          ***
-5          ***
-6           ns
-----
-
-Analyzing residuals: 
-----------------------------------------
-
-Computing residuals... 
-Making masks... 
-Making plots and saving stats... 
-
-Log-residual summary by grouping variables (head only):
-------------------------------
-         group      mean        sd  variance
-1          all 0.3510596 0.5999444 0.3599333
-2 ran_lvl_none 0.2825119 0.4550247 0.2070475
-3    ran_lvl_1 0.2764568 0.6380888 0.4071573
-4    ran_lvl_2 0.2651191 0.5988196 0.3585849
-5    ran_lvl_3 0.6165700 0.7270535 0.5286068
-6    ran_lvl_4 0.3831878 0.5987726 0.3585286
-----
-
-TPS test results (head only):
-------------------------------
-              cortex   gene TPS.ref TPS.right TPS.18 TPS.right18 Rt.18 tpoint.18 tslope.18 Rt.right tpoint.right
-Bcl11b.cortex cortex Bcl11b    TRUE      TRUE   TRUE        TRUE  TRUE      TRUE      TRUE     TRUE         TRUE
-Cux2.cortex   cortex   Cux2    TRUE      TRUE   TRUE        TRUE  TRUE      TRUE      TRUE     TRUE         TRUE
-Fezf2.cortex  cortex  Fezf2    TRUE      TRUE   TRUE        TRUE  TRUE      TRUE     FALSE     TRUE         TRUE
-Nxph3.cortex  cortex  Nxph3    TRUE      TRUE   TRUE        TRUE  TRUE      TRUE     FALSE     TRUE         TRUE
-Rorb.cortex   cortex   Rorb    TRUE      TRUE   TRUE        TRUE  TRUE      TRUE      TRUE     TRUE         TRUE
-Satb2.cortex  cortex  Satb2    TRUE      TRUE   TRUE        TRUE  TRUE      TRUE      TRUE     TRUE         TRUE
-              tslope.right Rt.right18 tpoint.right18 tslope.right18
-Bcl11b.cortex         TRUE       TRUE           TRUE           TRUE
-Cux2.cortex           TRUE       TRUE           TRUE           TRUE
-Fezf2.cortex          TRUE       TRUE           TRUE           TRUE
-Nxph3.cortex         FALSE       TRUE           TRUE          FALSE
-Rorb.cortex           TRUE       TRUE           TRUE           TRUE
-Satb2.cortex          TRUE       TRUE           TRUE           TRUE
-----
-
-Printing effect distributions: 
-----------------------------------------
-
-Warping factors distributions... 
-Rate effects distribution... 
-Slope effects distribution... 
-tpoint effects distribution... 
-Making rate-count plots... 
-
-Printing child summary plots: 
-----------------------------------------
-
-Making summary plots for cortex: Bcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2
+Called from: top level 
+          baseline_cortex_Rt_Bcl11b_Tns/Blk1       beta_Rt_cortex_Bcl11b_right_X_Tns/Blk1 
+                                3.981194e+00                                -7.021240e-01 
+         beta_Rt_cortex_Bcl11b_18_X_Tns/Blk1     beta_Rt_cortex_Bcl11b_right18_X_Tns/Blk1 
+                                3.005795e-01                                 1.347796e+00 
+          baseline_cortex_Rt_Bcl11b_Tns/Blk2       beta_Rt_cortex_Bcl11b_right_X_Tns/Blk2 
+                                3.593596e+00                                 7.450278e-02 
+         beta_Rt_cortex_Bcl11b_18_X_Tns/Blk2     beta_Rt_cortex_Bcl11b_right18_X_Tns/Blk2 
+                                5.942132e-01                                -2.754506e-04 
+          baseline_cortex_Rt_Bcl11b_Tns/Blk3       beta_Rt_cortex_Bcl11b_right_X_Tns/Blk3 
+                                2.355949e+00                                 1.187676e-01 
+         beta_Rt_cortex_Bcl11b_18_X_Tns/Blk3     beta_Rt_cortex_Bcl11b_right18_X_Tns/Blk3 
+                                8.725995e-01                                -4.704834e-01 
+            baseline_cortex_Rt_Cux2_Tns/Blk1         beta_Rt_cortex_Cux2_right_X_Tns/Blk1 
+                                1.779277e+00                                 4.705660e-01 
+           beta_Rt_cortex_Cux2_18_X_Tns/Blk1       beta_Rt_cortex_Cux2_right18_X_Tns/Blk1 
+                                9.279887e-01                                -4.465479e-01 
+            baseline_cortex_Rt_Cux2_Tns/Blk2         beta_Rt_cortex_Cux2_right_X_Tns/Blk2 
+                                3.462255e+00                                 4.298647e-01 
+           beta_Rt_cortex_Cux2_18_X_Tns/Blk2       beta_Rt_cortex_Cux2_right18_X_Tns/Blk2 
+                                1.270689e+00                                -8.040257e-01 
+           baseline_cortex_Rt_Fezf2_Tns/Blk1        beta_Rt_cortex_Fezf2_right_X_Tns/Blk1 
+                                3.481120e+00                                 2.318257e-01 
+          beta_Rt_cortex_Fezf2_18_X_Tns/Blk1      beta_Rt_cortex_Fezf2_right18_X_Tns/Blk1 
+                                2.066484e-01                                -2.295662e-01 
+           baseline_cortex_Rt_Fezf2_Tns/Blk2        beta_Rt_cortex_Fezf2_right_X_Tns/Blk2 
+                                4.094709e+00                                -3.255777e-01 
+          beta_Rt_cortex_Fezf2_18_X_Tns/Blk2      beta_Rt_cortex_Fezf2_right18_X_Tns/Blk2 
+                                4.652592e-01                                 1.020850e-01 
+           baseline_cortex_Rt_Fezf2_Tns/Blk3        beta_Rt_cortex_Fezf2_right_X_Tns/Blk3 
+                                1.640599e+00                                -2.544913e-01 
+          beta_Rt_cortex_Fezf2_18_X_Tns/Blk3      beta_Rt_cortex_Fezf2_right18_X_Tns/Blk3 
+                                2.966710e-01                                 2.317073e-01 
+           baseline_cortex_Rt_Nxph3_Tns/Blk1        beta_Rt_cortex_Nxph3_right_X_Tns/Blk1 
+                                5.581561e+00                                 1.320161e-01 
+          beta_Rt_cortex_Nxph3_18_X_Tns/Blk1      beta_Rt_cortex_Nxph3_right18_X_Tns/Blk1 
+                                2.510587e-01                                -1.212694e-01 
+           baseline_cortex_Rt_Nxph3_Tns/Blk2        beta_Rt_cortex_Nxph3_right_X_Tns/Blk2 
+                                4.141056e+00                                -2.363822e-01 
+          beta_Rt_cortex_Nxph3_18_X_Tns/Blk2      beta_Rt_cortex_Nxph3_right18_X_Tns/Blk2 
+                                3.494264e-01                                 3.265660e-01 
+           baseline_cortex_Rt_Nxph3_Tns/Blk3        beta_Rt_cortex_Nxph3_right_X_Tns/Blk3 
+                                2.168163e+00                                -1.704912e-01 
+          beta_Rt_cortex_Nxph3_18_X_Tns/Blk3      beta_Rt_cortex_Nxph3_right18_X_Tns/Blk3 
+                                3.416274e-01                                 2.257543e-02 
+            baseline_cortex_Rt_Rorb_Tns/Blk1         beta_Rt_cortex_Rorb_right_X_Tns/Blk1 
+                                2.833314e+00                                 3.442598e-01 
+           beta_Rt_cortex_Rorb_18_X_Tns/Blk1       beta_Rt_cortex_Rorb_right18_X_Tns/Blk1 
+                                6.179173e-01                                -4.150460e-01 
+            baseline_cortex_Rt_Rorb_Tns/Blk2         beta_Rt_cortex_Rorb_right_X_Tns/Blk2 
+                                3.961236e+00                                 3.487393e-01 
+           beta_Rt_cortex_Rorb_18_X_Tns/Blk2       beta_Rt_cortex_Rorb_right18_X_Tns/Blk2 
+                                1.013655e+00                                -5.326227e-01 
+            baseline_cortex_Rt_Rorb_Tns/Blk3         beta_Rt_cortex_Rorb_right_X_Tns/Blk3 
+                                2.826183e+00                                 2.159694e-01 
+           beta_Rt_cortex_Rorb_18_X_Tns/Blk3       beta_Rt_cortex_Rorb_right18_X_Tns/Blk3 
+                                1.078889e+00                                -8.289730e-01 
+           baseline_cortex_Rt_Satb2_Tns/Blk1        beta_Rt_cortex_Satb2_right_X_Tns/Blk1 
+                                5.509109e+00                                 3.305262e-02 
+          beta_Rt_cortex_Satb2_18_X_Tns/Blk1      beta_Rt_cortex_Satb2_right18_X_Tns/Blk1 
+                               -8.122815e-02                                -1.030000e-01 
+           baseline_cortex_Rt_Satb2_Tns/Blk2        beta_Rt_cortex_Satb2_right_X_Tns/Blk2 
+                                5.593528e+00                                 1.852022e-01 
+          beta_Rt_cortex_Satb2_18_X_Tns/Blk2      beta_Rt_cortex_Satb2_right18_X_Tns/Blk2 
+                                3.348204e-01                                -2.067599e-01 
+           baseline_cortex_Rt_Satb2_Tns/Blk3        beta_Rt_cortex_Satb2_right_X_Tns/Blk3 
+                                5.785574e+00                                -1.819551e-01 
+          beta_Rt_cortex_Satb2_18_X_Tns/Blk3      beta_Rt_cortex_Satb2_right18_X_Tns/Blk3 
+                                3.720131e-01                                 1.985435e-02 
+           baseline_cortex_Rt_Satb2_Tns/Blk4        beta_Rt_cortex_Satb2_right_X_Tns/Blk4 
+                                5.596418e+00                                 1.619089e-01 
+          beta_Rt_cortex_Satb2_18_X_Tns/Blk4      beta_Rt_cortex_Satb2_right18_X_Tns/Blk4 
+                                5.852079e-01                                -5.056740e-01 
+      baseline_cortex_tslope_Bcl11b_Tns/Blk1   beta_tslope_cortex_Bcl11b_right_X_Tns/Blk1 
+                                1.353241e+00                                -1.016328e+00 
+     beta_tslope_cortex_Bcl11b_18_X_Tns/Blk1 beta_tslope_cortex_Bcl11b_right18_X_Tns/Blk1 
+                               -1.194093e+00                                 1.019200e+00 
+      baseline_cortex_tslope_Bcl11b_Tns/Blk2   beta_tslope_cortex_Bcl11b_right_X_Tns/Blk2 
+                                8.066318e-02                                -8.779900e-03 
+     beta_tslope_cortex_Bcl11b_18_X_Tns/Blk2 beta_tslope_cortex_Bcl11b_right18_X_Tns/Blk2 
+                               -2.254932e-03                                -2.801619e-03 
+        baseline_cortex_tslope_Cux2_Tns/Blk1     beta_tslope_cortex_Cux2_right_X_Tns/Blk1 
+                                1.083829e-01                                 1.765984e-02 
+       beta_tslope_cortex_Cux2_18_X_Tns/Blk1   beta_tslope_cortex_Cux2_right18_X_Tns/Blk1 
+                                4.398583e-02                                 1.598694e-02 
+       baseline_cortex_tslope_Fezf2_Tns/Blk1    beta_tslope_cortex_Fezf2_right_X_Tns/Blk1 
+                                3.538531e-01                                 5.130462e-01 
+      beta_tslope_cortex_Fezf2_18_X_Tns/Blk1  beta_tslope_cortex_Fezf2_right18_X_Tns/Blk1 
+                               -1.032305e-01                                -4.969790e-01 
+       baseline_cortex_tslope_Fezf2_Tns/Blk2    beta_tslope_cortex_Fezf2_right_X_Tns/Blk2 
+                                5.022606e-02                                -4.568604e-03 
+      beta_tslope_cortex_Fezf2_18_X_Tns/Blk2  beta_tslope_cortex_Fezf2_right18_X_Tns/Blk2 
+                                6.520669e-02                                -1.624561e-02 
+       baseline_cortex_tslope_Nxph3_Tns/Blk1    beta_tslope_cortex_Nxph3_right_X_Tns/Blk1 
+                                1.256608e-01                                 1.002976e-02 
+      beta_tslope_cortex_Nxph3_18_X_Tns/Blk1  beta_tslope_cortex_Nxph3_right18_X_Tns/Blk1 
+                                1.012195e-02                                 4.042346e-03 
+       baseline_cortex_tslope_Nxph3_Tns/Blk2    beta_tslope_cortex_Nxph3_right_X_Tns/Blk2 
+                                2.039387e-01                                 5.117449e-02 
+      beta_tslope_cortex_Nxph3_18_X_Tns/Blk2  beta_tslope_cortex_Nxph3_right18_X_Tns/Blk2 
+                                6.926355e-02                                 3.830505e-02 
+        baseline_cortex_tslope_Rorb_Tns/Blk1     beta_tslope_cortex_Rorb_right_X_Tns/Blk1 
+                                1.402287e-01                                 2.240426e-02 
+       beta_tslope_cortex_Rorb_18_X_Tns/Blk1   beta_tslope_cortex_Rorb_right18_X_Tns/Blk1 
+                                1.486752e-02                                 1.197748e-02 
+        baseline_cortex_tslope_Rorb_Tns/Blk2     beta_tslope_cortex_Rorb_right_X_Tns/Blk2 
+                                3.246900e-01                                -1.577173e-02 
+       beta_tslope_cortex_Rorb_18_X_Tns/Blk2   beta_tslope_cortex_Rorb_right18_X_Tns/Blk2 
+                               -1.583010e-02                                 1.024316e-01 
+       baseline_cortex_tslope_Satb2_Tns/Blk1    beta_tslope_cortex_Satb2_right_X_Tns/Blk1 
+                                1.351560e+00                                 6.674896e-03 
+      beta_tslope_cortex_Satb2_18_X_Tns/Blk1  beta_tslope_cortex_Satb2_right18_X_Tns/Blk1 
+                               -1.174169e+00                                 1.294433e-01 
+       baseline_cortex_tslope_Satb2_Tns/Blk2    beta_tslope_cortex_Satb2_right_X_Tns/Blk2 
+                                8.173593e-01                                 5.398536e-01 
+      beta_tslope_cortex_Satb2_18_X_Tns/Blk2  beta_tslope_cortex_Satb2_right18_X_Tns/Blk2 
+                               -6.314720e-01                                -4.315775e-01 
+       baseline_cortex_tslope_Satb2_Tns/Blk3    beta_tslope_cortex_Satb2_right_X_Tns/Blk3 
+                                2.052116e-01                                 4.040637e-01 
+      beta_tslope_cortex_Satb2_18_X_Tns/Blk3  beta_tslope_cortex_Satb2_right18_X_Tns/Blk3 
+                                8.315338e-01                                -1.266279e+00 
+      baseline_cortex_tpoint_Bcl11b_Tns/Blk1   beta_tpoint_cortex_Bcl11b_right_X_Tns/Blk1 
+                                5.326106e+00                                 6.694542e-01 
+     beta_tpoint_cortex_Bcl11b_18_X_Tns/Blk1 beta_tpoint_cortex_Bcl11b_right18_X_Tns/Blk1 
+                                2.334712e+00                                -1.332482e+00 
+      baseline_cortex_tpoint_Bcl11b_Tns/Blk2   beta_tpoint_cortex_Bcl11b_right_X_Tns/Blk2 
+                                3.066854e+01                                 3.000982e+00 
+     beta_tpoint_cortex_Bcl11b_18_X_Tns/Blk2 beta_tpoint_cortex_Bcl11b_right18_X_Tns/Blk2 
+                                3.341033e-01                                 3.337830e-01 
+        baseline_cortex_tpoint_Cux2_Tns/Blk1     beta_tpoint_cortex_Cux2_right_X_Tns/Blk1 
+                                4.866538e+01                                 8.332808e+00 
+       beta_tpoint_cortex_Cux2_18_X_Tns/Blk1   beta_tpoint_cortex_Cux2_right18_X_Tns/Blk1 
+                                6.666495e+00                                -1.166670e+01 
+       baseline_cortex_tpoint_Fezf2_Tns/Blk1    beta_tpoint_cortex_Fezf2_right_X_Tns/Blk1 
+                                4.199869e+01                                 1.233285e+01 
+      beta_tpoint_cortex_Fezf2_18_X_Tns/Blk1  beta_tpoint_cortex_Fezf2_right18_X_Tns/Blk1 
+                                2.665951e+00                                -1.433362e+01 
+       baseline_cortex_tpoint_Fezf2_Tns/Blk2    beta_tpoint_cortex_Fezf2_right_X_Tns/Blk2 
+                                5.600647e+01                                 1.067009e+01 
+      beta_tpoint_cortex_Fezf2_18_X_Tns/Blk2  beta_tpoint_cortex_Fezf2_right18_X_Tns/Blk2 
+                                6.002616e+00                                -1.033202e+01 
+       baseline_cortex_tpoint_Nxph3_Tns/Blk1    beta_tpoint_cortex_Nxph3_right_X_Tns/Blk1 
+                                1.766809e+01                                 4.000805e+00 
+      beta_tpoint_cortex_Nxph3_18_X_Tns/Blk1  beta_tpoint_cortex_Nxph3_right18_X_Tns/Blk1 
+                                5.000651e+00                                -6.999656e+00 
+       baseline_cortex_tpoint_Nxph3_Tns/Blk2    beta_tpoint_cortex_Nxph3_right_X_Tns/Blk2 
+                                6.199969e+01                                 1.766636e+01 
+      beta_tpoint_cortex_Nxph3_18_X_Tns/Blk2  beta_tpoint_cortex_Nxph3_right18_X_Tns/Blk2 
+                                1.866626e+01                                -2.133350e+01 
+        baseline_cortex_tpoint_Rorb_Tns/Blk1     beta_tpoint_cortex_Rorb_right_X_Tns/Blk1 
+                                7.366350e+01                                 2.331779e+00 
+       beta_tpoint_cortex_Rorb_18_X_Tns/Blk1   beta_tpoint_cortex_Rorb_right18_X_Tns/Blk1 
+                                3.998225e+00                                -2.667580e+00 
+        baseline_cortex_tpoint_Rorb_Tns/Blk2     beta_tpoint_cortex_Rorb_right_X_Tns/Blk2 
+                                8.233613e+01                                 3.001491e+00 
+       beta_tpoint_cortex_Rorb_18_X_Tns/Blk2   beta_tpoint_cortex_Rorb_right18_X_Tns/Blk2 
+                                4.334796e+00                                -4.332427e+00 
+       baseline_cortex_tpoint_Satb2_Tns/Blk1    beta_tpoint_cortex_Satb2_right_X_Tns/Blk1 
+                                1.400044e+01                                -3.333068e+00 
+      beta_tpoint_cortex_Satb2_18_X_Tns/Blk1  beta_tpoint_cortex_Satb2_right18_X_Tns/Blk1 
+                                5.000131e+00                                 6.667355e-01 
+       baseline_cortex_tpoint_Satb2_Tns/Blk2    beta_tpoint_cortex_Satb2_right_X_Tns/Blk2 
+                                6.433278e+01                                -2.000315e+00 
+      beta_tpoint_cortex_Satb2_18_X_Tns/Blk2  beta_tpoint_cortex_Satb2_right18_X_Tns/Blk2 
+                                1.333072e+00                                 9.998689e-01 
+       baseline_cortex_tpoint_Satb2_Tns/Blk3    beta_tpoint_cortex_Satb2_right_X_Tns/Blk3 
+                                7.866701e+01                                -4.666457e+00 
+      beta_tpoint_cortex_Satb2_18_X_Tns/Blk3  beta_tpoint_cortex_Satb2_right18_X_Tns/Blk3 
+                                6.668228e-01                                 3.333420e+00 
+                    wfactor_point_1_X_Bcl11b                      wfactor_rate_1_X_Bcl11b 
+                                4.740945e-02                                -3.821355e-02 
+                    wfactor_slope_1_X_Bcl11b                     wfactor_point_2_X_Bcl11b 
+                               -9.086804e-02                                 4.717584e-02 
+                     wfactor_rate_2_X_Bcl11b                     wfactor_slope_2_X_Bcl11b 
+                               -3.566563e-02                                -3.621146e-02 
+                    wfactor_point_3_X_Bcl11b                      wfactor_rate_3_X_Bcl11b 
+                                4.700817e-02                                 1.420717e-03 
+                    wfactor_slope_3_X_Bcl11b                     wfactor_point_4_X_Bcl11b 
+                               -9.622104e-02                                 8.040173e-02 
+                     wfactor_rate_4_X_Bcl11b                     wfactor_slope_4_X_Bcl11b 
+                               -6.174778e-02                                -5.157148e-02 
+                      wfactor_point_1_X_Cux2                        wfactor_rate_1_X_Cux2 
+                               -1.003624e-01                                -4.470449e-02 
+                      wfactor_slope_1_X_Cux2                       wfactor_point_2_X_Cux2 
+                               -3.812921e-02                                -5.304267e-02 
+                       wfactor_rate_2_X_Cux2                       wfactor_slope_2_X_Cux2 
+                               -4.326480e-02                                 1.798483e-03 
+                      wfactor_point_3_X_Cux2                        wfactor_rate_3_X_Cux2 
+                                3.296891e-02                                 1.035793e-01 
+                      wfactor_slope_3_X_Cux2                       wfactor_point_4_X_Cux2 
+                               -8.903064e-02                                 2.828548e-03 
+                       wfactor_rate_4_X_Cux2                       wfactor_slope_4_X_Cux2 
+                                6.831347e-02                                 1.298953e-02 
+                     wfactor_point_1_X_Fezf2                       wfactor_rate_1_X_Fezf2 
+                                9.539514e-03                                 3.619857e-02 
+                     wfactor_slope_1_X_Fezf2                      wfactor_point_2_X_Fezf2 
+                                7.772839e-02                                -4.116230e-02 
+                      wfactor_rate_2_X_Fezf2                      wfactor_slope_2_X_Fezf2 
+                               -2.989357e-02                                -9.548054e-02 
+                     wfactor_point_3_X_Fezf2                       wfactor_rate_3_X_Fezf2 
+                                8.613668e-02                                 2.553145e-02 
+                     wfactor_slope_3_X_Fezf2                      wfactor_point_4_X_Fezf2 
+                                5.594666e-02                                -4.086259e-02 
+                      wfactor_rate_4_X_Fezf2                      wfactor_slope_4_X_Fezf2 
+                               -3.230600e-02                                -8.049012e-02 
+                     wfactor_point_1_X_Nxph3                       wfactor_rate_1_X_Nxph3 
+                               -4.193658e-02                                 3.832334e-02 
+                     wfactor_slope_1_X_Nxph3                      wfactor_point_2_X_Nxph3 
+                               -2.278729e-02                                -4.558225e-02 
+                      wfactor_rate_2_X_Nxph3                      wfactor_slope_2_X_Nxph3 
+                               -2.532787e-03                                -8.484015e-02 
+                     wfactor_point_3_X_Nxph3                       wfactor_rate_3_X_Nxph3 
+                               -6.176339e-02                                -4.728065e-02 
+                     wfactor_slope_3_X_Nxph3                      wfactor_point_4_X_Nxph3 
+                               -3.539172e-02                                -5.368312e-02 
+                      wfactor_rate_4_X_Nxph3                      wfactor_slope_4_X_Nxph3 
+                                5.123977e-02                                 3.379918e-02 
+                      wfactor_point_1_X_Rorb                        wfactor_rate_1_X_Rorb 
+                               -3.939777e-02                                -3.218519e-02 
+                      wfactor_slope_1_X_Rorb                       wfactor_point_2_X_Rorb 
+                               -5.455863e-03                                -6.820258e-02 
+                       wfactor_rate_2_X_Rorb                       wfactor_slope_2_X_Rorb 
+                                4.576287e-02                                -7.041770e-02 
+                      wfactor_point_3_X_Rorb                        wfactor_rate_3_X_Rorb 
+                               -9.178104e-02                                 8.886367e-04 
+                      wfactor_slope_3_X_Rorb                       wfactor_point_4_X_Rorb 
+                                8.953627e-03                                -5.631183e-02 
+                       wfactor_rate_4_X_Rorb                       wfactor_slope_4_X_Rorb 
+                               -6.490669e-02                                -6.001818e-02 
+                     wfactor_point_1_X_Satb2                       wfactor_rate_1_X_Satb2 
+                                5.103028e-03                                -9.798818e-04 
+                     wfactor_slope_1_X_Satb2                      wfactor_point_2_X_Satb2 
+                               -2.171048e-02                                 8.207579e-02 
+                      wfactor_rate_2_X_Satb2                      wfactor_slope_2_X_Satb2 
+                                5.623311e-02                                -3.720731e-02 
+                     wfactor_point_3_X_Satb2                       wfactor_rate_3_X_Satb2 
+                                6.567841e-02                                -7.625630e-02 
+                     wfactor_slope_3_X_Satb2                      wfactor_point_4_X_Satb2 
+                               -6.699276e-02                                -8.992855e-02 
+                      wfactor_rate_4_X_Satb2                      wfactor_slope_4_X_Satb2 
+                                6.051286e-02                                 7.930354e-02 

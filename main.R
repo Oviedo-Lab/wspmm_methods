@@ -72,7 +72,7 @@ fixed.effect.names <- c("hemisphere", "age")
 
 # Create count data for WSPmm object, from preprocessed count_data, using laminar axis (y)
 
-count.data.WSPmm.y <- create.count.data.WSPmm(
+count.data.WSPmm <- create.count.data.WSPmm(
   df.merfish = count_data,
   bin.dim = "y_bins",
   gene.list = gene.list,
@@ -80,12 +80,12 @@ count.data.WSPmm.y <- create.count.data.WSPmm(
 )
 
 write.csv(
-  count.data.WSPmm.y, 
+  count.data.WSPmm, 
   file = "S1_laminar_countdata.csv",
   row.names = FALSE
 )
 
-#count.data.WSPmm.y.combined <- read.csv("S1_laminar_countdata.csv")
+#count.data.WSPmm <- read.csv("S1_laminar_countdata.csv")
 
 # Define variables in the dataframe for the model
 data.variables = list(
@@ -116,7 +116,7 @@ model.settings = list(
 # Fit model
 merfish.laminar.model <- wisp(
   # Data to model
-  count.data.raw = count.data.WSPmm.y,
+  count.data.raw = count.data.WSPmm,
   # Variable labels
   variables = data.variables,
   # Local settings for specific fits, used on R side
