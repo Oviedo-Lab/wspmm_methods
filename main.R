@@ -13,7 +13,7 @@ library(wispack)
 
 # Set random seed for reproducibility
 # ... R only. C++ seed set in its code
-ran.seed <- 12349999
+ran.seed <- 123
 set.seed(ran.seed)
 options(error = recover)
 # Set for debugging (if needed): Sys.setenv(CXXFLAGS="-fsanitize=address -g -O1")
@@ -103,10 +103,10 @@ model.settings = list(
   buffer_factor = 0.05,                                 # buffer factor for penalizing distance from structural parameter values
   ctol = 1e-6,                                          # convergence tolerance
   max_penalty_at_distance_factor = 0.01,                # maximum penalty at distance from structural parameter values
-  LROcutoff = 2.0,                                      # cutoff for LROcp
+  LROcutoff = 1.8,                                      # cutoff for LROcp
   LROwindow_factor = 2.0,                               # window factor for LROcp, larger means larger rolling window
-  LROfilter_ws_divisor = 2.0,                           # divisor for filter window size in likelihood ratio outlier detection (bigger is smaller window)
-  rise_threshold_factor = 0.8,                          # amount of detected rise as fraction of total required to end run
+  LROfilter_ws_divisor = 3.0,                           # divisor for filter window size in likelihood ratio outlier detection (bigger is smaller window)
+  rise_threshold_factor = 0.8,                          # amount of detected rise as fraction of total required to end run in initial slope estimation
   max_evals = 1000,                                     # maximum number of evaluations for optimization
   rng_seed = 42,                                        # random seed for optimization (controls bootstrap resamples only)
   warp_precision = 1e-7,                                # pseudo infinity value larger than any possible possible parameter value, representing unbound warping
