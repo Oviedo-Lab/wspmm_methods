@@ -103,9 +103,9 @@ model.settings = list(
   buffer_factor = 0.05,                                 # buffer factor for penalizing distance from structural parameter values
   ctol = 1e-6,                                          # convergence tolerance
   max_penalty_at_distance_factor = 0.01,                # maximum penalty at distance from structural parameter values
-  LROcutoff = 1.8,                                      # cutoff for LROcp
+  LROcutoff = 2.0,                                      # cutoff for LROcp
   LROwindow_factor = 2.0,                               # window factor for LROcp, larger means larger rolling window
-  LROfilter_ws_divisor = 3.0,                           # divisor for filter window size in likelihood ratio outlier detection (bigger is smaller window)
+  LROfilter_ws_divisor = 2.0,                           # divisor for filter window size in likelihood ratio outlier detection (bigger is smaller window)
   rise_threshold_factor = 0.8,                          # amount of detected rise as fraction of total required to end run in initial slope estimation
   max_evals = 1000,                                     # maximum number of evaluations for optimization
   rng_seed = 42,                                        # random seed for optimization (controls bootstrap resamples only)
@@ -122,7 +122,7 @@ merfish.laminar.model <- wisp(
   # Local settings for specific fits, used on R side
   use.median = FALSE,
   MCMC.burnin = 0,
-  MCMC.steps = 1e3,
+  MCMC.steps = 1e2,
   MCMC.step.size = 0.05,
   bootstraps.num = 0,
   converged.resamples.only = FALSE,

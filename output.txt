@@ -23,14 +23,20 @@ Standard deviation of means: 0.714
 Total cells by type (Map My Cells):
 ------------------------------
 
-      Astro-Epen          CB GABA          CB Glut     CNU-HYa GABA     CNU-HYa Glut     CNU-LGE GABA     CNU-MGE GABA CTX-CGE/MGE GABA      DG-IMN Glut 
-            3952               82               19               12                2              671               20             1351               11 
-        filtered          HY GABA           Immune       IT-ET Glut         LSX GABA          MB GABA          MB Glut       MB-HB Sero       MH-LH Glut 
-           18208               37              331            16066               29               79                5                1               15 
-         MY GABA          MY Glut   NP-CT-L6b Glut      OB-IMN GABA              OEC        OPC-Oligo           P GABA  TSCRPT_filtered         Vascular 
-             430               21             4922              149               23             1499              142               99             5914 
-         HY Glut    HY Gnrh1 Glut           P Glut      Pineal Glut          TH Glut          MB Dopa       OB-CR Glut 
-               1                1                2                5               12                2                3 
+      Astro-Epen          CB GABA          CB Glut     CNU-HYa GABA     CNU-HYa Glut 
+            3952               82               19               12                2 
+    CNU-LGE GABA     CNU-MGE GABA CTX-CGE/MGE GABA      DG-IMN Glut         filtered 
+             671               20             1351               11            18208 
+         HY GABA           Immune       IT-ET Glut         LSX GABA          MB GABA 
+              37              331            16066               29               79 
+         MB Glut       MB-HB Sero       MH-LH Glut          MY GABA          MY Glut 
+               5                1               15              430               21 
+  NP-CT-L6b Glut      OB-IMN GABA              OEC        OPC-Oligo           P GABA 
+            4922              149               23             1499              142 
+ TSCRPT_filtered         Vascular          HY Glut    HY Gnrh1 Glut           P Glut 
+              99             5914                1                1                2 
+     Pineal Glut          TH Glut          MB Dopa       OB-CR Glut 
+               5               12                2                3 
 ----
 
 Number of mice: 4
@@ -132,85 +138,13 @@ row: 1920/2400
 row: 2400/2400
 Extrapolated 'none' rows
 Took log of observed counts
-vec (first 20): 9.36911 12.8254 15.677 11.401 4.68206 2.00996 0.728701 5.39568 4.52552 0.512321 1.41833 0.785313 2.31578 2.40906 5.2193 3.11787 1.37468 0.912495 2.11279 7.59287 
-vec (first 20): 8.08105 10.117 9.65851 7.14213 4.31734 3.71268 2.89619 3.44828 3.60963 1.16304 1.12933 2.60491 4.00914 5.55548 9.03181 5.90377 1.7743 0.858033 1.67738 2.98217 
-vec (first 20): 0.813683 0.00288407 0.100403 2.23872 0.261382 0.454031 0.31899 1.73658 0.240005 0.109927 0.965239 2.90426 5.51249 4.57707 2.84024 1.50939 1.2623 0.623326 1.14127 3.77423 
-vec (first 20): 7.6955 4.90906 3.13503 0.490919 0.572474 2.59489 2.88007 7.00929 6.87041 4.6689 2.62816 1.16384 0.24461 0.716919 3.18923 5.13266 3.49619 2.87364 2.55998 1.21165 
-vec (first 20): 5.92527 3.54369 3.11203 0.248156 0.00826726 0.694887 1.19733 5.34159 6.07859 4.50617 2.12302 1.13622 0.303314 0.68606 3.34204 5.97301 4.78735 3.55144 4.03594 0.412535 
-vec (first 20): 3.01911 3.33039 6.03427 5.7686 2.96494 3.11603 4.78617 8.76807 4.20347 2.27569 2.42998 0.657239 0.00401128 1.98838 2.09 3.24856 1.82075 2.42595 2.60212 2.54599 
-vec (first 20): 0.818526 3.21767 5.30613 5.35483 5.20983 3.46926 2.0403 4.78877 6.98192 8.10484 7.65554 4.76342 5.10829 7.24222 7.19254 4.19063 0.440696 0.127224 2.06871 3.98839 
-vec (first 20): 0.501939 3.78142 4.41771 3.62098 2.85733 3.76603 3.87404 5.28562 5.47342 6.75395 9.51812 6.96286 7.05052 6.51691 4.38005 2.62014 0.299504 1.56007 3.99831 5.54776 
-vec (first 20): 1.5989 0.0138077 0.739277 1.81304 2.03694 4.35082 5.56542 4.38731 2.77895 3.30244 2.764 3.27748 1.04948 1.09285 2.72525 2.95781 5.38266 5.83479 6.3482 7.30355 
-vec (first 20): 1.2737 0.992697 0.699992 3.22833 5.90676 10.2226 12.5718 10.6686 10.2471 9.84144 7.70199 5.26375 1.94305 0.913092 4.40789 5.39326 5.99884 2.91794 0.38827 0.952349 
-vec (first 20): 0.359004 3.99734 6.02456 3.13803 1.13378 0.734935 5.68146 9.53376 8.6514 9.04546 5.15451 2.0221 0.253276 2.64361 7.74588 7.2909 5.66244 1.98771 0.00503408 3.12922 
-vec (first 20): 1.39647 0.626602 4.01422 8.47005 8.83366 8.34266 11.0243 11.168 11.5963 10.2418 9.79637 12.003 7.70948 0.486501 3.22345 5.39595 10.5744 8.54832 0.765328 0.736237 
-vec (first 20): 5.56335 1.47512 0.0505739 0.467448 2.45379 4.68302 3.41592 1.47986 0.583051 1.32656 1.9715 1.66866 0.81035 1.04546 2.98628 7.9532 7.94157 14.0353 4.83215 1.54451 
-vec (first 20): 4.43669 0.331799 0.165992 1.07128 1.78704 3.24452 4.29631 4.9357 3.64332 4.2578 5.51135 6.87575 4.24105 1.42749 2.84733 4.82728 7.49801 10.8261 6.75251 6.17608 
-vec (first 20): 1.28606 1.54427 0.883818 0.415815 0.445478 1.03116 1.06204 0.688715 1.94694 1.67589 1.19575 0.917431 0.232029 0.42379 0.412538 0.080191 0.0744369 0.0754145 0.258324 0.0555858 
-vec (first 20): 2.90099 1.76127 0.244912 0.901442 1.38559 0.174402 0.566145 0.165898 0.260023 0.780368 4.47329 1.0269 0.409474 1.12445 1.79882 7.62969 1.57735 2.81175 4.99623 6.89953 
-vec (first 20): 2.0177 1.54762 1.3768 3.54718 5.61527 5.13565 0.769992 0.309818 0.400368 2.61485 10.1417 4.22637 1.45316 0.691196 1.37548 7.83873 4.03184 4.68972 4.98844 6.87666 
-vec (first 20): 0.575739 0.0844299 2.18628 2.48915 2.65528 5.04322 4.40774 1.42968 1.80988 1.47851 1.97089 0.778582 0.0903563 0.331338 0.426193 2.03319 0.132878 0.169414 0.109365 0.870779 
-vec (first 20): 3.7557 0.0829883 4.08493 6.21119 1.30806 0.736216 0.639744 2.27264 3.06424 0.813995 0.113866 0.239904 0.705685 0.650646 0.548897 2.11387 2.01903 0.675544 1.31727 1.83488 
-vec (first 20): 4.00738 0.618029 3.72542 9.01791 2.57401 0.600862 0.314224 1.21259 4.66666 1.15092 0.615327 0.53167 0.244989 0.0513297 0.165654 1.90742 1.22749 3.6561 3.95814 2.36079 
-vec (first 20): 4.90469 3.73892 1.8005 0.775623 0.869749 1.60794 0.977719 0.783533 0.927542 0.85366 2.55696 2.14628 2.4187 2.22241 0.425468 4.79898 5.58298 5.80224 5.03306 0.438467 
-vec (first 20): 1.52754 2.09566 1.46883 0.173995 1.37848 0.0284077 0.645683 3.14341 2.39468 4.21883 3.57439 2.39394 0.254639 0.595905 1.80774 2.19864 1.23776 1.21037 1.84452 2.54304 
-vec (first 20): 3.75669 2.56111 0.764342 2.13419 0.455105 0.967314 0.794465 0.317797 0.2487 0.895015 1.04133 2.45421 3.13859 3.91953 3.49538 0.139609 2.05271 3.57766 4.85499 4.97549 
-vec (first 20): 5.41402 1.99672 0.488778 0.532417 4.40448 1.38789 0.00205307 1.82612 3.08229 7.78985 3.6206 0.49435 0.575959 1.64893 3.99095 2.08665 0.879573 0.288839 0.510922 0.916422 
-vec (first 20): 2.15806 1.19828 1.27424 0.483019 0.622607 1.3247 0.62767 0.0892948 0.260034 5.52106 6.16135 3.58303 0.72099 0.167762 4.45735 4.13307 2.20043 1.49563 2.11488 5.33954 
-vec (first 20): 8.08904 4.93755 1.11175 1.11457 4.03461 7.28128 8.70927 3.23682 1.05101 3.07283 3.86004 1.94348 0.108564 0.597645 4.31342 5.13491 0.814675 0.279194 2.39776 3.62873 
-vec (first 20): 2.14637 2.53209 2.00826 0.596239 1.12217 1.74321 3.60484 8.68049 6.51592 6.7 2.69025 2.14308 2.668 2.92813 3.24391 0.109989 0.407437 0.569261 0.717616 1.2651 
-vec (first 20): 2.34838 1.65144 2.8166 8.19806 4.71233 2.31728 1.90244 3.89859 10.0501 12.3712 7.23034 6.60619 0.895704 1.59929 8.03673 4.38598 5.01112 1.06401 0.794876 1.66958 
-vec (first 20): 4.88624 5.16393 2.72713 1.69625 0.853944 0.369824 2.94506 4.02636 6.6908 9.05524 7.86112 6.52352 3.96575 1.02837 0.570031 0.287197 0.41509 0.0611082 1.17005 4.56845 
-vec (first 20): 2.85428 6.44205 9.96934 10.2298 10.6539 6.69221 4.48637 2.72095 1.03706 0.584604 0.0821835 0.00275588 1.04793 3.468 5.28014 5.81015 5.08137 2.34049 1.0728 4.38351 
-vec (first 20): 3.76017 2.93174 1.62071 1.09093 0.259798 1.20465 2.84393 5.33775 3.37396 5.06663 1.35236 0.931226 0.0694407 0.235388 1.83492 3.81099 5.75788 9.63591 6.88674 4.3118 
-vec (first 20): 3.6683 3.24181 2.39997 1.11429 0.819755 0.374879 1.48613 4.79616 5.24096 7.83344 6.92366 5.71936 2.43964 1.33483 2.0087 4.59713 6.82238 10.7828 8.36429 3.90378 
-vec (first 20): 1.40938 0.166076 1.00933 1.22395 2.75284 4.60878 2.18725 3.5572 0.22164 0.181465 2.25733 2.94245 6.71076 3.60931 2.8496 1.119 1.11081 1.59336 2.41373 2.23944 
-vec (first 20): 3.3575 2.29199 3.85012 1.84024 0.461043 0.246726 0.259349 0.58823 1.68652 3.38893 6.80936 6.01511 7.7344 11.8295 7.65575 3.10451 3.00982 1.11532 3.12726 5.64645 
-vec (first 20): 4.76922 0.979935 2.61935 1.04866 1.16376 2.09716 1.74079 6.86408 4.4668 0.457145 1.39261 2.73051 9.75045 12.4476 6.44333 2.22102 1.30815 0.713974 0.953155 1.76322 
-vec (first 20): 4.10449 6.46942 1.22009 0.910404 0.381799 2.16981 4.60719 5.50823 8.38135 10.8701 7.003 5.80247 7.1175 6.76471 4.72649 2.70848 1.46094 2.2539 4.93849 7.11895 
-vec (first 20): 6.70784 12.3001 10.5311 7.68418 7.64838 2.46961 5.27174 8.44805 9.7049 12.4685 6.24288 7.69386 6.99559 11.1867 7.07323 3.26676 4.0942 5.56662 12.2276 10.5869 
-vec (first 20): 6.3089 6.43825 1.5028 0.0654159 1.26996 5.78246 6.06765 0.835226 0.102128 2.59421 6.27813 10.6454 9.58636 11.4617 4.40192 2.20239 4.75032 7.59602 14.275 11.1171 
-vec (first 20): 5.17457 7.75626 7.2194 6.3538 9.36626 7.34406 8.33416 6.57656 8.14214 9.19079 4.29287 3.87249 3.6359 7.44473 10.6203 5.45596 5.73948 3.8053 6.74488 10.5282 
-vec (first 20): 0.30904 1.02342 4.13029 7.28766 1.76218 0.299503 2.60061 4.37241 6.75704 4.8701 5.53862 10.1618 9.09462 7.80082 4.48399 4.30124 6.69157 7.30492 7.68516 6.10947 
-vec (first 20): 6.97195 4.76055 2.59845 2.8928 2.95374 2.84155 1.32626 0.683949 3.62134 5.74455 6.39604 8.99088 12.1831 10.5163 4.30868 2.78031 4.36872 8.74728 12.3786 8.30603 
-vec (first 20): 3.02939 8.36115 11.695 6.42789 1.46283 0.0658204 2.1907 7.01135 9.50694 6.89188 7.07469 9.26253 5.64443 5.30959 4.0319 5.66617 9.08821 6.38172 2.40891 1.779 
-vec (first 20): 2.03891 1.00525 0.08157 1.8663 6.13454 6.05446 6.1848 3.55601 3.84216 0.707181 0.118142 0.185559 0.74853 4.48983 2.08722 1.30227 2.08434 0.172256 3.75172 3.00387 
-vec (first 20): 5.29689 2.76637 0.916378 1.54155 8.17929 7.83247 3.45757 1.63919 2.73048 2.99357 5.55577 3.43543 2.3535 3.36852 0.427167 0.248632 1.84187 3.57982 3.64892 0.883665 
-vec (first 20): 1.98578 0.453943 0.0603761 2.39551 4.0024 5.23133 6.68845 6.57879 12.47 8.1987 4.90642 2.9124 3.45048 7.81262 8.3404 6.20628 6.28477 5.43701 5.45051 6.96084 
-vec (first 20): 0.792481 2.364 5.52379 7.99271 7.33478 8.00655 5.04415 2.46323 1.37984 2.98014 6.32078 4.8051 4.52564 1.88285 0.478211 1.53944 3.32812 5.06365 6.1172 9.04749 
-vec (first 20): 7.54293 1.3092 1.01857 2.78359 3.04278 6.27742 4.85507 0.286001 1.69509 1.87911 0.652016 0.436323 0.369246 3.45993 7.01695 4.47289 1.69286 1.4043 2.8519 7.74396 
-vec (first 20): 5.09406 5.00819 4.82621 11.1486 12.1356 5.54692 2.67192 2.76378 6.97463 12.6345 9.38726 5.95704 2.6223 0.3631 1.09958 6.13925 7.47961 4.8093 4.81236 6.32203 
-vec (first 20): 3.41336 4.98111 5.13656 2.72808 2.10995 1.72534 1.40078 4.99236 3.62056 6.0666 6.05372 5.48211 4.09053 0.78562 2.01243 3.48666 4.43595 2.77683 2.52683 2.24569 
-vec (first 20): 2.36973 5.39237 8.35105 4.63213 5.69659 3.49225 4.94931 1.99205 0.472616 1.59574 3.10082 7.17157 8.64738 8.16413 3.78861 0.961333 0.257001 1.52335 4.39406 4.13656 
-vec (first 20): 2.31839 1.08435 3.00254 3.17195 3.86265 6.44304 6.36721 11.5693 7.90179 7.27651 2.47891 0.294305 4.5177 5.54531 8.8833 7.22258 7.68665 4.9334 3.06297 3.44595 
-vec (first 20): 2.44035 2.53943 3.07578 3.32732 4.6958 3.5485 0.313201 0.1992 0.0195654 0.0995971 0.360526 1.05265 1.99999 2.79441 9.38148 7.42217 4.78754 3.24251 4.47912 7.55795 
-vec (first 20): 0.735512 0.424732 0.622529 1.42132 1.23352 1.44896 0.1546 0.147264 0.0112351 0.220636 0.257288 1.10537 1.40495 1.80533 7.73724 11.5431 9.3856 6.69552 6.36695 4.69561 
-vec (first 20): 5.77961 6.72373 5.85065 4.36283 6.56711 1.6536 0.676956 0.926598 0.830243 1.50149 0.651086 0.78597 2.59645 4.10426 7.14998 3.38521 1.49448 1.17637 4.25954 7.65741 
-vec (first 20): 5.42506 0.947784 0.200196 4.70005 5.29723 8.24261 5.11541 2.91828 0.788771 2.70498 5.3122 7.5737 2.34313 0.478749 4.21747 6.84148 12.0706 9.44795 11.291 4.76173 
-vec (first 20): 2.75002 0.37941 0.372476 5.85302 5.00012 4.8765 2.24597 0.956567 0.718649 2.03036 2.99501 1.11729 0.112215 1.97541 5.42331 7.85965 9.14617 9.1814 10.1536 1.76776 
-vec (first 20): 6.82625 2.61624 0.615221 4.86457 4.50652 9.74755 10.9816 6.77926 5.31729 1.0759 1.68604 6.85679 7.09949 7.17572 3.2097 1.40145 0.33251 0.0636641 1.74513 2.8774 
-vec (first 20): 0.15018 3.90535 3.00561 4.70236 5.22588 5.5038 10.9697 4.82593 1.78301 0.412624 2.21992 4.45842 6.05692 4.4966 4.15518 0.239652 0.856518 2.00066 3.27255 6.05683 
-vec (first 20): 0.359944 2.16452 3.71006 3.8621 4.29395 5.37212 9.79454 8.29776 5.663 0.803878 0.143052 4.10122 8.60549 5.49103 4.66224 3.53221 3.41304 3.94743 1.5108 1.10046 
-vec (first 20): 1.02945 0.684153 1.75649 3.60031 6.82749 4.14636 1.66874 0.22061 1.11955 4.52244 4.92421 3.52466 0.0629144 1.18345 4.02608 5.89419 12.0718 5.59162 2.74712 0.523616 
-vec (first 20): 12.6746 1.51261 0.119449 7.65547 10.7855 16.8458 8.36043 6.70707 5.42044 5.57568 8.96066 3.72032 2.58725 0.805339 0.241349 1.11791 0.954994 1.78784 1.73502 1.165 
-vec (first 20): 9.14187 0.905145 0.872923 7.06623 7.72111 13.9561 10.4094 7.94936 6.33264 6.446 8.04618 4.59919 2.80423 1.04217 0.20424 0.980199 0.701405 1.85913 2.10763 2.27021 
-vec (first 20): 0.895172 1.13767 0.25811 1.28747 2.40303 4.56379 4.79694 1.86496 0.0623189 0.241609 1.41665 0.589533 0.484266 0.0647538 0.268703 0.372675 0.656293 0.5047 1.27722 1.52512 
-vec (first 20): 0.241935 2.26423 3.85483 9.42261 5.0278 4.21152 4.7589 7.19279 13.7687 10.5931 8.04165 7.22902 1.27939 1.1979 2.37005 1.95948 2.84504 0.196477 0.864657 1.83863 
-vec (first 20): 2.02246 4.03519 3.27466 5.70521 2.76774 3.51529 7.07612 9.55795 17.2205 13.1639 10.8918 10.1299 3.39525 1.23067 2.64973 2.48321 4.36111 0.850843 2.32175 2.13125 
-vec (first 20): 6.43666 9.94431 11.5695 11.886 9.68027 7.60866 7.34699 2.21128 1.20032 2.01427 2.99898 5.8812 3.9269 4.63149 1.08533 0.829991 0.0250531 0.416686 0.633096 0.476085 
-vec (first 20): 2.72236 2.07519 1.00886 0.309768 1.22213 0.188027 1.33277 4.01353 3.71298 5.92093 6.47555 5.93151 3.44159 1.7062 0.446773 1.61637 3.5931 10.2638 9.0227 7.40032 
-vec (first 20): 5.13926 3.34434 3.04733 3.83368 0.777671 0.590514 1.14644 4.50977 6.35094 6.41043 7.28672 6.12091 3.38864 1.64782 0.19628 0.984138 2.32031 10.7658 12.7841 11.3107 
-vec (first 20): 1.97705 2.43301 4.21387 2.27523 2.11667 0.0364062 1.2187 1.21175 3.46921 3.29976 1.62117 0.860342 0.278467 0.78123 3.1762 2.53857 2.15378 0.734619 0.103077 0.956457 
-vec (first 20): 5.54628 3.44365 0.520491 1.38608 3.68576 3.32438 5.65498 5.42575 6.00526 10.4703 10.6711 8.42761 9.68262 8.12482 3.96912 2.20635 2.86036 3.04006 2.24545 0.356269 
-vec (first 20): 5.59185 4.39628 0.192407 2.28102 1.72182 2.45449 5.02115 2.16004 1.75701 3.04729 5.86306 6.16892 7.01397 7.03394 5.85971 4.51779 5.04167 3.00629 2.41926 0.284084 
-vec (first 20): 10.5116 8.0711 2.48744 0.465607 0.122822 3.47365 5.05308 3.05138 5.265 10.5663 9.73131 7.4114 4.25011 2.29181 0.614978 0.881047 0.774291 0.976996 1.50739 1.88459 
 Estimated change points with LROcp and found initial parameter estimates for fixed-effect treatments
 Built initial beta (ref and fixed-effects) matrices
 Initialized random effect warping factors
 Made and mapped parameter vector
-Number of parameters: 300
+Number of parameters: 216
 Constructed grouping variable IDs
-Computed size of boundary vector: 920
+Computed size of boundary vector: 640
 Finished initializing wspc object
 
 Estimating model parameters: 
@@ -218,27 +152,23 @@ Estimating model parameters:
 
 Running MCMC stimulations (single-threaded): 
 Checking feasibility of provided parameters
-... tpoints found below buffer
-Provided parameters not feasible, searching nearby
-Initial boundary distance (want to make >0): -0.667671
-Numer of evals: 2
-Success code: 2
-Final boundary distance: 0.0990587
-Nearby feasible parameters found!
+... no tpoints below buffer
+... no negative rates predicted
+Provided parameters are feasible
 Performing initial fit of full data
-Penalized neg_loglik: 1.75861
-step: 100/1000
-step: 200/1000
-step: 300/1000
-step: 400/1000
-step: 500/1000
-step: 600/1000
-step: 700/1000
-step: 800/1000
-step: 900/1000
-step: 1000/1000
+Penalized neg_loglik: 1.77341
+step: 10/100
+step: 20/100
+step: 30/100
+step: 40/100
+step: 50/100
+step: 60/100
+step: 70/100
+step: 80/100
+step: 90/100
+step: 100/100
 All complete!
-Acceptance rate (aim for 0.2-0.3): 0.396271
+Acceptance rate (aim for 0.2-0.3): 0.0759785
 
 Setting full-data fit as parameters... 
 Checking feasibility of provided parameters
@@ -256,13 +186,20 @@ Estimating p-values from bootstraped parameters...
 
 Stat summary (head only):
 ------------------------------
-                                 parameter   estimate     CI.low   CI.high   p.value p.value.adj    alpha.adj significance
-1       baseline_cortex_Rt_Bcl11b_Tns/Blk1  4.2124338  3.2585246 5.1397501 0.0000000     0.00000 0.0001766784          ***
-2   beta_Rt_cortex_Bcl11b_right_X_Tns/Blk1 -0.4325438 -0.4859935 0.8354265 0.1162325    20.10822 0.0002890173           ns
-3      beta_Rt_cortex_Bcl11b_18_X_Tns/Blk1  0.5141651  0.2224479 1.9899618 0.2585170    40.07014 0.0003225806           ns
-4 beta_Rt_cortex_Bcl11b_right18_X_Tns/Blk1  1.1047901  0.9177791 2.4461583 0.0000000     0.00000 0.0001773050          ***
-5       baseline_cortex_Rt_Bcl11b_Tns/Blk2  3.4408034  2.8405301 4.0804567 0.0000000     0.00000 0.0001779359          ***
-6   beta_Rt_cortex_Bcl11b_right_X_Tns/Blk2  0.1557404 -0.7505539 0.7085803 0.5140281    65.79559 0.0003906250           ns
+                                 parameter    estimate     CI.low     CI.high p.value
+1       baseline_cortex_Rt_Bcl11b_Tns/Blk1  3.75137871  3.0332184  7.21796290       0
+2   beta_Rt_cortex_Bcl11b_right_X_Tns/Blk1  0.07361304  0.0698270  0.09704918       0
+3      beta_Rt_cortex_Bcl11b_18_X_Tns/Blk1  0.66227311  0.6378030  0.91901482       0
+4 beta_Rt_cortex_Bcl11b_right18_X_Tns/Blk1 -0.09831572 -0.1149416 -0.06472492       0
+5       baseline_cortex_Rt_Bcl11b_Tns/Blk2  3.49410548  1.7229334  3.66997969       0
+6   beta_Rt_cortex_Bcl11b_right_X_Tns/Blk2 -0.10822215 -0.1081292 -0.06300618       0
+  p.value.adj    alpha.adj significance
+1           0 0.0002427184          ***
+2           0 0.0002439024          ***
+3           0 0.0002450980          ***
+4           0 0.0002463054          ***
+5           0 0.0002475248          ***
+6           0 0.0002487562          ***
 ----
 
 Analyzing residuals: 
@@ -275,23 +212,194 @@ Making plots and saving stats...
 Log-residual summary by grouping variables (head only):
 ------------------------------
          group      mean        sd  variance
-1          all 0.3356693 0.6139964 0.3769916
-2 ran_lvl_none 0.3000793 0.4786368 0.2290931
-3    ran_lvl_1 0.4007491 0.6549398 0.4289461
-4    ran_lvl_2 0.2699466 0.5981583 0.3577933
-5    ran_lvl_3 0.4500150 0.7730252 0.5975679
-6    ran_lvl_4 0.2931463 0.6283662 0.3948441
+1          all 0.4986633 0.7255730 0.5264562
+2 ran_lvl_none 0.4523852 0.6246517 0.3901897
+3    ran_lvl_1 0.3841149 0.7724796 0.5967247
+4    ran_lvl_2 0.3931362 0.7542442 0.5688843
+5    ran_lvl_3 0.7777021 0.7742746 0.5995011
+6    ran_lvl_4 0.5322560 0.7123876 0.5074961
 ----
 
 TPS test results (head only):
 ------------------------------
-              cortex   gene TPS.ref TPS.right TPS.18 TPS.right18 Rt.18 tpoint.18 tslope.18 Rt.right tpoint.right tslope.right Rt.right18 tpoint.right18 tslope.right18
-Bcl11b.cortex cortex Bcl11b    TRUE      TRUE   TRUE        TRUE FALSE      TRUE      TRUE    FALSE         TRUE         TRUE       TRUE           TRUE           TRUE
-Cux2.cortex   cortex   Cux2    TRUE      TRUE   TRUE        TRUE FALSE      TRUE     FALSE    FALSE         TRUE        FALSE       TRUE           TRUE          FALSE
-Fezf2.cortex  cortex  Fezf2    TRUE      TRUE   TRUE        TRUE FALSE      TRUE     FALSE    FALSE         TRUE         TRUE      FALSE           TRUE           TRUE
-Nxph3.cortex  cortex  Nxph3    TRUE      TRUE   TRUE        TRUE FALSE      TRUE     FALSE    FALSE         TRUE        FALSE      FALSE           TRUE          FALSE
-Rorb.cortex   cortex   Rorb    TRUE      TRUE   TRUE        TRUE  TRUE      TRUE     FALSE    FALSE         TRUE        FALSE      FALSE           TRUE           TRUE
-Satb2.cortex  cortex  Satb2    TRUE      TRUE   TRUE        TRUE FALSE      TRUE      TRUE    FALSE         TRUE        FALSE      FALSE           TRUE           TRUE
+              cortex   gene TPS.ref TPS.right TPS.18 TPS.right18 Rt.18 tpoint.18 tslope.18
+Bcl11b.cortex cortex Bcl11b    TRUE      TRUE   TRUE        TRUE  TRUE      TRUE      TRUE
+Cux2.cortex   cortex   Cux2    TRUE      TRUE   TRUE        TRUE  TRUE      TRUE      TRUE
+Fezf2.cortex  cortex  Fezf2    TRUE      TRUE   TRUE        TRUE  TRUE      TRUE      TRUE
+Nxph3.cortex  cortex  Nxph3    TRUE      TRUE   TRUE        TRUE  TRUE      TRUE      TRUE
+Rorb.cortex   cortex   Rorb    TRUE      TRUE   TRUE        TRUE  TRUE      TRUE      TRUE
+Satb2.cortex  cortex  Satb2    TRUE      TRUE   TRUE       FALSE  TRUE      TRUE      TRUE
+              Rt.right tpoint.right tslope.right Rt.right18 tpoint.right18 tslope.right18
+Bcl11b.cortex     TRUE         TRUE         TRUE       TRUE           TRUE           TRUE
+Cux2.cortex       TRUE         TRUE         TRUE       TRUE           TRUE           TRUE
+Fezf2.cortex      TRUE         TRUE         TRUE       TRUE           TRUE           TRUE
+Nxph3.cortex      TRUE         TRUE         TRUE       TRUE           TRUE           TRUE
+Rorb.cortex       TRUE         TRUE         TRUE       TRUE           TRUE           TRUE
+Satb2.cortex      TRUE         TRUE         TRUE       TRUE           TRUE           TRUE
+----
+
+Printing effect distributions: 
+----------------------------------------
+
+Warping factors distributions... 
+Rate effects distribution... 
+Slope effects distribution... 
+tpoint effects distribution... 
+Making rate-count plots... 
+
+Printing child summary plots: 
+----------------------------------------
+
+Making summary plots for cortex: Bcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2
+
+Initializing Cpp (wspc) model: 
+----------------------------------------
+
+warp_precision: 1e-07
+eps_: 2.22045e-16
+inf_warp: 4.5036e+08
+Data structure check passed
+Saving tokenized count
+Found max bin: 100.000000
+Extracted fixed effects:
+"hemisphere" "age"
+Ref levels:
+"left" "12"
+Created treatment levels
+"ref" "right" "18" "right18"
+Created treatment-to-fix translation matrix
+Pre-computed weight matrix rows
+Extracted parent grouping variables:
+"cortex"
+Extracted child grouping variables:
+"Bcl11b" "Cux2" "Fezf2" "Nxph3" "Rorb" "Satb2"
+Extracted random-effect grouping variables:
+"none" "1" "2" "3" "4"
+Extracted tokenized count columns
+Grabbed size constants for summed count data, total rows: 12000
+Initialized columns for summed count data
+Initialized count indexes, number of rows with unique model components: 120
+Pre-computing bin masks
+Creating summed-count data columns ...
+Random level 0, 1/5 complete
+Random level 1, 2/5 complete
+Random level 2, 3/5 complete
+Random level 3, 4/5 complete
+Random level 4, 5/5 complete
+Extracted non-NA indexes
+Making extrapolation pool ...
+row: 480/2400
+row: 960/2400
+row: 1440/2400
+row: 1920/2400
+row: 2400/2400
+Extrapolated 'none' rows
+Took log of observed counts
+Estimated change points with LROcp and found initial parameter estimates for fixed-effect treatments
+Built initial beta (ref and fixed-effects) matrices
+Initialized random effect warping factors
+Made and mapped parameter vector
+Number of parameters: 216
+Constructed grouping variable IDs
+Computed size of boundary vector: 640
+Finished initializing wspc object
+
+Estimating model parameters: 
+---------------
+
+Running MCMC stimulations (single-threaded): 
+Checking feasibility of provided parameters
+... no tpoints below buffer
+... no negative rates predicted
+Provided parameters are feasible
+Performing initial fit of full data
+Penalized neg_loglik: 1.77546
+step: 10/100
+step: 20/100
+step: 30/100
+step: 40/100
+step: 50/100
+step: 60/100
+step: 70/100
+step: 80/100
+step: 90/100
+step: 100/100
+All complete!
+Acceptance rate (aim for 0.2-0.3): 0.0822259
+
+Setting full-data fit as parameters... 
+Checking feasibility of provided parameters
+... no tpoints below buffer
+... no negative rates predicted
+Provided parameters are feasible
+
+Running stats on simulation results: 
+----------------------------------------
+
+Grabbing sample results... 
+Grabbing parameter values... 
+Computing 95% confidence intervals... 
+Estimating p-values from bootstraped parameters... 
+
+Stat summary (head only):
+------------------------------
+                                 parameter    estimate      CI.low     CI.high p.value
+1       baseline_cortex_Rt_Bcl11b_Tns/Blk1  3.75361464  3.66901730  5.70382165       0
+2   beta_Rt_cortex_Bcl11b_right_X_Tns/Blk1  0.07637644  0.06341307  0.09077905       0
+3      beta_Rt_cortex_Bcl11b_18_X_Tns/Blk1  0.66800119  0.66809554  1.07554584       0
+4 beta_Rt_cortex_Bcl11b_right18_X_Tns/Blk1 -0.09083259 -0.15326501 -0.06925556       0
+5       baseline_cortex_Rt_Bcl11b_Tns/Blk2  3.43652759  1.73866491  3.60946227       0
+6   beta_Rt_cortex_Bcl11b_right_X_Tns/Blk2 -0.11678245 -0.11668211 -0.05044514       0
+  p.value.adj    alpha.adj significance
+1           0 0.0002427184          ***
+2           0 0.0002439024          ***
+3           0 0.0002450980          ***
+4           0 0.0002463054          ***
+5           0 0.0002475248          ***
+6           0 0.0002487562          ***
+----
+
+Analyzing residuals: 
+----------------------------------------
+
+Computing residuals... 
+Making masks... 
+Making plots and saving stats... 
+
+Log-residual summary by grouping variables (head only):
+------------------------------
+         group      mean        sd  variance
+1          all 0.4980017 0.7294863 0.5321503
+2 ran_lvl_none 0.4492876 0.6282447 0.3946914
+3    ran_lvl_1 0.3632343 0.7717841 0.5956507
+4    ran_lvl_2 0.4045963 0.7659983 0.5867533
+5    ran_lvl_3 0.7784168 0.7724464 0.5966735
+6    ran_lvl_4 0.5431875 0.7168895 0.5139306
+----
+
+TPS test results (head only):
+------------------------------
+              cortex   gene TPS.ref TPS.right TPS.18 TPS.right18 Rt.18 tpoint.18
+Bcl11b.cortex cortex Bcl11b    TRUE      TRUE   TRUE        TRUE  TRUE      TRUE
+Cux2.cortex   cortex   Cux2    TRUE      TRUE   TRUE        TRUE  TRUE      TRUE
+Fezf2.cortex  cortex  Fezf2    TRUE      TRUE   TRUE        TRUE  TRUE      TRUE
+Nxph3.cortex  cortex  Nxph3    TRUE      TRUE   TRUE        TRUE  TRUE      TRUE
+Rorb.cortex   cortex   Rorb    TRUE      TRUE   TRUE        TRUE  TRUE      TRUE
+Satb2.cortex  cortex  Satb2    TRUE      TRUE   TRUE       FALSE  TRUE      TRUE
+              tslope.18 Rt.right tpoint.right tslope.right Rt.right18 tpoint.right18
+Bcl11b.cortex      TRUE     TRUE         TRUE         TRUE       TRUE           TRUE
+Cux2.cortex        TRUE     TRUE         TRUE         TRUE       TRUE          FALSE
+Fezf2.cortex       TRUE     TRUE         TRUE         TRUE       TRUE           TRUE
+Nxph3.cortex       TRUE     TRUE         TRUE         TRUE       TRUE           TRUE
+Rorb.cortex        TRUE     TRUE         TRUE         TRUE       TRUE           TRUE
+Satb2.cortex       TRUE     TRUE         TRUE         TRUE       TRUE           TRUE
+              tslope.right18
+Bcl11b.cortex           TRUE
+Cux2.cortex             TRUE
+Fezf2.cortex            TRUE
+Nxph3.cortex            TRUE
+Rorb.cortex             TRUE
+Satb2.cortex            TRUE
 ----
 
 Printing effect distributions: 
