@@ -153,18 +153,18 @@ Checking feasibility of provided parameters
 Provided parameters are feasible
 Performing initial fit of full data
 Penalized neg_loglik: 12771.5
-step: 100/1000
-step: 200/1000
-step: 300/1000
-step: 400/1000
-step: 500/1000
-step: 600/1000
-step: 700/1000
-step: 800/1000
-step: 900/1000
-step: 1000/1000
+step: 1000/10000
+step: 2000/10000
+step: 3000/10000
+step: 4000/10000
+step: 5000/10000
+step: 6000/10000
+step: 7000/10000
+step: 8000/10000
+step: 9000/10000
+step: 10000/10000
 All complete!
-Acceptance rate (aim for 0.2-0.3): 0.534797
+Acceptance rate (aim for 0.2-0.3): 0.7648
 
 Setting full-data fit as parameters... 
 Checking feasibility of provided parameters
@@ -182,13 +182,13 @@ Estimating p-values from bootstraped parameters...
 
 Stat summary (head only):
 ------------------------------
-                                 parameter    estimate     CI.low      CI.high p.value p.value.adj    alpha.adj significance
-1       baseline_cortex_Rt_Bcl11b_Tns/Blk1  3.77408943  3.7755398  4.517258415   0.000       0.000 0.0002427184          ***
-2   beta_Rt_cortex_Bcl11b_right_X_Tns/Blk1  0.06736406  0.0423697  0.214719804   0.068       0.884 0.0038461538           ns
-3      beta_Rt_cortex_Bcl11b_18_X_Tns/Blk1  0.65609541  0.3123361  0.654398275   0.000       0.000 0.0002439024          ***
-4 beta_Rt_cortex_Bcl11b_right18_X_Tns/Blk1 -0.01346961 -0.1408150 -0.008373398   0.595       2.380 0.0125000000           ns
-5       baseline_cortex_Rt_Bcl11b_Tns/Blk2  3.59171352  3.2172587  3.599208673   0.000       0.000 0.0002450980          ***
-6   beta_Rt_cortex_Bcl11b_right_X_Tns/Blk2 -0.18084368 -0.1801323 -0.063676494   0.000       0.000 0.0002463054          ***
+                                 parameter    estimate      CI.low    CI.high p.value p.value.adj    alpha.adj significance
+1       baseline_cortex_Rt_Bcl11b_Tns/Blk1  3.77408943  3.55910612 4.51631629  0.0000      0.0000 0.0002427184          ***
+2   beta_Rt_cortex_Bcl11b_right_X_Tns/Blk1  0.06736406  0.05524020 0.30167302  0.1702      2.3828 0.0035714286           ns
+3      beta_Rt_cortex_Bcl11b_18_X_Tns/Blk1  0.65609541  0.20424599 0.64181329  0.0000      0.0000 0.0002439024          ***
+4 beta_Rt_cortex_Bcl11b_right18_X_Tns/Blk1 -0.01346961 -0.09906309 0.02744227  0.7694      3.0776 0.0125000000           ns
+5       baseline_cortex_Rt_Bcl11b_Tns/Blk2  3.59171352  3.22143539 3.83108086  0.0000      0.0000 0.0002450980          ***
+6   beta_Rt_cortex_Bcl11b_right_X_Tns/Blk2 -0.18084368 -0.17439088 0.06003592  0.0000      0.0000 0.0002463054          ***
 ----
 
 Analyzing residuals: 

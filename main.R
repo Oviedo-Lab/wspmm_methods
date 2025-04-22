@@ -121,7 +121,7 @@ merfish.laminar.model <- wisp(
   # Local settings for specific fits, used on R side
   use.median = FALSE,
   MCMC.burnin = 0,
-  MCMC.steps = 1e3,
+  MCMC.steps = 1e4,
   MCMC.step.size = 0.5,
   bootstraps.num = 0,
   converged.resamples.only = FALSE,
