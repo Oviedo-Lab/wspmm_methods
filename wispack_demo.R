@@ -95,7 +95,7 @@ merfish.laminar.model <- wisp(
   use.median = FALSE,
   MCMC.burnin = 0,
   MCMC.steps = 1e3,
-  MCMC.step.size = 0.005,
+  MCMC.step.size = 0.05,
   MCMC.prior = 0.5,                                     
   bootstraps.num = 0,
   converged.resamples.only = FALSE,

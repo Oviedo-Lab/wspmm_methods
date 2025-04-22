@@ -26,7 +26,7 @@ snk.report("Analysis of MERFISH data by Warped Sigmoid, Poisson-Process Mixed-Ef
 # Set file paths and bootstrap chunk size
 source("merfish_preprocessing.R")
 data_path <- paste0(projects_folder, "MERFISH/data_SSp/")
-bs_chunksize <- 10
+bs_chunksize <- 2
 
 # Define list of genes to analyze
 gene.list <- c("Bcl11b", "Fezf2", "Satb2", "Nxph3", "Cux2", "Rorb")  
@@ -109,8 +109,7 @@ model.settings = list(
   rise_threshold_factor = 0.8,                          # amount of detected rise as fraction of total required to end run in initial slope estimation
   max_evals = 1000,                                     # maximum number of evaluations for optimization
   rng_seed = 42,                                        # random seed for optimization (controls bootstrap resamples only)
-  warp_precision = 1e-7,                                # pseudo infinity value larger than any possible possible parameter value, representing unbound warping
-  effect_dist_weight = 0.000                            # weight for effect distribution likelihood
+  warp_precision = 1e-7                                 # pseudo infinity value larger than any possible possible parameter value, representing unbound warping
 )
 
 # Fit model
@@ -122,8 +121,8 @@ merfish.laminar.model <- wisp(
   # Local settings for specific fits, used on R side
   use.median = FALSE,
   MCMC.burnin = 0,
-  MCMC.steps = 1e2,
-  MCMC.step.size = 0.05,
+  MCMC.steps = 1e3,
+  MCMC.step.size = 0.5,
   bootstraps.num = 0,
   converged.resamples.only = FALSE,
   max.fork = bs_chunksize,
@@ -140,8 +139,6 @@ newplots <- plot.ratecount(
   count.type = "count.log",
   print.all = TRUE
 )
-
-
 
 
 
