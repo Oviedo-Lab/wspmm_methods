@@ -110,7 +110,7 @@ model.settings = list(
   max_evals = 1000,                                     # maximum number of evaluations for optimization
   rng_seed = 42,                                        # random seed for optimization (controls bootstrap resamples only)
   warp_precision = 1e-7,                                # pseudo infinity value larger than any possible possible parameter value, representing unbound warping
-  effect_dist_weight = 0.001                            # weight for effect distribution likelihood
+  effect_dist_weight = 0.000                            # weight for effect distribution likelihood
 )
 
 # Fit model
@@ -134,7 +134,12 @@ merfish.laminar.model <- wisp(
   model.settings = model.settings
 )
 
-
+newplots <- plot.ratecount(
+  merfish.laminar.model,
+  pred.type = "pred.log",
+  count.type = "count.log",
+  print.all = TRUE
+)
 
 
 
