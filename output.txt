@@ -23,16 +23,20 @@ Standard deviation of means: 0.714
 Total cells by type (Map My Cells):
 ------------------------------
 
-      Astro-Epen          CB GABA          CB Glut     CNU-HYa GABA     CNU-HYa Glut     CNU-LGE GABA     CNU-MGE GABA CTX-CGE/MGE GABA 
-            3952               82               19               12                2              671               20             1351 
-     DG-IMN Glut         filtered          HY GABA           Immune       IT-ET Glut         LSX GABA          MB GABA          MB Glut 
-              11            18208               37              331            16066               29               79                5 
-      MB-HB Sero       MH-LH Glut          MY GABA          MY Glut   NP-CT-L6b Glut      OB-IMN GABA              OEC        OPC-Oligo 
-               1               15              430               21             4922              149               23             1499 
-          P GABA  TSCRPT_filtered         Vascular          HY Glut    HY Gnrh1 Glut           P Glut      Pineal Glut          TH Glut 
-             142               99             5914                1                1                2                5               12 
-         MB Dopa       OB-CR Glut 
-               2                3 
+      Astro-Epen          CB GABA          CB Glut     CNU-HYa GABA     CNU-HYa Glut 
+            3952               82               19               12                2 
+    CNU-LGE GABA     CNU-MGE GABA CTX-CGE/MGE GABA      DG-IMN Glut         filtered 
+             671               20             1351               11            18208 
+         HY GABA           Immune       IT-ET Glut         LSX GABA          MB GABA 
+              37              331            16066               29               79 
+         MB Glut       MB-HB Sero       MH-LH Glut          MY GABA          MY Glut 
+               5                1               15              430               21 
+  NP-CT-L6b Glut      OB-IMN GABA              OEC        OPC-Oligo           P GABA 
+            4922              149               23             1499              142 
+ TSCRPT_filtered         Vascular          HY Glut    HY Gnrh1 Glut           P Glut 
+              99             5914                1                1                2 
+     Pineal Glut          TH Glut          MB Dopa       OB-CR Glut 
+               5               12                2                3 
 ----
 
 Number of mice: 4
@@ -138,9 +142,9 @@ Estimated change points with LROcp and found initial parameter estimates for fix
 Built initial beta (ref and fixed-effects) matrices
 Initialized random effect warping factors
 Made and mapped parameter vector
-Number of parameters: 216
+Number of parameters: 240
 Constructed grouping variable IDs
-Computed size of boundary vector: 640
+Computed size of boundary vector: 720
 Finished initializing wspc object
 
 Estimating model parameters: 
@@ -148,23 +152,27 @@ Estimating model parameters:
 
 Running MCMC stimulations (single-threaded): 
 Checking feasibility of provided parameters
-... no tpoints below buffer
-... no negative rates predicted
-Provided parameters are feasible
+... tpoints found below buffer
+Provided parameters not feasible, searching nearby
+Initial boundary distance (want to make >0): -3.33553
+Numer of evals: 4
+Success code: 2
+Final boundary distance: 0.247647
+Nearby feasible parameters found!
 Performing initial fit of full data
-Penalized neg_loglik: 12771.5
-step: 1000/10000
-step: 2000/10000
-step: 3000/10000
-step: 4000/10000
-step: 5000/10000
-step: 6000/10000
-step: 7000/10000
-step: 8000/10000
-step: 9000/10000
-step: 10000/10000
+Penalized neg_loglik: 12650.1
+step: 100/1000
+step: 200/1000
+step: 300/1000
+step: 400/1000
+step: 500/1000
+step: 600/1000
+step: 700/1000
+step: 800/1000
+step: 900/1000
+step: 1000/1000
 All complete!
-Acceptance rate (aim for 0.2-0.3): 0.7648
+Acceptance rate (aim for 0.2-0.3): 0.49529
 
 Setting full-data fit as parameters... 
 Checking feasibility of provided parameters
@@ -182,13 +190,20 @@ Estimating p-values from bootstraped parameters...
 
 Stat summary (head only):
 ------------------------------
-                                 parameter    estimate      CI.low    CI.high p.value p.value.adj    alpha.adj significance
-1       baseline_cortex_Rt_Bcl11b_Tns/Blk1  3.77408943  3.55910612 4.51631629  0.0000      0.0000 0.0002427184          ***
-2   beta_Rt_cortex_Bcl11b_right_X_Tns/Blk1  0.06736406  0.05524020 0.30167302  0.1702      2.3828 0.0035714286           ns
-3      beta_Rt_cortex_Bcl11b_18_X_Tns/Blk1  0.65609541  0.20424599 0.64181329  0.0000      0.0000 0.0002439024          ***
-4 beta_Rt_cortex_Bcl11b_right18_X_Tns/Blk1 -0.01346961 -0.09906309 0.02744227  0.7694      3.0776 0.0125000000           ns
-5       baseline_cortex_Rt_Bcl11b_Tns/Blk2  3.59171352  3.22143539 3.83108086  0.0000      0.0000 0.0002450980          ***
-6   beta_Rt_cortex_Bcl11b_right_X_Tns/Blk2 -0.18084368 -0.17439088 0.06003592  0.0000      0.0000 0.0002463054          ***
+                                 parameter    estimate      CI.low     CI.high p.value p.value.adj
+1       baseline_cortex_Rt_Bcl11b_Tns/Blk1  3.95361519  3.45667133  4.32010964   0.000       0.000
+2   beta_Rt_cortex_Bcl11b_right_X_Tns/Blk1 -0.08014769 -0.28947667 -0.08285705   0.112       1.456
+3      beta_Rt_cortex_Bcl11b_18_X_Tns/Blk1  0.50929271  0.48032221  0.61718395   0.000       0.000
+4 beta_Rt_cortex_Bcl11b_right18_X_Tns/Blk1  0.14785925  0.02223076  0.16851814   0.000       0.000
+5       baseline_cortex_Rt_Bcl11b_Tns/Blk2  3.44466266  3.42426183  4.45946837   0.000       0.000
+6   beta_Rt_cortex_Bcl11b_right_X_Tns/Blk2  0.18378548  0.15458263  0.31460743   0.000       0.000
+     alpha.adj significance
+1 0.0002192982          ***
+2 0.0038461538           ns
+3 0.0002202643          ***
+4 0.0002212389          ***
+5 0.0002222222          ***
+6 0.0002232143          ***
 ----
 
 Analyzing residuals: 
@@ -201,30 +216,30 @@ Making plots and saving stats...
 Log-residual summary by grouping variables (head only):
 ------------------------------
          group      mean        sd  variance
-1          all 0.3308357 0.7053356 0.4974983
-2 ran_lvl_none 0.3116814 0.6122828 0.3748902
-3    ran_lvl_1 0.3168602 0.7719725 0.5959415
-4    ran_lvl_2 0.2733298 0.7020106 0.4928189
-5    ran_lvl_3 0.4514381 0.7626368 0.5816149
-6    ran_lvl_4 0.3200234 0.7400555 0.5476822
+1          all 0.3547253 0.5607492 0.3144397
+2 ran_lvl_none 0.3333763 0.4395348 0.1931908
+3    ran_lvl_1 0.3442082 0.6422361 0.4124672
+4    ran_lvl_2 0.2941187 0.5487304 0.3011051
+5    ran_lvl_3 0.4822901 0.6626475 0.4391017
+6    ran_lvl_4 0.3409822 0.5723268 0.3275580
 ----
 
 TPS test results (head only):
 ------------------------------
-              cortex   gene TPS.ref TPS.right TPS.18 TPS.right18 Rt.18 tpoint.18 tslope.18 Rt.right tpoint.right tslope.right Rt.right18
-Bcl11b.cortex cortex Bcl11b    TRUE      TRUE   TRUE        TRUE  TRUE      TRUE      TRUE     TRUE         TRUE         TRUE       TRUE
-Cux2.cortex   cortex   Cux2    TRUE      TRUE   TRUE        TRUE  TRUE      TRUE      TRUE     TRUE         TRUE         TRUE       TRUE
-Fezf2.cortex  cortex  Fezf2    TRUE      TRUE   TRUE        TRUE  TRUE      TRUE      TRUE     TRUE         TRUE         TRUE       TRUE
-Nxph3.cortex  cortex  Nxph3    TRUE      TRUE   TRUE        TRUE  TRUE      TRUE      TRUE     TRUE         TRUE         TRUE       TRUE
-Rorb.cortex   cortex   Rorb    TRUE      TRUE   TRUE        TRUE  TRUE      TRUE      TRUE     TRUE         TRUE         TRUE       TRUE
-Satb2.cortex  cortex  Satb2    TRUE      TRUE   TRUE        TRUE  TRUE      TRUE      TRUE     TRUE         TRUE         TRUE       TRUE
-              tpoint.right18 tslope.right18
-Bcl11b.cortex           TRUE           TRUE
-Cux2.cortex             TRUE           TRUE
-Fezf2.cortex            TRUE           TRUE
-Nxph3.cortex            TRUE           TRUE
-Rorb.cortex             TRUE           TRUE
-Satb2.cortex            TRUE           TRUE
+              cortex   gene TPS.ref TPS.right TPS.18 TPS.right18 Rt.18 tpoint.18 tslope.18 Rt.right
+Bcl11b.cortex cortex Bcl11b    TRUE      TRUE   TRUE        TRUE  TRUE      TRUE      TRUE     TRUE
+Cux2.cortex   cortex   Cux2    TRUE      TRUE   TRUE        TRUE  TRUE      TRUE      TRUE     TRUE
+Fezf2.cortex  cortex  Fezf2    TRUE      TRUE   TRUE        TRUE  TRUE      TRUE      TRUE     TRUE
+Nxph3.cortex  cortex  Nxph3    TRUE      TRUE   TRUE        TRUE  TRUE      TRUE      TRUE     TRUE
+Rorb.cortex   cortex   Rorb    TRUE      TRUE   TRUE        TRUE  TRUE      TRUE      TRUE     TRUE
+Satb2.cortex  cortex  Satb2    TRUE      TRUE   TRUE        TRUE  TRUE      TRUE      TRUE     TRUE
+              tpoint.right tslope.right Rt.right18 tpoint.right18 tslope.right18
+Bcl11b.cortex         TRUE         TRUE       TRUE           TRUE           TRUE
+Cux2.cortex           TRUE         TRUE       TRUE           TRUE           TRUE
+Fezf2.cortex          TRUE         TRUE       TRUE           TRUE           TRUE
+Nxph3.cortex          TRUE        FALSE       TRUE           TRUE           TRUE
+Rorb.cortex           TRUE         TRUE       TRUE           TRUE           TRUE
+Satb2.cortex          TRUE         TRUE       TRUE           TRUE           TRUE
 ----
 
 Printing effect distributions: 
