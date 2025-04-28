@@ -167,7 +167,7 @@ step: 7000/10000
 step: 8000/10000
 step: 9000/10000
 All complete!
-Acceptance rate (aim for 0.2-0.3): 0.428394
+Acceptance rate (aim for 0.2-0.3): 0.471609
 
 Setting full-data fit as parameters... 
 Checking feasibility of provided parameters
@@ -190,13 +190,13 @@ Actual resample size: 10001
 
 Stat summary (head only):
 ------------------------------
-                                 parameter    estimate     CI.low   CI.high    p.value p.value.adj    alpha.adj significance
-1       baseline_cortex_Rt_Bcl11b_Tns/Blk1  3.95361519  3.4648082 4.5703713 0.00000000     0.00000 0.0002192982          ***
-2   beta_Rt_cortex_Bcl11b_right_X_Tns/Blk1 -0.08014769 -0.1278860 0.3217895 0.54424558    15.78312 0.0017241379           ns
-3      beta_Rt_cortex_Bcl11b_18_X_Tns/Blk1  0.50929271 -0.3185394 0.9024247 0.06039396     5.79782 0.0005208333           ns
-4 beta_Rt_cortex_Bcl11b_right18_X_Tns/Blk1  0.14785925 -0.3102467 0.4116068 0.31736826    15.86841 0.0010000000           ns
-5       baseline_cortex_Rt_Bcl11b_Tns/Blk2  3.44466266  3.1349807 4.3731007 0.00000000     0.00000 0.0002202643          ***
-6   beta_Rt_cortex_Bcl11b_right_X_Tns/Blk2  0.18378548 -0.7124760 0.2396340 0.43125687    15.95650 0.0013513514           ns
+                                 parameter    estimate      CI.low   CI.high    p.value p.value.adj    alpha.adj significance
+1       baseline_cortex_Rt_Bcl11b_Tns/Blk1  3.95361519  3.32266626 4.5671432 0.00000000    0.000000 0.0002192982          ***
+2   beta_Rt_cortex_Bcl11b_right_X_Tns/Blk1 -0.08014769 -0.20432148 0.3941496 0.60983902   13.416458 0.0022727273           ns
+3      beta_Rt_cortex_Bcl11b_18_X_Tns/Blk1  0.50929271  0.05595301 1.2966551 0.04479552    4.658734 0.0004807692           ns
+4 beta_Rt_cortex_Bcl11b_right18_X_Tns/Blk1  0.14785925 -0.31026428 0.4492400 0.30356964   16.999900 0.0008928571           ns
+5       baseline_cortex_Rt_Bcl11b_Tns/Blk2  3.44466266  3.00279081 4.4286863 0.00000000    0.000000 0.0002202643          ***
+6   beta_Rt_cortex_Bcl11b_right_X_Tns/Blk2  0.18378548 -0.71719390 0.3185950 0.53064694   14.858114 0.0017857143           ns
 ----
 
 Analyzing residuals: 
@@ -220,15 +220,15 @@ Log-residual summary by grouping variables (head only):
 TPS test results (head only):
 ------------------------------
               cortex   gene TPS.ref TPS.right TPS.18 TPS.right18 Rt.18 tpoint.18 tslope.18 Rt.right tpoint.right tslope.right
-Bcl11b.cortex cortex Bcl11b    TRUE      TRUE   TRUE        TRUE  TRUE      TRUE      TRUE    FALSE         TRUE         TRUE
+Bcl11b.cortex cortex Bcl11b    TRUE     FALSE   TRUE        TRUE  TRUE      TRUE      TRUE    FALSE         TRUE         TRUE
 Cux2.cortex   cortex   Cux2    TRUE      TRUE   TRUE        TRUE  TRUE      TRUE      TRUE    FALSE         TRUE         TRUE
-Fezf2.cortex  cortex  Fezf2    TRUE      TRUE   TRUE        TRUE FALSE      TRUE      TRUE    FALSE         TRUE         TRUE
-Nxph3.cortex  cortex  Nxph3   FALSE      TRUE  FALSE        TRUE  TRUE      TRUE      TRUE    FALSE         TRUE        FALSE
-Rorb.cortex   cortex   Rorb    TRUE      TRUE   TRUE        TRUE  TRUE      TRUE     FALSE    FALSE         TRUE        FALSE
-Satb2.cortex  cortex  Satb2    TRUE      TRUE   TRUE        TRUE  TRUE      TRUE      TRUE    FALSE         TRUE         TRUE
+Fezf2.cortex  cortex  Fezf2    TRUE      TRUE   TRUE        TRUE FALSE      TRUE      TRUE    FALSE        FALSE         TRUE
+Nxph3.cortex  cortex  Nxph3   FALSE      TRUE   TRUE        TRUE  TRUE      TRUE      TRUE    FALSE         TRUE        FALSE
+Rorb.cortex   cortex   Rorb    TRUE      TRUE   TRUE       FALSE  TRUE      TRUE      TRUE    FALSE         TRUE        FALSE
+Satb2.cortex  cortex  Satb2    TRUE      TRUE   TRUE        TRUE FALSE      TRUE      TRUE    FALSE         TRUE         TRUE
               Rt.right18 tpoint.right18 tslope.right18
-Bcl11b.cortex      FALSE           TRUE          FALSE
-Cux2.cortex         TRUE           TRUE          FALSE
+Bcl11b.cortex      FALSE           TRUE           TRUE
+Cux2.cortex         TRUE           TRUE           TRUE
 Fezf2.cortex       FALSE           TRUE          FALSE
 Nxph3.cortex       FALSE           TRUE          FALSE
 Rorb.cortex         TRUE           TRUE          FALSE

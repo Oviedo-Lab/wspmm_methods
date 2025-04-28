@@ -169,6 +169,13 @@ lines(nll, col = "blue")
 
 
 
+
+
+
+
+
+
+
 demo_warp <- function(
     w = 2, # warping factor
     point_pos = 60,
