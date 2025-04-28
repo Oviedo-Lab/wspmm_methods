@@ -23,16 +23,14 @@ Standard deviation of means: 0.714
 Total cells by type (Map My Cells):
 ------------------------------
 
-      Astro-Epen          CB GABA          CB Glut     CNU-HYa GABA     CNU-HYa Glut     CNU-LGE GABA     CNU-MGE GABA 
-            3952               82               19               12                2              671               20 
-CTX-CGE/MGE GABA      DG-IMN Glut         filtered          HY GABA           Immune       IT-ET Glut         LSX GABA 
-            1351               11            18208               37              331            16066               29 
-         MB GABA          MB Glut       MB-HB Sero       MH-LH Glut          MY GABA          MY Glut   NP-CT-L6b Glut 
-              79                5                1               15              430               21             4922 
-     OB-IMN GABA              OEC        OPC-Oligo           P GABA  TSCRPT_filtered         Vascular          HY Glut 
-             149               23             1499              142               99             5914                1 
-   HY Gnrh1 Glut           P Glut      Pineal Glut          TH Glut          MB Dopa       OB-CR Glut 
-               1                2                5               12                2                3 
+      Astro-Epen          CB GABA          CB Glut     CNU-HYa GABA     CNU-HYa Glut     CNU-LGE GABA     CNU-MGE GABA CTX-CGE/MGE GABA      DG-IMN Glut 
+            3952               82               19               12                2              671               20             1351               11 
+        filtered          HY GABA           Immune       IT-ET Glut         LSX GABA          MB GABA          MB Glut       MB-HB Sero       MH-LH Glut 
+           18208               37              331            16066               29               79                5                1               15 
+         MY GABA          MY Glut   NP-CT-L6b Glut      OB-IMN GABA              OEC        OPC-Oligo           P GABA  TSCRPT_filtered         Vascular 
+             430               21             4922              149               23             1499              142               99             5914 
+         HY Glut    HY Gnrh1 Glut           P Glut      Pineal Glut          TH Glut          MB Dopa       OB-CR Glut 
+               1                1                2                5               12                2                3 
 ----
 
 Number of mice: 4
@@ -50,7 +48,6 @@ Step 1, centering each patch around the mean point of L5...
 Step 2, rotating each patch so that L4 aligns with the x-axis with anterior in positive y direction... 
 Step 3, modeling and flattening laminar curve based on L4... 
 Step 4, linearly transforming each patch to vertically straighten them while preserving area... 
-Step 5, leveling all layers... 
 Binning transformed coordinates... 
 Smoothing bin edges with nonlinear transformation... 
 Estimating layer boundaries... 
@@ -62,7 +59,6 @@ Step 1, centering each patch around the mean point of L5...
 Step 2, rotating each patch so that L4 aligns with the x-axis with anterior in positive y direction... 
 Step 3, modeling and flattening laminar curve based on L4... 
 Step 4, linearly transforming each patch to vertically straighten them while preserving area... 
-Step 5, leveling all layers... 
 Binning transformed coordinates... 
 Smoothing bin edges with nonlinear transformation... 
 Estimating layer boundaries... 
@@ -74,7 +70,6 @@ Step 1, centering each patch around the mean point of L5...
 Step 2, rotating each patch so that L4 aligns with the x-axis with anterior in positive y direction... 
 Step 3, modeling and flattening laminar curve based on L4... 
 Step 4, linearly transforming each patch to vertically straighten them while preserving area... 
-Step 5, leveling all layers... 
 Binning transformed coordinates... 
 Smoothing bin edges with nonlinear transformation... 
 Estimating layer boundaries... 
@@ -86,7 +81,6 @@ Step 1, centering each patch around the mean point of L5...
 Step 2, rotating each patch so that L4 aligns with the x-axis with anterior in positive y direction... 
 Step 3, modeling and flattening laminar curve based on L4... 
 Step 4, linearly transforming each patch to vertically straighten them while preserving area... 
-Step 5, leveling all layers... 
 Binning transformed coordinates... 
 Smoothing bin edges with nonlinear transformation... 
 Estimating layer boundaries... 
@@ -138,9 +132,9 @@ Estimated change points with LROcp and found initial parameter estimates for fix
 Built initial beta (ref and fixed-effects) matrices
 Initialized random effect warping factors
 Made and mapped parameter vector
-Number of parameters: 240
+Number of parameters: 252
 Constructed grouping variable IDs
-Computed size of boundary vector: 720
+Computed size of boundary vector: 760
 Finished initializing wspc object
 
 Estimating model parameters: 
@@ -150,13 +144,13 @@ Running MCMC stimulations (single-threaded):
 Checking feasibility of provided parameters
 ... tpoints found below buffer
 Provided parameters not feasible, searching nearby
-Initial boundary distance (want to make >0): -3.33553
-Numer of evals: 4
+Initial boundary distance (want to make >0): -4.66723
+Numer of evals: 15
 Success code: 2
 Final boundary distance: 0.247647
 Nearby feasible parameters found!
 Performing initial fit of full data
-Penalized neg_loglik: 12650.1
+Penalized neg_loglik: 12681.4
 step: 1000/10000
 step: 2000/10000
 step: 3000/10000
@@ -167,7 +161,7 @@ step: 7000/10000
 step: 8000/10000
 step: 9000/10000
 All complete!
-Acceptance rate (aim for 0.2-0.3): 0.471609
+Acceptance rate (aim for 0.2-0.3): 0.433388
 
 Setting full-data fit as parameters... 
 Checking feasibility of provided parameters
@@ -183,20 +177,20 @@ Grabbing parameter values...
 Computing 95% confidence intervals... 
 Estimating p-values from resampled parameters... 
 
-Recommended resample size for alpha = 0.05, 228 tests: 
-with bootstrapping: 4560
-with MCMC: 45600
+Recommended resample size for alpha = 0.05, 239 tests: 
+with bootstrapping: 4780
+with MCMC: 47800
 Actual resample size: 10001
 
 Stat summary (head only):
 ------------------------------
-                                 parameter    estimate      CI.low   CI.high    p.value p.value.adj    alpha.adj significance
-1       baseline_cortex_Rt_Bcl11b_Tns/Blk1  3.95361519  3.32266626 4.5671432 0.00000000    0.000000 0.0002192982          ***
-2   beta_Rt_cortex_Bcl11b_right_X_Tns/Blk1 -0.08014769 -0.20432148 0.3941496 0.60983902   13.416458 0.0022727273           ns
-3      beta_Rt_cortex_Bcl11b_18_X_Tns/Blk1  0.50929271  0.05595301 1.2966551 0.04479552    4.658734 0.0004807692           ns
-4 beta_Rt_cortex_Bcl11b_right18_X_Tns/Blk1  0.14785925 -0.31026428 0.4492400 0.30356964   16.999900 0.0008928571           ns
-5       baseline_cortex_Rt_Bcl11b_Tns/Blk2  3.44466266  3.00279081 4.4286863 0.00000000    0.000000 0.0002202643          ***
-6   beta_Rt_cortex_Bcl11b_right_X_Tns/Blk2  0.18378548 -0.71719390 0.3185950 0.53064694   14.858114 0.0017857143           ns
+                                 parameter     estimate     CI.low   CI.high   p.value p.value.adj    alpha.adj significance
+1       baseline_cortex_Rt_Bcl11b_Tns/Blk1  3.696259067  3.3670937 4.2674101 0.0000000    0.000000 0.0002092050          ***
+2   beta_Rt_cortex_Bcl11b_right_X_Tns/Blk1  0.008831785 -0.3894170 0.1877578 0.9401060    9.401060 0.0050000000           ns
+3      beta_Rt_cortex_Bcl11b_18_X_Tns/Blk1  0.599379574  0.1398867 1.1105067 0.0000000    0.000000 0.0002100840          ***
+4 beta_Rt_cortex_Bcl11b_right18_X_Tns/Blk1  0.157443767 -0.4979762 0.4109599 0.3956604   20.970003 0.0009433962           ns
+5       baseline_cortex_Rt_Bcl11b_Tns/Blk2  4.071247542  2.7062518 4.5731747 0.0000000    0.000000 0.0002109705          ***
+6   beta_Rt_cortex_Bcl11b_right_X_Tns/Blk2 -0.076741350 -0.2870635 0.9337334 0.9504050    8.553645 0.0055555556           ns
 ----
 
 Analyzing residuals: 
@@ -209,30 +203,30 @@ Making plots and saving stats...
 Log-residual summary by grouping variables (head only):
 ------------------------------
          group      mean        sd  variance
-1          all 0.3547253 0.5607492 0.3144397
-2 ran_lvl_none 0.3333763 0.4395348 0.1931908
-3    ran_lvl_1 0.3442082 0.6422361 0.4124672
-4    ran_lvl_2 0.2941187 0.5487304 0.3011051
-5    ran_lvl_3 0.4822901 0.6626475 0.4391017
-6    ran_lvl_4 0.3409822 0.5723268 0.3275580
+1          all 0.3610328 0.5714789 0.3265881
+2 ran_lvl_none 0.3411430 0.4501361 0.2026225
+3    ran_lvl_1 0.3435048 0.6271935 0.3933717
+4    ran_lvl_2 0.3007662 0.5747787 0.3303706
+5    ran_lvl_3 0.4947565 0.6738026 0.4540099
+6    ran_lvl_4 0.3448829 0.5956778 0.3548320
 ----
 
 TPS test results (head only):
 ------------------------------
-              cortex   gene TPS.ref TPS.right TPS.18 TPS.right18 Rt.18 tpoint.18 tslope.18 Rt.right tpoint.right tslope.right
-Bcl11b.cortex cortex Bcl11b    TRUE     FALSE   TRUE        TRUE  TRUE      TRUE      TRUE    FALSE         TRUE         TRUE
-Cux2.cortex   cortex   Cux2    TRUE      TRUE   TRUE        TRUE  TRUE      TRUE      TRUE    FALSE         TRUE         TRUE
-Fezf2.cortex  cortex  Fezf2    TRUE      TRUE   TRUE        TRUE FALSE      TRUE      TRUE    FALSE        FALSE         TRUE
-Nxph3.cortex  cortex  Nxph3   FALSE      TRUE   TRUE        TRUE  TRUE      TRUE      TRUE    FALSE         TRUE        FALSE
-Rorb.cortex   cortex   Rorb    TRUE      TRUE   TRUE       FALSE  TRUE      TRUE      TRUE    FALSE         TRUE        FALSE
-Satb2.cortex  cortex  Satb2    TRUE      TRUE   TRUE        TRUE FALSE      TRUE      TRUE    FALSE         TRUE         TRUE
-              Rt.right18 tpoint.right18 tslope.right18
-Bcl11b.cortex      FALSE           TRUE           TRUE
-Cux2.cortex         TRUE           TRUE           TRUE
-Fezf2.cortex       FALSE           TRUE          FALSE
-Nxph3.cortex       FALSE           TRUE          FALSE
-Rorb.cortex         TRUE           TRUE          FALSE
-Satb2.cortex       FALSE           TRUE          FALSE
+              cortex   gene TPS.ref TPS.right TPS.18 TPS.right18 Rt.18 tpoint.18 tslope.18 Rt.right tpoint.right tslope.right Rt.right18 tpoint.right18
+Bcl11b.cortex cortex Bcl11b    TRUE      TRUE   TRUE       FALSE  TRUE      TRUE      TRUE    FALSE         TRUE         TRUE      FALSE           TRUE
+Cux2.cortex   cortex   Cux2    TRUE      TRUE  FALSE       FALSE  TRUE      TRUE      TRUE    FALSE         TRUE         TRUE      FALSE           TRUE
+Fezf2.cortex  cortex  Fezf2    TRUE      TRUE   TRUE        TRUE  TRUE      TRUE      TRUE    FALSE         TRUE         TRUE       TRUE           TRUE
+Nxph3.cortex  cortex  Nxph3    TRUE     FALSE  FALSE       FALSE  TRUE      TRUE      TRUE    FALSE         TRUE         TRUE      FALSE           TRUE
+Rorb.cortex   cortex   Rorb    TRUE      TRUE   TRUE        TRUE  TRUE      TRUE      TRUE     TRUE         TRUE         TRUE       TRUE           TRUE
+Satb2.cortex  cortex  Satb2    TRUE     FALSE  FALSE       FALSE FALSE     FALSE     FALSE    FALSE         TRUE         TRUE      FALSE           TRUE
+              tslope.right18
+Bcl11b.cortex           TRUE
+Cux2.cortex             TRUE
+Fezf2.cortex           FALSE
+Nxph3.cortex            TRUE
+Rorb.cortex             TRUE
+Satb2.cortex            TRUE
 ----
 
 Printing effect distributions: 
@@ -247,4 +241,29 @@ Making rate-count plots...
 Printing child summary plots: 
 ----------------------------------------
 
-Making summary plots for cortex: Bcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2
+Making summary plots for cortex: Bcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2           [,1]       [,2]
+ [1,]  5.751550 19.1366669
+ [2,] 15.766103  9.0666831
+ [3,]  8.179538 13.5514127
+ [4,] 17.660348 11.4526680
+ [5,] 18.809346  2.0584937
+ [6,]  0.911130 17.9964994
+ [7,] 10.562110  4.9217547
+ [8,] 17.848381  0.8411907
+ [9,] 11.028700  6.5584144
+[10,]  9.132295 19.0900730
+ [1] 2 4 2 4 4 1 3 4 3 2
+ [1] 1 1 1 1 1 1 1 1 1 1
+           [,1]       [,2]
+ [1,]  5.751550 19.1366669
+ [2,] 15.766103  9.0666831
+ [3,]  8.179538 13.5514127
+ [4,] 17.660348 11.4526680
+ [5,] 18.809346  2.0584937
+ [6,]  0.911130 17.9964994
+ [7,] 10.562110  4.9217547
+ [8,] 17.848381  0.8411907
+ [9,] 11.028700  6.5584144
+[10,]  9.132295 19.0900730
+ [1] 2 4 2 4 4 1 3 4 3 2
+ [1] 4 2 3 3 1 4 1 1 2 4

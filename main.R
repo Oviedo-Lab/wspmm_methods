@@ -26,7 +26,7 @@ snk.report("Analysis of MERFISH data by Warped Sigmoid, Poisson-Process Mixed-Ef
 # Set file paths and bootstrap chunk size
 source("merfish_preprocessing.R")
 data_path <- paste0(projects_folder, "MERFISH/data_SSp/")
-bs_chunksize <- 2
+bs_chunksize <- 10
 
 # Define list of genes to analyze
 gene.list <- c("Bcl11b", "Fezf2", "Satb2", "Nxph3", "Cux2", "Rorb")  
@@ -108,7 +108,7 @@ model.settings = list(
   rise_threshold_factor = 0.8,                          # amount of detected rise as fraction of total required to end run in initial slope estimation
   max_evals = 1000,                                     # maximum number of evaluations for optimization
   rng_seed = 42,                                        # random seed for optimization (controls bootstrap resamples only)
-  warp_precision = 1e-7                                 # pseudo infinity value larger than any possible possible parameter value, representing unbound warping
+  warp_precision = 1e-7                                 # decimal precision to retain when selecting really big number as pseudo infinity for unbound warping
 )
 
 # Fit model
@@ -117,21 +117,21 @@ merfish.laminar.model <- wisp(
   count.data.raw = count.data.WSPmm,
   # Variable labels
   variables = data.variables,
-  # Local settings for specific fits, used on R side
+  # Settings used on R side
   use.median = FALSE,
   MCMC.burnin = 0,
   MCMC.steps = 1e4,
   MCMC.step.size = 0.5,
   MCMC.prior = 10.0, 
   bootstraps.num = 0,
-  converged.resamples.only = FALSE,
+  converged.resamples.only = TRUE,
   max.fork = bs_chunksize,
   null.rate = log(2),
   null.slope = 1,
   dim.bounds = colMeans(layer.boundary.bins),
   verbose = TRUE,
   print.child.summaries = TRUE,
-  # Global settings for initializing model, passed to C++ side
+  # Setting to pass to C++ model
   model.settings = model.settings
 )
 
@@ -166,6 +166,58 @@ pnll <- scales::rescale(pnll, to = c(ptracemin, ptracemax), from = range(pnll))
 plot(ptrace, type = "l")
 lines(pnll, col = "red")
 lines(nll, col = "blue")
+
+
+
+# Compare bs and MCMC results
+# ... nll
+nll_mcmc <- merfish.laminar.model[["MCMC.diagnostics"]]$neg.loglik
+nll_bs <- merfish.laminar.model_bs[["bs.diagnostics"]]$neg.loglik
+bs_success <- merfish.laminar.model_bs[["bs.diagnostics"]]$success.code
+bs_mask <- bs_success == 3
+bs_mean <- mean(nll_bs[bs_mask])
+nll_bs[!bs_mask] <- bs_mean
+plot(nll_bs, type = "l", col = "blue", ylim = range(c(nll_mcmc, nll_bs)))
+lines(nll_mcmc, col = "red")
+# ... param
+param_mcmc <- merfish.laminar.model[["sample.params"]]
+param_bs <- merfish.laminar.model_bs[["sample.params"]]
+n_params <- ncol(param_mcmc)
+n_samples <- nrow(param_mcmc)
+ttest_results <- rep(NA, n_params)
+for (i in 1:n_params) {
+  redraw <- 10
+  downsample <- 40
+  for (j in 1:redraw) {
+    this_draw <- sample(1:n_samples, downsample, replace = FALSE)
+    ttest_results[i] <- t.test(param_mcmc[this_draw,i], param_bs[this_draw,i])$p.value
+  }
+  ttest_results[i] <- ttest_results[i] / redraw
+}
+hist(ttest_results)
+plot(ttest_results)
+
+library(ggplot2)
+
+comp_den <- function(this_param) {
+  # Put samples into a data frame
+  df <- data.frame(
+    value = c(param_mcmc[,this_param],param_bs[,this_param]),
+    group = factor(rep(c("mcmc", "bs"), each = n_samples))
+  )
+  
+  # Plot
+  ggplot(df, aes(x = value, color = group)) +
+    geom_density(size = 1.2) +
+    theme_minimal() +
+    labs(title = "Density Comparison", x = "Value", y = "Density")
+  
+}
+comp_den(1)
+for (i in 11:40) {
+  print(comp_den(i))
+}
+
 
 
 
