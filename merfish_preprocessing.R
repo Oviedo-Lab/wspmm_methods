@@ -494,7 +494,7 @@ make_count_data_csv <- function(
     for (f in seq_along(files)) {
       if (f < length(files)) cat(f, ", ", sep="") else cat(f, "\n")
       parsed <- parse_csv(file_path = files[f], mouse_num = f, remove_L1 = remove_L1)
-      slice_plots[[f]] <- parsed$slice_plot
+      slice_plots[[paste0("slice_plot", f)]] <- parsed$slice_plot
       count_list[[f]] <- parsed$transcript_counts
     }
     
@@ -576,6 +576,11 @@ plot_results <- function(
     # Combine data
     layers_both <- rbind(df_right, df_left)
     
+    # Downsample 
+    if (nrow(layers_both) > 10000) {
+      layers_both <- layers_both[sample(1:nrow(layers_both), 10000),]
+    }
+    
     plot <- ggplot(layers_both, aes(x = x_coord, y = y_coord, color = layer)) +
       geom_point(na.rm = TRUE) +
       facet_wrap(~hemisphere) +
@@ -652,7 +657,13 @@ coordinate_transform <- function(
     
     # Plot original data
     range_limit <- range(c(df[, x_coord], df[, y_coord]), na.rm = TRUE)
-    plot_untransformed <- ggplot(df[df$mouse == mouse_num,], aes(x = x_coord, y = y_coord, color = layer)) +
+    if (nrow(df) > 10000) {
+      these_rows <- sample(1:nrow(df), 10000)
+    } else {
+      these_rows <- 1:nrow(df)
+    }
+    df2 <- df[these_rows, ]
+    plot_untransformed <- ggplot(df2[df2$mouse == mouse_num,], aes(x = x_coord, y = y_coord, color = layer)) +
       geom_point(na.rm = TRUE) +
       labs(
         x = "X Coordinate", 
@@ -800,71 +811,71 @@ coordinate_transform <- function(
     )
     plot_list <- c(plot_list, list(plot_flattened = plot_flattened))
     
-    # Step 4: Linearly transform each patch to vertically "straighten" them while preserving area
-    if (verbose) snk.report...("Step 4, linearly transforming each patch to vertically straighten them while preserving area")
-    
-    # Helper functions for linear minimization of skew
-    
-    layer_x_min_diff <- function(
-      df, 
-      mask
-    ) {
-      x_mins <- c()
-      for (layer in names(mask)) {
-        if (length(mask[[layer]]) != nrow(df)) stop("Mask does not match data frame")
-        if (any(mask[[layer]])) x_mins <- c(x_mins, min(df[mask[[layer]], x_coord]))
-      }
-      return(abs(min(x_mins)-max(x_mins)))
-    }
-    
-    layer_x_max_diff <- function(
-      df, 
-      mask
-    ) {
-      x_maxs <- c()
-      for (layer in names(mask)) {
-        if (length(mask[[layer]]) != nrow(df)) stop("Mask does not match data frame")
-        if (any(mask[[layer]])) x_maxs <- c(x_maxs, max(df[mask[[layer]], x_coord]))
-      }
-      return(abs(min(x_maxs)-max(x_maxs)))
-    }
-    
-    # Define loss function
-    transform_loss <- function(
-      parameters, 
-      coord, 
-      mask_hemisphere, 
-      mask_layers, 
-      initial_height, 
-      initial_width
-    ) {
-      
-      # Find min_max x difference
-      min_max_x <- layer_x_min_diff(coord, mask_layers) + layer_x_max_diff(coord, mask_layers)
-      
-      # Apply the transformation to the coordinates
-      coord[mask_hemisphere,] <- affine(
-        coord[mask_hemisphere,], 
-        scale_H = parameters[1],
-        scale_W = parameters[2],
-        theta = parameters[3],
-        shear_x = parameters[4],
-        shear_y = parameters[5]
-        )
-      
-      # Find current height and width 
-      current_height <- max(coord[mask_hemisphere, y_coord]) - min(coord[mask_hemisphere, y_coord])
-      current_width <- max(coord[mask_hemisphere, x_coord]) - min(coord[mask_hemisphere, x_coord])
-      
-      # Find distance from initial height and width
-      distance <- abs(current_height - initial_height) + abs(current_width - initial_width)
-      cat("\nTransform loss distance: ", distance + min_max_x)
-      # Find and return loss
-      return(distance + min_max_x)
-      
-    }
-    
-    # # Find initial height and width 
+    # # Step 4: Linearly transform each patch to vertically "straighten" them while preserving area
+    # if (verbose) snk.report...("Step 4, linearly transforming each patch to vertically straighten them while preserving area")
+    # 
+    # # Helper functions for linear minimization of skew
+    # 
+    # layer_x_min_diff <- function(
+    #   df, 
+    #   mask
+    # ) {
+    #   x_mins <- c()
+    #   for (layer in names(mask)) {
+    #     if (length(mask[[layer]]) != nrow(df)) stop("Mask does not match data frame")
+    #     if (any(mask[[layer]])) x_mins <- c(x_mins, min(df[mask[[layer]], x_coord]))
+    #   }
+    #   return(abs(min(x_mins)-max(x_mins)))
+    # }
+    # 
+    # layer_x_max_diff <- function(
+    #   df, 
+    #   mask
+    # ) {
+    #   x_maxs <- c()
+    #   for (layer in names(mask)) {
+    #     if (length(mask[[layer]]) != nrow(df)) stop("Mask does not match data frame")
+    #     if (any(mask[[layer]])) x_maxs <- c(x_maxs, max(df[mask[[layer]], x_coord]))
+    #   }
+    #   return(abs(min(x_maxs)-max(x_maxs)))
+    # }
+    # 
+    # # Define loss function
+    # transform_loss <- function(
+    #   parameters, 
+    #   coord, 
+    #   mask_hemisphere, 
+    #   mask_layers, 
+    #   initial_height, 
+    #   initial_width
+    # ) {
+    #   
+    #   # Find min_max x difference
+    #   min_max_x <- layer_x_min_diff(coord, mask_layers) + layer_x_max_diff(coord, mask_layers)
+    #   
+    #   # Apply the transformation to the coordinates
+    #   coord[mask_hemisphere,] <- affine(
+    #     coord[mask_hemisphere,], 
+    #     scale_H = parameters[1],
+    #     scale_W = parameters[2],
+    #     theta = parameters[3],
+    #     shear_x = parameters[4],
+    #     shear_y = parameters[5]
+    #     )
+    #   
+    #   # Find current height and width 
+    #   current_height <- max(coord[mask_hemisphere, y_coord]) - min(coord[mask_hemisphere, y_coord])
+    #   current_width <- max(coord[mask_hemisphere, x_coord]) - min(coord[mask_hemisphere, x_coord])
+    #   
+    #   # Find distance from initial height and width
+    #   distance <- abs(current_height - initial_height) + abs(current_width - initial_width)
+    #   
+    #   # Find and return loss
+    #   return(distance + min_max_x)
+    #   
+    # }
+    # 
+    # # Find initial height and width
     # initial_height_left <- max(coordinates[mask_left,y_coord]) - min(coordinates[mask_left,y_coord])
     # initial_width_left <- max(coordinates[mask_left,x_coord]) - min(coordinates[mask_left,x_coord])
     # initial_height_right <- max(coordinates[mask_right,y_coord]) - min(coordinates[mask_right,y_coord])
@@ -873,32 +884,36 @@ coordinate_transform <- function(
     # # Find linear transformation which minimizes loss for each hemisphere, by x-distance ("skew")
     # n_points <- nrow(coordinates)
     # point_mask <- rep(TRUE, n_points)
-    # if (n_points > 1e5) {
-    #   if (verbose) snk.report...(paste0("Detected ", n_points, " points. Downsampling to 100,000 points."))
-    #   point_mask[-c(sample(1:n_points, 1e5))] <- FALSE
+    # if (n_points > 1e4) {
+    #   if (verbose) snk.report...(paste0("Detected ", n_points, " points. Downsampling to 10,000 points."))
+    #   point_mask[-c(sample(1:n_points, 1e4))] <- FALSE
     # }
     # parameters_left <- optim(
-    #   par = c(1,1,0,0,0), 
-    #   fn = transform_loss, 
-    #   coord = coordinates, 
-    #   mask_hemisphere = mask_left, 
+    #   par = c(1,1,0,0,0),
+    #   fn = transform_loss,
+    #   coord = coordinates,
+    #   mask_hemisphere = mask_left,
     #   mask_layers = layer_rows_left,
     #   initial_height = initial_height_left,
-    #   initial_width = initial_width_left
+    #   initial_width = initial_width_left,
+    #   method = "BFGS",
+    #   control = list(maxit = 50)
     # )$par
     # parameters_right <- optim(
-    #   par = c(1,1,0,0,0), 
-    #   fn = transform_loss, 
+    #   par = c(1,1,0,0,0),
+    #   fn = transform_loss,
     #   coord = coordinates,
-    #   mask_hemisphere = mask_right, 
+    #   mask_hemisphere = mask_right,
     #   mask_layers = layer_rows_right,
     #   initial_height = initial_height_right,
-    #   initial_width = initial_width_right
+    #   initial_width = initial_width_right,
+    #   method = "BFGS",
+    #   control = list(maxit = 50)
     # )$par
     # 
     # # Apply the linear transformation to the coordinates
     # coordinates[mask_left,] <- affine(
-    #   coordinates[mask_left,], 
+    #   coordinates[mask_left,],
     #   scale_H = parameters_left[1],
     #   scale_W = parameters_left[2],
     #   theta = parameters_left[3],
@@ -906,72 +921,72 @@ coordinate_transform <- function(
     #   shear_y = parameters_left[5]
     #   )
     # coordinates[mask_right,] <- affine(
-    #   coordinates[mask_right,], 
+    #   coordinates[mask_right,],
     #   scale_H = parameters_right[1],
     #   scale_W = parameters_right[2],
     #   theta = parameters_right[3],
     #   shear_x = parameters_right[4],
     #   shear_y = parameters_right[5]
     #   )
-    
-    # # Test by plotting 
+    # 
+    # # Test by plotting
     # plot_linear_skew <- plot_results(
     #   df, coordinates, mouse_num,
     #   paste("Transformed cortical layers (linear skew), mouse", mouse_num)
     # )
     # plot_list <- c(plot_list, list(plot_linear_skew = plot_linear_skew))
-    # 
-    # # Step 5: Level all layers
-    # if (verbose) snk.report...("Step 5, leveling all layers")
-    # 
-    # # Find each point's y-distance to the mean y-point of each layer
-    # left_transforms <- array(0, dim = c(nrow(coordinates),2))
-    # right_transforms <- array(0, dim = c(nrow(coordinates),2))
-    # for (layer in names(layer_rows_left)) { # same names for each hemisphere
-    #   if (any(layer_rows_left[[layer]])) {
-    #     
-    #     # Find normalized distances
-    #     left_mean <- mean(coordinates[layer_rows_left[[layer]], y_coord])
-    #     right_mean <- mean(coordinates[layer_rows_right[[layer]], y_coord])
-    #     left_distances <- abs(coordinates[layer_rows_left[[layer]], y_coord] - left_mean)
-    #     right_distances <- abs(coordinates[layer_rows_right[[layer]], y_coord] - right_mean)
-    #     left_distances <- (max(left_distances) - left_distances) / max(left_distances)
-    #     right_distances <- (max(right_distances) - right_distances) / max(right_distances)
-    #     
-    #     # Apply transformation to left
-    #     left_transforms[layer_rows_left[[layer]],] <- as.matrix(coordinates[layer_rows_left[[layer]],]) * (1-left_distances) + 
-    #       as.matrix(
-    #         level_layer(
-    #           coordinates, 
-    #           "left", 
-    #           mask_left, 
-    #           layer_rows_left[[layer]],
-    #           flip_right = FALSE
-    #           )
-    #         )[layer_rows_left[[layer]][mask_left],] * left_distances
-    #     
-    #     # Apply transformation to right
-    #     right_transforms[layer_rows_right[[layer]],] <- as.matrix(coordinates[layer_rows_right[[layer]],]) * (1-right_distances) + 
-    #       as.matrix(
-    #         level_layer(
-    #           coordinates, 
-    #           "right", 
-    #           mask_right, 
-    #           layer_rows_right[[layer]],
-    #           flip_right = FALSE
-    #           )
-    #         )[layer_rows_right[[layer]][mask_right],] * right_distances
-    #   }
-    # }
-    # coordinates[mask_left,] <- left_transforms[mask_left,]
-    # coordinates[mask_right,] <- right_transforms[mask_right,]
-    # 
-    # # Test by plotting 
-    # plot_level_all <- plot_results(
-    #   df, coordinates, mouse_num,
-    #   paste0("Transformed cortical layers (level all layers), mouse ", mouse_num)
-    # )
-    # plot_list <- c(plot_list, list(plot_level_all = plot_level_all))
+# 
+#     # Step 5: Level all layers
+#     if (verbose) snk.report...("Step 5, leveling all layers")
+# 
+#     # Find each point's y-distance to the mean y-point of each layer
+#     left_transforms <- array(0, dim = c(nrow(coordinates),2))
+#     right_transforms <- array(0, dim = c(nrow(coordinates),2))
+#     for (layer in names(layer_rows_left)) { # same names for each hemisphere
+#       if (any(layer_rows_left[[layer]])) {
+# 
+#         # Find normalized distances
+#         left_mean <- mean(coordinates[layer_rows_left[[layer]], y_coord])
+#         right_mean <- mean(coordinates[layer_rows_right[[layer]], y_coord])
+#         left_distances <- abs(coordinates[layer_rows_left[[layer]], y_coord] - left_mean)
+#         right_distances <- abs(coordinates[layer_rows_right[[layer]], y_coord] - right_mean)
+#         left_distances <- (max(left_distances) - left_distances) / max(left_distances)
+#         right_distances <- (max(right_distances) - right_distances) / max(right_distances)
+# 
+#         # Apply transformation to left
+#         left_transforms[layer_rows_left[[layer]],] <- as.matrix(coordinates[layer_rows_left[[layer]],]) * (1-left_distances) +
+#           as.matrix(
+#             level_layer(
+#               coordinates,
+#               "left",
+#               mask_left,
+#               layer_rows_left[[layer]],
+#               flip_right = FALSE
+#               )
+#             )[layer_rows_left[[layer]][mask_left],] * left_distances
+# 
+#         # Apply transformation to right
+#         right_transforms[layer_rows_right[[layer]],] <- as.matrix(coordinates[layer_rows_right[[layer]],]) * (1-right_distances) +
+#           as.matrix(
+#             level_layer(
+#               coordinates,
+#               "right",
+#               mask_right,
+#               layer_rows_right[[layer]],
+#               flip_right = FALSE
+#               )
+#             )[layer_rows_right[[layer]][mask_right],] * right_distances
+#       }
+#     }
+#     coordinates[mask_left,] <- left_transforms[mask_left,]
+#     coordinates[mask_right,] <- right_transforms[mask_right,]
+# 
+#     # Test by plotting
+#     plot_level_all <- plot_results(
+#       df, coordinates, mouse_num,
+#       paste0("Transformed cortical layers (level all layers), mouse ", mouse_num)
+#     )
+#     plot_list <- c(plot_list, list(plot_level_all = plot_level_all))
     
     # Translate so all points are positive 
     coordinates[,x_coord] <- coordinates[,x_coord] - min(coordinates[,x_coord])
@@ -1044,26 +1059,26 @@ coordinate_binning <- function(
       Ly_by_x_abs <- rep(NA,total_bins)
       # ... For smoothing columnar edges:
       Lx_by_y <- rep(NA,total_bins)
-      ## STOPPED HERE
-      ## SLOW!!
       if (upper) {
-        for (b in 1:total_bins) {
-          # Max point in column in upper layer
-          if (sum(mask_ & df_$x_bins_raw == b) > 0) Ly_by_x[b] <- max(df_$y_bins_raw[mask_ & df_$x_bins_raw == b], na.rm = TRUE)
-          # Max point in column
-          if (sum(hemisphere_mask & df_$x_bins_raw == b) > 0) Ly_by_x_abs[b] <- max(df_$y_bins_raw[hemisphere_mask & df_$x_bins_raw == b], na.rm = TRUE)
-          # Max point in layer
-          if (sum(hemisphere_mask & df_$y_bins_raw == b) > 0) Lx_by_y[b] <- max(df_$x_bins_raw[hemisphere_mask & df_$y_bins_raw == b], na.rm = TRUE)
-        }
+        # Max point in column in upper layer
+        Ly_by_x_vec <- tapply(X = df_$y_bins_raw[mask_], INDEX = df_$x_bins_raw[mask_], FUN = max, na.rm = TRUE)
+        Ly_by_x[as.integer(names(Ly_by_x_vec))] <- Ly_by_x_vec
+        # Max point in column
+        Ly_by_x_abs_vec <- tapply(X = df_$y_bins_raw[hemisphere_mask], INDEX = df_$x_bins_raw[hemisphere_mask], FUN = max, na.rm = TRUE)
+        Ly_by_x_abs[as.integer(names(Ly_by_x_abs_vec))] <- Ly_by_x_abs_vec
+        # Max point in layer
+        Lx_by_y_vec <- tapply(X = df_$x_bins_raw[hemisphere_mask], INDEX = df_$y_bins_raw[hemisphere_mask], FUN = max, na.rm = TRUE)
+        Lx_by_y[as.integer(names(Lx_by_y_vec))] <- Lx_by_y_vec
       } else {
-        for (b in 1:total_bins) {
-          # Min point in column in lower layer
-          if (sum(mask_ & df_$x_bins_raw == b) > 0) Ly_by_x[b] <- min(df_$y_bins_raw[mask_ & df_$x_bins_raw == b], na.rm = TRUE)
-          # Min point in column
-          if (sum(hemisphere_mask & df_$x_bins_raw == b) > 0) Ly_by_x_abs[b] <- min(df_$y_bins_raw[hemisphere_mask & df_$x_bins_raw == b], na.rm = TRUE)
-          # Min point in layer
-          if (sum(hemisphere_mask & df_$y_bins_raw == b) > 0) Lx_by_y[b] <- min(df_$x_bins_raw[hemisphere_mask & df_$y_bins_raw == b], na.rm = TRUE)
-        }
+        # Min point in column in lower layer
+        Ly_by_x_vec <- tapply(X = df_$y_bins_raw[mask_], INDEX = df_$x_bins_raw[mask_], FUN = min, na.rm = TRUE)
+        Ly_by_x[as.integer(names(Ly_by_x_vec))] <- Ly_by_x_vec
+        # Min point in column
+        Ly_by_x_abs_vec <- tapply(X = df_$y_bins_raw[hemisphere_mask], INDEX = df_$x_bins_raw[hemisphere_mask], FUN = min, na.rm = TRUE)
+        Ly_by_x_abs[as.integer(names(Ly_by_x_abs_vec))] <- Ly_by_x_abs_vec
+        # Min point in layer
+        Lx_by_y_vec <- tapply(X = df_$x_bins_raw[hemisphere_mask], INDEX = df_$y_bins_raw[hemisphere_mask], FUN = min, na.rm = TRUE)
+        Lx_by_y[as.integer(names(Lx_by_y_vec))] <- Lx_by_y_vec
       }
       
       # Look for any empty columns 
@@ -1110,28 +1125,21 @@ coordinate_binning <- function(
         mask_range_layer <- hemisphere_mask & df_$x_bins_raw < total_bins/2
         to_ <- c(1,total_bins/2+1)
       }
-      ### SLOW!!
+      x_groups <- split(seq_len(nrow(df_)), df_$x_bins_raw)
+      y_groups <- split(seq_len(nrow(df_)), df_$y_bins_raw)
       for (b in 1:total_bins) {
         # ... columns
-        if (upper) from_ <- c(total_bins/2,Ly_by_x[b]) 
-        else from_ <- c(Ly_by_x[b],total_bins/2) 
-        df_$y_bins[mask_range & df_$x_bins_raw == b] <- as.integer(
-          scales::rescale(
-            df_$y_bins_raw[mask_range & df_$x_bins_raw == b], 
-            to = to_,
-            from = from_
-          )
-        )
+        idx_x <- x_groups[[as.character(b)]]
+        idx_x <- idx_x[mask_range[idx_x]]  # apply mask
+        if (upper) from_ <- c(total_bins/2, Ly_by_x[b]) 
+        else from_ <- c(Ly_by_x[b], total_bins/2) 
+        df_$y_bins[idx_x] <- as.integer(scales::rescale(df_$y_bins_raw[idx_x], to = to_, from = from_))
         # ... layers
-        if (upper) from_ <- c(total_bins/2,Lx_by_y[b]) 
-        else from_ <- c(Lx_by_y[b],total_bins/2)
-        df_$x_bins[mask_range_layer & df_$y_bins_raw == b] <- as.integer(
-          scales::rescale(
-            df_$x_bins_raw[mask_range_layer & df_$y_bins_raw == b], 
-            to = to_,
-            from = from_
-          )
-        )
+        idx_y <- y_groups[[as.character(b)]]
+        idx_y <- idx_y[mask_range_layer[idx_y]]  # apply mask
+        if (upper) from_ <- c(total_bins/2, Lx_by_y[b])
+        else from_ <- c(Lx_by_y[b], total_bins/2)
+        df_$x_bins[idx_y] <- as.integer(scales::rescale(df_$x_bins_raw[idx_y], to = to_, from = from_))
       }
       
       return(df_)
@@ -1205,8 +1213,11 @@ cortical_coordinate_transform <- function(
     rownames(layer_boundary_bins) <- unique(count_data$mouse)
     plots <- list()
     
+    fin_first <- FALSE
     for (mouse_num in unique(count_data$mouse)) {
       if (verbose) snk.report(paste("Mouse number", mouse_num))
+      if (fin_first) next
+      else fin_first <- TRUE
       
       # Grab slice plot
       assign(paste0("plot_list_m", mouse_num), list(slice_plot = slice_plots[[paste0("slice_plot", mouse_num)]]))
@@ -1222,7 +1233,7 @@ cortical_coordinate_transform <- function(
       # Make histogram of cell distribution across cortical axis
       this_data <- count_data[count_data$mouse == mouse_num,]
       if (nrow(this_data) > 50000) {
-        this_data <- thisdata[sample(1:nrow(this_data), 50000),]
+        this_data <- this_data[sample(1:nrow(this_data), 50000),]
       }
       hist_distro_plot <- ggplot(this_data, aes(x=y_bins)) +
         geom_histogram(bins = total_bins, fill = "steelblue", color = "black", na.rm = TRUE) + 
