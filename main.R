@@ -120,7 +120,7 @@ merfish.laminar.model <- wisp(
   # Settings used on R side
   use.median = FALSE,
   MCMC.burnin = 0,
-  MCMC.steps = 1e4,
+  MCMC.steps = 1e3,
   MCMC.step.size = 0.5,
   MCMC.prior = 10.0, 
   bootstraps.num = 0,
@@ -223,81 +223,10 @@ for (i in 11:40) {
 
 
 
+demo_sigmoid()
 
 
 
-
-
-demo_warp <- function(
-    w = 2, # warping factor
-    point_pos = 60,
-    point_neg = 40
-  ) {
-    
-    # Data
-    x <- (1:1000)/10
-    b <- 100
-    y <- x
-    y1 <- WSP.warp(x, b, w)
-    y2 <- WSP.warp(x, b, -w)
-    y_pos <- WSP.warp(point_pos, b, w)
-    y_neg <- WSP.warp(point_neg, b, -w)
-    
-    # Organize into a data frame
-    df <- data.frame(
-      x = rep(x, 3),
-      y = c(y, y1, y2),
-      curve = factor(rep(c("w = 0", "w > 0", "w < 0"), each = length(x)))
-    )
-    df$curve <- relevel(df$curve, ref = "w = 0")
-    
-    df_segments <- data.frame(
-      point_pos = point_pos,
-      point_neg = point_neg,
-      y_pos = y_pos,
-      y_neg = y_neg
-    )
-    
-    # Make the ggplot
-    demo_plot <- ggplot(df, aes(x = x, y = y, color = curve)) +
-      geom_line(linewidth = 1.5) +
-      geom_hline(yintercept = 100, linetype = "dashed", color = "darkgray", linewidth = 1) +
-      geom_hline(yintercept = 0, linetype = "dashed", color = "darkgray", linewidth = 1) +
-      geom_segment(
-        data = df_segments,
-        aes(x = point_pos, xend = point_pos, y = point_pos, yend = y_pos),
-        color = "blue4", linetype = "dashed", linewidth = 0.75) + 
-      geom_segment(
-        data = df_segments,
-        aes(x = point_neg, xend = point_neg, y = point_neg, yend = y_neg),
-        color = "red4", linetype = "dashed", linewidth = 0.75) +
-      annotate("text", x = 10, y = 95, label = "upper asymptote", size = 7.5, color = "black") +
-      annotate("text", x = 90, y = 5, label = "lower asymptote", size = 7.5, color = "black") +
-      annotate("text", x = point_pos - 10, y = (y_pos + point_pos)/2, label = expression(varphi * "(z)(b - z)"), size = 7.5, color = "black") +
-      annotate("text", x = point_neg + 10, y = (y_neg + point_neg)/2, label = expression(varphi * "(b - z)z"), size = 7.5, color = "black") +
-      labs(
-        x = "z",
-        y = expression(omega * "(z, " * rho * ", b = 100)"),,
-        title = "WSP Warping Function",
-        color = "Direction"
-      ) +
-      scale_color_manual(
-        values = c("black", "red", "blue"),
-        labels = c(expression(rho * " = 0"), expression(rho * " < 0"), expression(rho * " > 0"))
-        ) +
-      theme_minimal(base_size = 16) +
-      theme(
-        plot.title = element_text(hjust = 0.5, size = 30),
-        axis.title = element_text(size = 20),
-        axis.text = element_text(size = 20),
-        legend.title = element_text(size = 18),
-        legend.text = element_text(size = 18)
-      )
-    
-    # Save at 1156 x 843
-    return(demo_plot)
-    
-  }
 demo_warp_plot <- demo_warp() 
 print(demo_warp_plot)
 

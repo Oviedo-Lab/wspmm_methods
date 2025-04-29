@@ -132,9 +132,9 @@ Estimated change points with LROcp and found initial parameter estimates for fix
 Built initial beta (ref and fixed-effects) matrices
 Initialized random effect warping factors
 Made and mapped parameter vector
-Number of parameters: 252
+Number of parameters: 276
 Constructed grouping variable IDs
-Computed size of boundary vector: 760
+Computed size of boundary vector: 840
 Finished initializing wspc object
 
 Estimating model parameters: 
@@ -144,24 +144,24 @@ Running MCMC stimulations (single-threaded):
 Checking feasibility of provided parameters
 ... tpoints found below buffer
 Provided parameters not feasible, searching nearby
-Initial boundary distance (want to make >0): -4.66723
-Numer of evals: 15
+Initial boundary distance (want to make >0): -4.3348
+Numer of evals: 12
 Success code: 2
 Final boundary distance: 0.247647
 Nearby feasible parameters found!
 Performing initial fit of full data
-Penalized neg_loglik: 12681.4
-step: 1000/10000
-step: 2000/10000
-step: 3000/10000
-step: 4000/10000
-step: 5000/10000
-step: 6000/10000
-step: 7000/10000
-step: 8000/10000
-step: 9000/10000
+Penalized neg_loglik: 12673.1
+step: 100/1000
+step: 200/1000
+step: 300/1000
+step: 400/1000
+step: 500/1000
+step: 600/1000
+step: 700/1000
+step: 800/1000
+step: 900/1000
 All complete!
-Acceptance rate (aim for 0.2-0.3): 0.433388
+Acceptance rate (aim for 0.2-0.3): 0.494071
 
 Setting full-data fit as parameters... 
 Checking feasibility of provided parameters
@@ -177,20 +177,20 @@ Grabbing parameter values...
 Computing 95% confidence intervals... 
 Estimating p-values from resampled parameters... 
 
-Recommended resample size for alpha = 0.05, 239 tests: 
-with bootstrapping: 4780
-with MCMC: 47800
-Actual resample size: 10001
+Recommended resample size for alpha = 0.05, 261 tests: 
+with bootstrapping: 5220
+with MCMC: 52200
+Actual resample size: 1001
 
 Stat summary (head only):
 ------------------------------
-                                 parameter     estimate     CI.low   CI.high   p.value p.value.adj    alpha.adj significance
-1       baseline_cortex_Rt_Bcl11b_Tns/Blk1  3.696259067  3.3670937 4.2674101 0.0000000    0.000000 0.0002092050          ***
-2   beta_Rt_cortex_Bcl11b_right_X_Tns/Blk1  0.008831785 -0.3894170 0.1877578 0.9401060    9.401060 0.0050000000           ns
-3      beta_Rt_cortex_Bcl11b_18_X_Tns/Blk1  0.599379574  0.1398867 1.1105067 0.0000000    0.000000 0.0002100840          ***
-4 beta_Rt_cortex_Bcl11b_right18_X_Tns/Blk1  0.157443767 -0.4979762 0.4109599 0.3956604   20.970003 0.0009433962           ns
-5       baseline_cortex_Rt_Bcl11b_Tns/Blk2  4.071247542  2.7062518 4.5731747 0.0000000    0.000000 0.0002109705          ***
-6   beta_Rt_cortex_Bcl11b_right_X_Tns/Blk2 -0.076741350 -0.2870635 0.9337334 0.9504050    8.553645 0.0055555556           ns
+                                 parameter   estimate      CI.low     CI.high p.value p.value.adj    alpha.adj significance
+1       baseline_cortex_Rt_Bcl11b_Tns/Blk1  3.9277773  3.53404765  4.14920385       0           0 0.0001915709          ***
+2   beta_Rt_cortex_Bcl11b_right_X_Tns/Blk1 -0.1577221 -0.26617524 -0.07495474       0           0 0.0001923077          ***
+3      beta_Rt_cortex_Bcl11b_18_X_Tns/Blk1  0.5035040  0.30893481  0.60484746       0           0 0.0001930502          ***
+4 beta_Rt_cortex_Bcl11b_right18_X_Tns/Blk1  0.3765727  0.09917292  0.36790288       0           0 0.0001937984          ***
+5       baseline_cortex_Rt_Bcl11b_Tns/Blk2  3.3400481  2.98729266  3.46296137       0           0 0.0001945525          ***
+6   beta_Rt_cortex_Bcl11b_right_X_Tns/Blk2  0.3126653  0.17010274  0.48733604       0           0 0.0001953125          ***
 ----
 
 Analyzing residuals: 
@@ -203,27 +203,27 @@ Making plots and saving stats...
 Log-residual summary by grouping variables (head only):
 ------------------------------
          group      mean        sd  variance
-1          all 0.3610328 0.5714789 0.3265881
-2 ran_lvl_none 0.3411430 0.4501361 0.2026225
-3    ran_lvl_1 0.3435048 0.6271935 0.3933717
-4    ran_lvl_2 0.3007662 0.5747787 0.3303706
-5    ran_lvl_3 0.4947565 0.6738026 0.4540099
-6    ran_lvl_4 0.3448829 0.5956778 0.3548320
+1          all 0.3603569 0.5657301 0.3200506
+2 ran_lvl_none 0.3382893 0.4443713 0.1974659
+3    ran_lvl_1 0.3454817 0.6182639 0.3822502
+4    ran_lvl_2 0.3018531 0.5764787 0.3323277
+5    ran_lvl_3 0.4912256 0.6646429 0.4417501
+6    ran_lvl_4 0.3470026 0.5901462 0.3482725
 ----
 
 TPS test results (head only):
 ------------------------------
               cortex   gene TPS.ref TPS.right TPS.18 TPS.right18 Rt.18 tpoint.18 tslope.18 Rt.right tpoint.right tslope.right Rt.right18 tpoint.right18
-Bcl11b.cortex cortex Bcl11b    TRUE      TRUE   TRUE       FALSE  TRUE      TRUE      TRUE    FALSE         TRUE         TRUE      FALSE           TRUE
-Cux2.cortex   cortex   Cux2    TRUE      TRUE  FALSE       FALSE  TRUE      TRUE      TRUE    FALSE         TRUE         TRUE      FALSE           TRUE
+Bcl11b.cortex cortex Bcl11b    TRUE      TRUE   TRUE        TRUE  TRUE      TRUE      TRUE     TRUE         TRUE         TRUE       TRUE           TRUE
+Cux2.cortex   cortex   Cux2    TRUE      TRUE   TRUE       FALSE  TRUE     FALSE      TRUE     TRUE         TRUE         TRUE       TRUE           TRUE
 Fezf2.cortex  cortex  Fezf2    TRUE      TRUE   TRUE        TRUE  TRUE      TRUE      TRUE    FALSE         TRUE         TRUE       TRUE           TRUE
-Nxph3.cortex  cortex  Nxph3    TRUE     FALSE  FALSE       FALSE  TRUE      TRUE      TRUE    FALSE         TRUE         TRUE      FALSE           TRUE
-Rorb.cortex   cortex   Rorb    TRUE      TRUE   TRUE        TRUE  TRUE      TRUE      TRUE     TRUE         TRUE         TRUE       TRUE           TRUE
-Satb2.cortex  cortex  Satb2    TRUE     FALSE  FALSE       FALSE FALSE     FALSE     FALSE    FALSE         TRUE         TRUE      FALSE           TRUE
+Nxph3.cortex  cortex  Nxph3    TRUE      TRUE   TRUE       FALSE  TRUE      TRUE      TRUE     TRUE         TRUE         TRUE       TRUE           TRUE
+Rorb.cortex   cortex   Rorb    TRUE      TRUE   TRUE        TRUE  TRUE      TRUE      TRUE     TRUE         TRUE        FALSE       TRUE           TRUE
+Satb2.cortex  cortex  Satb2    TRUE     FALSE  FALSE       FALSE  TRUE      TRUE      TRUE     TRUE         TRUE         TRUE       TRUE           TRUE
               tslope.right18
 Bcl11b.cortex           TRUE
 Cux2.cortex             TRUE
-Fezf2.cortex           FALSE
+Fezf2.cortex            TRUE
 Nxph3.cortex            TRUE
 Rorb.cortex             TRUE
 Satb2.cortex            TRUE
@@ -241,29 +241,374 @@ Making rate-count plots...
 Printing child summary plots: 
 ----------------------------------------
 
-Making summary plots for cortex: Bcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2           [,1]       [,2]
- [1,]  5.751550 19.1366669
- [2,] 15.766103  9.0666831
- [3,]  8.179538 13.5514127
- [4,] 17.660348 11.4526680
- [5,] 18.809346  2.0584937
- [6,]  0.911130 17.9964994
- [7,] 10.562110  4.9217547
- [8,] 17.848381  0.8411907
- [9,] 11.028700  6.5584144
-[10,]  9.132295 19.0900730
- [1] 2 4 2 4 4 1 3 4 3 2
- [1] 1 1 1 1 1 1 1 1 1 1
-           [,1]       [,2]
- [1,]  5.751550 19.1366669
- [2,] 15.766103  9.0666831
- [3,]  8.179538 13.5514127
- [4,] 17.660348 11.4526680
- [5,] 18.809346  2.0584937
- [6,]  0.911130 17.9964994
- [7,] 10.562110  4.9217547
- [8,] 17.848381  0.8411907
- [9,] 11.028700  6.5584144
-[10,]  9.132295 19.0900730
- [1] 2 4 2 4 4 1 3 4 3 2
- [1] 4 2 3 3 1 4 1 1 2 4
+Making summary plots for cortex: Bcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2
+Enter a frame number, or 0 to exit   
+
+1: demo_warp2()
+2: #72: seq(0, 100, length.out = n)
+3: seq.default(0, 100, length.out = n)
+
+
+Enter a frame number, or 0 to exit   
+
+ 1: demo_warp2()
+ 2: #216: grid.arrange(demo_plot_warpfunction, demo_plot_warpedsigmoid, ncol = 1)
+ 3: arrangeGrob(...)
+ 4: lapply(grobs[toconv], ggplot2::ggplotGrob)
+ 5: FUN(X[[i]], ...)
+ 6: ggplot_gtable(ggplot_build(x))
+ 7: ggplot_gtable.ggplot_built(ggplot_build(x))
+ 8: by_layer(function(l, d) l$draw_geom(d, layout), plot$layers, data, "converting geom to grob")
+ 9: try_fetch(for (i in seq_along(data)) {
+    out[[i]] <- f(l = layers[[i]], d = data[[i]])
+}, error = function(cnd) {
+    cli::cli_abort(c("Problem while
+10: tryCatch(withCallingHandlers(expr, condition = function(cnd) {
+    {
+        .__handler_frame__. <- TRUE
+        .__setup_frame__. <- frame
+        if (
+11: tryCatchList(expr, classes, parentenv, handlers)
+12: tryCatchOne(expr, names, parentenv, handlers[[1]])
+13: doTryCatch(return(expr), name, parentenv, handler)
+14: withCallingHandlers(expr, condition = function(cnd) {
+    {
+        .__handler_frame__. <- TRUE
+        .__setup_frame__. <- frame
+        if (inherits(
+15: f(l = layers[[i]], d = data[[i]])
+16: l$draw_geom(d, layout)
+17: draw_geom(..., self = self)
+18: self$geom$handle_na(data, self$computed_geom_params)
+19: handle_na(..., self = self)
+20: remove_missing(data, params$na.rm, c(self$required_aes, self$non_missing_aes), snake_class(self))
+21: detect_missing(df, vars, finite)
+22: cases(df[, vars, drop = FALSE], if (finite) is_finite else is_complete)
+23: vapply(x, fun, logical(nrow(x)))
+24: FUN(X[[i]], ...)
+25: .signalSimpleWarning("is.na() applied to non-(list or vector) of type 'expression'", base::quote(is.na(x)))
+26: withRestarts({
+    .Internal(.signalCondition(simpleWarning(msg, call), msg, call))
+    .Internal(.dfltWarn(msg, call))
+}, muffleWarning = function() N
+27: withOneRestart(expr, restarts[[1]])
+28: doWithOneRestart(return(expr), restart)
+29: .handleSimpleError(function (cnd) 
+{
+    {
+        .__handler_frame__. <- TRUE
+        .__setup_frame__. <- frame
+        if (inherits(cnd, "message")) {
+
+30: h(simpleError(msg, call))
+31: handlers[[1]](cnd)
+32: cli::cli_abort(c("Problem while {step}.", i = "Error occurred in the {ordinal(i)} layer."), call = layers[[i]]$constructor, parent = cnd)
+33: rlang::abort(message, ..., call = call, use_cli_format = TRUE, .frame = .frame)
+34: signal_abort(cnd, .file)
+
+function (..., newpage = TRUE) 
+{
+    if (newpage) 
+        grid.newpage()
+    g <- arrangeGrob(...)
+    grid.draw(g)
+    invisible(g)
+}
+<bytecode: 0x12dbb34d8>
+<environment: namespace:gridExtra>
+
+Enter a frame number, or 0 to exit   
+
+ 1: demo_warp2()
+ 2: #216: grid.arrange(demo_plot_warpfunction, demo_plot_warpedsigmoid, ncol = 1)
+ 3: arrangeGrob(...)
+ 4: lapply(grobs[toconv], ggplot2::ggplotGrob)
+ 5: FUN(X[[i]], ...)
+ 6: ggplot_gtable(ggplot_build(x))
+ 7: ggplot_gtable.ggplot_built(ggplot_build(x))
+ 8: by_layer(function(l, d) l$draw_geom(d, layout), plot$layers, data, "converting geom to grob")
+ 9: try_fetch(for (i in seq_along(data)) {
+    out[[i]] <- f(l = layers[[i]], d = data[[i]])
+}, error = function(cnd) {
+    cli::cli_abort(c("Problem while
+10: tryCatch(withCallingHandlers(expr, condition = function(cnd) {
+    {
+        .__handler_frame__. <- TRUE
+        .__setup_frame__. <- frame
+        if (
+11: tryCatchList(expr, classes, parentenv, handlers)
+12: tryCatchOne(expr, names, parentenv, handlers[[1]])
+13: doTryCatch(return(expr), name, parentenv, handler)
+14: withCallingHandlers(expr, condition = function(cnd) {
+    {
+        .__handler_frame__. <- TRUE
+        .__setup_frame__. <- frame
+        if (inherits(
+15: f(l = layers[[i]], d = data[[i]])
+16: l$draw_geom(d, layout)
+17: draw_geom(..., self = self)
+18: self$geom$draw_layer(data, self$computed_geom_params, layout, layout$coord)
+19: draw_layer(..., self = self)
+20: lapply(data_panels, function(data) {
+    if (empty(data)) 
+        return(zeroGrob())
+    panel_params <- layout$panel_params[[data$PANEL[1]]]
+    injec
+21: FUN(X[[i]], ...)
+22: inject(self$draw_panel(data, panel_params, coord, !!!params))
+23: self$draw_panel(data, panel_params, coord, na.rm = FALSE)
+24: draw_panel(..., self = self)
+25: polylineGrob(munched$x, munched$y, id = id, default.units = "native", arrow = arrow, gp = gpar(col = alpha(munched$colour, munched$alpha)[start], fi
+26: grob(x = x, y = y, id = id, id.lengths = id.lengths, arrow = arrow, name = name, gp = gp, vp = vp, cl = "polyline")
+27: gpar(col = alpha(munched$colour, munched$alpha)[start], fill = alpha(munched$colour, munched$alpha)[start], lwd = munched$linewidth[start] * .pt, lt
+28: validGP(list(...))
+29: numnotnull("fontsize")
+30: alpha(munched$colour, munched$alpha)
+31: farver::decode_colour(colour, alpha = TRUE)
+32: decode_c(colour, alpha, colourspace_match(to), white, na_value)
+33: .handleSimpleError(function (cnd) 
+{
+    {
+        .__handler_frame__. <- TRUE
+        .__setup_frame__. <- frame
+        if (inherits(cnd, "message")) {
+
+34: h(simpleError(msg, call))
+35: handlers[[1]](cnd)
+36: cli::cli_abort(c("Problem while {step}.", i = "Error occurred in the {ordinal(i)} layer."), call = layers[[i]]$constructor, parent = cnd)
+37: rlang::abort(message, ..., call = call, use_cli_format = TRUE, .frame = .frame)
+38: signal_abort(cnd, .file)
+
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+
+Enter a frame number, or 0 to exit   
+
+1: demo_warp2()
+2: #180: geom_line(aes(x = x, y = y), linewidth = 1.5, color = type)
+3: layer(data = data, mapping = mapping, stat = stat, geom = GeomLine, position = position, show.legend = show.legend, inherit.aes = inherit.aes, param
+4: list2(na.rm = na.rm, orientation = orientation, ...)
+
