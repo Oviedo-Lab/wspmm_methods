@@ -120,7 +120,7 @@ model.MCMC <- wisp(
   # Settings used on R side
   use.median = FALSE,
   MCMC.burnin = 0,
-  MCMC.steps = 1e4,
+  MCMC.steps = 1e2,
   MCMC.step.size = 0.5,
   MCMC.prior = 10.0, 
   bootstraps.num = 0,
@@ -143,10 +143,10 @@ model.bs <- wisp(
   # Settings used on R side
   use.median = FALSE,
   MCMC.burnin = 0,
-  MCMC.steps = 1e4,
+  MCMC.steps = 1e2,
   MCMC.step.size = 0.5,
   MCMC.prior = 10.0, 
-  bootstraps.num = 1e3,
+  bootstraps.num = 1e2,
   converged.resamples.only = TRUE,
   max.fork = bs_chunksize,
   null.rate = log(2),
@@ -194,17 +194,17 @@ lines(nll, col = "blue")
 
 # Compare bs and MCMC results
 # ... nll
-nll_mcmc <- merfish.laminar.model[["MCMC.diagnostics"]]$neg.loglik
-nll_bs <- merfish.laminar.model_bs[["bs.diagnostics"]]$neg.loglik
-bs_success <- merfish.laminar.model_bs[["bs.diagnostics"]]$success.code
+nll_mcmc <- model.MCMC[["MCMC.diagnostics"]]$neg.loglik
+nll_bs <- model.bs[["bs.diagnostics"]]$neg.loglik
+bs_success <- model.bs[["bs.diagnostics"]]$success.code
 bs_mask <- bs_success == 3
 bs_mean <- mean(nll_bs[bs_mask])
 nll_bs[!bs_mask] <- bs_mean
 plot(nll_bs, type = "l", col = "blue", ylim = range(c(nll_mcmc, nll_bs)))
 lines(nll_mcmc, col = "red")
 # ... param
-param_mcmc <- merfish.laminar.model[["sample.params"]]
-param_bs <- merfish.laminar.model_bs[["sample.params"]]
+param_mcmc <- model.MCMC[["sample.params"]]
+param_bs <- model.bs[["sample.params"]]
 n_params <- ncol(param_mcmc)
 n_samples <- nrow(param_mcmc)
 ttest_results <- rep(NA, n_params)
