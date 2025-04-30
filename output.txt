@@ -23,14 +23,16 @@ Standard deviation of means: 0.714
 Total cells by type (Map My Cells):
 ------------------------------
 
-      Astro-Epen          CB GABA          CB Glut     CNU-HYa GABA     CNU-HYa Glut     CNU-LGE GABA     CNU-MGE GABA CTX-CGE/MGE GABA      DG-IMN Glut 
-            3952               82               19               12                2              671               20             1351               11 
-        filtered          HY GABA           Immune       IT-ET Glut         LSX GABA          MB GABA          MB Glut       MB-HB Sero       MH-LH Glut 
-           18208               37              331            16066               29               79                5                1               15 
-         MY GABA          MY Glut   NP-CT-L6b Glut      OB-IMN GABA              OEC        OPC-Oligo           P GABA  TSCRPT_filtered         Vascular 
-             430               21             4922              149               23             1499              142               99             5914 
-         HY Glut    HY Gnrh1 Glut           P Glut      Pineal Glut          TH Glut          MB Dopa       OB-CR Glut 
-               1                1                2                5               12                2                3 
+      Astro-Epen          CB GABA          CB Glut     CNU-HYa GABA     CNU-HYa Glut     CNU-LGE GABA     CNU-MGE GABA CTX-CGE/MGE GABA 
+            3952               82               19               12                2              671               20             1351 
+     DG-IMN Glut         filtered          HY GABA           Immune       IT-ET Glut         LSX GABA          MB GABA          MB Glut 
+              11            18208               37              331            16066               29               79                5 
+      MB-HB Sero       MH-LH Glut          MY GABA          MY Glut   NP-CT-L6b Glut      OB-IMN GABA              OEC        OPC-Oligo 
+               1               15              430               21             4922              149               23             1499 
+          P GABA  TSCRPT_filtered         Vascular          HY Glut    HY Gnrh1 Glut           P Glut      Pineal Glut          TH Glut 
+             142               99             5914                1                1                2                5               12 
+         MB Dopa       OB-CR Glut 
+               2                3 
 ----
 
 Number of mice: 4
@@ -47,7 +49,6 @@ Grabbing coordinates and defining layers and hemispheres...
 Step 1, centering each patch around the mean point of L5... 
 Step 2, rotating each patch so that L4 aligns with the x-axis with anterior in positive y direction... 
 Step 3, modeling and flattening laminar curve based on L4... 
-Step 4, linearly transforming each patch to vertically straighten them while preserving area... 
 Binning transformed coordinates... 
 Smoothing bin edges with nonlinear transformation... 
 Estimating layer boundaries... 
@@ -58,7 +59,6 @@ Grabbing coordinates and defining layers and hemispheres...
 Step 1, centering each patch around the mean point of L5... 
 Step 2, rotating each patch so that L4 aligns with the x-axis with anterior in positive y direction... 
 Step 3, modeling and flattening laminar curve based on L4... 
-Step 4, linearly transforming each patch to vertically straighten them while preserving area... 
 Binning transformed coordinates... 
 Smoothing bin edges with nonlinear transformation... 
 Estimating layer boundaries... 
@@ -69,7 +69,6 @@ Grabbing coordinates and defining layers and hemispheres...
 Step 1, centering each patch around the mean point of L5... 
 Step 2, rotating each patch so that L4 aligns with the x-axis with anterior in positive y direction... 
 Step 3, modeling and flattening laminar curve based on L4... 
-Step 4, linearly transforming each patch to vertically straighten them while preserving area... 
 Binning transformed coordinates... 
 Smoothing bin edges with nonlinear transformation... 
 Estimating layer boundaries... 
@@ -80,7 +79,6 @@ Grabbing coordinates and defining layers and hemispheres...
 Step 1, centering each patch around the mean point of L5... 
 Step 2, rotating each patch so that L4 aligns with the x-axis with anterior in positive y direction... 
 Step 3, modeling and flattening laminar curve based on L4... 
-Step 4, linearly transforming each patch to vertically straighten them while preserving area... 
 Binning transformed coordinates... 
 Smoothing bin edges with nonlinear transformation... 
 Estimating layer boundaries... 
@@ -132,9 +130,9 @@ Estimated change points with LROcp and found initial parameter estimates for fix
 Built initial beta (ref and fixed-effects) matrices
 Initialized random effect warping factors
 Made and mapped parameter vector
-Number of parameters: 276
+Number of parameters: 240
 Constructed grouping variable IDs
-Computed size of boundary vector: 840
+Computed size of boundary vector: 720
 Finished initializing wspc object
 
 Estimating model parameters: 
@@ -144,24 +142,24 @@ Running MCMC stimulations (single-threaded):
 Checking feasibility of provided parameters
 ... tpoints found below buffer
 Provided parameters not feasible, searching nearby
-Initial boundary distance (want to make >0): -4.3348
-Numer of evals: 12
+Initial boundary distance (want to make >0): -4.33351
+Numer of evals: 11
 Success code: 2
 Final boundary distance: 0.247647
 Nearby feasible parameters found!
 Performing initial fit of full data
-Penalized neg_loglik: 12673.1
-step: 100/1000
-step: 200/1000
-step: 300/1000
-step: 400/1000
-step: 500/1000
-step: 600/1000
-step: 700/1000
-step: 800/1000
-step: 900/1000
+Penalized neg_loglik: 12682.8
+step: 1000/10000
+step: 2000/10000
+step: 3000/10000
+step: 4000/10000
+step: 5000/10000
+step: 6000/10000
+step: 7000/10000
+step: 8000/10000
+step: 9000/10000
 All complete!
-Acceptance rate (aim for 0.2-0.3): 0.494071
+Acceptance rate (aim for 0.2-0.3): 0.447588
 
 Setting full-data fit as parameters... 
 Checking feasibility of provided parameters
@@ -177,20 +175,20 @@ Grabbing parameter values...
 Computing 95% confidence intervals... 
 Estimating p-values from resampled parameters... 
 
-Recommended resample size for alpha = 0.05, 261 tests: 
-with bootstrapping: 5220
-with MCMC: 52200
-Actual resample size: 1001
+Recommended resample size for alpha = 0.05, 228 tests: 
+with bootstrapping: 4560
+with MCMC: 45600
+Actual resample size: 10001
 
 Stat summary (head only):
 ------------------------------
-                                 parameter   estimate      CI.low     CI.high p.value p.value.adj    alpha.adj significance
-1       baseline_cortex_Rt_Bcl11b_Tns/Blk1  3.9277773  3.53404765  4.14920385       0           0 0.0001915709          ***
-2   beta_Rt_cortex_Bcl11b_right_X_Tns/Blk1 -0.1577221 -0.26617524 -0.07495474       0           0 0.0001923077          ***
-3      beta_Rt_cortex_Bcl11b_18_X_Tns/Blk1  0.5035040  0.30893481  0.60484746       0           0 0.0001930502          ***
-4 beta_Rt_cortex_Bcl11b_right18_X_Tns/Blk1  0.3765727  0.09917292  0.36790288       0           0 0.0001937984          ***
-5       baseline_cortex_Rt_Bcl11b_Tns/Blk2  3.3400481  2.98729266  3.46296137       0           0 0.0001945525          ***
-6   beta_Rt_cortex_Bcl11b_right_X_Tns/Blk2  0.3126653  0.17010274  0.48733604       0           0 0.0001953125          ***
+                                 parameter    estimate     CI.low    CI.high   p.value p.value.adj    alpha.adj significance
+1       baseline_cortex_Rt_Bcl11b_Tns/Blk1  3.68898163  3.2229562 4.21179723 0.0000000     0.00000 0.0002192982          ***
+2   beta_Rt_cortex_Bcl11b_right_X_Tns/Blk1  0.06221752 -0.1024815 0.51586803 0.5411459    21.64584 0.0012500000           ns
+3      beta_Rt_cortex_Bcl11b_18_X_Tns/Blk1  0.64380781  0.1634571 0.98895320 0.0000000     0.00000 0.0002202643          ***
+4 beta_Rt_cortex_Bcl11b_right18_X_Tns/Blk1 -0.06623584 -0.5935568 0.09393402 0.5862414    20.51845 0.0014285714           ns
+5       baseline_cortex_Rt_Bcl11b_Tns/Blk2  2.38026653  2.0063413 2.80545812 0.0000000     0.00000 0.0002212389          ***
+6   beta_Rt_cortex_Bcl11b_right_X_Tns/Blk2  0.07077291 -0.2673403 0.26005531 0.5956404    19.65613 0.0015151515           ns
 ----
 
 Analyzing residuals: 
@@ -203,26 +201,26 @@ Making plots and saving stats...
 Log-residual summary by grouping variables (head only):
 ------------------------------
          group      mean        sd  variance
-1          all 0.3603569 0.5657301 0.3200506
-2 ran_lvl_none 0.3382893 0.4443713 0.1974659
-3    ran_lvl_1 0.3454817 0.6182639 0.3822502
-4    ran_lvl_2 0.3018531 0.5764787 0.3323277
-5    ran_lvl_3 0.4912256 0.6646429 0.4417501
-6    ran_lvl_4 0.3470026 0.5901462 0.3482725
+1          all 0.3610898 0.5670729 0.3215717
+2 ran_lvl_none 0.3398641 0.4519327 0.2042431
+3    ran_lvl_1 0.3452561 0.6083991 0.3701495
+4    ran_lvl_2 0.3030848 0.5803796 0.3368405
+5    ran_lvl_3 0.4925588 0.6692401 0.4478823
+6    ran_lvl_4 0.3459110 0.5875315 0.3451932
 ----
 
 TPS test results (head only):
 ------------------------------
               cortex   gene TPS.ref TPS.right TPS.18 TPS.right18 Rt.18 tpoint.18 tslope.18 Rt.right tpoint.right tslope.right Rt.right18 tpoint.right18
-Bcl11b.cortex cortex Bcl11b    TRUE      TRUE   TRUE        TRUE  TRUE      TRUE      TRUE     TRUE         TRUE         TRUE       TRUE           TRUE
-Cux2.cortex   cortex   Cux2    TRUE      TRUE   TRUE       FALSE  TRUE     FALSE      TRUE     TRUE         TRUE         TRUE       TRUE           TRUE
-Fezf2.cortex  cortex  Fezf2    TRUE      TRUE   TRUE        TRUE  TRUE      TRUE      TRUE    FALSE         TRUE         TRUE       TRUE           TRUE
-Nxph3.cortex  cortex  Nxph3    TRUE      TRUE   TRUE       FALSE  TRUE      TRUE      TRUE     TRUE         TRUE         TRUE       TRUE           TRUE
-Rorb.cortex   cortex   Rorb    TRUE      TRUE   TRUE        TRUE  TRUE      TRUE      TRUE     TRUE         TRUE        FALSE       TRUE           TRUE
-Satb2.cortex  cortex  Satb2    TRUE     FALSE  FALSE       FALSE  TRUE      TRUE      TRUE     TRUE         TRUE         TRUE       TRUE           TRUE
+Bcl11b.cortex cortex Bcl11b    TRUE      TRUE   TRUE        TRUE  TRUE      TRUE     FALSE    FALSE         TRUE        FALSE      FALSE           TRUE
+Cux2.cortex   cortex   Cux2    TRUE      TRUE   TRUE        TRUE  TRUE      TRUE      TRUE    FALSE         TRUE         TRUE      FALSE          FALSE
+Fezf2.cortex  cortex  Fezf2    TRUE      TRUE   TRUE        TRUE FALSE      TRUE      TRUE    FALSE         TRUE         TRUE      FALSE          FALSE
+Nxph3.cortex  cortex  Nxph3    TRUE      TRUE  FALSE        TRUE  TRUE      TRUE      TRUE    FALSE         TRUE         TRUE      FALSE           TRUE
+Rorb.cortex   cortex   Rorb    TRUE      TRUE  FALSE       FALSE  TRUE      TRUE      TRUE    FALSE         TRUE         TRUE       TRUE           TRUE
+Satb2.cortex  cortex  Satb2    TRUE      TRUE   TRUE       FALSE FALSE      TRUE     FALSE    FALSE        FALSE         TRUE      FALSE          FALSE
               tslope.right18
-Bcl11b.cortex           TRUE
-Cux2.cortex             TRUE
+Bcl11b.cortex          FALSE
+Cux2.cortex            FALSE
 Fezf2.cortex            TRUE
 Nxph3.cortex            TRUE
 Rorb.cortex             TRUE
@@ -242,373 +240,653 @@ Printing child summary plots:
 ----------------------------------------
 
 Making summary plots for cortex: Bcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2
-Enter a frame number, or 0 to exit   
 
-1: demo_warp2()
-2: #72: seq(0, 100, length.out = n)
-3: seq.default(0, 100, length.out = n)
+Initializing Cpp (wspc) model: 
+----------------------------------------
 
+warp_precision: 1e-07
+eps_: 2.22045e-16
+inf_warp: 4.5036e+08
+Data structure check passed
+Saving tokenized count
+Found max bin: 100.000000
+Extracted fixed effects:
+"hemisphere" "age"
+Ref levels:
+"left" "12"
+Created treatment levels
+"ref" "right" "18" "right18"
+Created treatment-to-fix translation matrix
+Pre-computed weight matrix rows
+Extracted parent grouping variables:
+"cortex"
+Extracted child grouping variables:
+"Bcl11b" "Cux2" "Fezf2" "Nxph3" "Rorb" "Satb2"
+Extracted random-effect grouping variables:
+"none" "1" "2" "3" "4"
+Extracted tokenized count columns
+Grabbed size constants for summed count data, total rows: 12000
+Initialized columns for summed count data
+Initialized count indexes, number of rows with unique model components: 120
+Pre-computing bin masks
+Creating summed-count data columns ...
+Random level 0, 1/5 complete
+Random level 1, 2/5 complete
+Random level 2, 3/5 complete
+Random level 3, 4/5 complete
+Random level 4, 5/5 complete
+Extracted non-NA indexes
+Making extrapolation pool ...
+row: 480/2400
+row: 960/2400
+row: 1440/2400
+row: 1920/2400
+row: 2400/2400
+Extrapolated 'none' rows
+Took log of observed counts
+Estimated change points with LROcp and found initial parameter estimates for fixed-effect treatments
+Built initial beta (ref and fixed-effects) matrices
+Initialized random effect warping factors
+Made and mapped parameter vector
+Number of parameters: 240
+Constructed grouping variable IDs
+Computed size of boundary vector: 720
+Finished initializing wspc object
 
-Enter a frame number, or 0 to exit   
+Estimating model parameters: 
+---------------
+Forking available and bootstrap requested.... 
+If bootstrapping not desired, set bootstraps.num = 0... 
 
- 1: demo_warp2()
- 2: #216: grid.arrange(demo_plot_warpfunction, demo_plot_warpedsigmoid, ncol = 1)
- 3: arrangeGrob(...)
- 4: lapply(grobs[toconv], ggplot2::ggplotGrob)
- 5: FUN(X[[i]], ...)
- 6: ggplot_gtable(ggplot_build(x))
- 7: ggplot_gtable.ggplot_built(ggplot_build(x))
- 8: by_layer(function(l, d) l$draw_geom(d, layout), plot$layers, data, "converting geom to grob")
- 9: try_fetch(for (i in seq_along(data)) {
-    out[[i]] <- f(l = layers[[i]], d = data[[i]])
-}, error = function(cnd) {
-    cli::cli_abort(c("Problem while
-10: tryCatch(withCallingHandlers(expr, condition = function(cnd) {
-    {
-        .__handler_frame__. <- TRUE
-        .__setup_frame__. <- frame
-        if (
-11: tryCatchList(expr, classes, parentenv, handlers)
-12: tryCatchOne(expr, names, parentenv, handlers[[1]])
-13: doTryCatch(return(expr), name, parentenv, handler)
-14: withCallingHandlers(expr, condition = function(cnd) {
-    {
-        .__handler_frame__. <- TRUE
-        .__setup_frame__. <- frame
-        if (inherits(
-15: f(l = layers[[i]], d = data[[i]])
-16: l$draw_geom(d, layout)
-17: draw_geom(..., self = self)
-18: self$geom$handle_na(data, self$computed_geom_params)
-19: handle_na(..., self = self)
-20: remove_missing(data, params$na.rm, c(self$required_aes, self$non_missing_aes), snake_class(self))
-21: detect_missing(df, vars, finite)
-22: cases(df[, vars, drop = FALSE], if (finite) is_finite else is_complete)
-23: vapply(x, fun, logical(nrow(x)))
-24: FUN(X[[i]], ...)
-25: .signalSimpleWarning("is.na() applied to non-(list or vector) of type 'expression'", base::quote(is.na(x)))
-26: withRestarts({
-    .Internal(.signalCondition(simpleWarning(msg, call), msg, call))
-    .Internal(.dfltWarn(msg, call))
-}, muffleWarning = function() N
-27: withOneRestart(expr, restarts[[1]])
-28: doWithOneRestart(return(expr), restart)
-29: .handleSimpleError(function (cnd) 
-{
-    {
-        .__handler_frame__. <- TRUE
-        .__setup_frame__. <- frame
-        if (inherits(cnd, "message")) {
+Running bootstrap fits (with forking): 
+Checking feasibility of provided parameters
+... tpoints found below buffer
+Provided parameters not feasible, searching nearby
+Initial boundary distance (want to make >0): -4.33351
+Numer of evals: 11
+Success code: 2
+Final boundary distance: 0.247647
+Nearby feasible parameters found!
+Performing initial fit of full data
+Penalized neg_loglik: 12682.8
+Batch 1/500, 3.93618 sec/bs
+Batch 2/500, 3.14268 sec/bs
+Batch 3/500, 3.25581 sec/bs
+Batch 4/500, 3.053 sec/bs
+Batch 5/500, 3.46509 sec/bs
+Batch 6/500, 3.66345 sec/bs
+Batch 7/500, 3.7774 sec/bs
+Batch 8/500, 3.69777 sec/bs
+Batch 9/500, 3.46759 sec/bs
+Batch 10/500, 3.15274 sec/bs
+Batch 11/500, 3.25777 sec/bs
+Batch 12/500, 3.57021 sec/bs
+Batch 13/500, 3.25569 sec/bs
+Batch 14/500, 3.30088 sec/bs
+Batch 15/500, 3.8288 sec/bs
+Batch 16/500, 3.92602 sec/bs
+Batch 17/500, 3.56597 sec/bs
+Batch 18/500, 3.11709 sec/bs
+Batch 19/500, 3.76731 sec/bs
+Batch 20/500, 3.41615 sec/bs
+Batch 21/500, 3.20437 sec/bs
+Batch 22/500, 3.55448 sec/bs
+Batch 23/500, 3.1857 sec/bs
+Batch 24/500, 3.24542 sec/bs
+Batch 25/500, 3.23415 sec/bs
+Batch 26/500, 3.34063 sec/bs
+Batch 27/500, 2.95037 sec/bs
+Batch 28/500, 3.12433 sec/bs
+Batch 29/500, 3.01922 sec/bs
+Batch 30/500, 3.31585 sec/bs
+Batch 31/500, 3.43762 sec/bs
+Batch 32/500, 3.41033 sec/bs
+Batch 33/500, 3.19296 sec/bs
+Batch 34/500, 3.1173 sec/bs
+Batch 35/500, 3.18774 sec/bs
+Batch 36/500, 3.20707 sec/bs
+Batch 37/500, 3.34271 sec/bs
+Batch 38/500, 3.55073 sec/bs
+Batch 39/500, 2.87501 sec/bs
+Batch 40/500, 2.94905 sec/bs
+Batch 41/500, 2.88585 sec/bs
+Batch 42/500, 3.17164 sec/bs
+Batch 43/500, 3.38431 sec/bs
+Batch 44/500, 2.95538 sec/bs
+Batch 45/500, 3.44628 sec/bs
+Batch 46/500, 3.00425 sec/bs
+Batch 47/500, 3.25918 sec/bs
+Batch 48/500, 3.28621 sec/bs
+Batch 49/500, 3.44178 sec/bs
+Batch 50/500, 2.95925 sec/bs
+Batch 51/500, 3.22893 sec/bs
+Batch 52/500, 3.0502 sec/bs
+Batch 53/500, 3.46176 sec/bs
+Batch 54/500, 2.82337 sec/bs
+Batch 55/500, 2.94004 sec/bs
+Batch 56/500, 3.08052 sec/bs
+Batch 57/500, 3.12314 sec/bs
+Batch 58/500, 3.3035 sec/bs
+Batch 59/500, 3.29257 sec/bs
+Batch 60/500, 3.09961 sec/bs
+Batch 61/500, 3.37858 sec/bs
+Batch 62/500, 3.5268 sec/bs
+Batch 63/500, 3.25708 sec/bs
+Batch 64/500, 3.49556 sec/bs
+Batch 65/500, 3.32127 sec/bs
+Batch 66/500, 3.78742 sec/bs
+Batch 67/500, 3.71437 sec/bs
+Batch 68/500, 3.62854 sec/bs
+Batch 69/500, 3.20886 sec/bs
+Batch 70/500, 3.16239 sec/bs
+Batch 71/500, 3.86284 sec/bs
+Batch 72/500, 3.69296 sec/bs
+Batch 73/500, 3.82531 sec/bs
+Batch 74/500, 3.23371 sec/bs
+Batch 75/500, 3.48968 sec/bs
+Batch 76/500, 3.55209 sec/bs
+Batch 77/500, 3.63609 sec/bs
+Batch 78/500, 3.53501 sec/bs
+Batch 79/500, 3.57656 sec/bs
+Batch 80/500, 3.41412 sec/bs
+Batch 81/500, 3.53616 sec/bs
+Batch 82/500, 3.60331 sec/bs
+Batch 83/500, 3.44894 sec/bs
+Batch 84/500, 3.95371 sec/bs
+Batch 85/500, 3.54551 sec/bs
+Batch 86/500, 4.06759 sec/bs
+Batch 87/500, 3.49078 sec/bs
+Batch 88/500, 3.62755 sec/bs
+Batch 89/500, 4.2862 sec/bs
+Batch 90/500, 3.85179 sec/bs
+Batch 91/500, 4.15267 sec/bs
+Batch 92/500, 3.87846 sec/bs
+Batch 93/500, 3.88205 sec/bs
+Batch 94/500, 3.91146 sec/bs
+Batch 95/500, 3.9155 sec/bs
+Batch 96/500, 3.688 sec/bs
+Batch 97/500, 3.53795 sec/bs
+Batch 98/500, 3.49992 sec/bs
+Batch 99/500, 3.42434 sec/bs
+Batch 100/500, 3.79487 sec/bs
+Batch 101/500, 3.38006 sec/bs
+Batch 102/500, 3.31241 sec/bs
+Batch 103/500, 3.79856 sec/bs
+Batch 104/500, 3.96737 sec/bs
+Batch 105/500, 3.76405 sec/bs
+Batch 106/500, 3.61494 sec/bs
+Batch 107/500, 4.05594 sec/bs
+Batch 108/500, 3.74561 sec/bs
+Batch 109/500, 3.80792 sec/bs
+Batch 110/500, 3.64724 sec/bs
+Batch 111/500, 3.7081 sec/bs
+Batch 112/500, 3.94582 sec/bs
+Batch 113/500, 4.06171 sec/bs
+Batch 114/500, 3.64444 sec/bs
+Batch 115/500, 3.65974 sec/bs
+Batch 116/500, 4.08685 sec/bs
+Batch 117/500, 3.96517 sec/bs
+Batch 118/500, 4.13887 sec/bs
+Batch 119/500, 4.09262 sec/bs
+Batch 120/500, 3.57657 sec/bs
+Batch 121/500, 4.00927 sec/bs
+Batch 122/500, 3.75442 sec/bs
+Batch 123/500, 3.73547 sec/bs
+Batch 124/500, 2.94201 sec/bs
+Batch 125/500, 3.77245 sec/bs
+Batch 126/500, 3.5472 sec/bs
+Batch 127/500, 3.85185 sec/bs
+Batch 128/500, 3.62722 sec/bs
+Batch 129/500, 3.84864 sec/bs
+Batch 130/500, 4.14356 sec/bs
+Batch 131/500, 3.81621 sec/bs
+Batch 132/500, 4.03808 sec/bs
+Batch 133/500, 4.02156 sec/bs
+Batch 134/500, 3.37353 sec/bs
+Batch 135/500, 3.78384 sec/bs
+Batch 136/500, 3.66187 sec/bs
+Batch 137/500, 3.9379 sec/bs
+Batch 138/500, 3.83975 sec/bs
+Batch 139/500, 3.90298 sec/bs
+Batch 140/500, 3.84204 sec/bs
+Batch 141/500, 4.03005 sec/bs
+Batch 142/500, 4.34584 sec/bs
+Batch 143/500, 4.09626 sec/bs
+Batch 144/500, 4.94201 sec/bs
+Batch 145/500, 3.94586 sec/bs
+Batch 146/500, 3.64597 sec/bs
+Batch 147/500, 3.998 sec/bs
+Batch 148/500, 3.7139 sec/bs
+Batch 149/500, 4.14891 sec/bs
+Batch 150/500, 3.79002 sec/bs
+Batch 151/500, 4.28686 sec/bs
+Batch 152/500, 3.76236 sec/bs
+Batch 153/500, 4.19626 sec/bs
+Batch 154/500, 3.80744 sec/bs
+Batch 155/500, 3.37617 sec/bs
+Batch 156/500, 3.74704 sec/bs
+Batch 157/500, 3.69295 sec/bs
+Batch 158/500, 4.17602 sec/bs
+Batch 159/500, 3.75956 sec/bs
+Batch 160/500, 4.13628 sec/bs
+Batch 161/500, 3.46576 sec/bs
+Batch 162/500, 3.83427 sec/bs
+Batch 163/500, 3.47453 sec/bs
+Batch 164/500, 3.62003 sec/bs
+Batch 165/500, 3.70108 sec/bs
+Batch 166/500, 3.81149 sec/bs
+Batch 167/500, 3.73586 sec/bs
+Batch 168/500, 4.17924 sec/bs
+Batch 169/500, 4.09276 sec/bs
+Batch 170/500, 4.06877 sec/bs
+Batch 171/500, 3.74438 sec/bs
+Batch 172/500, 4.59136 sec/bs
+Batch 173/500, 4.16727 sec/bs
+Batch 174/500, 3.95462 sec/bs
+Batch 175/500, 4.19501 sec/bs
+Batch 176/500, 3.63587 sec/bs
+Batch 177/500, 3.85604 sec/bs
+Batch 178/500, 3.95872 sec/bs
+Batch 179/500, 3.98792 sec/bs
+Batch 180/500, 2.98923 sec/bs
+Batch 181/500, 3.33021 sec/bs
+Batch 182/500, 3.30448 sec/bs
+Batch 183/500, 3.68494 sec/bs
+Batch 184/500, 3.21663 sec/bs
+Batch 185/500, 3.18569 sec/bs
+Batch 186/500, 3.2615 sec/bs
+Batch 187/500, 3.5135 sec/bs
+Batch 188/500, 3.2159 sec/bs
+Batch 189/500, 2.92406 sec/bs
+Batch 190/500, 3.08498 sec/bs
+Batch 191/500, 3.47404 sec/bs
+Batch 192/500, 3.33823 sec/bs
+Batch 193/500, 3.34039 sec/bs
+Batch 194/500, 2.97353 sec/bs
+Batch 195/500, 3.64722 sec/bs
+Batch 196/500, 3.36628 sec/bs
+Batch 197/500, 3.6306 sec/bs
+Batch 198/500, 3.12129 sec/bs
+Batch 199/500, 2.96781 sec/bs
+Batch 200/500, 3.25459 sec/bs
+Batch 201/500, 3.3789 sec/bs
+Batch 202/500, 3.41875 sec/bs
+Batch 203/500, 3.28332 sec/bs
+Batch 204/500, 3.49523 sec/bs
+Batch 205/500, 3.02206 sec/bs
+Batch 206/500, 3.03133 sec/bs
+Batch 207/500, 3.32698 sec/bs
+Batch 208/500, 3.16448 sec/bs
+Batch 209/500, 3.27445 sec/bs
+Batch 210/500, 3.27071 sec/bs
+Batch 211/500, 3.2117 sec/bs
+Batch 212/500, 3.1312 sec/bs
+Batch 213/500, 3.03287 sec/bs
+Batch 214/500, 3.35826 sec/bs
+Batch 215/500, 3.63081 sec/bs
+Batch 216/500, 3.20313 sec/bs
+Batch 217/500, 3.13586 sec/bs
+Batch 218/500, 3.18113 sec/bs
+Batch 219/500, 2.90428 sec/bs
+Batch 220/500, 3.21992 sec/bs
+Batch 221/500, 3.4165 sec/bs
+Batch 222/500, 2.97408 sec/bs
+Batch 223/500, 3.07333 sec/bs
+Batch 224/500, 3.05068 sec/bs
+Batch 225/500, 2.90311 sec/bs
+Batch 226/500, 3.07973 sec/bs
+Batch 227/500, 3.27647 sec/bs
+Batch 228/500, 3.15949 sec/bs
+Batch 229/500, 2.56725 sec/bs
+Batch 230/500, 3.10826 sec/bs
+Batch 231/500, 3.50589 sec/bs
+Batch 232/500, 3.34454 sec/bs
+Batch 233/500, 3.54582 sec/bs
+Batch 234/500, 3.10465 sec/bs
+Batch 235/500, 3.26092 sec/bs
+Batch 236/500, 3.33541 sec/bs
+Batch 237/500, 3.35252 sec/bs
+Batch 238/500, 3.24248 sec/bs
+Batch 239/500, 3.36948 sec/bs
+Batch 240/500, 3.21846 sec/bs
+Batch 241/500, 3.33443 sec/bs
+Batch 242/500, 3.29875 sec/bs
+Batch 243/500, 3.18794 sec/bs
+Batch 244/500, 3.56982 sec/bs
+Batch 245/500, 3.29512 sec/bs
+Batch 246/500, 3.47511 sec/bs
+Batch 247/500, 3.35697 sec/bs
+Batch 248/500, 3.37279 sec/bs
+Batch 249/500, 3.40933 sec/bs
+Batch 250/500, 3.47388 sec/bs
+Batch 251/500, 3.53626 sec/bs
+Batch 252/500, 3.1084 sec/bs
+Batch 253/500, 3.41625 sec/bs
+Batch 254/500, 3.29661 sec/bs
+Batch 255/500, 3.28781 sec/bs
+Batch 256/500, 3.19318 sec/bs
+Batch 257/500, 2.97572 sec/bs
+Batch 258/500, 3.41227 sec/bs
+Batch 259/500, 3.17184 sec/bs
+Batch 260/500, 3.25717 sec/bs
+Batch 261/500, 3.1007 sec/bs
+Batch 262/500, 3.39583 sec/bs
+Batch 263/500, 3.40865 sec/bs
+Batch 264/500, 3.04087 sec/bs
+Batch 265/500, 2.8718 sec/bs
+Batch 266/500, 3.27327 sec/bs
+Batch 267/500, 3.17415 sec/bs
+Batch 268/500, 3.45085 sec/bs
+Batch 269/500, 3.15212 sec/bs
+Batch 270/500, 3.32927 sec/bs
+Batch 271/500, 3.00415 sec/bs
+Batch 272/500, 3.55358 sec/bs
+Batch 273/500, 3.39008 sec/bs
+Batch 274/500, 3.14654 sec/bs
+Batch 275/500, 3.27097 sec/bs
+Batch 276/500, 2.98462 sec/bs
+Batch 277/500, 3.00508 sec/bs
+Batch 278/500, 3.46921 sec/bs
+Batch 279/500, 3.28863 sec/bs
+Batch 280/500, 3.53227 sec/bs
+Batch 281/500, 3.43666 sec/bs
+Batch 282/500, 2.93346 sec/bs
+Batch 283/500, 3.1466 sec/bs
+Batch 284/500, 3.23145 sec/bs
+Batch 285/500, 3.34452 sec/bs
+Batch 286/500, 3.23803 sec/bs
+Batch 287/500, 3.1808 sec/bs
+Batch 288/500, 3.17499 sec/bs
+Batch 289/500, 3.00379 sec/bs
+Batch 290/500, 3.48243 sec/bs
+Batch 291/500, 3.58322 sec/bs
+Batch 292/500, 3.28013 sec/bs
+Batch 293/500, 3.55507 sec/bs
+Batch 294/500, 3.12548 sec/bs
+Batch 295/500, 3.37301 sec/bs
+Batch 296/500, 3.2596 sec/bs
+Batch 297/500, 3.56037 sec/bs
+Batch 298/500, 3.76429 sec/bs
+Batch 299/500, 3.11612 sec/bs
+Batch 300/500, 3.3297 sec/bs
+Batch 301/500, 3.29504 sec/bs
+Batch 302/500, 3.34829 sec/bs
+Batch 303/500, 3.52896 sec/bs
+Batch 304/500, 3.15184 sec/bs
+Batch 305/500, 3.3375 sec/bs
+Batch 306/500, 2.90118 sec/bs
+Batch 307/500, 2.97003 sec/bs
+Batch 308/500, 2.97754 sec/bs
+Batch 309/500, 3.21698 sec/bs
+Batch 310/500, 3.08483 sec/bs
+Batch 311/500, 3.4294 sec/bs
+Batch 312/500, 2.88805 sec/bs
+Batch 313/500, 3.37115 sec/bs
+Batch 314/500, 2.82607 sec/bs
+Batch 315/500, 3.07594 sec/bs
+Batch 316/500, 3.44223 sec/bs
+Batch 317/500, 3.31021 sec/bs
+Batch 318/500, 3.47438 sec/bs
+Batch 319/500, 3.13834 sec/bs
+Batch 320/500, 3.27807 sec/bs
+Batch 321/500, 3.00376 sec/bs
+Batch 322/500, 3.55399 sec/bs
+Batch 323/500, 3.30329 sec/bs
+Batch 324/500, 3.09553 sec/bs
+Batch 325/500, 3.60382 sec/bs
+Batch 326/500, 3.16572 sec/bs
+Batch 327/500, 3.10212 sec/bs
+Batch 328/500, 3.15423 sec/bs
+Batch 329/500, 3.3961 sec/bs
+Batch 330/500, 3.22828 sec/bs
+Batch 331/500, 3.24105 sec/bs
+Batch 332/500, 2.82033 sec/bs
+Batch 333/500, 3.47138 sec/bs
+Batch 334/500, 3.42365 sec/bs
+Batch 335/500, 3.45258 sec/bs
+Batch 336/500, 2.81421 sec/bs
+Batch 337/500, 3.31297 sec/bs
+Batch 338/500, 3.27471 sec/bs
+Batch 339/500, 3.33505 sec/bs
+Batch 340/500, 3.6697 sec/bs
+Batch 341/500, 3.20477 sec/bs
+Batch 342/500, 2.91602 sec/bs
+Batch 343/500, 2.79113 sec/bs
+Batch 344/500, 3.18377 sec/bs
+Batch 345/500, 3.47231 sec/bs
+Batch 346/500, 3.20671 sec/bs
+Batch 347/500, 3.271 sec/bs
+Batch 348/500, 3.5053 sec/bs
+Batch 349/500, 2.95585 sec/bs
+Batch 350/500, 2.74301 sec/bs
+Batch 351/500, 3.32293 sec/bs
+Batch 352/500, 3.3582 sec/bs
+Batch 353/500, 3.32632 sec/bs
+Batch 354/500, 3.36798 sec/bs
+Batch 355/500, 3.08859 sec/bs
+Batch 356/500, 3.22745 sec/bs
+Batch 357/500, 3.17558 sec/bs
+Batch 358/500, 3.20323 sec/bs
+Batch 359/500, 3.38951 sec/bs
+Batch 360/500, 3.35911 sec/bs
+Batch 361/500, 3.06416 sec/bs
+Batch 362/500, 3.2893 sec/bs
+Batch 363/500, 3.2666 sec/bs
+Batch 364/500, 2.86322 sec/bs
+Batch 365/500, 3.33605 sec/bs
+Batch 366/500, 3.46091 sec/bs
+Batch 367/500, 4.03728 sec/bs
+Batch 368/500, 4.5005 sec/bs
+Batch 369/500, 3.57911 sec/bs
+Batch 370/500, 3.18856 sec/bs
+Batch 371/500, 3.37765 sec/bs
+Batch 372/500, 3.43136 sec/bs
+Batch 373/500, 3.79864 sec/bs
+Batch 374/500, 3.00653 sec/bs
+Batch 375/500, 3.44116 sec/bs
+Batch 376/500, 2.97178 sec/bs
+Batch 377/500, 4.00049 sec/bs
+Batch 378/500, 3.69742 sec/bs
+Batch 379/500, 3.59968 sec/bs
+Batch 380/500, 3.50045 sec/bs
+Batch 381/500, 3.10322 sec/bs
+Batch 382/500, 3.23816 sec/bs
+Batch 383/500, 3.6879 sec/bs
+Batch 384/500, 3.24324 sec/bs
+Batch 385/500, 3.27528 sec/bs
+Batch 386/500, 3.61903 sec/bs
+Batch 387/500, 3.18897 sec/bs
+Batch 388/500, 3.03335 sec/bs
+Batch 389/500, 3.19092 sec/bs
+Batch 390/500, 2.9573 sec/bs
+Batch 391/500, 3.27387 sec/bs
+Batch 392/500, 3.03036 sec/bs
+Batch 393/500, 3.40647 sec/bs
+Batch 394/500, 3.33255 sec/bs
+Batch 395/500, 3.24526 sec/bs
+Batch 396/500, 3.01017 sec/bs
+Batch 397/500, 3.2633 sec/bs
+Batch 398/500, 3.02266 sec/bs
+Batch 399/500, 3.45315 sec/bs
+Batch 400/500, 3.09815 sec/bs
+Batch 401/500, 3.12386 sec/bs
+Batch 402/500, 3.14135 sec/bs
+Batch 403/500, 3.21396 sec/bs
+Batch 404/500, 3.73183 sec/bs
+Batch 405/500, 3.28285 sec/bs
+Batch 406/500, 3.20566 sec/bs
+Batch 407/500, 3.27634 sec/bs
+Batch 408/500, 4.2742 sec/bs
+Batch 409/500, 3.41498 sec/bs
+Batch 410/500, 3.03731 sec/bs
+Batch 411/500, 3.11435 sec/bs
+Batch 412/500, 3.36486 sec/bs
+Batch 413/500, 3.54435 sec/bs
+Batch 414/500, 3.29236 sec/bs
+Batch 415/500, 3.2415 sec/bs
+Batch 416/500, 3.24195 sec/bs
+Batch 417/500, 3.31501 sec/bs
+Batch 418/500, 3.56207 sec/bs
+Batch 419/500, 3.36146 sec/bs
+Batch 420/500, 3.25624 sec/bs
+Batch 421/500, 3.16811 sec/bs
+Batch 422/500, 3.20806 sec/bs
+Batch 423/500, 3.2221 sec/bs
+Batch 424/500, 3.62094 sec/bs
+Batch 425/500, 3.28264 sec/bs
+Batch 426/500, 3.06045 sec/bs
+Batch 427/500, 2.99719 sec/bs
+Batch 428/500, 3.21271 sec/bs
+Batch 429/500, 3.04424 sec/bs
+Batch 430/500, 3.14493 sec/bs
+Batch 431/500, 2.95071 sec/bs
+Batch 432/500, 3.2982 sec/bs
+Batch 433/500, 3.61504 sec/bs
+Batch 434/500, 3.21092 sec/bs
+Batch 435/500, 3.49959 sec/bs
+Batch 436/500, 3.05809 sec/bs
+Batch 437/500, 2.83148 sec/bs
+Batch 438/500, 3.2526 sec/bs
+Batch 439/500, 3.19266 sec/bs
+Batch 440/500, 3.32658 sec/bs
+Batch 441/500, 3.47688 sec/bs
+Batch 442/500, 2.9533 sec/bs
+Batch 443/500, 3.43534 sec/bs
+Batch 444/500, 3.26779 sec/bs
+Batch 445/500, 3.25929 sec/bs
+Batch 446/500, 3.43945 sec/bs
+Batch 447/500, 3.29445 sec/bs
+Batch 448/500, 3.13069 sec/bs
+Batch 449/500, 3.01867 sec/bs
+Batch 450/500, 3.18633 sec/bs
+Batch 451/500, 3.35307 sec/bs
+Batch 452/500, 3.40032 sec/bs
+Batch 453/500, 3.1804 sec/bs
+Batch 454/500, 2.9758 sec/bs
+Batch 455/500, 3.02946 sec/bs
+Batch 456/500, 2.88488 sec/bs
+Batch 457/500, 3.11 sec/bs
+Batch 458/500, 3.32772 sec/bs
+Batch 459/500, 3.55759 sec/bs
+Batch 460/500, 3.0241 sec/bs
+Batch 461/500, 3.15614 sec/bs
+Batch 462/500, 3.15957 sec/bs
+Batch 463/500, 3.16217 sec/bs
+Batch 464/500, 3.33326 sec/bs
+Batch 465/500, 3.37935 sec/bs
+Batch 466/500, 3.28803 sec/bs
+Batch 467/500, 3.16331 sec/bs
+Batch 468/500, 3.6479 sec/bs
+Batch 469/500, 3.04097 sec/bs
+Batch 470/500, 3.16988 sec/bs
+Batch 471/500, 2.91992 sec/bs
+Batch 472/500, 3.12499 sec/bs
+Batch 473/500, 3.05489 sec/bs
+Batch 474/500, 2.87492 sec/bs
+Batch 475/500, 3.45753 sec/bs
+Batch 476/500, 3.0625 sec/bs
+Batch 477/500, 3.30164 sec/bs
+Batch 478/500, 3.08404 sec/bs
+Batch 479/500, 3.23309 sec/bs
+Batch 480/500, 3.1727 sec/bs
+Batch 481/500, 3.25211 sec/bs
+Batch 482/500, 3.27728 sec/bs
+Batch 483/500, 3.29781 sec/bs
+Batch 484/500, 3.34378 sec/bs
+Batch 485/500, 3.02254 sec/bs
+Batch 486/500, 3.19704 sec/bs
+Batch 487/500, 3.38135 sec/bs
+Batch 488/500, 3.33636 sec/bs
+Batch 489/500, 3.15094 sec/bs
+Batch 490/500, 3.35195 sec/bs
+Batch 491/500, 2.88937 sec/bs
+Batch 492/500, 2.96144 sec/bs
+Batch 493/500, 2.99151 sec/bs
+Batch 494/500, 3.17601 sec/bs
+Batch 495/500, 3.28645 sec/bs
+Batch 496/500, 3.24198 sec/bs
+Batch 497/500, 3.32438 sec/bs
+Batch 498/500, 3.24493 sec/bs
+Batch 499/500, 3.08051 sec/bs
+Batch 500/500, 2.99104 sec/bs
+All complete!
 
-30: h(simpleError(msg, call))
-31: handlers[[1]](cnd)
-32: cli::cli_abort(c("Problem while {step}.", i = "Error occurred in the {ordinal(i)} layer."), call = layers[[i]]$constructor, parent = cnd)
-33: rlang::abort(message, ..., call = call, use_cli_format = TRUE, .frame = .frame)
-34: signal_abort(cnd, .file)
+Setting full-data fit as parameters... 
+Checking feasibility of provided parameters
+... no tpoints below buffer
+... no negative rates predicted
+Provided parameters are feasible
 
-function (..., newpage = TRUE) 
-{
-    if (newpage) 
-        grid.newpage()
-    g <- arrangeGrob(...)
-    grid.draw(g)
-    invisible(g)
-}
-<bytecode: 0x12dbb34d8>
-<environment: namespace:gridExtra>
+Running stats on simulation results: 
+----------------------------------------
 
-Enter a frame number, or 0 to exit   
+Grabbing sample results, only resamples with converged fit... 
+Grabbing parameter values... 
+Computing 95% confidence intervals... 
+Estimating p-values from resampled parameters... 
 
- 1: demo_warp2()
- 2: #216: grid.arrange(demo_plot_warpfunction, demo_plot_warpedsigmoid, ncol = 1)
- 3: arrangeGrob(...)
- 4: lapply(grobs[toconv], ggplot2::ggplotGrob)
- 5: FUN(X[[i]], ...)
- 6: ggplot_gtable(ggplot_build(x))
- 7: ggplot_gtable.ggplot_built(ggplot_build(x))
- 8: by_layer(function(l, d) l$draw_geom(d, layout), plot$layers, data, "converting geom to grob")
- 9: try_fetch(for (i in seq_along(data)) {
-    out[[i]] <- f(l = layers[[i]], d = data[[i]])
-}, error = function(cnd) {
-    cli::cli_abort(c("Problem while
-10: tryCatch(withCallingHandlers(expr, condition = function(cnd) {
-    {
-        .__handler_frame__. <- TRUE
-        .__setup_frame__. <- frame
-        if (
-11: tryCatchList(expr, classes, parentenv, handlers)
-12: tryCatchOne(expr, names, parentenv, handlers[[1]])
-13: doTryCatch(return(expr), name, parentenv, handler)
-14: withCallingHandlers(expr, condition = function(cnd) {
-    {
-        .__handler_frame__. <- TRUE
-        .__setup_frame__. <- frame
-        if (inherits(
-15: f(l = layers[[i]], d = data[[i]])
-16: l$draw_geom(d, layout)
-17: draw_geom(..., self = self)
-18: self$geom$draw_layer(data, self$computed_geom_params, layout, layout$coord)
-19: draw_layer(..., self = self)
-20: lapply(data_panels, function(data) {
-    if (empty(data)) 
-        return(zeroGrob())
-    panel_params <- layout$panel_params[[data$PANEL[1]]]
-    injec
-21: FUN(X[[i]], ...)
-22: inject(self$draw_panel(data, panel_params, coord, !!!params))
-23: self$draw_panel(data, panel_params, coord, na.rm = FALSE)
-24: draw_panel(..., self = self)
-25: polylineGrob(munched$x, munched$y, id = id, default.units = "native", arrow = arrow, gp = gpar(col = alpha(munched$colour, munched$alpha)[start], fi
-26: grob(x = x, y = y, id = id, id.lengths = id.lengths, arrow = arrow, name = name, gp = gp, vp = vp, cl = "polyline")
-27: gpar(col = alpha(munched$colour, munched$alpha)[start], fill = alpha(munched$colour, munched$alpha)[start], lwd = munched$linewidth[start] * .pt, lt
-28: validGP(list(...))
-29: numnotnull("fontsize")
-30: alpha(munched$colour, munched$alpha)
-31: farver::decode_colour(colour, alpha = TRUE)
-32: decode_c(colour, alpha, colourspace_match(to), white, na_value)
-33: .handleSimpleError(function (cnd) 
-{
-    {
-        .__handler_frame__. <- TRUE
-        .__setup_frame__. <- frame
-        if (inherits(cnd, "message")) {
+Recommended resample size for alpha = 0.05, 228 tests: 
+with bootstrapping: 4560
+with MCMC: 45600
+Actual resample size: 998
 
-34: h(simpleError(msg, call))
-35: handlers[[1]](cnd)
-36: cli::cli_abort(c("Problem while {step}.", i = "Error occurred in the {ordinal(i)} layer."), call = layers[[i]]$constructor, parent = cnd)
-37: rlang::abort(message, ..., call = call, use_cli_format = TRUE, .frame = .frame)
-38: signal_abort(cnd, .file)
+Stat summary (head only):
+------------------------------
+                                 parameter    estimate      CI.low   CI.high   p.value p.value.adj    alpha.adj significance
+1       baseline_cortex_Rt_Bcl11b_Tns/Blk1  3.68898163  3.54239052 3.7847671 0.0000000    0.000000 0.0002192982          ***
+2   beta_Rt_cortex_Bcl11b_right_X_Tns/Blk1  0.06221752 -0.10566870 0.1881945 0.2174349   11.089178 0.0009803922           ns
+3      beta_Rt_cortex_Bcl11b_18_X_Tns/Blk1  0.64380781  0.50659943 0.7834052 0.0000000    0.000000 0.0002202643          ***
+4 beta_Rt_cortex_Bcl11b_right18_X_Tns/Blk1 -0.06623584 -0.22615023 0.1630327 0.2975952   13.094188 0.0011363636           ns
+5       baseline_cortex_Rt_Bcl11b_Tns/Blk2  2.38026653  2.22268371 2.4322494 0.0000000    0.000000 0.0002212389          ***
+6   beta_Rt_cortex_Bcl11b_right_X_Tns/Blk2  0.07077291 -0.06857243 0.2157354 0.1482966    8.749499 0.0008474576           ns
+----
 
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
+Analyzing residuals: 
+----------------------------------------
 
-Enter a frame number, or 0 to exit   
+Computing residuals... 
+Making masks... 
+Making plots and saving stats... 
 
-1: demo_warp2()
-2: #180: geom_line(aes(x = x, y = y), linewidth = 1.5, color = type)
-3: layer(data = data, mapping = mapping, stat = stat, geom = GeomLine, position = position, show.legend = show.legend, inherit.aes = inherit.aes, param
-4: list2(na.rm = na.rm, orientation = orientation, ...)
+Log-residual summary by grouping variables (head only):
+------------------------------
+         group      mean        sd  variance
+1          all 0.3610898 0.5670729 0.3215717
+2 ran_lvl_none 0.3398641 0.4519327 0.2042431
+3    ran_lvl_1 0.3452561 0.6083991 0.3701495
+4    ran_lvl_2 0.3030848 0.5803796 0.3368405
+5    ran_lvl_3 0.4925588 0.6692401 0.4478823
+6    ran_lvl_4 0.3459110 0.5875315 0.3451932
+----
 
+TPS test results (head only):
+------------------------------
+              cortex   gene TPS.ref TPS.right TPS.18 TPS.right18 Rt.18 tpoint.18 tslope.18 Rt.right tpoint.right tslope.right Rt.right18 tpoint.right18
+Bcl11b.cortex cortex Bcl11b   FALSE     FALSE  FALSE       FALSE  TRUE      TRUE     FALSE    FALSE        FALSE        FALSE       TRUE          FALSE
+Cux2.cortex   cortex   Cux2    TRUE      TRUE   TRUE        TRUE  TRUE     FALSE     FALSE     TRUE        FALSE         TRUE       TRUE          FALSE
+Fezf2.cortex  cortex  Fezf2    TRUE      TRUE   TRUE        TRUE FALSE      TRUE      TRUE    FALSE        FALSE        FALSE      FALSE          FALSE
+Nxph3.cortex  cortex  Nxph3    TRUE     FALSE   TRUE       FALSE  TRUE      TRUE     FALSE    FALSE        FALSE        FALSE       TRUE          FALSE
+Rorb.cortex   cortex   Rorb    TRUE      TRUE   TRUE        TRUE  TRUE      TRUE     FALSE     TRUE        FALSE        FALSE       TRUE          FALSE
+Satb2.cortex  cortex  Satb2    TRUE      TRUE   TRUE        TRUE  TRUE     FALSE      TRUE     TRUE        FALSE         TRUE       TRUE          FALSE
+              tslope.right18
+Bcl11b.cortex          FALSE
+Cux2.cortex             TRUE
+Fezf2.cortex            TRUE
+Nxph3.cortex           FALSE
+Rorb.cortex             TRUE
+Satb2.cortex            TRUE
+----
+
+Printing effect distributions: 
+----------------------------------------
+
+Warping factors distributions... 
+Rate effects distribution... 
+Slope effects distribution... 
+tpoint effects distribution... 
+Making rate-count plots... 
+
+Printing child summary plots: 
+----------------------------------------
+
+Making summary plots for cortex: Bcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2

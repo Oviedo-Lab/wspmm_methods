@@ -26,7 +26,7 @@ snk.report("Analysis of MERFISH data by Warped Sigmoid, Poisson-Process Mixed-Ef
 # Set file paths and bootstrap chunk size
 source("merfish_preprocessing.R")
 data_path <- paste0(projects_folder, "MERFISH/data_SSp/")
-bs_chunksize <- 10
+bs_chunksize <- 2
 
 # Define list of genes to analyze
 gene.list <- c("Bcl11b", "Fezf2", "Satb2", "Nxph3", "Cux2", "Rorb")  
@@ -112,7 +112,7 @@ model.settings = list(
 )
 
 # Fit model
-merfish.laminar.model <- wisp(
+model.MCMC <- wisp(
   # Data to model
   count.data.raw = count.data.WSPmm,
   # Variable labels
@@ -120,10 +120,33 @@ merfish.laminar.model <- wisp(
   # Settings used on R side
   use.median = FALSE,
   MCMC.burnin = 0,
-  MCMC.steps = 1e3,
+  MCMC.steps = 1e4,
   MCMC.step.size = 0.5,
   MCMC.prior = 10.0, 
   bootstraps.num = 0,
+  converged.resamples.only = TRUE,
+  max.fork = bs_chunksize,
+  null.rate = log(2),
+  null.slope = 1,
+  dim.bounds = colMeans(layer.boundary.bins),
+  verbose = TRUE,
+  print.child.summaries = TRUE,
+  # Setting to pass to C++ model
+  model.settings = model.settings
+)
+
+model.bs <- wisp(
+  # Data to model
+  count.data.raw = count.data.WSPmm,
+  # Variable labels
+  variables = data.variables,
+  # Settings used on R side
+  use.median = FALSE,
+  MCMC.burnin = 0,
+  MCMC.steps = 1e4,
+  MCMC.step.size = 0.5,
+  MCMC.prior = 10.0, 
+  bootstraps.num = 1e3,
   converged.resamples.only = TRUE,
   max.fork = bs_chunksize,
   null.rate = log(2),

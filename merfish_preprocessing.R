@@ -1213,11 +1213,8 @@ cortical_coordinate_transform <- function(
     rownames(layer_boundary_bins) <- unique(count_data$mouse)
     plots <- list()
     
-    fin_first <- FALSE
     for (mouse_num in unique(count_data$mouse)) {
       if (verbose) snk.report(paste("Mouse number", mouse_num))
-      if (fin_first) next
-      else fin_first <- TRUE
       
       # Grab slice plot
       assign(paste0("plot_list_m", mouse_num), list(slice_plot = slice_plots[[paste0("slice_plot", mouse_num)]]))
