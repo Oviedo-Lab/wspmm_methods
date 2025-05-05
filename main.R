@@ -8,7 +8,7 @@ rm(list = ls())
 httpgd::hgd_close() 
 projects_folder <- "/Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/"
 
-# For for WSPmm and snk printing
+# For for WSPmm and snk ("sink") printing
 library(wispack)
 
 # Set random seed for reproducibility
@@ -134,6 +134,108 @@ laminar.model <- wisp(
   # Setting to pass to C++ model
   model.settings = model.settings
 )
+
+param_stats <- laminar.model[["stats"]][["parameters"]][,-c(5,7)]
+param_stats[,2:5] <- round(param_stats[,2:5], 4)
+raneff_mask <- grepl("wfactor", param_stats$parameter)
+param_stats_ran <- param_stats[raneff_mask,]
+param_stats_fix <- param_stats[!raneff_mask,]
+param_stats_list <- list() 
+for (g in gene.list) {
+  # Grab gene and baseline masks
+  gene_mask_ran <- grepl(g, param_stats_ran$parameter)
+  gene_mask_fix <- grepl(g, param_stats_fix$parameter)
+  baseline_mask <- grepl("baseline", param_stats_fix$parameter)
+  # Split into lists by gene and parameter type (ran, fix, baseline)
+  param_stats_ran_g <- param_stats_ran[gene_mask_ran,]
+  param_stats_fix_g <- param_stats_fix[gene_mask_fix & !baseline_mask,]
+  param_stats_baseline_g <- param_stats_fix[gene_mask_fix & baseline_mask,]
+  # Split parameter names into columns to reorganize data
+  split_cols_ran <- do.call(rbind, strsplit(param_stats_ran_g$parameter, "_")) # want cols 2,3 (spatial param, ran level)
+  split_cols_fix <- do.call(rbind, strsplit(param_stats_fix_g$parameter, "_")) # want cols 2,5,7 (spatial param, treatment, block)
+  split_cols_baseline <- do.call(rbind, strsplit(param_stats_baseline_g$parameter, "_")) # want cols 3,5 (spatial param, block)
+  # Reorganize data
+  results_cols <- c(2:6)
+  col_names <- c("est", "CI.low", "CI.high", "p.adj", "sig")
+  param_stats_ran_list_g <- list()
+  param_stats_fix_list_g <- list()
+  param_stats_baseline_list_g <- list()
+  for (ranlvl in unique(split_cols_ran[,3])) {
+    ranlvl_mask <- split_cols_ran[,3] == ranlvl
+    results <- param_stats_ran_g[ranlvl_mask, results_cols]
+    param_type <- split_cols_ran[ranlvl_mask,2]
+    level <- rep(paste0("mouse ", ranlvl), length(results[,1]))
+    treatment <- rep("random", length(results[,1]))
+    param_stats_ran_list_g[[ranlvl]] <- as.data.frame(cbind(treatment, param_type, level, results))
+    colnames(param_stats_ran_list_g[[ranlvl]]) <- c("effect", "spatial.param", "index", col_names)
+  }
+  param_stats_ran_list_g <- as.data.frame(do.call(rbind, param_stats_ran_list_g))
+  for (trt in unique(split_cols_fix[,5])) {
+    treatment_mask <- split_cols_fix[,5] == trt
+    results <- param_stats_fix_g[treatment_mask, results_cols]
+    param_type <- split_cols_fix[treatment_mask,2]
+    param_type[param_type == "Rt"] <- "rate"
+    param_type[param_type == "tpoint"] <- "position"
+    param_type[param_type == "tslope"] <- "slope scalar"
+    block <- split_cols_fix[treatment_mask,7]
+    block <- gsub("Tns/Blk", "", block)
+    block[param_type == "rate"] <- paste0("block ", block[param_type == "rate"])
+    block[param_type != "rate"] <- paste0("t-point ", block[param_type != "rate"])
+    treatment <- rep(trt, length(results[,1]))
+    param_stats_fix_list_g[[trt]] <- as.data.frame(cbind(treatment, param_type, block, results))
+    colnames(param_stats_fix_list_g[[trt]]) <- c("effect", "spatial.param", "index", col_names)
+  }
+  param_stats_fix_list_g <- as.data.frame(do.call(rbind, param_stats_fix_list_g))
+  for (sp in unique(split_cols_baseline[,3])) {
+    sp_mask <- split_cols_baseline[,3] == sp
+    results <- param_stats_baseline_g[sp_mask, results_cols]
+    if (sp == "Rt") {
+      param_type <- rep("rate", length(results[,1]))
+    } else if (sp == "tpoint") {
+      param_type <- rep("position", length(results[,1]))
+    } else {
+      param_type <- rep("slope scalar", length(results[,1]))
+    }
+    treatment <- rep("baseline", length(results[,1]))
+    block <- split_cols_baseline[sp_mask,5]
+    block <- gsub("Tns/Blk", "", block)
+    if (sp == "Rt") {
+      block <- paste0("block ", block)
+    } else {
+      block <- paste0("t-point ", block)
+    }
+    param_stats_baseline_list_g[[sp]] <- as.data.frame(cbind(treatment, param_type, block, results))
+    colnames(param_stats_baseline_list_g[[sp]]) <- c("effect", "spatial.param", "index", col_names)
+  }
+  param_stats_baseline_list_g <- as.data.frame(do.call(rbind, param_stats_baseline_list_g))
+  param_stats_list[[g]] <- as.data.frame(do.call(rbind, list(param_stats_baseline_list_g, param_stats_fix_list_g, param_stats_ran_list_g)))
+  # For each gene and parameter type (ran, fix, baseline), will have five numeric value columns: est, low, high, p-adj, significance
+}
+
+library(dplyr)
+library(knitr)
+library(kableExtra)
+
+# Sample data
+df <- param_stats_list[["Rorb"]]
+rownames(df) <- NULL
+write.csv(df, file = "test_stats.csv", row.names = FALSE)
+
+# Create the table with row grouping
+kbl(df, format = "latex", booktabs = TRUE, escape = FALSE, linesep = "") %>%
+  kable_styling(latex_options = "hold_position",font_size = 8)
+
+# Replace repeated Group values with LaTeX \multirow
+df2 <- df %>%
+  group_by(effect) %>%
+  mutate(effect = ifelse(row_number() == 1, 
+                        paste0("\\multirow{", n(), "}{*}{", effect, "}"), 
+                        "")) %>%
+  ungroup()
+
+# Render table
+kbl(df2, format = "latex", booktabs = TRUE, escape = FALSE) %>%
+  kable_styling(latex_options = "hold_position")
 
 
 
