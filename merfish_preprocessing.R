@@ -750,8 +750,8 @@ coordinate_transform <- function(
     
     # Step 2: Rotate each patch so that L4 aligns with the x-axis and L1 (or L23, if L1 removed) is on top
     if (verbose) snk.report...("Step 2, rotating each patch so that L4 aligns with the x-axis with anterior in positive y direction")
-    coordinates[mask_right,] <- level_layer(coordinates, "right", mask_right, mask_right_L4, natural_right = nat_right, verbose = verbose)
-    coordinates[mask_left,] <- level_layer(coordinates, "left", mask_left, mask_left_L4, natural_left = nat_left, verbose = verbose)
+    coordinates[mask_right,] <- level_layer(coordinates, "right", mask_right, mask_right_L4, natural_right = nat_right, verbose = FALSE)
+    coordinates[mask_left,] <- level_layer(coordinates, "left", mask_left, mask_left_L4, natural_left = nat_left, verbose = FALSE)
     
     # Test by plotting (L4 leveled)
     plot_level_L4 <- plot_results(
