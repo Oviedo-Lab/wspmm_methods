@@ -135,6 +135,9 @@ laminar.model <- wisp(
   model.settings = model.settings
 )
 
+saveRDS(laminar.model, file = "saved_laminar_model.rds")
+laminar.model <- readRDS("saved_laminar_model.rds")
+
 # Make results table for stats
 param_stats <- laminar.model[["stats"]][["parameters"]][,-c(5,7)]
 param_stats[,2:5] <- round(param_stats[,2:5], 4)
