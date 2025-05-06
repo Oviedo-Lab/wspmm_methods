@@ -135,6 +135,7 @@ laminar.model <- wisp(
   model.settings = model.settings
 )
 
+# Make results table for stats
 param_stats <- laminar.model[["stats"]][["parameters"]][,-c(5,7)]
 param_stats[,2:5] <- round(param_stats[,2:5], 4)
 raneff_mask <- grepl("wfactor", param_stats$parameter)
@@ -221,9 +222,33 @@ df <- param_stats_list[["Rorb"]]
 rownames(df) <- NULL
 write.csv(df, file = "test_stats.csv", row.names = FALSE)
 
+
+
+
+
+
+df <- read.csv("test_stats.csv")
+effect_lengths <- c()
+for (e in unique(df$effect)) {
+  effect_lengths <- c(effect_lengths, sum(df$effect == e))
+}
+names(effect_lengths) <- c(
+  "baseline (P12, left)", 
+  "Fixed Effects: Hemisphere (right)", 
+  "Fixed Effect: Age (P18)", 
+  "Fixed Effect: Hemisphere-Age Interaction", 
+  "Random Effects"
+)
+df <- df[,-which(colnames(df) == "effect")]
+
 # Create the table with row grouping
 kbl(df, format = "latex", booktabs = TRUE, escape = FALSE, linesep = "") %>%
-  kable_styling(latex_options = "hold_position",font_size = 8)
+  group_rows(index = effect_lengths) %>%
+  kable_styling(latex_options = c("hold_position", "scale_down"), font_size = 8)
+
+
+
+
 
 # Replace repeated Group values with LaTeX \multirow
 df2 <- df %>%

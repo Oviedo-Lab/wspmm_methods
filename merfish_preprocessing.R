@@ -1133,13 +1133,31 @@ coordinate_binning <- function(
         idx_x <- idx_x[mask_range[idx_x]]  # apply mask
         if (upper) from_ <- c(total_bins/2, Ly_by_x[b]) 
         else from_ <- c(Ly_by_x[b], total_bins/2) 
-        df_$y_bins[idx_x] <- as.integer(scales::rescale(df_$y_bins_raw[idx_x], to = to_, from = from_))
+        weight <- abs(total_bins/2 - df_$y_bins_raw[idx_x]) / 
+          abs(total_bins/2 - Ly_by_x[b])
+        df_$y_bins[idx_x] <- as.integer(
+          df_$y_bins_raw[idx_x] * (1 - weight) +
+            weight * scales::rescale(
+              df_$y_bins_raw[idx_x], 
+              to = to_, 
+              from = from_
+              )
+          )
         # ... layers
         idx_y <- y_groups[[as.character(b)]]
         idx_y <- idx_y[mask_range_layer[idx_y]]  # apply mask
         if (upper) from_ <- c(total_bins/2, Lx_by_y[b])
         else from_ <- c(Lx_by_y[b], total_bins/2)
-        df_$x_bins[idx_y] <- as.integer(scales::rescale(df_$x_bins_raw[idx_y], to = to_, from = from_))
+        weight <- abs(total_bins/2 - df_$x_bins_raw[idx_y]) / 
+          abs(total_bins/2 - Lx_by_y[b])
+        df_$x_bins[idx_y] <- as.integer(
+          df_$x_bins_raw[idx_y] * (1 - weight) +
+            weight * scales::rescale(
+              df_$x_bins_raw[idx_y], 
+              to = to_, 
+              from = from_
+              )
+          )
       }
       
       return(df_)
