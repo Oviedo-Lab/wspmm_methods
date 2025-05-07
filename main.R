@@ -197,6 +197,7 @@ names(effect_lengths) <- c(
   "Fixed Effect: Hemisphere-Age Interaction"
 )
 df <- df[,-which(colnames(df) == "effect")]
+df$p.adj[df$p.adj > 1] <- 1
 
 # Create the table with row grouping
 kbl(df, format = "latex", booktabs = TRUE, escape = FALSE, linesep = "") %>%

@@ -1398,3 +1398,51 @@ spatial.param & index & est & CI.low & CI.high & p.adj & sig\\
 \end{tabular}}
 \endgroup{}
 \end{table}
+\begin{table}
+\centering\begingroup\fontsize{8}{10}\selectfont
+
+\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
+\begin{tabular}[t]{llrrrrl}
+\toprule
+spatial.param & index & est & CI.low & CI.high & p.adj & sig\\
+\midrule
+\addlinespace[0.3em]
+\multicolumn{7}{l}{\textbf{Fixed Effects: Hemisphere (right)}}\\
+\hspace{1em}rate & block 1 & 0.1371 & 0.0500 & 0.2971 & 0.6337 & ns\\
+\hspace{1em}rate & block 2 & 0.2573 & -0.0776 & 0.4754 & 1.0000 & ns\\
+\hspace{1em}rate & block 3 & 0.2601 & 0.1212 & 0.5438 & 0.0000 & ***\\
+\hspace{1em}rate & block 4 & 0.1657 & -0.1332 & 0.5346 & 1.0000 & ns\\
+\hspace{1em}slope scalar & t-point 1 & 0.6591 & -1.6563 & 2.9905 & 1.0000 & ns\\
+\hspace{1em}slope scalar & t-point 2 & 1.0732 & -0.2996 & 2.0773 & 1.0000 & ns\\
+\hspace{1em}slope scalar & t-point 3 & 0.1073 & -1.0088 & 0.6673 & 1.0000 & ns\\
+\hspace{1em}position & t-point 1 & -4.7363 & -7.3500 & -1.3862 & 0.0000 & ***\\
+\hspace{1em}position & t-point 2 & 0.3833 & -1.1936 & 2.0062 & 1.0000 & ns\\
+\hspace{1em}position & t-point 3 & 2.3898 & 0.4756 & 4.6565 & 0.0000 & ***\\
+\addlinespace[0.3em]
+\multicolumn{7}{l}{\textbf{Fixed Effect: Age (P18)}}\\
+\hspace{1em}rate & block 1 & 0.1947 & 0.0422 & 0.3289 & 0.0000 & ***\\
+\hspace{1em}rate & block 2 & 1.0130 & 0.7460 & 1.3490 & 0.0000 & ***\\
+\hspace{1em}rate & block 3 & 1.0342 & 0.6583 & 1.3292 & 0.0000 & ***\\
+\hspace{1em}rate & block 4 & 0.9833 & 0.7500 & 1.2856 & 0.0000 & ***\\
+\hspace{1em}slope scalar & t-point 1 & -1.9441 & -2.6625 & 0.4114 & 1.0000 & ns\\
+\hspace{1em}slope scalar & t-point 2 & -0.0859 & -1.8006 & 0.6827 & 1.0000 & ns\\
+\hspace{1em}slope scalar & t-point 3 & -0.0085 & -0.7583 & 0.2208 & 1.0000 & ns\\
+\hspace{1em}position & t-point 1 & -1.8939 & -5.4168 & 0.8720 & 1.0000 & ns\\
+\hspace{1em}position & t-point 2 & 1.9238 & -0.0433 & 3.0190 & 0.0000 & ***\\
+\hspace{1em}position & t-point 3 & 2.5849 & 0.8707 & 4.3729 & 0.0000 & ***\\
+\addlinespace[0.3em]
+\multicolumn{7}{l}{\textbf{Fixed Effect: Hemisphere-Age Interaction}}\\
+\hspace{1em}rate & block 1 & -0.0719 & -0.2395 & 0.0683 & 1.0000 & ns\\
+\hspace{1em}rate & block 2 & -0.6563 & -1.1316 & -0.2810 & 0.0000 & ***\\
+\hspace{1em}rate & block 3 & -0.4555 & -0.7703 & -0.2002 & 0.0000 & ***\\
+\hspace{1em}rate & block 4 & -0.6782 & -1.1347 & -0.3225 & 0.0000 & ***\\
+\hspace{1em}slope scalar & t-point 1 & 0.3700 & -1.1135 & 2.6827 & 1.0000 & ns\\
+\hspace{1em}slope scalar & t-point 2 & -1.1071 & -2.2663 & 0.2071 & 1.0000 & ns\\
+\hspace{1em}slope scalar & t-point 3 & -0.1043 & -0.6608 & 1.0278 & 1.0000 & ns\\
+\hspace{1em}position & t-point 1 & 2.5061 & -1.3234 & 4.5561 & 1.0000 & ns\\
+\hspace{1em}position & t-point 2 & 0.1248 & -1.5015 & 1.3787 & 1.0000 & ns\\
+\hspace{1em}position & t-point 3 & -2.3327 & -3.8626 & -0.6842 & 0.0000 & ***\\
+\bottomrule
+\end{tabular}}
+\endgroup{}
+\end{table}
