@@ -26,7 +26,7 @@ snk.report("Analysis of MERFISH data by Warped Sigmoid, Poisson-Process Mixed-Ef
 # Set file paths and bootstrap chunk size
 source("merfish_preprocessing.R")
 data_path <- paste0(projects_folder, "MERFISH/data_SSp/")
-bs_chunksize <- 2
+bs_chunksize <- 10
 
 # Define list of genes to analyze
 gene.list <- c("Bcl11b", "Fezf2", "Satb2", "Nxph3", "Cux2", "Rorb")  
@@ -120,10 +120,10 @@ laminar.model <- wisp(
   # Settings used on R side
   use.median = FALSE,
   MCMC.burnin = 0,
-  MCMC.steps = 1e2,
+  MCMC.steps = 1e4,
   MCMC.step.size = 0.5,
   MCMC.prior = 10.0, 
-  bootstraps.num = 1e2,
+  bootstraps.num = 1e4,
   converged.resamples.only = TRUE,
   max.fork = bs_chunksize,
   dim.bounds = colMeans(layer.boundary.bins),
@@ -228,20 +228,6 @@ kbl(df, format = "latex", booktabs = TRUE, escape = FALSE, linesep = "") %>%
 
 
 
-
-# Replace repeated Group values with LaTeX \multirow
-df2 <- df %>%
-  group_by(effect) %>%
-  mutate(effect = ifelse(row_number() == 1, 
-                        paste0("\\multirow{", n(), "}{*}{", effect, "}"), 
-                        "")) %>%
-  ungroup()
-
-# Render table
-kbl(df2, format = "latex", booktabs = TRUE, escape = FALSE) 
-
-
-
 # Scratch #####
 
 newplots <- plot.ratecount(
@@ -306,8 +292,8 @@ plot(ttest_results)
 
 # OTHER DEMOS!! (PUT INTO DEMO SCRIPT)
 demo_sigmoid()
-demo_warp_plot <- demo_warp() 
-print(demo_warp_plot)
+demo_warp() 
+
 
 
 new_plot <- laminar.model[["plots"]][["ratecount"]][["plot_pred_parent_cortex_fixEff_Rorb"]] +
@@ -324,121 +310,3 @@ new_plot2 <- new_plot + scale_color_manual(values = c("deeppink", "deeppink4", "
 print(new_plot2)
 
 
-
-# Method for printing all child plots on one figure
-plot.child.summary2 <- function(
-    wisp.results,
-    these.parents = NULL,
-    these.childs = NULL,
-    verbose = TRUE
-) {
-  
-  if (verbose) {
-    snk.report("Printing child summary plots", initial_breaks = 2)
-    snk.horizontal_rule(reps = snk.simple_break_reps, end_breaks = 0)
-  }
-  
-  # Check for needed plots
-  if (
-    length(wisp.results$plots$ratecount) == 0 || 
-    length(wisp.results$plots$parameters) == 0 ||
-    length(wisp.results$plots$residuals) == 0
-  ) {
-    stop("No rate or parameter plots found in wisp.results")
-  }
-  
-  # Specify parent and child levels to summarize
-  gvp_lvls <- as.character(wisp.results$grouping.variables$parent.lvls)
-  if (length(these.parents) != 0) gvp_lvls <- gvp_lvls[gvp_lvls %in% these.parents]
-  gv_lvls <- as.character(wisp.results$grouping.variables$child.lvls)
-  if (length(these.childs) != 0) gv_lvls <- gv_lvls[gv_lvls %in% these.childs]
-  
-  for (gvp_lvl in gvp_lvls) {
-    
-    if (verbose) snk.report(paste0("Making summary plots for ", gvp_lvl))
-    first_print <- TRUE
-    
-    for (gv_lvl in gv_lvls) {
-      
-      if (verbose && first_print) {
-        cat(gv_lvl)
-        first_print <- FALSE
-      } else if (verbose) {
-        cat(",", gv_lvl)
-      }
-      wisp.results$plots$parameters <- plot.parameters(
-        wisp.results = wisp.results,
-        child.lvl = gv_lvl, 
-        print.plots = FALSE, 
-        verbose = FALSE 
-      )
-      
-      # Grab / make plots
-      p1 <- wisp.results$plots$ratecount
-      p2 <- wisp.results$plots$parameters
-      p3 <- wisp.results$plots$residuals
-      
-      # Find plots for this parent
-      p_mask1 <- grepl(gvp_lvl, names(p1))
-      p_mask2 <- grepl(gvp_lvl, names(p2))
-      p_mask3 <- grepl(gvp_lvl, names(p3))
-      
-      # Find plots for this child
-      c_mask1 <- grepl(gv_lvl, names(p1))
-      c_mask2 <- grepl(gv_lvl, names(p2)) 
-      c_mask3 <- grepl(gv_lvl, names(p3))
-      
-      # Find residual hist and qq plots 
-      histqq <- grepl("hist|qq", names(p3))
-      
-      # Find treatment plots
-      iX_mask <- grepl("treatment", names(p2))
-      
-      # Subset
-      p_rates <- p1[p_mask1 & c_mask1]
-      p_treatment <- p2[p_mask2 & c_mask2 & iX_mask]
-      p_otherparams <- p2[p_mask2 & c_mask2 & !iX_mask]
-      p_residuals <- p3[p_mask3 & c_mask3 & histqq]
-      
-      for (pi in 1:length(p_treatment)) {
-        p_treatment[[pi]] <- p_treatment[[pi]]  +
-          theme(
-            plot.title = element_text(hjust = 0.5, size = 20),
-            axis.title = element_text(size = 10),
-            axis.text = element_text(size = 10),
-            legend.title = element_text(size = 9),
-            legend.text = element_text(size = 9)
-          )
-      }
-      for (pi in 1:length(p_otherparams)) {
-        p_otherparams[[pi]] <- p_otherparams[[pi]]  +
-          theme(
-            plot.title = element_text(hjust = 0.5, size = 20),
-            axis.title = element_text(size = 10),
-            axis.text = element_text(size = 10),
-            legend.title = element_text(size = 9),
-            legend.text = element_text(size = 9)
-          )
-      }
-      
-      # Combine and print
-      resids <- do.call(arrangeGrob, c(p_residuals, ncol = length(p_residuals)))
-      rates_and_residuals <- arrangeGrob(ggplotGrob(p_rates[[1]]), resids, ncol = 1)
-      treatments <- do.call(arrangeGrob, c(as.list(p_treatment), ncol = length(p_treatment)))
-      other_params <- do.call(arrangeGrob, c(as.list(p_otherparams), ncol = length(p_otherparams)))
-      params <- arrangeGrob(treatments, other_params, ncol = 1)
-      grid.arrange(params)
-      return(params)
-      p <- arrangeGrob(rates_and_residuals, params, ncol = 2, widths = c(0.4,0.6))
-      grid.arrange(p)
-      
-    }
-    
-  }
-  
-}
-my_plots <- plot.child.summary2(
-  laminar.model,
-  these.childs = "Rorb",
-  verbose = TRUE
-)
