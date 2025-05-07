@@ -23,12 +23,16 @@ Standard deviation of means: 0.714
 Total cells by type (Map My Cells):
 ------------------------------
 
-      Astro-Epen          CB GABA          CB Glut     CNU-HYa GABA     CNU-HYa Glut     CNU-LGE GABA     CNU-MGE GABA CTX-CGE/MGE GABA      DG-IMN Glut         filtered          HY GABA           Immune 
-            3952               82               19               12                2              671               20             1351               11            18208               37              331 
-      IT-ET Glut         LSX GABA          MB GABA          MB Glut       MB-HB Sero       MH-LH Glut          MY GABA          MY Glut   NP-CT-L6b Glut      OB-IMN GABA              OEC        OPC-Oligo 
-           16066               29               79                5                1               15              430               21             4922              149               23             1499 
-          P GABA  TSCRPT_filtered         Vascular          HY Glut    HY Gnrh1 Glut           P Glut      Pineal Glut          TH Glut          MB Dopa       OB-CR Glut 
-             142               99             5914                1                1                2                5               12                2                3 
+      Astro-Epen          CB GABA          CB Glut     CNU-HYa GABA     CNU-HYa Glut     CNU-LGE GABA     CNU-MGE GABA CTX-CGE/MGE GABA 
+            3952               82               19               12                2              671               20             1351 
+     DG-IMN Glut         filtered          HY GABA           Immune       IT-ET Glut         LSX GABA          MB GABA          MB Glut 
+              11            18208               37              331            16066               29               79                5 
+      MB-HB Sero       MH-LH Glut          MY GABA          MY Glut   NP-CT-L6b Glut      OB-IMN GABA              OEC        OPC-Oligo 
+               1               15              430               21             4922              149               23             1499 
+          P GABA  TSCRPT_filtered         Vascular          HY Glut    HY Gnrh1 Glut           P Glut      Pineal Glut          TH Glut 
+             142               99             5914                1                1                2                5               12 
+         MB Dopa       OB-CR Glut 
+               2                3 
 ----
 
 Number of mice: 4
@@ -147,17 +151,17 @@ Final boundary distance: 0.247647
 Nearby feasible parameters found!
 Performing initial fit of full data
 Penalized neg_loglik: 12698.9
-step: 1000/10000
-step: 2000/10000
-step: 3000/10000
-step: 4000/10000
-step: 5000/10000
-step: 6000/10000
-step: 7000/10000
-step: 8000/10000
-step: 9000/10000
+step: 10/100
+step: 20/100
+step: 30/100
+step: 40/100
+step: 50/100
+step: 60/100
+step: 70/100
+step: 80/100
+step: 90/100
 All complete!
-Acceptance rate (aim for 0.2-0.3): 0.435654
+Acceptance rate (aim for 0.2-0.3): 0.546448
 
 
 Running bootstrap fits (with forking): 
@@ -167,1006 +171,56 @@ Checking feasibility of provided parameters
 Provided parameters are feasible
 Performing initial fit of full data
 Penalized neg_loglik: 12698.9
-Batch 1/1000, 0.490673 sec/bs
-Batch 2/1000, 0.568273 sec/bs
-Batch 3/1000, 0.471786 sec/bs
-Batch 4/1000, 0.51798 sec/bs
-Batch 5/1000, 0.485016 sec/bs
-Batch 6/1000, 0.480769 sec/bs
-Batch 7/1000, 0.501521 sec/bs
-Batch 8/1000, 0.472882 sec/bs
-Batch 9/1000, 0.483101 sec/bs
-Batch 10/1000, 0.496392 sec/bs
-Batch 11/1000, 0.511437 sec/bs
-Batch 12/1000, 0.474599 sec/bs
-Batch 13/1000, 0.498959 sec/bs
-Batch 14/1000, 0.465867 sec/bs
-Batch 15/1000, 0.451799 sec/bs
-Batch 16/1000, 0.463702 sec/bs
-Batch 17/1000, 0.473692 sec/bs
-Batch 18/1000, 0.478034 sec/bs
-Batch 19/1000, 0.468642 sec/bs
-Batch 20/1000, 0.484777 sec/bs
-Batch 21/1000, 0.479613 sec/bs
-Batch 22/1000, 0.478284 sec/bs
-Batch 23/1000, 0.478182 sec/bs
-Batch 24/1000, 0.463315 sec/bs
-Batch 25/1000, 0.485618 sec/bs
-Batch 26/1000, 0.516557 sec/bs
-Batch 27/1000, 0.441524 sec/bs
-Batch 28/1000, 0.494658 sec/bs
-Batch 29/1000, 0.461996 sec/bs
-Batch 30/1000, 0.499462 sec/bs
-Batch 31/1000, 0.466891 sec/bs
-Batch 32/1000, 0.502031 sec/bs
-Batch 33/1000, 0.490438 sec/bs
-Batch 34/1000, 0.455828 sec/bs
-Batch 35/1000, 0.472728 sec/bs
-Batch 36/1000, 0.502213 sec/bs
-Batch 37/1000, 0.471777 sec/bs
-Batch 38/1000, 0.489498 sec/bs
-Batch 39/1000, 0.498398 sec/bs
-Batch 40/1000, 0.495079 sec/bs
-Batch 41/1000, 0.518185 sec/bs
-Batch 42/1000, 0.461554 sec/bs
-Batch 43/1000, 0.48086 sec/bs
-Batch 44/1000, 0.474178 sec/bs
-Batch 45/1000, 0.478781 sec/bs
-Batch 46/1000, 0.517808 sec/bs
-Batch 47/1000, 0.522656 sec/bs
-Batch 48/1000, 0.479804 sec/bs
-Batch 49/1000, 0.490919 sec/bs
-Batch 50/1000, 0.496832 sec/bs
-Batch 51/1000, 0.471978 sec/bs
-Batch 52/1000, 0.478438 sec/bs
-Batch 53/1000, 0.452002 sec/bs
-Batch 54/1000, 0.521661 sec/bs
-Batch 55/1000, 0.470717 sec/bs
-Batch 56/1000, 0.494995 sec/bs
-Batch 57/1000, 0.485131 sec/bs
-Batch 58/1000, 0.496222 sec/bs
-Batch 59/1000, 0.536074 sec/bs
-Batch 60/1000, 0.4648 sec/bs
-Batch 61/1000, 0.505418 sec/bs
-Batch 62/1000, 0.543223 sec/bs
-Batch 63/1000, 0.520877 sec/bs
-Batch 64/1000, 0.533063 sec/bs
-Batch 65/1000, 0.509738 sec/bs
-Batch 66/1000, 0.476804 sec/bs
-Batch 67/1000, 0.478971 sec/bs
-Batch 68/1000, 0.457761 sec/bs
-Batch 69/1000, 0.559291 sec/bs
-Batch 70/1000, 0.49042 sec/bs
-Batch 71/1000, 0.515408 sec/bs
-Batch 72/1000, 0.499254 sec/bs
-Batch 73/1000, 0.516847 sec/bs
-Batch 74/1000, 0.467402 sec/bs
-Batch 75/1000, 0.497238 sec/bs
-Batch 76/1000, 0.501138 sec/bs
-Batch 77/1000, 0.547449 sec/bs
-Batch 78/1000, 0.546245 sec/bs
-Batch 79/1000, 0.526649 sec/bs
-Batch 80/1000, 0.508243 sec/bs
-Batch 81/1000, 0.454989 sec/bs
-Batch 82/1000, 0.54065 sec/bs
-Batch 83/1000, 0.568047 sec/bs
-Batch 84/1000, 0.485509 sec/bs
-Batch 85/1000, 0.498386 sec/bs
-Batch 86/1000, 0.487038 sec/bs
-Batch 87/1000, 0.451231 sec/bs
-Batch 88/1000, 0.462677 sec/bs
-Batch 89/1000, 0.482933 sec/bs
-Batch 90/1000, 0.50463 sec/bs
-Batch 91/1000, 0.48013 sec/bs
-Batch 92/1000, 0.50362 sec/bs
-Batch 93/1000, 0.542052 sec/bs
-Batch 94/1000, 0.472363 sec/bs
-Batch 95/1000, 0.50901 sec/bs
-Batch 96/1000, 0.487757 sec/bs
-Batch 97/1000, 0.504931 sec/bs
-Batch 98/1000, 0.563606 sec/bs
-Batch 99/1000, 0.510533 sec/bs
-Batch 100/1000, 0.487444 sec/bs
-Batch 101/1000, 0.491753 sec/bs
-Batch 102/1000, 0.479194 sec/bs
-Batch 103/1000, 0.514758 sec/bs
-Batch 104/1000, 0.456325 sec/bs
-Batch 105/1000, 0.466093 sec/bs
-Batch 106/1000, 0.487444 sec/bs
-Batch 107/1000, 0.484106 sec/bs
-Batch 108/1000, 0.521126 sec/bs
-Batch 109/1000, 0.475716 sec/bs
-Batch 110/1000, 0.466264 sec/bs
-Batch 111/1000, 0.473823 sec/bs
-Batch 112/1000, 0.501349 sec/bs
-Batch 113/1000, 0.520253 sec/bs
-Batch 114/1000, 0.471024 sec/bs
-Batch 115/1000, 0.538313 sec/bs
-Batch 116/1000, 0.504008 sec/bs
-Batch 117/1000, 0.482625 sec/bs
-Batch 118/1000, 0.48563 sec/bs
-Batch 119/1000, 0.479313 sec/bs
-Batch 120/1000, 0.485416 sec/bs
-Batch 121/1000, 0.485697 sec/bs
-Batch 122/1000, 0.522368 sec/bs
-Batch 123/1000, 0.497701 sec/bs
-Batch 124/1000, 0.481327 sec/bs
-Batch 125/1000, 0.46281 sec/bs
-Batch 126/1000, 0.521749 sec/bs
-Batch 127/1000, 0.482209 sec/bs
-Batch 128/1000, 0.486176 sec/bs
-Batch 129/1000, 0.492848 sec/bs
-Batch 130/1000, 0.495033 sec/bs
-Batch 131/1000, 0.515194 sec/bs
-Batch 132/1000, 0.466054 sec/bs
-Batch 133/1000, 0.468786 sec/bs
-Batch 134/1000, 0.45812 sec/bs
-Batch 135/1000, 0.492061 sec/bs
-Batch 136/1000, 0.506825 sec/bs
-Batch 137/1000, 0.472034 sec/bs
-Batch 138/1000, 0.46765 sec/bs
-Batch 139/1000, 0.516772 sec/bs
-Batch 140/1000, 0.508745 sec/bs
-Batch 141/1000, 0.485175 sec/bs
-Batch 142/1000, 0.529715 sec/bs
-Batch 143/1000, 0.472663 sec/bs
-Batch 144/1000, 0.487542 sec/bs
-Batch 145/1000, 0.479633 sec/bs
-Batch 146/1000, 0.479406 sec/bs
-Batch 147/1000, 0.505621 sec/bs
-Batch 148/1000, 0.477707 sec/bs
-Batch 149/1000, 0.475715 sec/bs
-Batch 150/1000, 0.524453 sec/bs
-Batch 151/1000, 0.465163 sec/bs
-Batch 152/1000, 0.616473 sec/bs
-Batch 153/1000, 0.566014 sec/bs
-Batch 154/1000, 0.510299 sec/bs
-Batch 155/1000, 0.47426 sec/bs
-Batch 156/1000, 0.551557 sec/bs
-Batch 157/1000, 0.521295 sec/bs
-Batch 158/1000, 0.47322 sec/bs
-Batch 159/1000, 0.500839 sec/bs
-Batch 160/1000, 0.521738 sec/bs
-Batch 161/1000, 0.482427 sec/bs
-Batch 162/1000, 0.47338 sec/bs
-Batch 163/1000, 0.476851 sec/bs
-Batch 164/1000, 0.509489 sec/bs
-Batch 165/1000, 0.522066 sec/bs
-Batch 166/1000, 0.481271 sec/bs
-Batch 167/1000, 0.545722 sec/bs
-Batch 168/1000, 0.504839 sec/bs
-Batch 169/1000, 0.480916 sec/bs
-Batch 170/1000, 0.513486 sec/bs
-Batch 171/1000, 0.503446 sec/bs
-Batch 172/1000, 0.520735 sec/bs
-Batch 173/1000, 0.511119 sec/bs
-Batch 174/1000, 0.508096 sec/bs
-Batch 175/1000, 0.525302 sec/bs
-Batch 176/1000, 0.495114 sec/bs
-Batch 177/1000, 0.479176 sec/bs
-Batch 178/1000, 0.498424 sec/bs
-Batch 179/1000, 0.485369 sec/bs
-Batch 180/1000, 0.503094 sec/bs
-Batch 181/1000, 0.483974 sec/bs
-Batch 182/1000, 0.512944 sec/bs
-Batch 183/1000, 0.580883 sec/bs
-Batch 184/1000, 0.493627 sec/bs
-Batch 185/1000, 0.463279 sec/bs
-Batch 186/1000, 0.522986 sec/bs
-Batch 187/1000, 0.538043 sec/bs
-Batch 188/1000, 0.503845 sec/bs
-Batch 189/1000, 0.525864 sec/bs
-Batch 190/1000, 0.510325 sec/bs
-Batch 191/1000, 0.499392 sec/bs
-Batch 192/1000, 0.508222 sec/bs
-Batch 193/1000, 0.488655 sec/bs
-Batch 194/1000, 0.49736 sec/bs
-Batch 195/1000, 0.46699 sec/bs
-Batch 196/1000, 0.517074 sec/bs
-Batch 197/1000, 0.490289 sec/bs
-Batch 198/1000, 0.501686 sec/bs
-Batch 199/1000, 0.503231 sec/bs
-Batch 200/1000, 0.53586 sec/bs
-Batch 201/1000, 0.525858 sec/bs
-Batch 202/1000, 0.482886 sec/bs
-Batch 203/1000, 0.494745 sec/bs
-Batch 204/1000, 0.511971 sec/bs
-Batch 205/1000, 0.498311 sec/bs
-Batch 206/1000, 0.494214 sec/bs
-Batch 207/1000, 0.482857 sec/bs
-Batch 208/1000, 0.482005 sec/bs
-Batch 209/1000, 0.470173 sec/bs
-Batch 210/1000, 0.485797 sec/bs
-Batch 211/1000, 0.479954 sec/bs
-Batch 212/1000, 0.467 sec/bs
-Batch 213/1000, 0.468121 sec/bs
-Batch 214/1000, 0.48806 sec/bs
-Batch 215/1000, 0.494912 sec/bs
-Batch 216/1000, 0.4859 sec/bs
-Batch 217/1000, 0.483443 sec/bs
-Batch 218/1000, 0.493771 sec/bs
-Batch 219/1000, 0.483583 sec/bs
-Batch 220/1000, 0.503322 sec/bs
-Batch 221/1000, 0.500278 sec/bs
-Batch 222/1000, 0.518218 sec/bs
-Batch 223/1000, 0.510979 sec/bs
-Batch 224/1000, 0.516899 sec/bs
-Batch 225/1000, 0.537249 sec/bs
-Batch 226/1000, 0.473093 sec/bs
-Batch 227/1000, 0.507654 sec/bs
-Batch 228/1000, 0.520138 sec/bs
-Batch 229/1000, 0.476095 sec/bs
-Batch 230/1000, 0.479905 sec/bs
-Batch 231/1000, 0.489689 sec/bs
-Batch 232/1000, 0.483931 sec/bs
-Batch 233/1000, 0.520744 sec/bs
-Batch 234/1000, 0.501825 sec/bs
-Batch 235/1000, 0.534099 sec/bs
-Batch 236/1000, 0.482842 sec/bs
-Batch 237/1000, 0.481919 sec/bs
-Batch 238/1000, 0.530948 sec/bs
-Batch 239/1000, 0.472303 sec/bs
-Batch 240/1000, 0.472026 sec/bs
-Batch 241/1000, 0.502248 sec/bs
-Batch 242/1000, 0.534293 sec/bs
-Batch 243/1000, 0.458109 sec/bs
-Batch 244/1000, 0.63838 sec/bs
-Batch 245/1000, 0.524701 sec/bs
-Batch 246/1000, 0.510364 sec/bs
-Batch 247/1000, 0.515035 sec/bs
-Batch 248/1000, 0.475498 sec/bs
-Batch 249/1000, 0.516071 sec/bs
-Batch 250/1000, 0.518377 sec/bs
-Batch 251/1000, 0.485428 sec/bs
-Batch 252/1000, 0.541665 sec/bs
-Batch 253/1000, 0.595756 sec/bs
-Batch 254/1000, 0.53945 sec/bs
-Batch 255/1000, 0.484932 sec/bs
-Batch 256/1000, 0.46541 sec/bs
-Batch 257/1000, 0.477926 sec/bs
-Batch 258/1000, 0.493685 sec/bs
-Batch 259/1000, 0.49019 sec/bs
-Batch 260/1000, 0.498603 sec/bs
-Batch 261/1000, 0.540289 sec/bs
-Batch 262/1000, 0.521113 sec/bs
-Batch 263/1000, 0.484028 sec/bs
-Batch 264/1000, 0.469154 sec/bs
-Batch 265/1000, 0.548241 sec/bs
-Batch 266/1000, 0.509856 sec/bs
-Batch 267/1000, 0.480574 sec/bs
-Batch 268/1000, 0.50624 sec/bs
-Batch 269/1000, 0.496924 sec/bs
-Batch 270/1000, 0.513136 sec/bs
-Batch 271/1000, 0.53679 sec/bs
-Batch 272/1000, 0.472919 sec/bs
-Batch 273/1000, 0.468641 sec/bs
-Batch 274/1000, 0.535895 sec/bs
-Batch 275/1000, 0.513953 sec/bs
-Batch 276/1000, 0.481147 sec/bs
-Batch 277/1000, 0.514193 sec/bs
-Batch 278/1000, 0.521858 sec/bs
-Batch 279/1000, 0.507658 sec/bs
-Batch 280/1000, 0.484831 sec/bs
-Batch 281/1000, 0.519318 sec/bs
-Batch 282/1000, 0.5237 sec/bs
-Batch 283/1000, 0.487624 sec/bs
-Batch 284/1000, 0.519625 sec/bs
-Batch 285/1000, 0.729111 sec/bs
-Batch 286/1000, 0.521868 sec/bs
-Batch 287/1000, 0.501866 sec/bs
-Batch 288/1000, 0.506258 sec/bs
-Batch 289/1000, 0.50805 sec/bs
-Batch 290/1000, 0.491328 sec/bs
-Batch 291/1000, 0.495265 sec/bs
-Batch 292/1000, 0.50227 sec/bs
-Batch 293/1000, 0.494426 sec/bs
-Batch 294/1000, 0.46126 sec/bs
-Batch 295/1000, 0.501959 sec/bs
-Batch 296/1000, 0.499692 sec/bs
-Batch 297/1000, 0.512331 sec/bs
-Batch 298/1000, 0.480632 sec/bs
-Batch 299/1000, 0.521736 sec/bs
-Batch 300/1000, 0.505601 sec/bs
-Batch 301/1000, 0.526888 sec/bs
-Batch 302/1000, 0.511248 sec/bs
-Batch 303/1000, 0.513524 sec/bs
-Batch 304/1000, 0.611717 sec/bs
-Batch 305/1000, 0.520592 sec/bs
-Batch 306/1000, 0.508256 sec/bs
-Batch 307/1000, 0.497866 sec/bs
-Batch 308/1000, 0.48608 sec/bs
-Batch 309/1000, 0.532668 sec/bs
-Batch 310/1000, 0.512097 sec/bs
-Batch 311/1000, 0.484845 sec/bs
-Batch 312/1000, 0.493886 sec/bs
-Batch 313/1000, 0.505969 sec/bs
-Batch 314/1000, 0.492113 sec/bs
-Batch 315/1000, 0.516318 sec/bs
-Batch 316/1000, 0.492168 sec/bs
-Batch 317/1000, 0.502896 sec/bs
-Batch 318/1000, 0.521536 sec/bs
-Batch 319/1000, 0.507079 sec/bs
-Batch 320/1000, 0.504371 sec/bs
-Batch 321/1000, 0.489393 sec/bs
-Batch 322/1000, 0.472998 sec/bs
-Batch 323/1000, 0.508627 sec/bs
-Batch 324/1000, 0.514947 sec/bs
-Batch 325/1000, 0.520606 sec/bs
-Batch 326/1000, 0.50672 sec/bs
-Batch 327/1000, 0.508839 sec/bs
-Batch 328/1000, 0.556051 sec/bs
-Batch 329/1000, 0.518155 sec/bs
-Batch 330/1000, 0.498512 sec/bs
-Batch 331/1000, 0.54523 sec/bs
-Batch 332/1000, 0.511122 sec/bs
-Batch 333/1000, 0.484002 sec/bs
-Batch 334/1000, 0.501338 sec/bs
-Batch 335/1000, 0.491964 sec/bs
-Batch 336/1000, 0.48279 sec/bs
-Batch 337/1000, 0.472266 sec/bs
-Batch 338/1000, 0.563753 sec/bs
-Batch 339/1000, 0.480342 sec/bs
-Batch 340/1000, 0.483332 sec/bs
-Batch 341/1000, 0.509363 sec/bs
-Batch 342/1000, 0.481971 sec/bs
-Batch 343/1000, 0.487365 sec/bs
-Batch 344/1000, 0.494756 sec/bs
-Batch 345/1000, 0.531748 sec/bs
-Batch 346/1000, 0.469186 sec/bs
-Batch 347/1000, 0.481534 sec/bs
-Batch 348/1000, 0.511715 sec/bs
-Batch 349/1000, 0.513662 sec/bs
-Batch 350/1000, 0.462911 sec/bs
-Batch 351/1000, 0.502812 sec/bs
-Batch 352/1000, 0.501492 sec/bs
-Batch 353/1000, 0.524789 sec/bs
-Batch 354/1000, 0.534012 sec/bs
-Batch 355/1000, 0.513233 sec/bs
-Batch 356/1000, 0.492959 sec/bs
-Batch 357/1000, 0.509915 sec/bs
-Batch 358/1000, 0.51297 sec/bs
-Batch 359/1000, 0.531305 sec/bs
-Batch 360/1000, 0.49248 sec/bs
-Batch 361/1000, 0.601476 sec/bs
-Batch 362/1000, 0.511142 sec/bs
-Batch 363/1000, 0.512307 sec/bs
-Batch 364/1000, 0.480556 sec/bs
-Batch 365/1000, 0.519525 sec/bs
-Batch 366/1000, 0.490422 sec/bs
-Batch 367/1000, 0.502542 sec/bs
-Batch 368/1000, 0.520198 sec/bs
-Batch 369/1000, 0.509141 sec/bs
-Batch 370/1000, 0.460537 sec/bs
-Batch 371/1000, 0.500247 sec/bs
-Batch 372/1000, 0.475184 sec/bs
-Batch 373/1000, 0.495845 sec/bs
-Batch 374/1000, 0.490601 sec/bs
-Batch 375/1000, 0.496758 sec/bs
-Batch 376/1000, 0.488756 sec/bs
-Batch 377/1000, 0.497768 sec/bs
-Batch 378/1000, 0.544551 sec/bs
-Batch 379/1000, 0.499995 sec/bs
-Batch 380/1000, 0.522179 sec/bs
-Batch 381/1000, 0.499427 sec/bs
-Batch 382/1000, 0.548677 sec/bs
-Batch 383/1000, 0.486949 sec/bs
-Batch 384/1000, 0.517053 sec/bs
-Batch 385/1000, 0.511357 sec/bs
-Batch 386/1000, 0.51136 sec/bs
-Batch 387/1000, 0.506727 sec/bs
-Batch 388/1000, 0.510385 sec/bs
-Batch 389/1000, 0.477679 sec/bs
-Batch 390/1000, 0.509957 sec/bs
-Batch 391/1000, 0.512786 sec/bs
-Batch 392/1000, 0.487969 sec/bs
-Batch 393/1000, 0.522369 sec/bs
-Batch 394/1000, 0.469815 sec/bs
-Batch 395/1000, 0.45787 sec/bs
-Batch 396/1000, 0.504199 sec/bs
-Batch 397/1000, 0.504865 sec/bs
-Batch 398/1000, 0.48529 sec/bs
-Batch 399/1000, 0.482679 sec/bs
-Batch 400/1000, 0.500447 sec/bs
-Batch 401/1000, 0.53913 sec/bs
-Batch 402/1000, 0.505322 sec/bs
-Batch 403/1000, 0.491631 sec/bs
-Batch 404/1000, 0.477696 sec/bs
-Batch 405/1000, 0.518482 sec/bs
-Batch 406/1000, 0.499651 sec/bs
-Batch 407/1000, 0.510456 sec/bs
-Batch 408/1000, 0.49043 sec/bs
-Batch 409/1000, 0.486274 sec/bs
-Batch 410/1000, 0.501479 sec/bs
-Batch 411/1000, 0.523085 sec/bs
-Batch 412/1000, 0.50855 sec/bs
-Batch 413/1000, 0.528671 sec/bs
-Batch 414/1000, 0.541481 sec/bs
-Batch 415/1000, 0.524566 sec/bs
-Batch 416/1000, 0.498617 sec/bs
-Batch 417/1000, 0.492688 sec/bs
-Batch 418/1000, 0.503704 sec/bs
-Batch 419/1000, 0.497338 sec/bs
-Batch 420/1000, 0.505712 sec/bs
-Batch 421/1000, 0.485187 sec/bs
-Batch 422/1000, 0.523101 sec/bs
-Batch 423/1000, 0.511436 sec/bs
-Batch 424/1000, 0.504761 sec/bs
-Batch 425/1000, 0.522674 sec/bs
-Batch 426/1000, 0.502217 sec/bs
-Batch 427/1000, 0.501273 sec/bs
-Batch 428/1000, 0.539385 sec/bs
-Batch 429/1000, 0.575553 sec/bs
-Batch 430/1000, 0.480844 sec/bs
-Batch 431/1000, 0.509197 sec/bs
-Batch 432/1000, 0.492355 sec/bs
-Batch 433/1000, 0.497397 sec/bs
-Batch 434/1000, 0.529348 sec/bs
-Batch 435/1000, 0.455797 sec/bs
-Batch 436/1000, 0.471068 sec/bs
-Batch 437/1000, 0.523217 sec/bs
-Batch 438/1000, 0.490033 sec/bs
-Batch 439/1000, 0.519859 sec/bs
-Batch 440/1000, 0.486908 sec/bs
-Batch 441/1000, 0.498194 sec/bs
-Batch 442/1000, 0.466311 sec/bs
-Batch 443/1000, 0.4749 sec/bs
-Batch 444/1000, 0.487767 sec/bs
-Batch 445/1000, 0.524832 sec/bs
-Batch 446/1000, 0.524659 sec/bs
-Batch 447/1000, 0.48876 sec/bs
-Batch 448/1000, 0.484834 sec/bs
-Batch 449/1000, 0.508835 sec/bs
-Batch 450/1000, 0.493542 sec/bs
-Batch 451/1000, 0.534478 sec/bs
-Batch 452/1000, 0.476098 sec/bs
-Batch 453/1000, 0.48322 sec/bs
-Batch 454/1000, 0.494329 sec/bs
-Batch 455/1000, 0.503625 sec/bs
-Batch 456/1000, 0.476427 sec/bs
-Batch 457/1000, 0.51323 sec/bs
-Batch 458/1000, 0.488785 sec/bs
-Batch 459/1000, 0.460041 sec/bs
-Batch 460/1000, 0.514893 sec/bs
-Batch 461/1000, 0.51795 sec/bs
-Batch 462/1000, 0.490018 sec/bs
-Batch 463/1000, 0.52368 sec/bs
-Batch 464/1000, 0.491004 sec/bs
-Batch 465/1000, 0.514356 sec/bs
-Batch 466/1000, 0.509317 sec/bs
-Batch 467/1000, 0.518913 sec/bs
-Batch 468/1000, 0.513909 sec/bs
-Batch 469/1000, 0.517194 sec/bs
-Batch 470/1000, 0.502516 sec/bs
-Batch 471/1000, 0.505094 sec/bs
-Batch 472/1000, 0.497673 sec/bs
-Batch 473/1000, 0.56399 sec/bs
-Batch 474/1000, 0.536536 sec/bs
-Batch 475/1000, 0.510276 sec/bs
-Batch 476/1000, 0.491086 sec/bs
-Batch 477/1000, 0.502769 sec/bs
-Batch 478/1000, 0.47968 sec/bs
-Batch 479/1000, 0.496061 sec/bs
-Batch 480/1000, 0.502442 sec/bs
-Batch 481/1000, 0.487628 sec/bs
-Batch 482/1000, 0.483322 sec/bs
-Batch 483/1000, 0.506912 sec/bs
-Batch 484/1000, 0.521435 sec/bs
-Batch 485/1000, 0.477227 sec/bs
-Batch 486/1000, 0.491689 sec/bs
-Batch 487/1000, 0.558286 sec/bs
-Batch 488/1000, 0.496704 sec/bs
-Batch 489/1000, 0.529353 sec/bs
-Batch 490/1000, 0.494692 sec/bs
-Batch 491/1000, 0.503485 sec/bs
-Batch 492/1000, 0.482248 sec/bs
-Batch 493/1000, 0.53792 sec/bs
-Batch 494/1000, 0.505394 sec/bs
-Batch 495/1000, 0.485133 sec/bs
-Batch 496/1000, 0.513491 sec/bs
-Batch 497/1000, 0.527457 sec/bs
-Batch 498/1000, 0.529885 sec/bs
-Batch 499/1000, 0.479637 sec/bs
-Batch 500/1000, 0.534913 sec/bs
-Batch 501/1000, 0.482305 sec/bs
-Batch 502/1000, 0.492738 sec/bs
-Batch 503/1000, 0.491465 sec/bs
-Batch 504/1000, 0.52555 sec/bs
-Batch 505/1000, 0.522173 sec/bs
-Batch 506/1000, 0.476243 sec/bs
-Batch 507/1000, 0.480963 sec/bs
-Batch 508/1000, 0.497056 sec/bs
-Batch 509/1000, 0.499426 sec/bs
-Batch 510/1000, 0.527493 sec/bs
-Batch 511/1000, 0.515049 sec/bs
-Batch 512/1000, 0.519201 sec/bs
-Batch 513/1000, 0.554455 sec/bs
-Batch 514/1000, 0.492862 sec/bs
-Batch 515/1000, 0.499568 sec/bs
-Batch 516/1000, 0.513483 sec/bs
-Batch 517/1000, 0.477213 sec/bs
-Batch 518/1000, 0.493833 sec/bs
-Batch 519/1000, 0.522052 sec/bs
-Batch 520/1000, 0.477811 sec/bs
-Batch 521/1000, 0.500214 sec/bs
-Batch 522/1000, 0.542989 sec/bs
-Batch 523/1000, 0.459669 sec/bs
-Batch 524/1000, 0.488556 sec/bs
-Batch 525/1000, 0.472233 sec/bs
-Batch 526/1000, 0.492467 sec/bs
-Batch 527/1000, 0.505515 sec/bs
-Batch 528/1000, 0.535605 sec/bs
-Batch 529/1000, 0.506477 sec/bs
-Batch 530/1000, 0.484997 sec/bs
-Batch 531/1000, 0.482349 sec/bs
-Batch 532/1000, 0.551188 sec/bs
-Batch 533/1000, 0.498034 sec/bs
-Batch 534/1000, 0.604017 sec/bs
-Batch 535/1000, 0.495521 sec/bs
-Batch 536/1000, 0.519801 sec/bs
-Batch 537/1000, 0.502882 sec/bs
-Batch 538/1000, 0.545362 sec/bs
-Batch 539/1000, 0.497119 sec/bs
-Batch 540/1000, 0.57546 sec/bs
-Batch 541/1000, 0.49256 sec/bs
-Batch 542/1000, 0.494303 sec/bs
-Batch 543/1000, 0.474604 sec/bs
-Batch 544/1000, 0.481027 sec/bs
-Batch 545/1000, 0.525332 sec/bs
-Batch 546/1000, 0.526181 sec/bs
-Batch 547/1000, 0.502608 sec/bs
-Batch 548/1000, 0.485371 sec/bs
-Batch 549/1000, 0.544458 sec/bs
-Batch 550/1000, 0.482697 sec/bs
-Batch 551/1000, 0.485682 sec/bs
-Batch 552/1000, 0.483232 sec/bs
-Batch 553/1000, 0.520731 sec/bs
-Batch 554/1000, 0.552414 sec/bs
-Batch 555/1000, 0.51034 sec/bs
-Batch 556/1000, 0.511419 sec/bs
-Batch 557/1000, 0.50315 sec/bs
-Batch 558/1000, 0.514798 sec/bs
-Batch 559/1000, 0.472709 sec/bs
-Batch 560/1000, 0.493703 sec/bs
-Batch 561/1000, 0.548963 sec/bs
-Batch 562/1000, 0.471809 sec/bs
-Batch 563/1000, 0.46831 sec/bs
-Batch 564/1000, 0.493759 sec/bs
-Batch 565/1000, 0.496319 sec/bs
-Batch 566/1000, 0.483583 sec/bs
-Batch 567/1000, 0.499064 sec/bs
-Batch 568/1000, 0.500653 sec/bs
-Batch 569/1000, 0.530224 sec/bs
-Batch 570/1000, 0.486401 sec/bs
-Batch 571/1000, 0.481112 sec/bs
-Batch 572/1000, 0.50648 sec/bs
-Batch 573/1000, 0.483927 sec/bs
-Batch 574/1000, 0.492311 sec/bs
-Batch 575/1000, 0.496419 sec/bs
-Batch 576/1000, 0.489156 sec/bs
-Batch 577/1000, 0.510334 sec/bs
-Batch 578/1000, 0.481886 sec/bs
-Batch 579/1000, 0.485716 sec/bs
-Batch 580/1000, 0.490033 sec/bs
-Batch 581/1000, 0.49029 sec/bs
-Batch 582/1000, 0.548489 sec/bs
-Batch 583/1000, 0.499327 sec/bs
-Batch 584/1000, 0.517689 sec/bs
-Batch 585/1000, 0.473958 sec/bs
-Batch 586/1000, 0.529228 sec/bs
-Batch 587/1000, 0.500061 sec/bs
-Batch 588/1000, 0.486952 sec/bs
-Batch 589/1000, 0.492197 sec/bs
-Batch 590/1000, 0.504977 sec/bs
-Batch 591/1000, 0.47776 sec/bs
-Batch 592/1000, 0.550589 sec/bs
-Batch 593/1000, 0.499301 sec/bs
-Batch 594/1000, 0.492363 sec/bs
-Batch 595/1000, 0.512811 sec/bs
-Batch 596/1000, 0.509922 sec/bs
-Batch 597/1000, 0.548179 sec/bs
-Batch 598/1000, 0.501215 sec/bs
-Batch 599/1000, 0.521861 sec/bs
-Batch 600/1000, 0.492527 sec/bs
-Batch 601/1000, 0.531808 sec/bs
-Batch 602/1000, 0.47153 sec/bs
-Batch 603/1000, 0.509968 sec/bs
-Batch 604/1000, 0.476695 sec/bs
-Batch 605/1000, 0.506858 sec/bs
-Batch 606/1000, 0.511561 sec/bs
-Batch 607/1000, 0.515231 sec/bs
-Batch 608/1000, 0.489096 sec/bs
-Batch 609/1000, 0.482509 sec/bs
-Batch 610/1000, 0.500539 sec/bs
-Batch 611/1000, 0.495411 sec/bs
-Batch 612/1000, 0.505388 sec/bs
-Batch 613/1000, 0.472565 sec/bs
-Batch 614/1000, 0.474224 sec/bs
-Batch 615/1000, 0.476268 sec/bs
-Batch 616/1000, 0.517902 sec/bs
-Batch 617/1000, 0.462852 sec/bs
-Batch 618/1000, 0.499734 sec/bs
-Batch 619/1000, 0.500138 sec/bs
-Batch 620/1000, 0.523638 sec/bs
-Batch 621/1000, 0.524156 sec/bs
-Batch 622/1000, 0.490197 sec/bs
-Batch 623/1000, 0.475736 sec/bs
-Batch 624/1000, 0.521732 sec/bs
-Batch 625/1000, 0.459421 sec/bs
-Batch 626/1000, 0.491109 sec/bs
-Batch 627/1000, 0.509197 sec/bs
-Batch 628/1000, 0.533403 sec/bs
-Batch 629/1000, 0.499536 sec/bs
-Batch 630/1000, 0.497805 sec/bs
-Batch 631/1000, 0.504126 sec/bs
-Batch 632/1000, 0.467605 sec/bs
-Batch 633/1000, 0.52908 sec/bs
-Batch 634/1000, 0.50951 sec/bs
-Batch 635/1000, 0.488987 sec/bs
-Batch 636/1000, 0.470476 sec/bs
-Batch 637/1000, 0.490348 sec/bs
-Batch 638/1000, 0.490707 sec/bs
-Batch 639/1000, 0.488808 sec/bs
-Batch 640/1000, 0.473482 sec/bs
-Batch 641/1000, 0.508282 sec/bs
-Batch 642/1000, 0.495917 sec/bs
-Batch 643/1000, 0.510509 sec/bs
-Batch 644/1000, 0.490366 sec/bs
-Batch 645/1000, 0.519439 sec/bs
-Batch 646/1000, 0.490089 sec/bs
-Batch 647/1000, 0.52329 sec/bs
-Batch 648/1000, 0.483295 sec/bs
-Batch 649/1000, 0.520527 sec/bs
-Batch 650/1000, 0.510995 sec/bs
-Batch 651/1000, 0.488708 sec/bs
-Batch 652/1000, 0.485956 sec/bs
-Batch 653/1000, 0.507935 sec/bs
-Batch 654/1000, 0.479268 sec/bs
-Batch 655/1000, 0.507118 sec/bs
-Batch 656/1000, 0.487634 sec/bs
-Batch 657/1000, 0.444472 sec/bs
-Batch 658/1000, 0.501098 sec/bs
-Batch 659/1000, 0.49735 sec/bs
-Batch 660/1000, 0.534291 sec/bs
-Batch 661/1000, 0.491616 sec/bs
-Batch 662/1000, 0.517517 sec/bs
-Batch 663/1000, 0.529231 sec/bs
-Batch 664/1000, 0.492793 sec/bs
-Batch 665/1000, 0.484803 sec/bs
-Batch 666/1000, 0.564839 sec/bs
-Batch 667/1000, 0.560353 sec/bs
-Batch 668/1000, 0.476953 sec/bs
-Batch 669/1000, 0.482698 sec/bs
-Batch 670/1000, 0.481946 sec/bs
-Batch 671/1000, 0.493861 sec/bs
-Batch 672/1000, 0.514498 sec/bs
-Batch 673/1000, 0.482301 sec/bs
-Batch 674/1000, 0.53543 sec/bs
-Batch 675/1000, 0.484891 sec/bs
-Batch 676/1000, 0.523356 sec/bs
-Batch 677/1000, 0.538173 sec/bs
-Batch 678/1000, 0.496823 sec/bs
-Batch 679/1000, 0.533411 sec/bs
-Batch 680/1000, 0.50847 sec/bs
-Batch 681/1000, 0.483751 sec/bs
-Batch 682/1000, 0.5476 sec/bs
-Batch 683/1000, 0.471039 sec/bs
-Batch 684/1000, 0.552491 sec/bs
-Batch 685/1000, 0.571489 sec/bs
-Batch 686/1000, 0.479846 sec/bs
-Batch 687/1000, 0.511324 sec/bs
-Batch 688/1000, 0.499958 sec/bs
-Batch 689/1000, 0.511215 sec/bs
-Batch 690/1000, 0.481913 sec/bs
-Batch 691/1000, 0.520852 sec/bs
-Batch 692/1000, 0.462472 sec/bs
-Batch 693/1000, 0.509593 sec/bs
-Batch 694/1000, 0.510781 sec/bs
-Batch 695/1000, 0.530384 sec/bs
-Batch 696/1000, 0.492291 sec/bs
-Batch 697/1000, 0.508356 sec/bs
-Batch 698/1000, 0.475925 sec/bs
-Batch 699/1000, 0.47484 sec/bs
-Batch 700/1000, 0.550046 sec/bs
-Batch 701/1000, 0.493768 sec/bs
-Batch 702/1000, 0.513587 sec/bs
-Batch 703/1000, 0.501605 sec/bs
-Batch 704/1000, 0.504982 sec/bs
-Batch 705/1000, 0.519863 sec/bs
-Batch 706/1000, 0.476896 sec/bs
-Batch 707/1000, 0.519291 sec/bs
-Batch 708/1000, 0.509441 sec/bs
-Batch 709/1000, 0.483142 sec/bs
-Batch 710/1000, 0.518151 sec/bs
-Batch 711/1000, 0.498899 sec/bs
-Batch 712/1000, 0.469064 sec/bs
-Batch 713/1000, 0.481841 sec/bs
-Batch 714/1000, 0.477289 sec/bs
-Batch 715/1000, 0.511875 sec/bs
-Batch 716/1000, 0.530221 sec/bs
-Batch 717/1000, 0.578553 sec/bs
-Batch 718/1000, 0.514147 sec/bs
-Batch 719/1000, 0.541265 sec/bs
-Batch 720/1000, 0.539201 sec/bs
-Batch 721/1000, 0.537378 sec/bs
-Batch 722/1000, 0.497669 sec/bs
-Batch 723/1000, 0.498897 sec/bs
-Batch 724/1000, 0.530023 sec/bs
-Batch 725/1000, 0.480046 sec/bs
-Batch 726/1000, 0.495639 sec/bs
-Batch 727/1000, 0.486769 sec/bs
-Batch 728/1000, 0.552709 sec/bs
-Batch 729/1000, 0.485275 sec/bs
-Batch 730/1000, 0.490179 sec/bs
-Batch 731/1000, 0.534598 sec/bs
-Batch 732/1000, 0.469987 sec/bs
-Batch 733/1000, 0.512227 sec/bs
-Batch 734/1000, 0.491317 sec/bs
-Batch 735/1000, 0.469342 sec/bs
-Batch 736/1000, 0.570331 sec/bs
-Batch 737/1000, 0.473937 sec/bs
-Batch 738/1000, 0.521009 sec/bs
-Batch 739/1000, 0.498568 sec/bs
-Batch 740/1000, 0.525931 sec/bs
-Batch 741/1000, 0.533889 sec/bs
-Batch 742/1000, 0.475938 sec/bs
-Batch 743/1000, 0.493038 sec/bs
-Batch 744/1000, 0.505564 sec/bs
-Batch 745/1000, 0.486868 sec/bs
-Batch 746/1000, 0.482478 sec/bs
-Batch 747/1000, 0.48121 sec/bs
-Batch 748/1000, 0.482482 sec/bs
-Batch 749/1000, 0.50299 sec/bs
-Batch 750/1000, 0.495807 sec/bs
-Batch 751/1000, 0.527915 sec/bs
-Batch 752/1000, 0.517483 sec/bs
-Batch 753/1000, 0.498538 sec/bs
-Batch 754/1000, 0.480927 sec/bs
-Batch 755/1000, 0.526272 sec/bs
-Batch 756/1000, 0.511516 sec/bs
-Batch 757/1000, 0.478147 sec/bs
-Batch 758/1000, 0.514389 sec/bs
-Batch 759/1000, 0.498445 sec/bs
-Batch 760/1000, 0.491606 sec/bs
-Batch 761/1000, 0.526786 sec/bs
-Batch 762/1000, 0.500496 sec/bs
-Batch 763/1000, 0.521294 sec/bs
-Batch 764/1000, 0.526943 sec/bs
-Batch 765/1000, 0.523927 sec/bs
-Batch 766/1000, 0.510129 sec/bs
-Batch 767/1000, 0.519289 sec/bs
-Batch 768/1000, 0.51878 sec/bs
-Batch 769/1000, 0.468675 sec/bs
-Batch 770/1000, 0.538358 sec/bs
-Batch 771/1000, 0.55199 sec/bs
-Batch 772/1000, 0.50856 sec/bs
-Batch 773/1000, 0.497396 sec/bs
-Batch 774/1000, 0.515355 sec/bs
-Batch 775/1000, 0.539447 sec/bs
-Batch 776/1000, 0.534145 sec/bs
-Batch 777/1000, 0.519932 sec/bs
-Batch 778/1000, 0.537906 sec/bs
-Batch 779/1000, 0.480327 sec/bs
-Batch 780/1000, 0.533951 sec/bs
-Batch 781/1000, 0.473633 sec/bs
-Batch 782/1000, 0.483128 sec/bs
-Batch 783/1000, 0.562649 sec/bs
-Batch 784/1000, 0.496969 sec/bs
-Batch 785/1000, 0.542871 sec/bs
-Batch 786/1000, 0.59625 sec/bs
-Batch 787/1000, 0.542175 sec/bs
-Batch 788/1000, 0.523723 sec/bs
-Batch 789/1000, 0.572802 sec/bs
-Batch 790/1000, 0.543894 sec/bs
-Batch 791/1000, 0.490216 sec/bs
-Batch 792/1000, 0.489155 sec/bs
-Batch 793/1000, 0.5073 sec/bs
-Batch 794/1000, 0.472111 sec/bs
-Batch 795/1000, 0.483509 sec/bs
-Batch 796/1000, 0.490829 sec/bs
-Batch 797/1000, 0.505178 sec/bs
-Batch 798/1000, 0.505175 sec/bs
-Batch 799/1000, 0.568607 sec/bs
-Batch 800/1000, 0.52597 sec/bs
-Batch 801/1000, 0.490438 sec/bs
-Batch 802/1000, 0.513554 sec/bs
-Batch 803/1000, 0.482519 sec/bs
-Batch 804/1000, 0.508354 sec/bs
-Batch 805/1000, 0.498474 sec/bs
-Batch 806/1000, 0.501138 sec/bs
-Batch 807/1000, 0.514664 sec/bs
-Batch 808/1000, 0.503898 sec/bs
-Batch 809/1000, 0.504961 sec/bs
-Batch 810/1000, 0.49724 sec/bs
-Batch 811/1000, 0.498685 sec/bs
-Batch 812/1000, 0.519945 sec/bs
-Batch 813/1000, 0.511426 sec/bs
-Batch 814/1000, 0.49416 sec/bs
-Batch 815/1000, 0.471732 sec/bs
-Batch 816/1000, 0.502646 sec/bs
-Batch 817/1000, 0.487499 sec/bs
-Batch 818/1000, 0.480358 sec/bs
-Batch 819/1000, 0.48542 sec/bs
-Batch 820/1000, 0.485189 sec/bs
-Batch 821/1000, 0.501887 sec/bs
-Batch 822/1000, 0.47871 sec/bs
-Batch 823/1000, 0.485181 sec/bs
-Batch 824/1000, 0.528147 sec/bs
-Batch 825/1000, 0.491547 sec/bs
-Batch 826/1000, 0.48364 sec/bs
-Batch 827/1000, 0.478898 sec/bs
-Batch 828/1000, 0.47896 sec/bs
-Batch 829/1000, 0.49918 sec/bs
-Batch 830/1000, 0.562368 sec/bs
-Batch 831/1000, 0.522099 sec/bs
-Batch 832/1000, 0.490981 sec/bs
-Batch 833/1000, 0.488683 sec/bs
-Batch 834/1000, 0.490877 sec/bs
-Batch 835/1000, 0.488599 sec/bs
-Batch 836/1000, 0.513668 sec/bs
-Batch 837/1000, 0.502922 sec/bs
-Batch 838/1000, 0.490067 sec/bs
-Batch 839/1000, 0.502059 sec/bs
-Batch 840/1000, 0.500527 sec/bs
-Batch 841/1000, 0.521052 sec/bs
-Batch 842/1000, 0.535847 sec/bs
-Batch 843/1000, 0.517892 sec/bs
-Batch 844/1000, 0.51371 sec/bs
-Batch 845/1000, 0.51767 sec/bs
-Batch 846/1000, 0.480684 sec/bs
-Batch 847/1000, 0.518017 sec/bs
-Batch 848/1000, 0.551719 sec/bs
-Batch 849/1000, 0.560119 sec/bs
-Batch 850/1000, 0.533913 sec/bs
-Batch 851/1000, 0.542281 sec/bs
-Batch 852/1000, 0.519086 sec/bs
-Batch 853/1000, 0.482828 sec/bs
-Batch 854/1000, 0.525506 sec/bs
-Batch 855/1000, 0.493826 sec/bs
-Batch 856/1000, 0.489217 sec/bs
-Batch 857/1000, 0.484656 sec/bs
-Batch 858/1000, 0.468061 sec/bs
-Batch 859/1000, 0.484918 sec/bs
-Batch 860/1000, 0.528595 sec/bs
-Batch 861/1000, 0.510772 sec/bs
-Batch 862/1000, 0.487453 sec/bs
-Batch 863/1000, 0.484697 sec/bs
-Batch 864/1000, 0.506496 sec/bs
-Batch 865/1000, 0.51642 sec/bs
-Batch 866/1000, 0.482299 sec/bs
-Batch 867/1000, 0.499329 sec/bs
-Batch 868/1000, 0.482754 sec/bs
-Batch 869/1000, 0.551281 sec/bs
-Batch 870/1000, 0.579145 sec/bs
-Batch 871/1000, 0.512578 sec/bs
-Batch 872/1000, 0.525326 sec/bs
-Batch 873/1000, 0.533601 sec/bs
-Batch 874/1000, 0.55991 sec/bs
-Batch 875/1000, 0.615371 sec/bs
-Batch 876/1000, 0.605378 sec/bs
-Batch 877/1000, 0.505956 sec/bs
-Batch 878/1000, 0.519754 sec/bs
-Batch 879/1000, 0.525862 sec/bs
-Batch 880/1000, 0.507831 sec/bs
-Batch 881/1000, 0.507842 sec/bs
-Batch 882/1000, 0.478396 sec/bs
-Batch 883/1000, 0.478815 sec/bs
-Batch 884/1000, 0.526718 sec/bs
-Batch 885/1000, 0.515156 sec/bs
-Batch 886/1000, 0.482677 sec/bs
-Batch 887/1000, 0.512608 sec/bs
-Batch 888/1000, 0.506711 sec/bs
-Batch 889/1000, 0.517339 sec/bs
-Batch 890/1000, 0.493116 sec/bs
-Batch 891/1000, 0.507089 sec/bs
-Batch 892/1000, 0.545353 sec/bs
-Batch 893/1000, 0.568306 sec/bs
-Batch 894/1000, 0.513023 sec/bs
-Batch 895/1000, 0.670213 sec/bs
-Batch 896/1000, 0.70473 sec/bs
-Batch 897/1000, 0.587283 sec/bs
-Batch 898/1000, 0.580079 sec/bs
-Batch 899/1000, 0.548555 sec/bs
-Batch 900/1000, 0.561016 sec/bs
-Batch 901/1000, 0.590287 sec/bs
-Batch 902/1000, 0.530992 sec/bs
-Batch 903/1000, 0.53525 sec/bs
-Batch 904/1000, 0.574074 sec/bs
-Batch 905/1000, 0.524151 sec/bs
-Batch 906/1000, 0.557045 sec/bs
-Batch 907/1000, 0.538332 sec/bs
-Batch 908/1000, 0.547756 sec/bs
-Batch 909/1000, 0.580377 sec/bs
-Batch 910/1000, 0.542232 sec/bs
-Batch 911/1000, 0.502481 sec/bs
-Batch 912/1000, 0.538485 sec/bs
-Batch 913/1000, 0.586748 sec/bs
-Batch 914/1000, 0.52872 sec/bs
-Batch 915/1000, 0.502389 sec/bs
-Batch 916/1000, 0.546242 sec/bs
-Batch 917/1000, 0.539068 sec/bs
-Batch 918/1000, 0.517187 sec/bs
-Batch 919/1000, 0.510775 sec/bs
-Batch 920/1000, 0.444822 sec/bs
-Batch 921/1000, 0.484608 sec/bs
-Batch 922/1000, 0.518671 sec/bs
-Batch 923/1000, 0.536053 sec/bs
-Batch 924/1000, 0.526741 sec/bs
-Batch 925/1000, 0.514111 sec/bs
-Batch 926/1000, 0.498152 sec/bs
-Batch 927/1000, 0.509481 sec/bs
-Batch 928/1000, 0.544036 sec/bs
-Batch 929/1000, 0.509273 sec/bs
-Batch 930/1000, 0.479909 sec/bs
-Batch 931/1000, 0.47812 sec/bs
-Batch 932/1000, 0.498024 sec/bs
-Batch 933/1000, 0.487416 sec/bs
-Batch 934/1000, 0.513891 sec/bs
-Batch 935/1000, 0.517443 sec/bs
-Batch 936/1000, 0.461367 sec/bs
-Batch 937/1000, 0.452856 sec/bs
-Batch 938/1000, 0.452905 sec/bs
-Batch 939/1000, 0.487915 sec/bs
-Batch 940/1000, 0.528933 sec/bs
-Batch 941/1000, 0.488522 sec/bs
-Batch 942/1000, 0.498563 sec/bs
-Batch 943/1000, 0.508716 sec/bs
-Batch 944/1000, 0.522412 sec/bs
-Batch 945/1000, 0.479161 sec/bs
-Batch 946/1000, 0.481439 sec/bs
-Batch 947/1000, 0.49565 sec/bs
-Batch 948/1000, 0.470629 sec/bs
-Batch 949/1000, 0.517724 sec/bs
-Batch 950/1000, 0.504109 sec/bs
-Batch 951/1000, 0.461527 sec/bs
-Batch 952/1000, 0.479875 sec/bs
-Batch 953/1000, 0.484498 sec/bs
-Batch 954/1000, 0.525051 sec/bs
-Batch 955/1000, 0.554082 sec/bs
-Batch 956/1000, 0.488214 sec/bs
-Batch 957/1000, 0.519327 sec/bs
-Batch 958/1000, 0.530945 sec/bs
-Batch 959/1000, 0.495613 sec/bs
-Batch 960/1000, 0.521438 sec/bs
-Batch 961/1000, 0.485229 sec/bs
-Batch 962/1000, 0.495282 sec/bs
-Batch 963/1000, 0.519552 sec/bs
-Batch 964/1000, 0.511555 sec/bs
-Batch 965/1000, 0.496949 sec/bs
-Batch 966/1000, 0.484769 sec/bs
-Batch 967/1000, 0.489221 sec/bs
-Batch 968/1000, 0.482154 sec/bs
-Batch 969/1000, 0.476685 sec/bs
-Batch 970/1000, 0.510113 sec/bs
-Batch 971/1000, 0.520006 sec/bs
-Batch 972/1000, 0.522254 sec/bs
-Batch 973/1000, 0.487544 sec/bs
-Batch 974/1000, 0.464564 sec/bs
-Batch 975/1000, 0.474414 sec/bs
-Batch 976/1000, 0.474677 sec/bs
-Batch 977/1000, 0.512957 sec/bs
-Batch 978/1000, 0.493251 sec/bs
-Batch 979/1000, 0.509491 sec/bs
-Batch 980/1000, 0.513017 sec/bs
-Batch 981/1000, 0.531639 sec/bs
-Batch 982/1000, 0.520164 sec/bs
-Batch 983/1000, 0.515108 sec/bs
-Batch 984/1000, 0.513308 sec/bs
-Batch 985/1000, 0.500074 sec/bs
-Batch 986/1000, 0.481514 sec/bs
-Batch 987/1000, 0.489217 sec/bs
-Batch 988/1000, 0.482724 sec/bs
-Batch 989/1000, 0.493316 sec/bs
-Batch 990/1000, 0.489368 sec/bs
-Batch 991/1000, 0.502805 sec/bs
-Batch 992/1000, 0.522137 sec/bs
-Batch 993/1000, 0.510179 sec/bs
-Batch 994/1000, 0.516526 sec/bs
-Batch 995/1000, 0.469158 sec/bs
-Batch 996/1000, 0.502623 sec/bs
-Batch 997/1000, 0.497594 sec/bs
-Batch 998/1000, 0.480598 sec/bs
-Batch 999/1000, 0.597734 sec/bs
-Batch 1000/1000, 0.513096 sec/bs
+Batch 1/50, 2.78864 sec/bs
+Batch 2/50, 2.54421 sec/bs
+Batch 3/50, 3.02596 sec/bs
+Batch 4/50, 2.96677 sec/bs
+Batch 5/50, 2.69458 sec/bs
+Batch 6/50, 3.48014 sec/bs
+Batch 7/50, 2.99923 sec/bs
+Batch 8/50, 3.08814 sec/bs
+Batch 9/50, 2.8301 sec/bs
+Batch 10/50, 2.72478 sec/bs
+Batch 11/50, 2.9962 sec/bs
+Batch 12/50, 2.60261 sec/bs
+Batch 13/50, 2.69318 sec/bs
+Batch 14/50, 2.50624 sec/bs
+Batch 15/50, 2.88119 sec/bs
+Batch 16/50, 2.78404 sec/bs
+Batch 17/50, 3.28666 sec/bs
+Batch 18/50, 3.14507 sec/bs
+Batch 19/50, 2.84598 sec/bs
+Batch 20/50, 2.83878 sec/bs
+Batch 21/50, 2.62949 sec/bs
+Batch 22/50, 3.04572 sec/bs
+Batch 23/50, 2.99048 sec/bs
+Batch 24/50, 2.69565 sec/bs
+Batch 25/50, 2.91997 sec/bs
+Batch 26/50, 3.046 sec/bs
+Batch 27/50, 3.09297 sec/bs
+Batch 28/50, 2.70269 sec/bs
+Batch 29/50, 2.89898 sec/bs
+Batch 30/50, 3.00869 sec/bs
+Batch 31/50, 3.08649 sec/bs
+Batch 32/50, 2.80408 sec/bs
+Batch 33/50, 2.97434 sec/bs
+Batch 34/50, 2.87045 sec/bs
+Batch 35/50, 2.67135 sec/bs
+Batch 36/50, 2.79197 sec/bs
+Batch 37/50, 2.60271 sec/bs
+Batch 38/50, 2.76765 sec/bs
+Batch 39/50, 2.92354 sec/bs
+Batch 40/50, 3.14356 sec/bs
+Batch 41/50, 3.28897 sec/bs
+Batch 42/50, 2.76414 sec/bs
+Batch 43/50, 2.85606 sec/bs
+Batch 44/50, 2.91191 sec/bs
+Batch 45/50, 2.93192 sec/bs
+Batch 46/50, 2.65138 sec/bs
+Batch 47/50, 3.1702 sec/bs
+Batch 48/50, 2.79159 sec/bs
+Batch 49/50, 2.59387 sec/bs
+Batch 50/50, 2.75004 sec/bs
 All complete!
 
 Setting full-data fit as parameters... 
@@ -1183,20 +237,20 @@ Grabbing parameter values...
 Computing 95% confidence intervals... 
 Estimating p-values from resampled parameters... 
 
-Recommended resample size for alpha = 0.05, 228 tests: 
-with bootstrapping: 4560
-with MCMC: 45600
-Actual resample size: 9979
+Recommended resample size for alpha = 0.05, 126 tests: 
+with bootstrapping: 2520
+with MCMC: 25200
+Actual resample size: 101
 
 Stat summary (head only):
 ------------------------------
-                                 parameter    estimate      CI.low   CI.high     p.value p.value.adj    alpha.adj significance
-1       baseline_cortex_Rt_Bcl11b_Tns/Blk1  3.77723595  3.55507237 3.8823902 0.000000000   0.0000000 0.0002192982          ***
-2   beta_Rt_cortex_Bcl11b_right_X_Tns/Blk1 -0.07902666 -0.27375017 0.1275406 0.227277282  10.4547550 0.0010869565           ns
-3      beta_Rt_cortex_Bcl11b_18_X_Tns/Blk1  0.52567336  0.38387101 0.7651359 0.000000000   0.0000000 0.0002202643          ***
-4 beta_Rt_cortex_Bcl11b_right18_X_Tns/Blk1  0.21291193 -0.02966917 0.4909457 0.004309049   0.4739954 0.0004545455           ns
-5       baseline_cortex_Rt_Bcl11b_Tns/Blk2  3.54746205  3.23569098 4.2556005 0.000000000   0.0000000 0.0002212389          ***
-6   beta_Rt_cortex_Bcl11b_right_X_Tns/Blk2  0.40445220 -0.33570371 0.8694020 0.033971340   2.7177072 0.0006250000           ns
+                                 parameter    estimate      CI.low   CI.high    p.value p.value.adj    alpha.adj significance
+1       baseline_cortex_Rt_Bcl11b_Tns/Blk1  3.77723595  3.63113871 3.8334511         NA          NA           NA           NA
+2   beta_Rt_cortex_Bcl11b_right_X_Tns/Blk1 -0.07902666 -0.24000913 0.1088396 0.24752475    8.910891 0.0013888889           ns
+3      beta_Rt_cortex_Bcl11b_18_X_Tns/Blk1  0.52567336  0.39288975 0.6722258 0.00000000    0.000000 0.0003968254          ***
+4 beta_Rt_cortex_Bcl11b_right18_X_Tns/Blk1  0.21291193  0.01392318 0.4398848 0.01980198    1.168317 0.0008474576           ns
+5       baseline_cortex_Rt_Bcl11b_Tns/Blk2  3.54746205  3.33504101 4.0103834         NA          NA           NA           NA
+6   beta_Rt_cortex_Bcl11b_right_X_Tns/Blk2  0.40445220 -0.32057946 0.6704677 0.04950495    2.574257 0.0009615385           ns
 ----
 
 Analyzing residuals: 
@@ -1217,16 +271,6 @@ Log-residual summary by grouping variables (head only):
 6    ran_lvl_4 0.3453835 0.5959709 0.3551813
 ----
 
-TPS test results (head only):
-------------------------------
-              cortex   gene TPS.ref TPS.right TPS.18 TPS.right18 Rt.18 tpoint.18 tslope.18 Rt.right tpoint.right tslope.right Rt.right18 tpoint.right18 tslope.right18
-Bcl11b.cortex cortex Bcl11b    TRUE      TRUE   TRUE        TRUE  TRUE      TRUE      TRUE    FALSE         TRUE        FALSE       TRUE           TRUE          FALSE
-Cux2.cortex   cortex   Cux2    TRUE      TRUE  FALSE        TRUE  TRUE     FALSE     FALSE     TRUE        FALSE         TRUE       TRUE          FALSE          FALSE
-Fezf2.cortex  cortex  Fezf2    TRUE      TRUE   TRUE        TRUE  TRUE      TRUE      TRUE    FALSE        FALSE         TRUE       TRUE           TRUE           TRUE
-Nxph3.cortex  cortex  Nxph3   FALSE     FALSE   TRUE       FALSE  TRUE      TRUE     FALSE     TRUE        FALSE        FALSE       TRUE          FALSE          FALSE
-Rorb.cortex   cortex   Rorb   FALSE     FALSE   TRUE       FALSE  TRUE      TRUE     FALSE    FALSE        FALSE        FALSE       TRUE          FALSE          FALSE
-Satb2.cortex  cortex  Satb2    TRUE      TRUE   TRUE       FALSE  TRUE     FALSE     FALSE     TRUE        FALSE        FALSE       TRUE           TRUE           TRUE
-----
 
 Printing effect distributions: 
 ----------------------------------------
@@ -1240,4 +284,1117 @@ Making rate-count plots...
 Printing child summary plots: 
 ----------------------------------------
 
-Making summary plots for cortex: Bcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2[1] "list"
+Making summary plots for cortex: Bcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2No suitable frames for recover()
+
+Enter a frame number, or 0 to exit   
+
+1: kbl(df, format = "latex", booktabs = TRUE, escape = FALSE, linesep = "") %>% group_rows(index = effect_lengths) %>% kable_sty
+2: kable_styling(., latex_options = c("scale_down"), font_size = 8)
+3: group_rows(., index = effect_lengths)
+4: group_row_index_translator(index)
+5: standardize_header_input(index)
+
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+[1] 3 5
+[1] 7 5
+[1] 7 5
+[1] 7 5
+[1] 3 5
+[1] 1 5
+[1] 12  5
+[1] 3 5
+[1] 10  5
+[1] 10  5
+[1] 10  5
+[1] 3 5
+[1] 3 5
+[1] 1 5
+[1] 12  5
+[1] 3 5
+[1] 4 5
+[1] 4 5
+[1] 4 5
+[1] 1 5
+[1] 12  5
+[1] 3 5
+[1] 4 5
+[1] 4 5
+[1] 4 5
+[1] 1 5
+[1] 12  5
+[1] 3 5
+[1] 7 5
+[1] 7 5
+[1] 7 5
+[1] 3 5
+[1] 1 5
+[1] 12  5
+[1] 3 5
+[1] 10  5
+[1] 10  5
+[1] 10  5
+[1] 3 5
+[1] 3 5
+[1] 1 5
+[1] 12  5
+
+Enter a frame number, or 0 to exit   
+
+1: kbl(df, format = "latex", booktabs = TRUE, escape = FALSE, linesep = "") %>% group_rows(index = effect_lengths) %>% kable_sty
+2: kable_styling(., latex_options = c("scale_down"), font_size = 8)
+3: group_rows(., index = effect_lengths)
+4: group_row_index_translator(index)
+5: standardize_header_input(index)
+
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+[1] 3 5
+[1] "Tns/Blk1" "Tns/Blk1" "Tns/Blk1"
+[1] 7 5
+[1] "right" "right" "right" "right" "right" "right"
+[1] 7 5
+[1] "18" "18" "18" "18" "18" "18"
+[1] 7 5
+[1] "right18" "right18" "right18" "right18" "right18" "right18"
+[1] 3 5
+[1] "Tns/Blk2" "Tns/Blk2" "Tns/Blk2"
+[1] 1 5
+[1] "Tns/Blk3"
+[1] 12  5
+[1] "Bcl11b" "Bcl11b" "Bcl11b" "Bcl11b" "Bcl11b" "Bcl11b"
+[1] 3 5
+[1] "Tns/Blk1" "Tns/Blk1" "Tns/Blk1"
+[1] 10  5
+[1] "right" "right" "right" "right" "right" "right"
+[1] 10  5
+[1] "18" "18" "18" "18" "18" "18"
+[1] 10  5
+[1] "right18" "right18" "right18" "right18" "right18" "right18"
+[1] 3 5
+[1] "Tns/Blk2" "Tns/Blk2" "Tns/Blk2"
+[1] 3 5
+[1] "Tns/Blk3" "Tns/Blk3" "Tns/Blk3"
+[1] 1 5
+[1] "Tns/Blk4"
+[1] 12  5
+[1] "Fezf2" "Fezf2" "Fezf2" "Fezf2" "Fezf2" "Fezf2"
+[1] 3 5
+[1] "Tns/Blk1" "Tns/Blk1" "Tns/Blk1"
+[1] 4 5
+[1] "right" "right" "right" "right"
+[1] 4 5
+[1] "18" "18" "18" "18"
+[1] 4 5
+[1] "right18" "right18" "right18" "right18"
+[1] 1 5
+[1] "Tns/Blk2"
+[1] 12  5
+[1] "Satb2" "Satb2" "Satb2" "Satb2" "Satb2" "Satb2"
+[1] 3 5
+[1] "Tns/Blk1" "Tns/Blk1" "Tns/Blk1"
+[1] 4 5
+[1] "right" "right" "right" "right"
+[1] 4 5
+[1] "18" "18" "18" "18"
+[1] 4 5
+[1] "right18" "right18" "right18" "right18"
+[1] 1 5
+[1] "Tns/Blk2"
+[1] 12  5
+[1] "Nxph3" "Nxph3" "Nxph3" "Nxph3" "Nxph3" "Nxph3"
+[1] 3 5
+[1] "Tns/Blk1" "Tns/Blk1" "Tns/Blk1"
+[1] 7 5
+[1] "right" "right" "right" "right" "right" "right"
+[1] 7 5
+[1] "18" "18" "18" "18" "18" "18"
+[1] 7 5
+[1] "right18" "right18" "right18" "right18" "right18" "right18"
+[1] 3 5
+[1] "Tns/Blk2" "Tns/Blk2" "Tns/Blk2"
+[1] 1 5
+[1] "Tns/Blk3"
+[1] 12  5
+[1] "Cux2" "Cux2" "Cux2" "Cux2" "Cux2" "Cux2"
+[1] 3 5
+[1] "Tns/Blk1" "Tns/Blk1" "Tns/Blk1"
+[1] 10  5
+[1] "right" "right" "right" "right" "right" "right"
+[1] 10  5
+[1] "18" "18" "18" "18" "18" "18"
+[1] 10  5
+[1] "right18" "right18" "right18" "right18" "right18" "right18"
+[1] 3 5
+[1] "Tns/Blk2" "Tns/Blk2" "Tns/Blk2"
+[1] 3 5
+[1] "Tns/Blk3" "Tns/Blk3" "Tns/Blk3"
+[1] 1 5
+[1] "Tns/Blk4"
+[1] 12  5
+[1] "Rorb" "Rorb" "Rorb" "Rorb" "Rorb" "Rorb"
+
+Enter a frame number, or 0 to exit   
+
+1: kbl(df, format = "latex", booktabs = TRUE, escape = FALSE, linesep = "") %>% group_rows(index = effect_lengths) %>% kable_sty
+2: kable_styling(., latex_options = c("scale_down"), font_size = 8)
+3: group_rows(., index = effect_lengths)
+4: group_row_index_translator(index)
+5: standardize_header_input(index)
+
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+[1] "Tns/Blk1" "right"    "18"       "right18"  "Tns/Blk2" "Tns/Blk3" "Bcl11b"  
+[1] 3 5
+[1] "Tns/Blk1" "Tns/Blk1" "Tns/Blk1"
+[1] 7 5
+[1] "right" "right" "right" "right" "right" "right"
+[1] 7 5
+[1] "18" "18" "18" "18" "18" "18"
+[1] 7 5
+[1] "right18" "right18" "right18" "right18" "right18" "right18"
+[1] 3 5
+[1] "Tns/Blk2" "Tns/Blk2" "Tns/Blk2"
+[1] 1 5
+[1] "Tns/Blk3"
+[1] 12  5
+[1] "Bcl11b" "Bcl11b" "Bcl11b" "Bcl11b" "Bcl11b" "Bcl11b"
+[1] "Tns/Blk1" "right"    "18"       "right18"  "Tns/Blk2" "Tns/Blk3" "Tns/Blk4" "Fezf2"   
+[1] 3 5
+[1] "Tns/Blk1" "Tns/Blk1" "Tns/Blk1"
+[1] 10  5
+[1] "right" "right" "right" "right" "right" "right"
+[1] 10  5
+[1] "18" "18" "18" "18" "18" "18"
+[1] 10  5
+[1] "right18" "right18" "right18" "right18" "right18" "right18"
+[1] 3 5
+[1] "Tns/Blk2" "Tns/Blk2" "Tns/Blk2"
+[1] 3 5
+[1] "Tns/Blk3" "Tns/Blk3" "Tns/Blk3"
+[1] 1 5
+[1] "Tns/Blk4"
+[1] 12  5
+[1] "Fezf2" "Fezf2" "Fezf2" "Fezf2" "Fezf2" "Fezf2"
+[1] "Tns/Blk1" "right"    "18"       "right18"  "Tns/Blk2" "Satb2"   
+[1] 3 5
+[1] "Tns/Blk1" "Tns/Blk1" "Tns/Blk1"
+[1] 4 5
+[1] "right" "right" "right" "right"
+[1] 4 5
+[1] "18" "18" "18" "18"
+[1] 4 5
+[1] "right18" "right18" "right18" "right18"
+[1] 1 5
+[1] "Tns/Blk2"
+[1] 12  5
+[1] "Satb2" "Satb2" "Satb2" "Satb2" "Satb2" "Satb2"
+[1] "Tns/Blk1" "right"    "18"       "right18"  "Tns/Blk2" "Nxph3"   
+[1] 3 5
+[1] "Tns/Blk1" "Tns/Blk1" "Tns/Blk1"
+[1] 4 5
+[1] "right" "right" "right" "right"
+[1] 4 5
+[1] "18" "18" "18" "18"
+[1] 4 5
+[1] "right18" "right18" "right18" "right18"
+[1] 1 5
+[1] "Tns/Blk2"
+[1] 12  5
+[1] "Nxph3" "Nxph3" "Nxph3" "Nxph3" "Nxph3" "Nxph3"
+[1] "Tns/Blk1" "right"    "18"       "right18"  "Tns/Blk2" "Tns/Blk3" "Cux2"    
+[1] 3 5
+[1] "Tns/Blk1" "Tns/Blk1" "Tns/Blk1"
+[1] 7 5
+[1] "right" "right" "right" "right" "right" "right"
+[1] 7 5
+[1] "18" "18" "18" "18" "18" "18"
+[1] 7 5
+[1] "right18" "right18" "right18" "right18" "right18" "right18"
+[1] 3 5
+[1] "Tns/Blk2" "Tns/Blk2" "Tns/Blk2"
+[1] 1 5
+[1] "Tns/Blk3"
+[1] 12  5
+[1] "Cux2" "Cux2" "Cux2" "Cux2" "Cux2" "Cux2"
+[1] "Tns/Blk1" "right"    "18"       "right18"  "Tns/Blk2" "Tns/Blk3" "Tns/Blk4" "Rorb"    
+[1] 3 5
+[1] "Tns/Blk1" "Tns/Blk1" "Tns/Blk1"
+[1] 10  5
+[1] "right" "right" "right" "right" "right" "right"
+[1] 10  5
+[1] "18" "18" "18" "18" "18" "18"
+[1] 10  5
+[1] "right18" "right18" "right18" "right18" "right18" "right18"
+[1] 3 5
+[1] "Tns/Blk2" "Tns/Blk2" "Tns/Blk2"
+[1] 3 5
+[1] "Tns/Blk3" "Tns/Blk3" "Tns/Blk3"
+[1] 1 5
+[1] "Tns/Blk4"
+[1] 12  5
+[1] "Rorb" "Rorb" "Rorb" "Rorb" "Rorb" "Rorb"
+
+Enter a frame number, or 0 to exit   
+
+1: kbl(df, format = "latex", booktabs = TRUE, escape = FALSE, linesep = "") %>% group_rows(index = effect_lengths) %>% kable_sty
+2: kable_styling(., latex_options = c("scale_down"), font_size = 8)
+3: group_rows(., index = effect_lengths)
+4: group_row_index_translator(index)
+5: standardize_header_input(index)
+
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+
+Here:
+[1] "Tns/Blk1" "right"    "18"       "right18"  "Tns/Blk2" "Tns/Blk3" "Bcl11b"  
+[1] 3 5
+[1] "Tns/Blk1" "Tns/Blk1" "Tns/Blk1"
+[1] 7 5
+[1] "right" "right" "right" "right" "right" "right"
+[1] 7 5
+[1] "18" "18" "18" "18" "18" "18"
+[1] 7 5
+[1] "right18" "right18" "right18" "right18" "right18" "right18"
+[1] 3 5
+[1] "Tns/Blk2" "Tns/Blk2" "Tns/Blk2"
+[1] 1 5
+[1] "Tns/Blk3"
+[1] 12  5
+[1] "Bcl11b" "Bcl11b" "Bcl11b" "Bcl11b" "Bcl11b" "Bcl11b"
+
+Here:
+[1] "Tns/Blk1" "right"    "18"       "right18"  "Tns/Blk2" "Tns/Blk3" "Tns/Blk4" "Fezf2"   
+[1] 3 5
+[1] "Tns/Blk1" "Tns/Blk1" "Tns/Blk1"
+[1] 10  5
+[1] "right" "right" "right" "right" "right" "right"
+[1] 10  5
+[1] "18" "18" "18" "18" "18" "18"
+[1] 10  5
+[1] "right18" "right18" "right18" "right18" "right18" "right18"
+[1] 3 5
+[1] "Tns/Blk2" "Tns/Blk2" "Tns/Blk2"
+[1] 3 5
+[1] "Tns/Blk3" "Tns/Blk3" "Tns/Blk3"
+[1] 1 5
+[1] "Tns/Blk4"
+[1] 12  5
+[1] "Fezf2" "Fezf2" "Fezf2" "Fezf2" "Fezf2" "Fezf2"
+
+Here:
+[1] "Tns/Blk1" "right"    "18"       "right18"  "Tns/Blk2" "Satb2"   
+[1] 3 5
+[1] "Tns/Blk1" "Tns/Blk1" "Tns/Blk1"
+[1] 4 5
+[1] "right" "right" "right" "right"
+[1] 4 5
+[1] "18" "18" "18" "18"
+[1] 4 5
+[1] "right18" "right18" "right18" "right18"
+[1] 1 5
+[1] "Tns/Blk2"
+[1] 12  5
+[1] "Satb2" "Satb2" "Satb2" "Satb2" "Satb2" "Satb2"
+
+Here:
+[1] "Tns/Blk1" "right"    "18"       "right18"  "Tns/Blk2" "Nxph3"   
+[1] 3 5
+[1] "Tns/Blk1" "Tns/Blk1" "Tns/Blk1"
+[1] 4 5
+[1] "right" "right" "right" "right"
+[1] 4 5
+[1] "18" "18" "18" "18"
+[1] 4 5
+[1] "right18" "right18" "right18" "right18"
+[1] 1 5
+[1] "Tns/Blk2"
+[1] 12  5
+[1] "Nxph3" "Nxph3" "Nxph3" "Nxph3" "Nxph3" "Nxph3"
+
+Here:
+[1] "Tns/Blk1" "right"    "18"       "right18"  "Tns/Blk2" "Tns/Blk3" "Cux2"    
+[1] 3 5
+[1] "Tns/Blk1" "Tns/Blk1" "Tns/Blk1"
+[1] 7 5
+[1] "right" "right" "right" "right" "right" "right"
+[1] 7 5
+[1] "18" "18" "18" "18" "18" "18"
+[1] 7 5
+[1] "right18" "right18" "right18" "right18" "right18" "right18"
+[1] 3 5
+[1] "Tns/Blk2" "Tns/Blk2" "Tns/Blk2"
+[1] 1 5
+[1] "Tns/Blk3"
+[1] 12  5
+[1] "Cux2" "Cux2" "Cux2" "Cux2" "Cux2" "Cux2"
+
+Here:
+[1] "Tns/Blk1" "right"    "18"       "right18"  "Tns/Blk2" "Tns/Blk3" "Tns/Blk4" "Rorb"    
+[1] 3 5
+[1] "Tns/Blk1" "Tns/Blk1" "Tns/Blk1"
+[1] 10  5
+[1] "right" "right" "right" "right" "right" "right"
+[1] 10  5
+[1] "18" "18" "18" "18" "18" "18"
+[1] 10  5
+[1] "right18" "right18" "right18" "right18" "right18" "right18"
+[1] 3 5
+[1] "Tns/Blk2" "Tns/Blk2" "Tns/Blk2"
+[1] 3 5
+[1] "Tns/Blk3" "Tns/Blk3" "Tns/Blk3"
+[1] 1 5
+[1] "Tns/Blk4"
+[1] 12  5
+[1] "Rorb" "Rorb" "Rorb" "Rorb" "Rorb" "Rorb"
+
+Enter a frame number, or 0 to exit   
+
+1: kbl(df, format = "latex", booktabs = TRUE, escape = FALSE, linesep = "") %>% group_rows(index = effect_lengths) %>% kable_sty
+2: kable_styling(., latex_options = c("scale_down"), font_size = 8)
+3: group_rows(., index = effect_lengths)
+4: group_row_index_translator(index)
+5: standardize_header_input(index)
+
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+No suitable frames for recover()
+
+Here:
+[1] "Tns/Blk1" "Tns/Blk2" "Tns/Blk3" "Bcl11b"  
+[1] 3 5
+No suitable frames for recover()
+
+Here:
+[1] "Tns/Blk1" "Tns/Blk2" "Tns/Blk3" "Bcl11b"  
+No suitable frames for recover()
+No suitable frames for recover()
+No suitable frames for recover()
+
+Here:
+[1] "Tns/Blk1" "Tns/Blk2" "Tns/Blk3" "Bcl11b"  
+[1] 3 5
+No suitable frames for recover()
+
+Here:
+[1] "right"   "18"      "right18"
+[1] 7 5
+[1] "right" "right" "right" "right" "right" "right"
+[1] 7 5
+[1] "18" "18" "18" "18" "18" "18"
+[1] 7 5
+[1] "right18" "right18" "right18" "right18" "right18" "right18"
+
+Here:
+[1] "right"   "18"      "right18"
+[1] 10  5
+[1] "right" "right" "right" "right" "right" "right"
+[1] 10  5
+[1] "18" "18" "18" "18" "18" "18"
+[1] 10  5
+[1] "right18" "right18" "right18" "right18" "right18" "right18"
+
+Here:
+[1] "right"   "18"      "right18"
+[1] 4 5
+[1] "right" "right" "right" "right"
+[1] 4 5
+[1] "18" "18" "18" "18"
+[1] 4 5
+[1] "right18" "right18" "right18" "right18"
+
+Here:
+[1] "right"   "18"      "right18"
+[1] 4 5
+[1] "right" "right" "right" "right"
+[1] 4 5
+[1] "18" "18" "18" "18"
+[1] 4 5
+[1] "right18" "right18" "right18" "right18"
+
+Here:
+[1] "right"   "18"      "right18"
+[1] 7 5
+[1] "right" "right" "right" "right" "right" "right"
+[1] 7 5
+[1] "18" "18" "18" "18" "18" "18"
+[1] 7 5
+[1] "right18" "right18" "right18" "right18" "right18" "right18"
+
+Here:
+[1] "right"   "18"      "right18"
+[1] 10  5
+[1] "right" "right" "right" "right" "right" "right"
+[1] 10  5
+[1] "18" "18" "18" "18" "18" "18"
+[1] 10  5
+[1] "right18" "right18" "right18" "right18" "right18" "right18"
+\begin{table}
+\centering\begingroup\fontsize{8}{10}\selectfont
+
+\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
+\begin{tabular}[t]{lllrrrrl}
+\toprule
+  & spatial.param & index & est & CI.low & CI.high & p.adj & sig\\
+\midrule
+\addlinespace[0.3em]
+\multicolumn{8}{l}{\textbf{Fixed Effects: Hemisphere (right)}}\\
+\hspace{1em}right.50 & rate & block 1 & 0.1371 & 0.0500 & 0.2971 & 0.6337 & ns\\
+\hspace{1em}right.54 & rate & block 2 & 0.2573 & -0.0776 & 0.4754 & 1.6040 & ns\\
+\hspace{1em}right.58 & rate & block 3 & 0.2601 & 0.1212 & 0.5438 & 0.0000 & ***\\
+\hspace{1em}right.62 & rate & block 4 & 0.1657 & -0.1332 & 0.5346 & 5.9604 & ns\\
+\hspace{1em}right.106 & slope scalar & t-point 1 & 0.6591 & -1.6563 & 2.9905 & 10.1485 & ns\\
+\hspace{1em}right.110 & slope scalar & t-point 2 & 1.0732 & -0.2996 & 2.0773 & 1.0891 & ns\\
+\hspace{1em}right.114 & slope scalar & t-point 3 & 0.1073 & -1.0088 & 0.6673 & 9.1881 & ns\\
+\hspace{1em}right.154 & position & t-point 1 & -4.7363 & -7.3500 & -1.3862 & 0.0000 & ***\\
+\hspace{1em}right.158 & position & t-point 2 & 0.3833 & -1.1936 & 2.0062 & 10.8119 & ns\\
+\hspace{1em}right.162 & position & t-point 3 & 2.3898 & 0.4756 & 4.6565 & 0.0000 & ***\\
+\addlinespace[0.3em]
+\multicolumn{8}{l}{\textbf{Fixed Effect: Age (P18)}}\\
+\hspace{1em}18.51 & rate & block 1 & 0.1947 & 0.0422 & 0.3289 & 0.0000 & ***\\
+\hspace{1em}18.55 & rate & block 2 & 1.0130 & 0.7460 & 1.3490 & 0.0000 & ***\\
+\hspace{1em}18.59 & rate & block 3 & 1.0342 & 0.6583 & 1.3292 & 0.0000 & ***\\
+\hspace{1em}18.63 & rate & block 4 & 0.9833 & 0.7500 & 1.2856 & 0.0000 & ***\\
+\hspace{1em}18.107 & slope scalar & t-point 1 & -1.9441 & -2.6625 & 0.4114 & 1.1089 & ns\\
+\hspace{1em}18.111 & slope scalar & t-point 2 & -0.0859 & -1.8006 & 0.6827 & 9.0396 & ns\\
+\hspace{1em}18.115 & slope scalar & t-point 3 & -0.0085 & -0.7583 & 0.2208 & 1.9010 & ns\\
+\hspace{1em}18.155 & position & t-point 1 & -1.8939 & -5.4168 & 0.8720 & 3.3960 & ns\\
+\hspace{1em}18.159 & position & t-point 2 & 1.9238 & -0.0433 & 3.0190 & 0.0000 & ***\\
+\hspace{1em}18.163 & position & t-point 3 & 2.5849 & 0.8707 & 4.3729 & 0.0000 & ***\\
+\addlinespace[0.3em]
+\multicolumn{8}{l}{\textbf{Fixed Effect: Hemisphere-Age Interaction}}\\
+\hspace{1em}right18.52 & rate & block 1 & -0.0719 & -0.2395 & 0.0683 & 9.4257 & ns\\
+\hspace{1em}right18.56 & rate & block 2 & -0.6563 & -1.1316 & -0.2810 & 0.0000 & ***\\
+\hspace{1em}right18.60 & rate & block 3 & -0.4555 & -0.7703 & -0.2002 & 0.0000 & ***\\
+\hspace{1em}right18.64 & rate & block 4 & -0.6782 & -1.1347 & -0.3225 & 0.0000 & ***\\
+\hspace{1em}right18.108 & slope scalar & t-point 1 & 0.3700 & -1.1135 & 2.6827 & 7.9802 & ns\\
+\hspace{1em}right18.112 & slope scalar & t-point 2 & -1.1071 & -2.2663 & 0.2071 & 1.5743 & ns\\
+\hspace{1em}right18.116 & slope scalar & t-point 3 & -0.1043 & -0.6608 & 1.0278 & 8.6139 & ns\\
+\hspace{1em}right18.156 & position & t-point 1 & 2.5061 & -1.3234 & 4.5561 & 3.8020 & ns\\
+\hspace{1em}right18.160 & position & t-point 2 & 0.1248 & -1.5015 & 1.3787 & 5.8911 & ns\\
+\hspace{1em}right18.164 & position & t-point 3 & -2.3327 & -3.8626 & -0.6842 & 0.0000 & ***\\
+\bottomrule
+\end{tabular}}
+\endgroup{}
+\end{table}
+[1] 30
+[1] 3 5
+[1] "Tns/Blk1" "Tns/Blk1" "Tns/Blk1"
+[1] 7 5
+[1] "right" "right" "right" "right" "right" "right"
+[1] 7 5
+[1] "18" "18" "18" "18" "18" "18"
+[1] 7 5
+[1] "right18" "right18" "right18" "right18" "right18" "right18"
+[1] 3 5
+[1] "Tns/Blk2" "Tns/Blk2" "Tns/Blk2"
+[1] 1 5
+[1] "Tns/Blk3"
+[1] 12  5
+[1] "Bcl11b" "Bcl11b" "Bcl11b" "Bcl11b" "Bcl11b" "Bcl11b"
+[1] 3 5
+[1] "Tns/Blk1" "Tns/Blk1" "Tns/Blk1"
+[1] 10  5
+[1] "right" "right" "right" "right" "right" "right"
+[1] 10  5
+[1] "18" "18" "18" "18" "18" "18"
+[1] 10  5
+[1] "right18" "right18" "right18" "right18" "right18" "right18"
+[1] 3 5
+[1] "Tns/Blk2" "Tns/Blk2" "Tns/Blk2"
+[1] 3 5
+[1] "Tns/Blk3" "Tns/Blk3" "Tns/Blk3"
+[1] 1 5
+[1] "Tns/Blk4"
+[1] 12  5
+[1] "Fezf2" "Fezf2" "Fezf2" "Fezf2" "Fezf2" "Fezf2"
+[1] 3 5
+[1] "Tns/Blk1" "Tns/Blk1" "Tns/Blk1"
+[1] 4 5
+[1] "right" "right" "right" "right"
+[1] 4 5
+[1] "18" "18" "18" "18"
+[1] 4 5
+[1] "right18" "right18" "right18" "right18"
+[1] 1 5
+[1] "Tns/Blk2"
+[1] 12  5
+[1] "Satb2" "Satb2" "Satb2" "Satb2" "Satb2" "Satb2"
+[1] 3 5
+[1] "Tns/Blk1" "Tns/Blk1" "Tns/Blk1"
+[1] 4 5
+[1] "right" "right" "right" "right"
+[1] 4 5
+[1] "18" "18" "18" "18"
+[1] 4 5
+[1] "right18" "right18" "right18" "right18"
+[1] 1 5
+[1] "Tns/Blk2"
+[1] 12  5
+[1] "Nxph3" "Nxph3" "Nxph3" "Nxph3" "Nxph3" "Nxph3"
+[1] 3 5
+[1] "Tns/Blk1" "Tns/Blk1" "Tns/Blk1"
+[1] 7 5
+[1] "right" "right" "right" "right" "right" "right"
+[1] 7 5
+[1] "18" "18" "18" "18" "18" "18"
+[1] 7 5
+[1] "right18" "right18" "right18" "right18" "right18" "right18"
+[1] 3 5
+[1] "Tns/Blk2" "Tns/Blk2" "Tns/Blk2"
+[1] 1 5
+[1] "Tns/Blk3"
+[1] 12  5
+[1] "Cux2" "Cux2" "Cux2" "Cux2" "Cux2" "Cux2"
+[1] 3 5
+[1] "Tns/Blk1" "Tns/Blk1" "Tns/Blk1"
+[1] 10  5
+[1] "right" "right" "right" "right" "right" "right"
+[1] 10  5
+[1] "18" "18" "18" "18" "18" "18"
+[1] 10  5
+[1] "right18" "right18" "right18" "right18" "right18" "right18"
+[1] 3 5
+[1] "Tns/Blk2" "Tns/Blk2" "Tns/Blk2"
+[1] 3 5
+[1] "Tns/Blk3" "Tns/Blk3" "Tns/Blk3"
+[1] 1 5
+[1] "Tns/Blk4"
+[1] 12  5
+[1] "Rorb" "Rorb" "Rorb" "Rorb" "Rorb" "Rorb"
+
+Enter a frame number, or 0 to exit   
+
+1: kbl(df, format = "latex", booktabs = TRUE, escape = FALSE, linesep = "") %>% group_rows(index = effect_lengths) %>% kable_sty
+2: kable_styling(., latex_options = c("scale_down"), font_size = 8)
+3: group_rows(., index = effect_lengths)
+4: group_row_index_translator(index)
+5: standardize_header_input(index)
+
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+[1] "Tns/Blk1" "Tns/Blk1" "Tns/Blk1"
+[1] "right" "right" "right" "right" "right" "right"
+[1] "18" "18" "18" "18" "18" "18"
+[1] "right18" "right18" "right18" "right18" "right18" "right18"
+[1] "Tns/Blk2" "Tns/Blk2" "Tns/Blk2"
+[1] "Tns/Blk3"
+[1] "Bcl11b" "Bcl11b" "Bcl11b" "Bcl11b" "Bcl11b" "Bcl11b"
+[1] "Tns/Blk1" "Tns/Blk1" "Tns/Blk1"
+[1] "right" "right" "right" "right" "right" "right"
+[1] "18" "18" "18" "18" "18" "18"
+[1] "right18" "right18" "right18" "right18" "right18" "right18"
+[1] "Tns/Blk2" "Tns/Blk2" "Tns/Blk2"
+[1] "Tns/Blk3" "Tns/Blk3" "Tns/Blk3"
+[1] "Tns/Blk4"
+[1] "Fezf2" "Fezf2" "Fezf2" "Fezf2" "Fezf2" "Fezf2"
+[1] "Tns/Blk1" "Tns/Blk1" "Tns/Blk1"
+[1] "right" "right" "right" "right"
+[1] "18" "18" "18" "18"
+[1] "right18" "right18" "right18" "right18"
+[1] "Tns/Blk2"
+[1] "Satb2" "Satb2" "Satb2" "Satb2" "Satb2" "Satb2"
+[1] "Tns/Blk1" "Tns/Blk1" "Tns/Blk1"
+[1] "right" "right" "right" "right"
+[1] "18" "18" "18" "18"
+[1] "right18" "right18" "right18" "right18"
+[1] "Tns/Blk2"
+[1] "Nxph3" "Nxph3" "Nxph3" "Nxph3" "Nxph3" "Nxph3"
+[1] "Tns/Blk1" "Tns/Blk1" "Tns/Blk1"
+[1] "right" "right" "right" "right" "right" "right"
+[1] "18" "18" "18" "18" "18" "18"
+[1] "right18" "right18" "right18" "right18" "right18" "right18"
+[1] "Tns/Blk2" "Tns/Blk2" "Tns/Blk2"
+[1] "Tns/Blk3"
+[1] "Cux2" "Cux2" "Cux2" "Cux2" "Cux2" "Cux2"
+[1] "Tns/Blk1" "Tns/Blk1" "Tns/Blk1"
+[1] "right" "right" "right" "right" "right" "right"
+[1] "18" "18" "18" "18" "18" "18"
+[1] "right18" "right18" "right18" "right18" "right18" "right18"
+[1] "Tns/Blk2" "Tns/Blk2" "Tns/Blk2"
+[1] "Tns/Blk3" "Tns/Blk3" "Tns/Blk3"
+[1] "Tns/Blk4"
+[1] "Rorb" "Rorb" "Rorb" "Rorb" "Rorb" "Rorb"
+
+Enter a frame number, or 0 to exit   
+
+1: kbl(df, format = "latex", booktabs = TRUE, escape = FALSE, linesep = "") %>% group_rows(index = effect_lengths) %>% kable_sty
+2: kable_styling(., latex_options = c("scale_down"), font_size = 8)
+3: group_rows(., index = effect_lengths)
+4: group_row_index_translator(index)
+5: standardize_header_input(index)
+
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+  [1]  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE
+ [21]  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE
+ [41]  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE
+ [61]  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE
+ [81]  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE
+[101]  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE
+[121]  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE
+[141]  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE
+[161]  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[181] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[201] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[221] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[1] "right" "right" "right" "right" "right" "right"
+[1] "18" "18" "18" "18" "18" "18"
+[1] "right18" "right18" "right18" "right18" "right18" "right18"
+[1] "right" "right" "right" "right" "right" "right"
+[1] "18" "18" "18" "18" "18" "18"
+[1] "right18" "right18" "right18" "right18" "right18" "right18"
+[1] "right" "right" "right" "right"
+[1] "18" "18" "18" "18"
+[1] "right18" "right18" "right18" "right18"
+[1] "right" "right" "right" "right"
+[1] "18" "18" "18" "18"
+[1] "right18" "right18" "right18" "right18"
+[1] "right" "right" "right" "right" "right" "right"
+[1] "18" "18" "18" "18" "18" "18"
+[1] "right18" "right18" "right18" "right18" "right18" "right18"
+[1] "right" "right" "right" "right" "right" "right"
+[1] "18" "18" "18" "18" "18" "18"
+[1] "right18" "right18" "right18" "right18" "right18" "right18"
+\begin{table}
+\centering\begingroup\fontsize{8}{10}\selectfont
+
+\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
+\begin{tabular}[t]{lllrrrrl}
+\toprule
+  & spatial.param & index & est & CI.low & CI.high & p.adj & sig\\
+\midrule
+\addlinespace[0.3em]
+\multicolumn{8}{l}{\textbf{Fixed Effects: Hemisphere (right)}}\\
+\hspace{1em}right.50 & rate & block 1 & 0.1371 & 0.0500 & 0.2971 & 0.6337 & ns\\
+\hspace{1em}right.54 & rate & block 2 & 0.2573 & -0.0776 & 0.4754 & 1.6040 & ns\\
+\hspace{1em}right.58 & rate & block 3 & 0.2601 & 0.1212 & 0.5438 & 0.0000 & ***\\
+\hspace{1em}right.62 & rate & block 4 & 0.1657 & -0.1332 & 0.5346 & 5.9604 & ns\\
+\hspace{1em}right.106 & slope scalar & t-point 1 & 0.6591 & -1.6563 & 2.9905 & 10.1485 & ns\\
+\hspace{1em}right.110 & slope scalar & t-point 2 & 1.0732 & -0.2996 & 2.0773 & 1.0891 & ns\\
+\hspace{1em}right.114 & slope scalar & t-point 3 & 0.1073 & -1.0088 & 0.6673 & 9.1881 & ns\\
+\hspace{1em}right.154 & position & t-point 1 & -4.7363 & -7.3500 & -1.3862 & 0.0000 & ***\\
+\hspace{1em}right.158 & position & t-point 2 & 0.3833 & -1.1936 & 2.0062 & 10.8119 & ns\\
+\hspace{1em}right.162 & position & t-point 3 & 2.3898 & 0.4756 & 4.6565 & 0.0000 & ***\\
+\addlinespace[0.3em]
+\multicolumn{8}{l}{\textbf{Fixed Effect: Age (P18)}}\\
+\hspace{1em}18.51 & rate & block 1 & 0.1947 & 0.0422 & 0.3289 & 0.0000 & ***\\
+\hspace{1em}18.55 & rate & block 2 & 1.0130 & 0.7460 & 1.3490 & 0.0000 & ***\\
+\hspace{1em}18.59 & rate & block 3 & 1.0342 & 0.6583 & 1.3292 & 0.0000 & ***\\
+\hspace{1em}18.63 & rate & block 4 & 0.9833 & 0.7500 & 1.2856 & 0.0000 & ***\\
+\hspace{1em}18.107 & slope scalar & t-point 1 & -1.9441 & -2.6625 & 0.4114 & 1.1089 & ns\\
+\hspace{1em}18.111 & slope scalar & t-point 2 & -0.0859 & -1.8006 & 0.6827 & 9.0396 & ns\\
+\hspace{1em}18.115 & slope scalar & t-point 3 & -0.0085 & -0.7583 & 0.2208 & 1.9010 & ns\\
+\hspace{1em}18.155 & position & t-point 1 & -1.8939 & -5.4168 & 0.8720 & 3.3960 & ns\\
+\hspace{1em}18.159 & position & t-point 2 & 1.9238 & -0.0433 & 3.0190 & 0.0000 & ***\\
+\hspace{1em}18.163 & position & t-point 3 & 2.5849 & 0.8707 & 4.3729 & 0.0000 & ***\\
+\addlinespace[0.3em]
+\multicolumn{8}{l}{\textbf{Fixed Effect: Hemisphere-Age Interaction}}\\
+\hspace{1em}right18.52 & rate & block 1 & -0.0719 & -0.2395 & 0.0683 & 9.4257 & ns\\
+\hspace{1em}right18.56 & rate & block 2 & -0.6563 & -1.1316 & -0.2810 & 0.0000 & ***\\
+\hspace{1em}right18.60 & rate & block 3 & -0.4555 & -0.7703 & -0.2002 & 0.0000 & ***\\
+\hspace{1em}right18.64 & rate & block 4 & -0.6782 & -1.1347 & -0.3225 & 0.0000 & ***\\
+\hspace{1em}right18.108 & slope scalar & t-point 1 & 0.3700 & -1.1135 & 2.6827 & 7.9802 & ns\\
+\hspace{1em}right18.112 & slope scalar & t-point 2 & -1.1071 & -2.2663 & 0.2071 & 1.5743 & ns\\
+\hspace{1em}right18.116 & slope scalar & t-point 3 & -0.1043 & -0.6608 & 1.0278 & 8.6139 & ns\\
+\hspace{1em}right18.156 & position & t-point 1 & 2.5061 & -1.3234 & 4.5561 & 3.8020 & ns\\
+\hspace{1em}right18.160 & position & t-point 2 & 0.1248 & -1.5015 & 1.3787 & 5.8911 & ns\\
+\hspace{1em}right18.164 & position & t-point 3 & -2.3327 & -3.8626 & -0.6842 & 0.0000 & ***\\
+\bottomrule
+\end{tabular}}
+\endgroup{}
+\end{table}
+\begin{table}
+\centering\begingroup\fontsize{8}{10}\selectfont
+
+\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
+\begin{tabular}[t]{lllrrrrl}
+\toprule
+  & spatial.param & index & est & CI.low & CI.high & p.adj & sig\\
+\midrule
+\addlinespace[0.3em]
+\multicolumn{8}{l}{\textbf{Fixed Effects: Hemisphere (right)}}\\
+\hspace{1em}right.50 & rate & block 1 & 0.1371 & 0.0500 & 0.2971 & 0.6337 & ns\\
+\hspace{1em}right.54 & rate & block 2 & 0.2573 & -0.0776 & 0.4754 & 1.6040 & ns\\
+\hspace{1em}right.58 & rate & block 3 & 0.2601 & 0.1212 & 0.5438 & 0.0000 & ***\\
+\hspace{1em}right.62 & rate & block 4 & 0.1657 & -0.1332 & 0.5346 & 5.9604 & ns\\
+\hspace{1em}right.106 & slope scalar & t-point 1 & 0.6591 & -1.6563 & 2.9905 & 10.1485 & ns\\
+\hspace{1em}right.110 & slope scalar & t-point 2 & 1.0732 & -0.2996 & 2.0773 & 1.0891 & ns\\
+\hspace{1em}right.114 & slope scalar & t-point 3 & 0.1073 & -1.0088 & 0.6673 & 9.1881 & ns\\
+\hspace{1em}right.154 & position & t-point 1 & -4.7363 & -7.3500 & -1.3862 & 0.0000 & ***\\
+\hspace{1em}right.158 & position & t-point 2 & 0.3833 & -1.1936 & 2.0062 & 10.8119 & ns\\
+\hspace{1em}right.162 & position & t-point 3 & 2.3898 & 0.4756 & 4.6565 & 0.0000 & ***\\
+\addlinespace[0.3em]
+\multicolumn{8}{l}{\textbf{Fixed Effect: Age (P18)}}\\
+\hspace{1em}18.51 & rate & block 1 & 0.1947 & 0.0422 & 0.3289 & 0.0000 & ***\\
+\hspace{1em}18.55 & rate & block 2 & 1.0130 & 0.7460 & 1.3490 & 0.0000 & ***\\
+\hspace{1em}18.59 & rate & block 3 & 1.0342 & 0.6583 & 1.3292 & 0.0000 & ***\\
+\hspace{1em}18.63 & rate & block 4 & 0.9833 & 0.7500 & 1.2856 & 0.0000 & ***\\
+\hspace{1em}18.107 & slope scalar & t-point 1 & -1.9441 & -2.6625 & 0.4114 & 1.1089 & ns\\
+\hspace{1em}18.111 & slope scalar & t-point 2 & -0.0859 & -1.8006 & 0.6827 & 9.0396 & ns\\
+\hspace{1em}18.115 & slope scalar & t-point 3 & -0.0085 & -0.7583 & 0.2208 & 1.9010 & ns\\
+\hspace{1em}18.155 & position & t-point 1 & -1.8939 & -5.4168 & 0.8720 & 3.3960 & ns\\
+\hspace{1em}18.159 & position & t-point 2 & 1.9238 & -0.0433 & 3.0190 & 0.0000 & ***\\
+\hspace{1em}18.163 & position & t-point 3 & 2.5849 & 0.8707 & 4.3729 & 0.0000 & ***\\
+\addlinespace[0.3em]
+\multicolumn{8}{l}{\textbf{Fixed Effect: Hemisphere-Age Interaction}}\\
+\hspace{1em}right18.52 & rate & block 1 & -0.0719 & -0.2395 & 0.0683 & 9.4257 & ns\\
+\hspace{1em}right18.56 & rate & block 2 & -0.6563 & -1.1316 & -0.2810 & 0.0000 & ***\\
+\hspace{1em}right18.60 & rate & block 3 & -0.4555 & -0.7703 & -0.2002 & 0.0000 & ***\\
+\hspace{1em}right18.64 & rate & block 4 & -0.6782 & -1.1347 & -0.3225 & 0.0000 & ***\\
+\hspace{1em}right18.108 & slope scalar & t-point 1 & 0.3700 & -1.1135 & 2.6827 & 7.9802 & ns\\
+\hspace{1em}right18.112 & slope scalar & t-point 2 & -1.1071 & -2.2663 & 0.2071 & 1.5743 & ns\\
+\hspace{1em}right18.116 & slope scalar & t-point 3 & -0.1043 & -0.6608 & 1.0278 & 8.6139 & ns\\
+\hspace{1em}right18.156 & position & t-point 1 & 2.5061 & -1.3234 & 4.5561 & 3.8020 & ns\\
+\hspace{1em}right18.160 & position & t-point 2 & 0.1248 & -1.5015 & 1.3787 & 5.8911 & ns\\
+\hspace{1em}right18.164 & position & t-point 3 & -2.3327 & -3.8626 & -0.6842 & 0.0000 & ***\\
+\bottomrule
+\end{tabular}}
+\endgroup{}
+\end{table}
+\begin{table}
+\centering\begingroup\fontsize{8}{10}\selectfont
+
+\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
+\begin{tabular}[t]{lllrrrrl}
+\toprule
+  & spatial.param & index & est & CI.low & CI.high & p.adj & sig\\
+\midrule
+\addlinespace[0.3em]
+\multicolumn{8}{l}{\textbf{Fixed Effects: Hemisphere (right)}}\\
+\hspace{1em}right.50 & rate & block 1 & 0.1371 & 0.0500 & 0.2971 & 0.6337 & ns\\
+\hspace{1em}right.54 & rate & block 2 & 0.2573 & -0.0776 & 0.4754 & 1.6040 & ns\\
+\hspace{1em}right.58 & rate & block 3 & 0.2601 & 0.1212 & 0.5438 & 0.0000 & ***\\
+\hspace{1em}right.62 & rate & block 4 & 0.1657 & -0.1332 & 0.5346 & 5.9604 & ns\\
+\hspace{1em}right.106 & slope scalar & t-point 1 & 0.6591 & -1.6563 & 2.9905 & 10.1485 & ns\\
+\hspace{1em}right.110 & slope scalar & t-point 2 & 1.0732 & -0.2996 & 2.0773 & 1.0891 & ns\\
+\hspace{1em}right.114 & slope scalar & t-point 3 & 0.1073 & -1.0088 & 0.6673 & 9.1881 & ns\\
+\hspace{1em}right.154 & position & t-point 1 & -4.7363 & -7.3500 & -1.3862 & 0.0000 & ***\\
+\hspace{1em}right.158 & position & t-point 2 & 0.3833 & -1.1936 & 2.0062 & 10.8119 & ns\\
+\hspace{1em}right.162 & position & t-point 3 & 2.3898 & 0.4756 & 4.6565 & 0.0000 & ***\\
+\addlinespace[0.3em]
+\multicolumn{8}{l}{\textbf{Fixed Effect: Age (P18)}}\\
+\hspace{1em}18.51 & rate & block 1 & 0.1947 & 0.0422 & 0.3289 & 0.0000 & ***\\
+\hspace{1em}18.55 & rate & block 2 & 1.0130 & 0.7460 & 1.3490 & 0.0000 & ***\\
+\hspace{1em}18.59 & rate & block 3 & 1.0342 & 0.6583 & 1.3292 & 0.0000 & ***\\
+\hspace{1em}18.63 & rate & block 4 & 0.9833 & 0.7500 & 1.2856 & 0.0000 & ***\\
+\hspace{1em}18.107 & slope scalar & t-point 1 & -1.9441 & -2.6625 & 0.4114 & 1.1089 & ns\\
+\hspace{1em}18.111 & slope scalar & t-point 2 & -0.0859 & -1.8006 & 0.6827 & 9.0396 & ns\\
+\hspace{1em}18.115 & slope scalar & t-point 3 & -0.0085 & -0.7583 & 0.2208 & 1.9010 & ns\\
+\hspace{1em}18.155 & position & t-point 1 & -1.8939 & -5.4168 & 0.8720 & 3.3960 & ns\\
+\hspace{1em}18.159 & position & t-point 2 & 1.9238 & -0.0433 & 3.0190 & 0.0000 & ***\\
+\hspace{1em}18.163 & position & t-point 3 & 2.5849 & 0.8707 & 4.3729 & 0.0000 & ***\\
+\addlinespace[0.3em]
+\multicolumn{8}{l}{\textbf{Fixed Effect: Hemisphere-Age Interaction}}\\
+\hspace{1em}right18.52 & rate & block 1 & -0.0719 & -0.2395 & 0.0683 & 9.4257 & ns\\
+\hspace{1em}right18.56 & rate & block 2 & -0.6563 & -1.1316 & -0.2810 & 0.0000 & ***\\
+\hspace{1em}right18.60 & rate & block 3 & -0.4555 & -0.7703 & -0.2002 & 0.0000 & ***\\
+\hspace{1em}right18.64 & rate & block 4 & -0.6782 & -1.1347 & -0.3225 & 0.0000 & ***\\
+\hspace{1em}right18.108 & slope scalar & t-point 1 & 0.3700 & -1.1135 & 2.6827 & 7.9802 & ns\\
+\hspace{1em}right18.112 & slope scalar & t-point 2 & -1.1071 & -2.2663 & 0.2071 & 1.5743 & ns\\
+\hspace{1em}right18.116 & slope scalar & t-point 3 & -0.1043 & -0.6608 & 1.0278 & 8.6139 & ns\\
+\hspace{1em}right18.156 & position & t-point 1 & 2.5061 & -1.3234 & 4.5561 & 3.8020 & ns\\
+\hspace{1em}right18.160 & position & t-point 2 & 0.1248 & -1.5015 & 1.3787 & 5.8911 & ns\\
+\hspace{1em}right18.164 & position & t-point 3 & -2.3327 & -3.8626 & -0.6842 & 0.0000 & ***\\
+\bottomrule
+\end{tabular}}
+\endgroup{}
+\end{table}
+\begin{table}
+\centering\begingroup\fontsize{8}{10}\selectfont
+
+\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
+\begin{tabular}[t]{lllrrrrl}
+\toprule
+  & spatial.param & index & est & CI.low & CI.high & p.adj & sig\\
+\midrule
+\addlinespace[0.3em]
+\multicolumn{8}{l}{\textbf{Fixed Effects: Hemisphere (right)}}\\
+\hspace{1em}right.50 & rate & block 1 & 0.1371 & 0.0500 & 0.2971 & 0.6337 & ns\\
+\hspace{1em}right.54 & rate & block 2 & 0.2573 & -0.0776 & 0.4754 & 1.6040 & ns\\
+\hspace{1em}right.58 & rate & block 3 & 0.2601 & 0.1212 & 0.5438 & 0.0000 & ***\\
+\hspace{1em}right.62 & rate & block 4 & 0.1657 & -0.1332 & 0.5346 & 5.9604 & ns\\
+\hspace{1em}right.106 & slope scalar & t-point 1 & 0.6591 & -1.6563 & 2.9905 & 10.1485 & ns\\
+\hspace{1em}right.110 & slope scalar & t-point 2 & 1.0732 & -0.2996 & 2.0773 & 1.0891 & ns\\
+\hspace{1em}right.114 & slope scalar & t-point 3 & 0.1073 & -1.0088 & 0.6673 & 9.1881 & ns\\
+\hspace{1em}right.154 & position & t-point 1 & -4.7363 & -7.3500 & -1.3862 & 0.0000 & ***\\
+\hspace{1em}right.158 & position & t-point 2 & 0.3833 & -1.1936 & 2.0062 & 10.8119 & ns\\
+\hspace{1em}right.162 & position & t-point 3 & 2.3898 & 0.4756 & 4.6565 & 0.0000 & ***\\
+\addlinespace[0.3em]
+\multicolumn{8}{l}{\textbf{Fixed Effect: Age (P18)}}\\
+\hspace{1em}18.51 & rate & block 1 & 0.1947 & 0.0422 & 0.3289 & 0.0000 & ***\\
+\hspace{1em}18.55 & rate & block 2 & 1.0130 & 0.7460 & 1.3490 & 0.0000 & ***\\
+\hspace{1em}18.59 & rate & block 3 & 1.0342 & 0.6583 & 1.3292 & 0.0000 & ***\\
+\hspace{1em}18.63 & rate & block 4 & 0.9833 & 0.7500 & 1.2856 & 0.0000 & ***\\
+\hspace{1em}18.107 & slope scalar & t-point 1 & -1.9441 & -2.6625 & 0.4114 & 1.1089 & ns\\
+\hspace{1em}18.111 & slope scalar & t-point 2 & -0.0859 & -1.8006 & 0.6827 & 9.0396 & ns\\
+\hspace{1em}18.115 & slope scalar & t-point 3 & -0.0085 & -0.7583 & 0.2208 & 1.9010 & ns\\
+\hspace{1em}18.155 & position & t-point 1 & -1.8939 & -5.4168 & 0.8720 & 3.3960 & ns\\
+\hspace{1em}18.159 & position & t-point 2 & 1.9238 & -0.0433 & 3.0190 & 0.0000 & ***\\
+\hspace{1em}18.163 & position & t-point 3 & 2.5849 & 0.8707 & 4.3729 & 0.0000 & ***\\
+\addlinespace[0.3em]
+\multicolumn{8}{l}{\textbf{Fixed Effect: Hemisphere-Age Interaction}}\\
+\hspace{1em}right18.52 & rate & block 1 & -0.0719 & -0.2395 & 0.0683 & 9.4257 & ns\\
+\hspace{1em}right18.56 & rate & block 2 & -0.6563 & -1.1316 & -0.2810 & 0.0000 & ***\\
+\hspace{1em}right18.60 & rate & block 3 & -0.4555 & -0.7703 & -0.2002 & 0.0000 & ***\\
+\hspace{1em}right18.64 & rate & block 4 & -0.6782 & -1.1347 & -0.3225 & 0.0000 & ***\\
+\hspace{1em}right18.108 & slope scalar & t-point 1 & 0.3700 & -1.1135 & 2.6827 & 7.9802 & ns\\
+\hspace{1em}right18.112 & slope scalar & t-point 2 & -1.1071 & -2.2663 & 0.2071 & 1.5743 & ns\\
+\hspace{1em}right18.116 & slope scalar & t-point 3 & -0.1043 & -0.6608 & 1.0278 & 8.6139 & ns\\
+\hspace{1em}right18.156 & position & t-point 1 & 2.5061 & -1.3234 & 4.5561 & 3.8020 & ns\\
+\hspace{1em}right18.160 & position & t-point 2 & 0.1248 & -1.5015 & 1.3787 & 5.8911 & ns\\
+\hspace{1em}right18.164 & position & t-point 3 & -2.3327 & -3.8626 & -0.6842 & 0.0000 & ***\\
+\bottomrule
+\end{tabular}}
+\endgroup{}
+\end{table}
+[1] "right"   "18"      "right18"
+\begin{table}
+\centering\begingroup\fontsize{8}{10}\selectfont
+
+\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
+\begin{tabular}[t]{llrrrrl}
+\toprule
+spatial.param & index & est & CI.low & CI.high & p.adj & sig\\
+\midrule
+\addlinespace[0.3em]
+\multicolumn{7}{l}{\textbf{Fixed Effects: Hemisphere (right)}}\\
+\hspace{1em}rate & block 1 & 0.1371 & 0.0500 & 0.2971 & 0.6337 & ns\\
+\hspace{1em}rate & block 2 & 0.2573 & -0.0776 & 0.4754 & 1.6040 & ns\\
+\hspace{1em}rate & block 3 & 0.2601 & 0.1212 & 0.5438 & 0.0000 & ***\\
+\hspace{1em}rate & block 4 & 0.1657 & -0.1332 & 0.5346 & 5.9604 & ns\\
+\hspace{1em}slope scalar & t-point 1 & 0.6591 & -1.6563 & 2.9905 & 10.1485 & ns\\
+\hspace{1em}slope scalar & t-point 2 & 1.0732 & -0.2996 & 2.0773 & 1.0891 & ns\\
+\hspace{1em}slope scalar & t-point 3 & 0.1073 & -1.0088 & 0.6673 & 9.1881 & ns\\
+\hspace{1em}position & t-point 1 & -4.7363 & -7.3500 & -1.3862 & 0.0000 & ***\\
+\hspace{1em}position & t-point 2 & 0.3833 & -1.1936 & 2.0062 & 10.8119 & ns\\
+\hspace{1em}position & t-point 3 & 2.3898 & 0.4756 & 4.6565 & 0.0000 & ***\\
+\addlinespace[0.3em]
+\multicolumn{7}{l}{\textbf{Fixed Effect: Age (P18)}}\\
+\hspace{1em}rate & block 1 & 0.1947 & 0.0422 & 0.3289 & 0.0000 & ***\\
+\hspace{1em}rate & block 2 & 1.0130 & 0.7460 & 1.3490 & 0.0000 & ***\\
+\hspace{1em}rate & block 3 & 1.0342 & 0.6583 & 1.3292 & 0.0000 & ***\\
+\hspace{1em}rate & block 4 & 0.9833 & 0.7500 & 1.2856 & 0.0000 & ***\\
+\hspace{1em}slope scalar & t-point 1 & -1.9441 & -2.6625 & 0.4114 & 1.1089 & ns\\
+\hspace{1em}slope scalar & t-point 2 & -0.0859 & -1.8006 & 0.6827 & 9.0396 & ns\\
+\hspace{1em}slope scalar & t-point 3 & -0.0085 & -0.7583 & 0.2208 & 1.9010 & ns\\
+\hspace{1em}position & t-point 1 & -1.8939 & -5.4168 & 0.8720 & 3.3960 & ns\\
+\hspace{1em}position & t-point 2 & 1.9238 & -0.0433 & 3.0190 & 0.0000 & ***\\
+\hspace{1em}position & t-point 3 & 2.5849 & 0.8707 & 4.3729 & 0.0000 & ***\\
+\addlinespace[0.3em]
+\multicolumn{7}{l}{\textbf{Fixed Effect: Hemisphere-Age Interaction}}\\
+\hspace{1em}rate & block 1 & -0.0719 & -0.2395 & 0.0683 & 9.4257 & ns\\
+\hspace{1em}rate & block 2 & -0.6563 & -1.1316 & -0.2810 & 0.0000 & ***\\
+\hspace{1em}rate & block 3 & -0.4555 & -0.7703 & -0.2002 & 0.0000 & ***\\
+\hspace{1em}rate & block 4 & -0.6782 & -1.1347 & -0.3225 & 0.0000 & ***\\
+\hspace{1em}slope scalar & t-point 1 & 0.3700 & -1.1135 & 2.6827 & 7.9802 & ns\\
+\hspace{1em}slope scalar & t-point 2 & -1.1071 & -2.2663 & 0.2071 & 1.5743 & ns\\
+\hspace{1em}slope scalar & t-point 3 & -0.1043 & -0.6608 & 1.0278 & 8.6139 & ns\\
+\hspace{1em}position & t-point 1 & 2.5061 & -1.3234 & 4.5561 & 3.8020 & ns\\
+\hspace{1em}position & t-point 2 & 0.1248 & -1.5015 & 1.3787 & 5.8911 & ns\\
+\hspace{1em}position & t-point 3 & -2.3327 & -3.8626 & -0.6842 & 0.0000 & ***\\
+\bottomrule
+\end{tabular}}
+\endgroup{}
+\end{table}
