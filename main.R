@@ -121,8 +121,9 @@ laminar.model <- wisp(
   use.median = FALSE,
   MCMC.burnin = 0,
   MCMC.steps = 1e4,
-  MCMC.step.size = 0.5,
-  MCMC.prior = 10.0, 
+  MCMC.step.size = 1.0,
+  MCMC.prior = 1.0, 
+  MCMC.neighbor.filter = 2,
   bootstraps.num = 1e4,
   converged.resamples.only = TRUE,
   max.fork = bs_chunksize,
@@ -231,16 +232,16 @@ kbl(df, format = "latex", booktabs = TRUE, escape = FALSE, linesep = "") %>%
 # Scratch #####
 
 newplots <- plot.ratecount(
-  merfish.laminar.model,
+  laminar.model,
   pred.type = "pred.log",
   count.type = "count.log",
   print.all = TRUE
 )
 
-View(merfish.laminar.model[["MCMC.diagnostics"]][c(1:10,9990:10001),])
+View(laminar.model[["diagnostics.MCMC"]][c(1:10,9990:10001),])
 
-nll <- unlist(merfish.laminar.model[["MCMC.diagnostics"]][["neg.loglik"]])
-pnll <- unlist(merfish.laminar.model[["MCMC.diagnostics"]][["pen.neg.value"]])
+nll <- unlist(laminar.model[["diagnostics.MCMC"]][["neg.loglik"]])
+pnll <- unlist(laminar.model[["diagnostics.MCMC"]][["pen.neg.value"]])
 nll <- (nll - nll[1]) / nll[1]
 pnll <- (pnll - pnll[1]) / pnll[1]
 ymin <- min(c(nll, pnll))
@@ -248,10 +249,10 @@ ymax <- max(c(nll, pnll))
 plot(nll, type = "l", col = "blue", ylim = c(ymin, ymax))
 lines(pnll, col = "red")
 
-nll <- unlist(merfish.laminar.model[["MCMC.diagnostics"]][["neg.loglik"]])
-pnll <- unlist(merfish.laminar.model[["MCMC.diagnostics"]][["pen.neg.value"]])
-idx <- which(merfish.laminar.model$param.names == "beta_Rt_cortex_Rorb_right18_X_Tns/Blk2")
-ptrace <- merfish.laminar.model[["sample.params"]][,idx]
+nll <- unlist(laminar.model[["diagnostics.MCMC"]][["neg.loglik"]])
+pnll <- unlist(laminar.model[["diagnostics.MCMC"]][["pen.neg.value"]])
+idx <- which(laminar.model$param.names == "beta_Rt_cortex_Rorb_right18_X_Tns/Blk2")
+ptrace <- laminar.model[["sample.params"]][,idx]
 ptracemax <- max(ptrace)
 ptracemin <- min(ptrace)
 nll <- scales::rescale(nll, to = c(ptracemin, ptracemax), from = range(nll))
@@ -309,4 +310,105 @@ print(new_plot)
 new_plot2 <- new_plot + scale_color_manual(values = c("deeppink", "deeppink4", "deepskyblue", "deepskyblue4"))
 print(new_plot2)
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Function to check for correlations between samples one-step a part 
+sample.correlations <- function( 
+    wisp.results,
+    verbose = TRUE
+) {
+  
+  # Font sizes 
+  label_size <- 5.5
+  title_size <- 20 
+  axis_size <- 12 
+  legend_size <- 10
+  
+  if (verbose) {
+    snk.report("Calculating correlations between samples one-step a part", initial_breaks = 1)
+    snk.horizontal_rule(reps = snk.simple_break_reps)
+  }
+  
+  # Grab sample results
+  sample_results_MCMC <- wisp.results$sample.params.MCMC
+  sample_results_bs <- wisp.results$sample.params.bs
+  
+  # Compute correlations
+  n_params <- ncol(sample_results_MCMC)
+  if (n_params != ncol(sample_results_bs)) {
+    stop("Sample results from MCMC and bootstrap have different number of parameters")
+  }
+  # ... for MCMC random walk steps
+  cor_MCMC <- rep(NA, n_params)
+  n_samples_MCMC <- nrow(sample_results_MCMC)
+  for (i in seq_len(n_params)) {
+    cor_MCMC[i] <- cor(
+      x = sample_results_MCMC[c(1:(n_samples_MCMC-1)),i], 
+      y = sample_results_MCMC[c(2:n_samples_MCMC),i],
+      method = "pearson"
+    )
+  }
+  # ... for bootstraps (control, expect no correlation) 
+  cor_bs <- rep(NA, n_params)
+  n_samples_bs <- nrow(sample_results_bs)
+  for (i in seq_len(n_params)) {
+    cor_bs[i] <- cor(
+      x = sample_results_bs[c(1:(n_samples_bs-1)),i], 
+      y = sample_results_bs[c(2:n_samples_bs),i],
+      method = "pearson"
+    )
+  }
+  
+  # Make summary table
+  sample_correlations <- data.frame(
+    sample_cor = c(cor_MCMC, cor_bs),
+    method = c(rep("MCMC", n_params), rep("Bootstrap", n_params))
+  )
+  
+  # Make summary density plot 
+  plot_sample_correlations <- ggplot(sample_correlations, aes(x = sample_cor, color = method)) +
+    geom_density(linewidth = 1.2) +
+    theme_minimal() +
+    labs(
+      title = "Correlation Between Resampled Parameters One Step a Part", 
+      x = "Correlation", 
+      y = "Density"
+    ) +
+    theme(
+      plot.title = element_text(hjust = 0.5, size = title_size),
+      axis.title = element_text(size = axis_size),
+      axis.text = element_text(size = axis_size),
+      legend.title = element_text(size = legend_size),
+      legend.text = element_text(size = legend_size)
+    )
+  
+  # Print summary table of stat analysis 
+  if (verbose) snk.print_table("Sample correlations", sample_correlations, head = TRUE, initial_breaks = 1)
+  
+  return(
+    list(
+      sample.correlations = sample_correlations,
+      plot.sample.correlations = plot_sample_correlations
+    )
+  )
+  
+}
+
+samp.corr <- sample.correlations(
+  wisp.results = laminar.model,
+  verbose = TRUE
+)
+
+print(samp.corr$plot.sample.correlations)
 
