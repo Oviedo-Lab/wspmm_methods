@@ -136,14 +136,46 @@ laminar.model <- wisp(
 
 # Save
 saveRDS(laminar.model, file = "saved_laminar_model.rds")
-laminar.model <- readRDS("saved_laminar_model.rds")
+laminar.model <- readRDS("saved_laminar_model-final.rds")
 
+# Make rate-count plots for results #####
 
+n_plots <- length(laminar.model[["plots"]][["ratecount"]])
+p_names <- names(laminar.model[["plots"]][["ratecount"]])
+p_names <- p_names[2:n_plots]
+ratecount_plots <- list()
+length(ratecount_plots) <- n_plots - 1
+names(ratecount_plots) <- p_names
+title_size <- 20 
+axis_size <- 12 
+legend_size <- 10
+for (p in 2:n_plots) {
+  p_ <- names(laminar.model[["plots"]][["ratecount"]])[p]
+  gene_name <- gsub("plot_pred_parent_cortex_fixEff_", "", p_)
+  leg_pos <- "none"
+  if (gene_name == "Rorb") leg_pos = "right"
+  ratecount_plots[[p_]] <- laminar.model[["plots"]][["ratecount"]][[p_]] +
+    labs(title = gene_name, x = NULL, y = NULL) + 
+    theme(
+      plot.title = element_text(hjust = 0.5, size = title_size),
+      axis.title = element_text(size = axis_size),
+      axis.text = element_text(size = axis_size),
+      legend.title = element_text(size = legend_size),
+      legend.text = element_text(size = legend_size),
+      legend.position = leg_pos
+    ) + 
+    scale_color_manual(
+      labels = c("Left, P12", "right, P12", "left, P18", "right, P18"),
+      values = c("deeppink", "deeppink4", "deepskyblue", "deepskyblue4")
+      )
+}
+bottom_row <- arrangeGrob(ratecount_plots[[1]], ratecount_plots[[4]], ratecount_plots[[3]], ncol = 3)
+right_side <- arrangeGrob(ratecount_plots[[2]], ratecount_plots[[6]], ncol = 1)
+top_row <- arrangeGrob(ratecount_plots[[5]], right_side, widths = c(1, 0.5), ncol = 2)
+grid.arrange(top_row, bottom_row, heights = c(1, 0.5), nrow = 2)
 
+# Make results table for stats #####
 
-
-
-# Make results table for stats
 param_stats <- laminar.model[["stats"]][["parameters"]][,-c(5,7)]
 param_stats[,2:5] <- round(param_stats[,2:5], 4)
 param_stats <- param_stats[
@@ -205,48 +237,8 @@ kbl(df, format = "latex", booktabs = TRUE, escape = FALSE, linesep = "") %>%
   group_rows(index = effect_lengths) %>%
   kable_styling(latex_options = c("scale_down"), font_size = 8)
 
+# Compare bs and MCMC results #####
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# Scratch #####
-
-newplots <- plot.ratecount(
-  laminar.model,
-  pred.type = "pred.log",
-  count.type = "count.log",
-  print.all = TRUE
-)
-
-
-# Compare bs and MCMC results
 # ... nll
 nll_mcmc <- laminar.model[["diagnostics.MCMC"]]$neg.loglik
 nll_bs <- laminar.model[["diagnostics.bs"]]$neg.loglik
@@ -274,63 +266,12 @@ for (i in 1:n_params) {
 hist(ttest_results)
 plot(ttest_results)
 
-# OTHER DEMOS!! (PUT INTO DEMO SCRIPT)
+# OTHER DEMOS!! (PUT INTO DEMO SCRIPT) #####
 demo_sigmoid()
 demo_warp() 
 
 
 
-
-
-
-
-
-
-
-
-
-param_mcmc <- laminar.model[["sample.params.MCMC"]]
-param_bs <- laminar.model[["sample.params.bs"]]
-this_col <- sample(1:ncol(param_mcmc), 1)
-df_dens <- data.frame(
-  value = c(param_mcmc[,this_col], param_bs[,this_col]),
-  method = c(rep("MCMC", nrow(param_mcmc)), rep("Bootstrap", nrow(param_bs)))
-)
-label_size <- 5.5
-title_size <- 20 
-axis_size <- 12 
-legend_size <- 10
-plot_comparison <- ggplot(df_dens, aes(x = value, color = method)) +
-  geom_density(linewidth = 1.2) +
-  theme_minimal() +
-  labs(
-    title = "Parameter Estimate Distribution", 
-    x = "Parameter Value", 
-    y = "Density"
-  ) +
-  theme(
-    plot.title = element_text(hjust = 0.5, size = title_size),
-    axis.title = element_text(size = axis_size),
-    axis.text = element_text(size = axis_size),
-    legend.title = element_text(size = legend_size),
-    legend.text = element_text(size = legend_size)
-  )
-print(plot_comparison)
-
-
-
-new_plot <- laminar.model[["plots"]][["ratecount"]][["plot_pred_parent_cortex_fixEff_Rorb"]] +
-  theme(
-    plot.title = element_text(hjust = 0.5, size = 30),
-    axis.title = element_text(size = 20),
-    axis.text = element_text(size = 20),
-    legend.title = element_text(size = 18),
-    legend.text = element_text(size = 18)
-  )
-print(new_plot)
-
-new_plot2 <- new_plot + scale_color_manual(values = c("deeppink", "deeppink4", "deepskyblue", "deepskyblue4"))
-print(new_plot2)
 
 
 
