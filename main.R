@@ -152,8 +152,18 @@ legend_size <- 10
 for (p in 2:n_plots) {
   p_ <- names(laminar.model[["plots"]][["ratecount"]])[p]
   gene_name <- gsub("plot_pred_parent_cortex_fixEff_", "", p_)
+  # Check if this is Rorb
+  this_Rorb <- FALSE
+  if (gene_name == "Rorb") this_Rorb <- TRUE
+  # Set legend position 
   leg_pos <- "none"
-  if (gene_name == "Rorb") leg_pos = "right"
+  if (this_Rorb) leg_pos = "right"
+  # Reformat gene names
+  if (this_Rorb) {
+    gene_name <- expression("ROR" * beta)
+  } else {
+    gene_name <- toupper(gene_name)
+  }
   ratecount_plots[[p_]] <- laminar.model[["plots"]][["ratecount"]][[p_]] +
     labs(title = gene_name, x = NULL, y = NULL) + 
     theme(
@@ -168,6 +178,110 @@ for (p in 2:n_plots) {
       labels = c("Left, P12", "right, P12", "left, P18", "right, P18"),
       values = c("deeppink", "deeppink4", "deepskyblue", "deepskyblue4")
       )
+  if (this_Rorb) {
+    # Extract data frame from plot 
+    found_P12 <- FALSE 
+    this_layer <- 1
+    while(!found_P12) {
+      df12 <- ratecount_plots[[p_]][["layers"]][[this_layer]][["data"]]
+      if(all(df12$ran == "none" & df12$treatment == "ref")) found_P12 <- TRUE
+      else this_layer <- this_layer + 1
+    }
+    found_P18 <- FALSE 
+    this_layer <- 1 
+    while(!found_P18) {
+      df18 <- ratecount_plots[[p_]][["layers"]][[this_layer]][["data"]]
+      if(all(df18$ran == "none" & df18$treatment == "ref")) found_P18 <- TRUE
+      else this_layer <- this_layer + 1
+    }
+    # Find t-points
+    rise <- 25
+    tpoints_ref <- laminar.model$fitted.parameters[grepl("baseline_cortex_tpoint_Rorb", laminar.model$param.names)]
+    tpoints_18 <- laminar.model$fitted.parameters[grepl("beta_tpoint_cortex_Rorb_18_X_Tns/Blk", laminar.model$param.names)]
+    rorb_markup_tp <- data.frame(
+      tp_ref = tpoints_ref,
+      tp_18 = tpoints_ref + tpoints_18,
+      tpy = rep(-rise, length(tpoints_ref)),
+      tpyend = rep(0, length(tpoints_ref))
+    )
+    # Find rates
+    Rates_block3 <- c(
+      laminar.model$fitted.parameters["baseline_cortex_Rt_Rorb_Tns/Blk3"], # ref level 
+      laminar.model$fitted.parameters["baseline_cortex_Rt_Rorb_Tns/Blk3"] + 
+        laminar.model$fitted.parameters[grepl("beta_Rt_cortex_Rorb_18_X_Tns/Blk3", laminar.model$param.names)], # affect of age
+      laminar.model$fitted.parameters["baseline_cortex_Rt_Rorb_Tns/Blk3"] + 
+        laminar.model$fitted.parameters[grepl("beta_Rt_cortex_Rorb_18_X_Tns/Blk3", laminar.model$param.names)] +    # affect of age
+        laminar.model$fitted.parameters[grepl("beta_Rt_cortex_Rorb_right_X_Tns/Blk3", laminar.model$param.names)] + # affect of hemisphere
+        laminar.model$fitted.parameters[grepl("beta_Rt_cortex_Rorb_right18_X_Tns/Blk3", laminar.model$param.names)] # affect of hemisphere and age
+    )
+    Rates_block3 <- exp(Rates_block3) - 1
+    rorb_markup_Rt <- data.frame(
+      Rts_ref = Rates_block3,
+      Rtsx = rep(57, length(Rates_block3)),
+      Rtsxend = rep(57 + 4, length(Rates_block3))
+    )
+    # Find slope
+    #  ... the slope M outside of log space equals the slope m inside log space times  
+    #       the rate R outside log space plus 1, i.e., M = m * (R + 1)
+    #       ... Why? m = dr/dx = d(log(R+1)/dx = dR/dx * 1/(R+1)
+    P12_rise <- c(
+      laminar.model$fitted.parameters["baseline_cortex_Rt_Rorb_Tns/Blk2"] - laminar.model$fitted.parameters["baseline_cortex_Rt_Rorb_Tns/Blk1"],
+      laminar.model$fitted.parameters["baseline_cortex_Rt_Rorb_Tns/Blk3"] - laminar.model$fitted.parameters["baseline_cortex_Rt_Rorb_Tns/Blk2"],
+      laminar.model$fitted.parameters["baseline_cortex_Rt_Rorb_Tns/Blk4"] - laminar.model$fitted.parameters["baseline_cortex_Rt_Rorb_Tns/Blk3"]
+    )
+    P18_rise <- c(
+      laminar.model$fitted.parameters["baseline_cortex_Rt_Rorb_Tns/Blk2"] + 
+        laminar.model$fitted.parameters[grepl("beta_Rt_cortex_Rorb_18_X_Tns/Blk2", laminar.model$param.names)] - 
+        (laminar.model$fitted.parameters["baseline_cortex_Rt_Rorb_Tns/Blk1"] + 
+          laminar.model$fitted.parameters[grepl("beta_Rt_cortex_Rorb_18_X_Tns/Blk1", laminar.model$param.names)]),
+      laminar.model$fitted.parameters["baseline_cortex_Rt_Rorb_Tns/Blk3"] + 
+        laminar.model$fitted.parameters[grepl("beta_Rt_cortex_Rorb_18_X_Tns/Blk3", laminar.model$param.names)] - 
+        (laminar.model$fitted.parameters["baseline_cortex_Rt_Rorb_Tns/Blk2"] + 
+          laminar.model$fitted.parameters[grepl("beta_Rt_cortex_Rorb_18_X_Tns/Blk2", laminar.model$param.names)]),
+      laminar.model$fitted.parameters["baseline_cortex_Rt_Rorb_Tns/Blk4"] + 
+        laminar.model$fitted.parameters[grepl("beta_Rt_cortex_Rorb_18_X_Tns/Blk4", laminar.model$param.names)] - 
+        (laminar.model$fitted.parameters["baseline_cortex_Rt_Rorb_Tns/Blk3"] + 
+          laminar.model$fitted.parameters[grepl("beta_Rt_cortex_Rorb_18_X_Tns/Blk3", laminar.model$param.names)])
+    )
+    P12_slope_scalar <- c(
+      laminar.model$fitted.parameters["baseline_cortex_tslope_Rorb_Tns/Blk1"],
+      laminar.model$fitted.parameters["baseline_cortex_tslope_Rorb_Tns/Blk2"],
+      laminar.model$fitted.parameters["baseline_cortex_tslope_Rorb_Tns/Blk3"]
+    )
+    P18_slope_scalar <- c(
+      laminar.model$fitted.parameters["baseline_cortex_tslope_Rorb_Tns/Blk1"] + 
+        laminar.model$fitted.parameters[grepl("beta_tslope_cortex_Rorb_18_X_Tns/Blk1", laminar.model$param.names)],
+      laminar.model$fitted.parameters["baseline_cortex_tslope_Rorb_Tns/Blk2"] + 
+        laminar.model$fitted.parameters[grepl("beta_tslope_cortex_Rorb_18_X_Tns/Blk2", laminar.model$param.names)],
+      laminar.model$fitted.parameters["baseline_cortex_tslope_Rorb_Tns/Blk3"] + 
+        laminar.model$fitted.parameters[grepl("beta_tslope_cortex_Rorb_18_X_Tns/Blk3", laminar.model$param.names)]
+    )
+    P12_log_slope <- P12_rise*P12_slope_scalar/4
+    P18_log_slope <- P18_rise*P18_slope_scalar/4
+    P12_slope <- P12_log_slope * (df12$pred[round(tpoints_ref, 0)] + 1)
+    P18_slope <- P18_log_slope * (df18$pred[round(tpoints_ref + tpoints_18,0)] + 1)
+    P12_run <- rise/P12_slope
+    P18_run <- rise/P18_slope
+    ratecount_plots[[p_]] <- ratecount_plots[[p_]] +
+      geom_segment(
+        data = rorb_markup_tp,
+        aes(x = tp_ref - P12_run, xend = tp_ref, y = tpy, yend = tpyend),
+        color = "deeppink", linetype = "solid", linewidth = 1.5,
+        arrow = arrow(length = unit(0.15, "inches"), type = "closed")
+        ) +
+      geom_segment(
+        data = rorb_markup_tp,
+        aes(x = tp_18 - P18_run, xend = tp_18, y = tpy, yend = tpyend),
+        color = "deepskyblue", linetype = "solid", linewidth = 1.5,
+        arrow = arrow(length = unit(0.15, "inches"), type = "closed")
+      ) +
+      geom_segment(
+        data = rorb_markup_Rt,
+        aes(x = Rtsx, xend = Rtsxend, y = Rts_ref, yend = Rts_ref),
+        color = c("deeppink", "deepskyblue", "deepskyblue4"), linetype = "solid", linewidth = 1.5,
+        arrow = arrow(length = unit(0.15, "inches"), type = "closed")
+      )
+  }
 }
 bottom_row <- arrangeGrob(ratecount_plots[[1]], ratecount_plots[[4]], ratecount_plots[[3]], ncol = 3)
 right_side <- arrangeGrob(ratecount_plots[[2]], ratecount_plots[[6]], ncol = 1)
