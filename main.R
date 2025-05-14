@@ -138,6 +138,74 @@ laminar.model <- wisp(
 saveRDS(laminar.model, file = "saved_laminar_model.rds")
 laminar.model <- readRDS("saved_laminar_model-final.rds")
 
+
+
+
+
+age_effect_mask <- grepl("beta_Rt_cortex", laminar.model$param.names) & grepl("_18_", laminar.model$param.names)
+age_effects <- laminar.model$fitted.parameters[age_effect_mask]
+age_effects_mean <- mean(age_effects)
+age_effects_mean
+age_effects_unlinked <- exp(age_effects_mean) 
+age_effects_unlinked # This value is what a P12 value should be multipled by in order to get expected P18 value
+
+
+# This gives mean count per gene over the entire sample
+P12 <- (13237 * 2.84 + 10444 * 1.755)/2
+P18 <- (16954 * 3.269 + 13481 * 1.977)/2
+# ... to get per bin, divide by 100
+P12 <- P12/100
+P18 <- P18/100
+cat("\nP12, gene count per bin:", P12, "\n")
+cat("\nP18, gene count per bin:", P18, "\n")
+log_age_effect_empirical <- log((P18-1)/(P12-1))
+
+
+sig_mask <- laminar.model[["stats"]][["parameters"]]$p.value.adj < 0.05
+sig_mask[is.na(sig_mask)] <- FALSE
+sig_age_mask <- sig_mask & age_effect_mask
+sum(sig_age_mask)
+View(laminar.model[["stats"]][["parameters"]][sig_age_mask,])
+
+nsamples <- nrow(laminar.model[["sample.params.bs"]])
+nparams <- sum(sig_age_mask)
+below_emp_expected <- rep(NA, nparams)
+for (j in 1:nparams) {
+  i <- which(sig_age_mask)[j]
+  below_emp_expected[j] <- sum(laminar.model[["sample.params.bs"]][,i] < log_age_effect_empirical)/nsamples
+  cat("\nParam:", laminar.model$param.names[i])
+  cat("\nBelow empirical expected:", below_emp_expected[j])
+}
+below_emp_expected
+
+# Find random rate effects by age
+# ... M1 and M3 are P12, 2 and 4 are P18
+mP12_mask <- grepl("wfactor_rate_1_", laminar.model$param.names) | grepl("wfactor_rate_3_", laminar.model$param.names)
+mP18_mask <- grepl("wfactor_rate_2_", laminar.model$param.names) | grepl("wfactor_rate_4_", laminar.model$param.names)
+mP12 <- laminar.model$fitted.parameters[mP12_mask]
+mP18 <- laminar.model$fitted.parameters[mP18_mask]
+hist(mP12)
+hist(mP18)
+# ... interesting: it put the P12 mice at the extremes, and put the P18 mice in the middle
+# ... First pass: what it's done is estimate that age actually has a larger effect than the naive 
+#      count implies (0.5 vs 0.35), and thus to fit the two observed P18 mice, it has to actually 
+#      *lower* their values relative to what it expects from the "average" P18 mouse. 
+# ... Is this really the case? As experiment, could rerun the model, forcing it to keep a 
+#      mean effect for age of zero, and see how the likelihood compares. 
+#      ... > quick and dirty way to accomplish this? > center age effects on zero, then run 
+#             optimization from there. 
+#          > If the optimization drags it back to a heavy age skew, then that's some evidence that 
+#             the fit is better with the age effect. Still, in this case, probably want to follow up 
+#             by running the optimization again with a penalty for age skew off zero. 
+#          > ... eh, maybe just do the complicated thing from the start and be done with it!!
+#          > ... could even write a function for others to use, something like: pick a factor (e.g., age), 
+#                 and it will run the optimization forcing that factor to have a mean effecg of zero. 
+#                  ... can probably just add this as an argument to the fit function? eh ... no, just make a new one? idk. 
+
+
+plot.decomposition(laminar.model, "Rorb")
+
+
 # Make rate-count plots for results #####
 
 n_plots <- length(laminar.model[["plots"]][["ratecount"]])
