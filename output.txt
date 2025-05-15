@@ -23,14 +23,14 @@ Standard deviation of means: 0.714
 Total cells by type (Map My Cells):
 ------------------------------
 
-      Astro-Epen          CB GABA          CB Glut     CNU-HYa GABA     CNU-HYa Glut     CNU-LGE GABA     CNU-MGE GABA CTX-CGE/MGE GABA      DG-IMN Glut 
-            3952               82               19               12                2              671               20             1351               11 
-        filtered          HY GABA           Immune       IT-ET Glut         LSX GABA          MB GABA          MB Glut       MB-HB Sero       MH-LH Glut 
-           18208               37              331            16066               29               79                5                1               15 
-         MY GABA          MY Glut   NP-CT-L6b Glut      OB-IMN GABA              OEC        OPC-Oligo           P GABA  TSCRPT_filtered         Vascular 
-             430               21             4922              149               23             1499              142               99             5914 
-         HY Glut    HY Gnrh1 Glut           P Glut      Pineal Glut          TH Glut          MB Dopa       OB-CR Glut 
-               1                1                2                5               12                2                3 
+      Astro-Epen          CB GABA          CB Glut     CNU-HYa GABA     CNU-HYa Glut     CNU-LGE GABA     CNU-MGE GABA CTX-CGE/MGE GABA      DG-IMN Glut         filtered          HY GABA 
+            3952               82               19               12                2              671               20             1351               11            18208               37 
+          Immune       IT-ET Glut         LSX GABA          MB GABA          MB Glut       MB-HB Sero       MH-LH Glut          MY GABA          MY Glut   NP-CT-L6b Glut      OB-IMN GABA 
+             331            16066               29               79                5                1               15              430               21             4922              149 
+             OEC        OPC-Oligo           P GABA  TSCRPT_filtered         Vascular          HY Glut    HY Gnrh1 Glut           P Glut      Pineal Glut          TH Glut          MB Dopa 
+              23             1499              142               99             5914                1                1                2                5               12                2 
+      OB-CR Glut 
+               3 
 ----
 
 Number of mice: 4
@@ -125,7 +125,6 @@ row: 2400/2400
 Extrapolated 'none' rows
 Took log of observed counts
 Estimated change points with LROcp and found initial parameter estimates for fixed-effect treatments
-Initial mean estimated tslope: 0.398113
 Built initial beta (ref and fixed-effects) matrices
 Initialized random effect warping factors
 Made and mapped parameter vector
@@ -136,6 +135,8 @@ Finished initializing wspc object
 
 Estimating model parameters: 
 ---------------
+Forking available and bootstrap requested.... 
+If bootstrapping not desired, set bootstraps.num = 0... 
 
 Running MCMC stimulations (single-threaded): 
 Checking feasibility of provided parameters
@@ -147,95 +148,17 @@ Success code: 2
 Final boundary distance: 0.247647
 Nearby feasible parameters found!
 Performing initial fit of full data
-Penalized neg_loglik: 12958.7
-step: 50/1000
-step: 100/1000
-step: 150/1000
-step: 200/1000
-step: 250/1000
-step: 300/1000
-step: 350/1000
-step: 400/1000
-step: 450/1000
-step: 500/1000
-step: 550/1000
-step: 600/1000
-step: 650/1000
-step: 700/1000
-step: 750/1000
-step: 800/1000
-step: 850/1000
-step: 900/1000
-step: 950/1000
-step: 1000/1000
-All complete!
-Acceptance rate (aim for 0.2-0.3): 0.0236608
-
-MCMC simulation complete... 
-MCMC run time (total), minutes: 26.675
-MCMC run time (per retained step), seconds: 1.601
-MCMC run time (per step), seconds: 0.8
-Setting full-data fit as parameters... 
-Checking feasibility of provided parameters
-... no tpoints below buffer
-... no negative rates predicted
-Provided parameters are feasible
-
-Running stats on simulation results: 
-----------------------------------------
-
-Grabbing sample results... 
-Grabbing parameter values... 
-Computing 95% confidence intervals... 
-Estimating p-values from resampled parameters... 
-
-Recommended resample size for alpha = 0.05, 126 tests: 
-with bootstrapping/MCMC: 2520
-Actual resample size: 1001
-
-Stat summary (head only):
-------------------------------
-                                 parameter    estimate     CI.low   CI.high   p.value p.value.adj    alpha.adj significance
-1       baseline_cortex_Rt_Bcl11b_Tns/Blk1  3.50030331  3.5220154 4.0133010        NA          NA           NA             
-2   beta_Rt_cortex_Bcl11b_right_X_Tns/Blk1  0.08146103 -0.2902584 0.3271970 0.5534466   17.710290 0.0015625000           ns
-3      beta_Rt_cortex_Bcl11b_18_X_Tns/Blk1  0.71805619  0.1396150 0.8156871 0.0000000    0.000000 0.0003968254          ***
-4 beta_Rt_cortex_Bcl11b_right18_X_Tns/Blk1 -0.01328236 -0.4735481 0.1392578 0.9240759   11.088911 0.0041666667           ns
-5       baseline_cortex_Rt_Bcl11b_Tns/Blk2  3.63807890  3.0653303 3.8515919        NA          NA           NA             
-6   beta_Rt_cortex_Bcl11b_right_X_Tns/Blk2  0.16886040  0.1011645 0.7313148 0.2187812    9.845155 0.0011111111           ns
-----
-
-Analyzing residuals: 
-----------------------------------------
-
-Computing residuals... 
-Making masks... 
-Making plots and saving stats... 
-
-Log-residual summary by grouping variables (head only):
-------------------------------
-         group        mean        sd  variance
-1          all  0.27754607 0.6973913 0.4863547
-2 ran_lvl_none  0.17084167 0.5328366 0.2839149
-3    ran_lvl_1 -0.04093317 0.7096161 0.5035550
-4    ran_lvl_2  0.15744966 0.7436869 0.5530702
-5    ran_lvl_3  0.68005453 0.7068077 0.4995771
-6    ran_lvl_4  0.52702207 0.6578067 0.4327097
-----
-
-
-Printing effect distributions: 
-----------------------------------------
-
-Warping factors distributions... 
-Rate effects distribution... 
-Slope effects distribution... 
-tpoint effects distribution... 
-Making rate-count plots... 
-
-Printing child summary plots: 
-----------------------------------------
-
-Making summary plots for cortex: Bcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2TableGrob (1 x 2) "arrange": 2 grobs
-  z     cells    name           grob
-1 1 (1-1,1-1) arrange gtable[layout]
-2 2 (1-1,2-2) arrange gtable[layout]
+Penalized neg_loglik: 12698.9
+step: 500/10000
+step: 1000/10000
+step: 1500/10000
+step: 2000/10000
+step: 2500/10000
+step: 3000/10000
+step: 3500/10000
+step: 4000/10000
+step: 4500/10000
+step: 5000/10000
+step: 5500/10000
+step: 6000/10000
+step: 6500/10000

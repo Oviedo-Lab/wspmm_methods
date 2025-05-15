@@ -120,11 +120,11 @@ laminar.model <- wisp(
   # Settings used on R side
   use.median = FALSE,
   MCMC.burnin = 0,
-  MCMC.steps = 1e3,
+  MCMC.steps = 1e4,
   MCMC.step.size = 1.0,
   MCMC.prior = 1.0, 
   MCMC.neighbor.filter = 2,
-  bootstraps.num = 0,
+  bootstraps.num = 1e4,
   converged.resamples.only = TRUE,
   max.fork = bs_chunksize,
   dim.bounds = colMeans(layer.boundary.bins),
@@ -138,17 +138,17 @@ laminar.model <- wisp(
 saveRDS(laminar.model, file = "saved_laminar_model.rds")
 laminar.model <- readRDS("saved_laminar_model-final.rds")
 
+plot.decomposition(laminar.model, "Rorb")
 
+# Check age effects in model ###########################################################################################
 
-
-
+# What are age effects estimated by the model?
 age_effect_mask <- grepl("beta_Rt_cortex", laminar.model$param.names) & grepl("_18_", laminar.model$param.names)
 age_effects <- laminar.model$fitted.parameters[age_effect_mask]
 age_effects_mean <- mean(age_effects)
 age_effects_mean
 age_effects_unlinked <- exp(age_effects_mean) 
 age_effects_unlinked # This value is what a P12 value should be multipled by in order to get expected P18 value
-
 
 # This gives mean count per gene over the entire sample
 P12 <- (13237 * 2.84 + 10444 * 1.755)/2
@@ -160,13 +160,14 @@ cat("\nP12, gene count per bin:", P12, "\n")
 cat("\nP18, gene count per bin:", P18, "\n")
 log_age_effect_empirical <- log((P18-1)/(P12-1))
 
-
+# Which age effects were significant?
 sig_mask <- laminar.model[["stats"]][["parameters"]]$p.value.adj < 0.05
 sig_mask[is.na(sig_mask)] <- FALSE
 sig_age_mask <- sig_mask & age_effect_mask
 sum(sig_age_mask)
 View(laminar.model[["stats"]][["parameters"]][sig_age_mask,])
 
+# These parameters, what percentage of the estimated distribution is below the expected age effect from a naive take on the data?
 nsamples <- nrow(laminar.model[["sample.params.bs"]])
 nparams <- sum(sig_age_mask)
 below_emp_expected <- rep(NA, nparams)
@@ -201,10 +202,6 @@ hist(mP18)
 #          > ... could even write a function for others to use, something like: pick a factor (e.g., age), 
 #                 and it will run the optimization forcing that factor to have a mean effecg of zero. 
 #                  ... can probably just add this as an argument to the fit function? eh ... no, just make a new one? idk. 
-
-
-plot.decomposition(laminar.model, "Rorb")
-
 
 # Make rate-count plots for results #####
 
