@@ -29,7 +29,10 @@ data_path <- paste0(projects_folder, "MERFISH/data_SSp/")
 bs_chunksize <- 10
 
 # Define list of genes to analyze
-gene.list <- c("Bcl11b", "Fezf2", "Satb2", "Nxph3", "Cux2", "Rorb")  
+gene.list <- c(
+  "Bcl11b", "Fezf2", "Satb2", "Nxph3", "Cux2", "Rorb", # layer-specific
+  "Tubb2a", "Tuba1b", "Actl9", "Actbl2" # control (expect no fixed effects)
+  )  
 
 # Preprocessing MERFISH data ###########################################################################################
 
@@ -120,11 +123,11 @@ laminar.model <- wisp(
   # Settings used on R side
   use.median = FALSE,
   MCMC.burnin = 0,
-  MCMC.steps = 1e4,
+  MCMC.steps = 1e2,
   MCMC.step.size = 1.0,
   MCMC.prior = 1.0, 
   MCMC.neighbor.filter = 2,
-  bootstraps.num = 1e4,
+  bootstraps.num = 1e2,
   converged.resamples.only = TRUE,
   max.fork = bs_chunksize,
   dim.bounds = colMeans(layer.boundary.bins),
