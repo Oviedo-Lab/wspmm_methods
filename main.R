@@ -138,8 +138,6 @@ laminar.model <- wisp(
 saveRDS(laminar.model, file = "saved_laminar_model.rds")
 laminar.model <- readRDS("saved_laminar_model-final.rds")
 
-plot.decomposition(laminar.model, "Rorb")
-
 # Check age effects in model ###########################################################################################
 
 # What are age effects estimated by the model?
@@ -205,6 +203,8 @@ hist(mP18)
 
 # Make rate-count plots for results #####
 
+decomposed_plots <- plot.decomposition(laminar.model, "Rorb")
+
 n_plots <- length(laminar.model[["plots"]][["ratecount"]])
 p_names <- names(laminar.model[["plots"]][["ratecount"]])
 p_names <- p_names[2:n_plots]
@@ -214,22 +214,87 @@ names(ratecount_plots) <- p_names
 title_size <- 20 
 axis_size <- 12 
 legend_size <- 10
+ratecount_plots_Rorb_ran <- list()
+mice <- c("mouse 1", "mouse 2", "mouse 3", "mouse 4")
+length(ratecount_plots_Rorb_ran) <- 4
+names(ratecount_plots_Rorb_ran) <- mice
+for (p in 1:4) {
+  
+  gene_name <- bquote("ROR" * beta * ", " * .(mice[p]))
+  ratecount_plots_Rorb_ran[[mice[p]]] <- plot.ratecount(
+    wisp.results = laminar.model,
+    pred.type = "pred",
+    count.type = "count",
+    dim.boundaries = unlist(laminar.model[["plots"]][["ratecount"]][["plot_pred_parent_cortex_fixEff_Bcl11b"]][["layers"]][[49]][["data"]]),
+    y.lim = c(0, 370),
+    count.alpha.none = 0,
+    count.alpha.ran = 0.5,
+    pred.alpha.none = 0,
+    pred.alpha.ran = 1,
+    rans.to.print = as.character(p),
+    childs.to.print = c("Rorb")
+  )[[1]] +
+    labs(title = gene_name, x = NULL, y = NULL) + 
+    theme(
+      plot.title = element_text(hjust = 0.5, size = title_size),
+      axis.title = element_text(size = axis_size),
+      axis.text = element_text(size = axis_size),
+      legend.title = element_text(size = legend_size),
+      legend.text = element_text(size = legend_size),
+      legend.position = "none"
+    ) + 
+    scale_color_manual(
+      labels = c("Left, P12", "right, P12", "left, P18", "right, P18"),
+      values = c("deeppink", "deeppink4", "deepskyblue", "deepskyblue4")
+    )
+  
+}
 for (p in 2:n_plots) {
+  
   p_ <- names(laminar.model[["plots"]][["ratecount"]])[p]
   gene_name <- gsub("plot_pred_parent_cortex_fixEff_", "", p_)
+  
   # Check if this is Rorb
   this_Rorb <- FALSE
   if (gene_name == "Rorb") this_Rorb <- TRUE
+  
   # Set legend position 
   leg_pos <- "none"
-  if (this_Rorb) leg_pos = "right"
+  if (this_Rorb) leg_pos = "bottom"
+  
   # Reformat gene names
   if (this_Rorb) {
     gene_name <- expression("ROR" * beta)
   } else {
     gene_name <- toupper(gene_name)
   }
-  ratecount_plots[[p_]] <- laminar.model[["plots"]][["ratecount"]][[p_]] +
+  
+  # Remake Rorb 
+  if (this_Rorb) {
+    
+    rorb_decomp<- plot.ratecount(
+      wisp.results = laminar.model,
+      pred.type = "pred",
+      count.type = "count",
+      dim.boundaries = unlist(laminar.model[["plots"]][["ratecount"]][["plot_pred_parent_cortex_fixEff_Bcl11b"]][["layers"]][[49]][["data"]]),
+      count.alpha.none = 0.5,
+      count.alpha.ran = 0,
+      pred.alpha.none = 1,
+      pred.alpha.ran = 0,
+      rans.to.print = "none",
+      childs.to.print = c("Rorb")
+    )
+    ratecount_plots[[p_]] <- rorb_decomp[[1]]
+    
+  } else {
+    
+    # Recolor plot
+    ratecount_plots[[p_]] <- laminar.model[["plots"]][["ratecount"]][[p_]] 
+    
+  }
+  
+  # Recolor plot
+  ratecount_plots[[p_]] <- ratecount_plots[[p_]] +
     labs(title = gene_name, x = NULL, y = NULL) + 
     theme(
       plot.title = element_text(hjust = 0.5, size = title_size),
@@ -242,7 +307,8 @@ for (p in 2:n_plots) {
     scale_color_manual(
       labels = c("Left, P12", "right, P12", "left, P18", "right, P18"),
       values = c("deeppink", "deeppink4", "deepskyblue", "deepskyblue4")
-      )
+    )
+  
   if (this_Rorb) {
     # Extract data frame from plot 
     found_P12 <- FALSE 
@@ -348,10 +414,23 @@ for (p in 2:n_plots) {
       )
   }
 }
-bottom_row <- arrangeGrob(ratecount_plots[[1]], ratecount_plots[[4]], ratecount_plots[[3]], ncol = 3)
-right_side <- arrangeGrob(ratecount_plots[[2]], ratecount_plots[[6]], ncol = 1)
-top_row <- arrangeGrob(ratecount_plots[[5]], right_side, widths = c(1, 0.5), ncol = 2)
-grid.arrange(top_row, bottom_row, heights = c(1, 0.5), nrow = 2)
+other_gene_col <- arrangeGrob(
+  ratecount_plots[[2]], # Cux2
+  ratecount_plots[[6]], # Satb2
+  ratecount_plots[[3]], # Fezf2
+  ratecount_plots[[4]], # Nxph3
+  ratecount_plots[[1]], # Bcl11b
+  ncol = 1
+  )
+Rorb_ran_block <- arrangeGrob(
+  ratecount_plots_Rorb_ran[[1]], 
+  ratecount_plots_Rorb_ran[[2]],
+  ratecount_plots_Rorb_ran[[3]],
+  ratecount_plots_Rorb_ran[[4]], 
+  ncol = 2
+  )
+Rorb_col <- arrangeGrob(Rorb_ran_block, ratecount_plots[[5]], ncol = 1)
+grid.arrange(Rorb_col, other_gene_col, widths = c(1, 0.5), ncol = 2)
 
 # Make results table for stats #####
 
