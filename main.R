@@ -120,12 +120,12 @@ laminar.model <- wisp(
   # Settings used on R side
   use.median = FALSE,
   MCMC.burnin = 0,
-  MCMC.steps = 1e4,
+  MCMC.steps = 1e3,
   MCMC.step.size = 1.0,
   MCMC.prior = 1.0, 
   MCMC.neighbor.filter = 2,
-  bootstraps.num = 1e4,
-  converged.resamples.only = TRUE,
+  bootstraps.num = 1e3,
+  converged.resamples.only = FALSE,
   max.fork = bs_chunksize,
   dim.bounds = colMeans(layer.boundary.bins),
   verbose = TRUE,
@@ -137,6 +137,63 @@ laminar.model <- wisp(
 # Save
 saveRDS(laminar.model, file = "saved_laminar_model.rds")
 laminar.model <- readRDS("saved_laminar_model-final.rds")
+
+eval_age_constraint <- function() {
+    
+    # Pull in bs diagnostics for pinned age evaluation and unconstrained run (1000 bootstraps each)
+    bs_diagnostics_pinnedage <- read.csv("bs_diagnostics_pinnedage.csv")
+    bs_diagnostics_unconstrained <- read.csv("bs_diagnostics_unconstrained.csv")
+    
+    # Set baseline value
+    baseline <- bs_diagnostics_unconstrained[1001,"neg.loglik"]
+    
+    # Normalize
+    neg.loglik.pinnedage <- bs_diagnostics_pinnedage$neg.loglik/baseline
+    neg.loglik.unconstrained <- bs_diagnostics_unconstrained$neg.loglik/baseline
+    df_dens = data.frame(
+      sw_stat = c(neg.loglik.pinnedage, neg.loglik.unconstrained),
+      parameters = rep(c("pinned age", "unconstrained"), each = length(neg.loglik.pinnedage))
+    )
+    
+    # Make density plot
+    label_size <- 5.5
+    title_size <- 20 
+    axis_size <- 12 
+    legend_size <- 10
+    pinned_age_constraint <- ggplot(df_dens, aes(x = sw_stat, color = parameters)) +
+      geom_density(linewidth = 1.2) +
+      theme_minimal() +
+      labs(
+        title = "Distribution of Model Fits", 
+        x = "Normalized Negative Log Likelihood", 
+        y = "Density"
+      ) +
+      theme(
+        plot.title = element_text(hjust = 0.5, size = title_size),
+        axis.title = element_text(size = axis_size),
+        axis.text = element_text(size = axis_size),
+        legend.title = element_text(size = legend_size),
+        legend.text = element_text(size = legend_size)
+      )
+    print(pinned_age_constraint)
+    
+    # Find chance of getting unconstrained mean from pinned age distribution
+    number_of_bs <- 1000
+    null_means <- rep(NA,number_of_bs)
+    for (i in 1:number_of_bs) {
+      idx <- sample(1:1001, 1001, replace = TRUE)
+      null_means[i] <- mean(neg.loglik.pinnedage[idx])
+    }
+    p_value <- sum(abs(number_of_bs) > abs(mean(neg.loglik.unconstrained)))/number_of_bs
+    cat("\nP-value for unconstrained mean in pinned age distribution:", p_value, "\n")
+    raw_ratio <- mean(neg.loglik.pinnedage)/mean(neg.loglik.unconstrained)
+    cat("\nRatio of pinned age mean over unconstrained mean:", raw_ratio, "\n")
+    full_data_ratio <- neg.loglik.pinnedage[1001]/neg.loglik.unconstrained[1001]
+    cat("\nRatio of pinned age neg.loglik over unconstrained neg.loglik (full data):", full_data_ratio, "\n")
+    
+  }
+eval_age_constraint()
+
 
 # Check age effects in model ###########################################################################################
 
