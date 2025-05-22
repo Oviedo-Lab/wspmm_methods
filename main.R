@@ -38,7 +38,7 @@ count_data <- make_count_data(
   data_path,
   remove_L1 = TRUE,
   ROIname = "Primary somatosensory area",
-  raw = FALSE
+  raw = TRUE
   )
 
 # Transform coordinates for each mouse into laminar and columnar axes and extract layer boundary estimates
@@ -193,7 +193,6 @@ eval_age_constraint <- function() {
     
   }
 eval_age_constraint()
-
 
 # Check age effects in model ###########################################################################################
 

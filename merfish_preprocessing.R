@@ -64,6 +64,7 @@ parse_hdf5 <- function(
     
     # Load data
     file <- H5File$new(file_path, mode = "r")
+    if (!raw) warning("Using normalized counts for hdf5 parsing")
     
     # Cell type codes for each cell
     celltype_MMC <- file[["/obs/MapMyCells_class/codes"]][] + 1          # Starts at 0, want numbers to match category names
@@ -84,8 +85,8 @@ parse_hdf5 <- function(
     gene_names <- file[["/var/_index"]][nonblanks]
     
     # Raw transcript counts, rows are cells, columns genes
-    if (raw) transcript_counts_raw <- t(file[["/raw/X"]][,])    # should have integer elements, not normalized
-    else transcript_counts_raw <- t(file[["/X"]][,])            # should have integer elements, normalized for MapMyCells
+    if (raw) transcript_counts_raw <- t(file[["/raw/X"]][,])     # should have integer elements, not normalized
+    else transcript_counts_raw <- t(file[["/X"]][,])             # should have integer elements, normalized for MapMyCells
     transcript_counts_raw <- transcript_counts_raw[, nonblanks]  # drop blanks
     colnames(transcript_counts_raw) <- gene_names               
     n_cells <- nrow(transcript_counts_raw)
