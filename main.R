@@ -120,11 +120,11 @@ laminar.model <- wisp(
   # Settings used on R side
   use.median = FALSE,
   MCMC.burnin = 0,
-  MCMC.steps = 1e3,
+  MCMC.steps = 1e4,
   MCMC.step.size = 1.0,
   MCMC.prior = 1.0, 
   MCMC.neighbor.filter = 2,
-  bootstraps.num = 1e3,
+  bootstraps.num = 1e4,
   converged.resamples.only = FALSE,
   max.fork = bs_chunksize,
   dim.bounds = colMeans(layer.boundary.bins),
@@ -135,8 +135,8 @@ laminar.model <- wisp(
 )
 
 # Save
+# ... laminar.model <- readRDS("saved_laminar_model-final.rds")
 saveRDS(laminar.model, file = "saved_laminar_model.rds")
-laminar.model <- readRDS("saved_laminar_model-final.rds")
 
 eval_age_constraint <- function() {
     

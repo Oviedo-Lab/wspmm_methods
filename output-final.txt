@@ -16,21 +16,19 @@ File names:
 	mouse 4: /Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/MERFISH/data_SSp//Somatosensory_ACxDev1_CBA-CAJ_P18_celltyped_filtered_withCCF.hdf5
 Loading and parsing file for mouse number: 1, 2, 3, 4 
 
-Mean transcript counts per cell for each mouse: 2.84, 3.269, 1.755, 1.977
-Mean of means: 2.46
-Standard deviation of means: 0.714
+Mean transcript counts per cell for each mouse: 1.677, 1.884, 1.029, 1.212
+Mean of means: 1.45
+Standard deviation of means: 0.397
 
 Total cells by type (Map My Cells):
 ------------------------------
 
-      Astro-Epen          CB GABA          CB Glut     CNU-HYa GABA     CNU-HYa Glut     CNU-LGE GABA     CNU-MGE GABA CTX-CGE/MGE GABA      DG-IMN Glut         filtered          HY GABA 
-            3952               82               19               12                2              671               20             1351               11            18208               37 
-          Immune       IT-ET Glut         LSX GABA          MB GABA          MB Glut       MB-HB Sero       MH-LH Glut          MY GABA          MY Glut   NP-CT-L6b Glut      OB-IMN GABA 
-             331            16066               29               79                5                1               15              430               21             4922              149 
-             OEC        OPC-Oligo           P GABA  TSCRPT_filtered         Vascular          HY Glut    HY Gnrh1 Glut           P Glut      Pineal Glut          TH Glut          MB Dopa 
-              23             1499              142               99             5914                1                1                2                5               12                2 
-      OB-CR Glut 
-               3 
+      Astro-Epen          CB GABA          CB Glut     CNU-HYa GABA     CNU-HYa Glut     CNU-LGE GABA     CNU-MGE GABA CTX-CGE/MGE GABA      DG-IMN Glut         filtered          HY GABA           Immune       IT-ET Glut         LSX GABA 
+            3952               82               19               12                2              671               20             1351               11            18208               37              331            16066               29 
+         MB GABA          MB Glut       MB-HB Sero       MH-LH Glut          MY GABA          MY Glut   NP-CT-L6b Glut      OB-IMN GABA              OEC        OPC-Oligo           P GABA  TSCRPT_filtered         Vascular          HY Glut 
+              79                5                1               15              430               21             4922              149               23             1499              142               99             5914                1 
+   HY Gnrh1 Glut           P Glut      Pineal Glut          TH Glut          MB Dopa       OB-CR Glut 
+               1                2                5               12                2                3 
 ----
 
 Number of mice: 4
@@ -143,39 +141,29 @@ Checking feasibility of provided parameters
 ... tpoints found below buffer
 Provided parameters not feasible, searching nearby
 Initial boundary distance (want to make >0): -5
-Numer of evals: 12
+Numer of evals: 10
 Success code: 2
 Final boundary distance: 0.247647
 Nearby feasible parameters found!
 Performing initial fit of full data
-Penalized neg_loglik: 12698.9
-step: 500/10000
+Penalized neg_loglik: 12240.3
+step: 1/10000
 step: 1000/10000
-step: 1500/10000
 step: 2000/10000
-step: 2500/10000
 step: 3000/10000
-step: 3500/10000
 step: 4000/10000
-step: 4500/10000
 step: 5000/10000
-step: 5500/10000
 step: 6000/10000
-step: 6500/10000
 step: 7000/10000
-step: 7500/10000
 step: 8000/10000
-step: 8500/10000
 step: 9000/10000
-step: 9500/10000
-step: 10000/10000
 All complete!
-Acceptance rate (aim for 0.2-0.3): 0.147612
+Acceptance rate (aim for 0.2-0.3): 0.180073
 
 MCMC simulation complete... 
-MCMC run time (total), minutes: 63.486
-MCMC run time (per retained step), seconds: 0.381
-MCMC run time (per step), seconds: 0.19
+MCMC run time (total), minutes: 41.612
+MCMC run time (per retained step), seconds: 0.25
+MCMC run time (per step), seconds: 0.125
 
 Running bootstrap fits (with forking): 
 Checking feasibility of provided parameters
@@ -183,22 +171,23 @@ Checking feasibility of provided parameters
 ... no negative rates predicted
 Provided parameters are feasible
 Performing initial fit of full data
-Penalized neg_loglik: 12698.9
-Batch: 100/1000, 1.01999 sec/bs
-Batch: 200/1000, 1.08282 sec/bs
-Batch: 300/1000, 1.05225 sec/bs
-Batch: 400/1000, 1.0814 sec/bs
-Batch: 500/1000, 1.00976 sec/bs
-Batch: 600/1000, 1.14287 sec/bs
-Batch: 700/1000, 0.903402 sec/bs
-Batch: 800/1000, 1.04835 sec/bs
-Batch: 900/1000, 1.00559 sec/bs
+Penalized neg_loglik: 12240.3
+Batch: 1/1000, 0.536747 sec/bs
+Batch: 100/1000, 0.569397 sec/bs
+Batch: 200/1000, 0.594681 sec/bs
+Batch: 300/1000, 0.558 sec/bs
+Batch: 400/1000, 0.571095 sec/bs
+Batch: 500/1000, 0.599941 sec/bs
+Batch: 600/1000, 0.568912 sec/bs
+Batch: 700/1000, 0.60038 sec/bs
+Batch: 800/1000, 0.546958 sec/bs
+Batch: 900/1000, 0.568462 sec/bs
 All complete!
 
 Bootstrap simulation complete... 
-Bootstrap run time (total), minutes: 175.001
-Bootstrap run time (per sample), seconds: 1.05
-Bootstrap run time (per sample, per thread), seconds: 10.5
+Bootstrap run time (total), minutes: 98.667
+Bootstrap run time (per sample), seconds: 0.592
+Bootstrap run time (per sample, per thread), seconds: 5.92
 
 Setting full-data fit as parameters... 
 Checking feasibility of provided parameters
@@ -209,24 +198,24 @@ Provided parameters are feasible
 Running stats on simulation results: 
 ----------------------------------------
 
-Grabbing sample results, only resamples with converged fit... 
+Grabbing sample results... 
 Grabbing parameter values... 
 Computing 95% confidence intervals... 
 Estimating p-values from resampled parameters... 
 
 Recommended resample size for alpha = 0.05, 126 tests: 
 with bootstrapping/MCMC: 2520
-Actual resample size: 9979
+Actual resample size: 10001
 
 Stat summary (head only):
 ------------------------------
-                                 parameter    estimate      CI.low   CI.high     p.value p.value.adj    alpha.adj significance
-1       baseline_cortex_Rt_Bcl11b_Tns/Blk1  3.77723595  3.62502981 3.8310031          NA          NA           NA             
-2   beta_Rt_cortex_Bcl11b_right_X_Tns/Blk1 -0.07902666 -0.27084825 0.1251876 0.227277282   8.6365367 0.0013157895           ns
-3      beta_Rt_cortex_Bcl11b_18_X_Tns/Blk1  0.52567336  0.38705722 0.7580928 0.000000000   0.0000000 0.0003968254          ***
-4 beta_Rt_cortex_Bcl11b_right18_X_Tns/Blk1  0.21291193 -0.02026485 0.4711390 0.004309049   0.2973244 0.0007246377           ns
-5       baseline_cortex_Rt_Bcl11b_Tns/Blk2  3.54746205  3.35507299 3.9576457          NA          NA           NA             
-6   beta_Rt_cortex_Bcl11b_right_X_Tns/Blk2  0.40445220 -0.33391480 0.8588507 0.033971340   1.8004810 0.0009433962           ns
+                                 parameter    estimate      CI.low    CI.high    p.value p.value.adj    alpha.adj significance
+1       baseline_cortex_Rt_Bcl11b_Tns/Blk1  3.54284487  3.48383346 3.59135625         NA          NA           NA             
+2   beta_Rt_cortex_Bcl11b_right_X_Tns/Blk1 -0.05465465 -0.18243996 0.05887849 0.15178482  4.40175982 0.0017241379           ns
+3      beta_Rt_cortex_Bcl11b_18_X_Tns/Blk1  0.49750488  0.37168718 0.61391252 0.00000000  0.00000000 0.0003968254          ***
+4 beta_Rt_cortex_Bcl11b_right18_X_Tns/Blk1  0.16679194  0.01146718 0.32511636 0.00059994  0.04259574 0.0007042254            *
+5       baseline_cortex_Rt_Bcl11b_Tns/Blk2  3.37202512  3.26609961 3.42728705         NA          NA           NA             
+6   beta_Rt_cortex_Bcl11b_right_X_Tns/Blk2  0.10706857 -0.06914508 0.30073764 0.06379362  2.80691931 0.0011363636           ns
 ----
 
 Analyzing residuals: 
@@ -239,12 +228,12 @@ Making plots and saving stats...
 Log-residual summary by grouping variables (head only):
 ------------------------------
          group      mean        sd  variance
-1          all 0.3614646 0.5973971 0.3568833
-2 ran_lvl_none 0.3389387 0.4838953 0.2341547
-3    ran_lvl_1 0.3501334 0.6508365 0.4235882
-4    ran_lvl_2 0.3015621 0.6204211 0.3849224
-5    ran_lvl_3 0.4938309 0.6986145 0.4880622
-6    ran_lvl_4 0.3453835 0.5959709 0.3551813
+1          all 0.2746473 0.4702723 0.2211561
+2 ran_lvl_none 0.2560855 0.3878281 0.1504106
+3    ran_lvl_1 0.2575852 0.4844082 0.2346513
+4    ran_lvl_2 0.2169093 0.4489826 0.2015854
+5    ran_lvl_3 0.3940156 0.5632987 0.3173054
+6    ran_lvl_4 0.2672029 0.5047140 0.2547362
 ----
 
 
