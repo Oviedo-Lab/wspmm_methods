@@ -566,9 +566,7 @@ make_MCMCbs_comparison()
 
 param_stats <- laminar.model[["stats"]][["parameters"]][,-c(5,7)]
 param_stats[,2:5] <- round(param_stats[,2:5], 4)
-param_stats <- param_stats[
-  !grepl("wfactor", param_stats$parameter) & !grepl("baseline", param_stats$parameter),
-  ]
+param_stats <- param_stats[!grepl("wfactor", param_stats$parameter) & !grepl("baseline", param_stats$parameter),]
 param_stats_list <- list() 
 for (g in gene.list) {
   # Grab gene mask
@@ -585,16 +583,15 @@ for (g in gene.list) {
     treatment_mask <- split_cols_fix[,5] == trt
     results <- param_stats_g[treatment_mask, results_cols]
     param_type <- split_cols_fix[treatment_mask,2]
-    param_type[param_type == "Rt"] <- "rate"
-    param_type[param_type == "tpoint"] <- "position"
-    param_type[param_type == "tslope"] <- "slope scalar"
+    param_type[param_type == "Rt"] <- "r"
+    param_type[param_type == "tpoint"] <- "p"
+    param_type[param_type == "tslope"] <- "s"
     block <- split_cols_fix[treatment_mask,7]
     block <- gsub("Tns/Blk", "", block)
-    block[param_type == "rate"] <- paste0("block ", block[param_type == "rate"])
-    block[param_type != "rate"] <- paste0("t-point ", block[param_type != "rate"])
+    block <- paste0(param_type, block)
     treatment <- rep(trt, length(results[,1]))
-    param_stats_list_g[[trt]] <- as.data.frame(cbind(treatment, param_type, block, results))
-    colnames(param_stats_list_g[[trt]]) <- c("effect", "spatial.param", "index", col_names)
+    param_stats_list_g[[trt]] <- as.data.frame(cbind(treatment, block, results))
+    colnames(param_stats_list_g[[trt]]) <- c("effect", "z", col_names)
   }
   param_stats_list[[g]] <- as.data.frame(do.call(rbind, param_stats_list_g))
   rownames(param_stats_list[[g]]) <- NULL
