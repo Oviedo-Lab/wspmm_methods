@@ -257,236 +257,310 @@ hist(mP18)
 #                 and it will run the optimization forcing that factor to have a mean effecg of zero. 
 #                  ... can probably just add this as an argument to the fit function? eh ... no, just make a new one? idk. 
 
-# Make rate-count plots for results #####
+# Make and export figures #####
 
-decomposed_plots <- plot.decomposition(laminar.model, "Rorb")
-
-n_plots <- length(laminar.model[["plots"]][["ratecount"]])
-p_names <- names(laminar.model[["plots"]][["ratecount"]])
-p_names <- p_names[2:n_plots]
-ratecount_plots <- list()
-length(ratecount_plots) <- n_plots - 1
-names(ratecount_plots) <- p_names
-title_size <- 20 
-axis_size <- 12 
-legend_size <- 10
-ratecount_plots_Rorb_ran <- list()
-mice <- c("mouse 1", "mouse 2", "mouse 3", "mouse 4")
-length(ratecount_plots_Rorb_ran) <- 4
-names(ratecount_plots_Rorb_ran) <- mice
-for (p in 1:4) {
+make_fig_results_ratecount <- function() {
   
-  gene_name <- bquote("ROR" * beta * ", " * .(mice[p]))
-  ratecount_plots_Rorb_ran[[mice[p]]] <- plot.ratecount(
-    wisp.results = laminar.model,
-    pred.type = "pred",
-    count.type = "count",
-    dim.boundaries = unlist(laminar.model[["plots"]][["ratecount"]][["plot_pred_parent_cortex_fixEff_Bcl11b"]][["layers"]][[49]][["data"]]),
-    y.lim = c(0, 370),
-    count.alpha.none = 0,
-    count.alpha.ran = 0.5,
-    pred.alpha.none = 0,
-    pred.alpha.ran = 1,
-    rans.to.print = as.character(p),
-    childs.to.print = c("Rorb")
-  )[[1]] +
-    labs(title = gene_name, x = NULL, y = NULL) + 
-    theme(
-      plot.title = element_text(hjust = 0.5, size = title_size),
-      axis.title = element_text(size = axis_size),
-      axis.text = element_text(size = axis_size),
-      legend.title = element_text(size = legend_size),
-      legend.text = element_text(size = legend_size),
-      legend.position = "none"
-    ) + 
-    scale_color_manual(
-      labels = c("Left, P12", "right, P12", "left, P18", "right, P18"),
-      values = c("deeppink", "deeppink4", "deepskyblue", "deepskyblue4")
-    )
+  colors4 <- c("firebrick1", "firebrick4", "dodgerblue1", "dodgerblue4")
+  decomposed_plots <- plot.decomposition(laminar.model, "Rorb")
   
-}
-for (p in 2:n_plots) {
-  
-  p_ <- names(laminar.model[["plots"]][["ratecount"]])[p]
-  gene_name <- gsub("plot_pred_parent_cortex_fixEff_", "", p_)
-  
-  # Check if this is Rorb
-  this_Rorb <- FALSE
-  if (gene_name == "Rorb") this_Rorb <- TRUE
-  
-  # Set legend position 
-  leg_pos <- "none"
-  if (this_Rorb) leg_pos = "bottom"
-  
-  # Reformat gene names
-  if (this_Rorb) {
-    gene_name <- expression("ROR" * beta)
-  } else {
-    gene_name <- toupper(gene_name)
-  }
-  
-  # Remake Rorb 
-  if (this_Rorb) {
+  n_plots <- length(laminar.model[["plots"]][["ratecount"]])
+  p_names <- names(laminar.model[["plots"]][["ratecount"]])
+  p_names <- p_names[2:n_plots]
+  ratecount_plots <- list()
+  length(ratecount_plots) <- n_plots - 1
+  names(ratecount_plots) <- p_names
+  title_size <- 40 
+  axis_size <- 24 
+  legend_size <- 20
+  ratecount_plots_Rorb_ran <- list()
+  mice <- c("mouse 1", "mouse 2", "mouse 3", "mouse 4")
+  length(ratecount_plots_Rorb_ran) <- 4
+  names(ratecount_plots_Rorb_ran) <- mice
+  for (p in 1:4) {
     
-    rorb_decomp<- plot.ratecount(
+    gene_name <- bquote("ROR" * beta * ", " * .(mice[p]))
+    ratecount_plots_Rorb_ran[[mice[p]]] <- plot.ratecount(
       wisp.results = laminar.model,
       pred.type = "pred",
       count.type = "count",
       dim.boundaries = unlist(laminar.model[["plots"]][["ratecount"]][["plot_pred_parent_cortex_fixEff_Bcl11b"]][["layers"]][[49]][["data"]]),
-      count.alpha.none = 0.5,
-      count.alpha.ran = 0,
-      pred.alpha.none = 1,
-      pred.alpha.ran = 0,
-      rans.to.print = "none",
+      y.lim = c(0, 215),
+      count.alpha.none = 0,
+      count.alpha.ran = 0.5,
+      pred.alpha.none = 0,
+      pred.alpha.ran = 1,
+      rans.to.print = as.character(p),
       childs.to.print = c("Rorb")
-    )
-    ratecount_plots[[p_]] <- rorb_decomp[[1]]
+    )[[1]] +
+      labs(title = gene_name, x = NULL, y = NULL) + 
+      theme(
+        plot.title = element_text(hjust = 0.5, size = title_size),
+        axis.title = element_text(size = axis_size),
+        axis.text = element_text(size = axis_size),
+        legend.title = element_text(size = legend_size),
+        legend.text = element_text(size = legend_size),
+        legend.position = "none"
+      ) + 
+      scale_color_manual(
+        labels = c("Left, P12", "right, P12", "left, P18", "right, P18"),
+        values = colors4
+      )
     
-  } else {
+  }
+  for (p in 2:n_plots) {
+    
+    p_ <- names(laminar.model[["plots"]][["ratecount"]])[p]
+    gene_name <- gsub("plot_pred_parent_cortex_fixEff_", "", p_)
+    
+    # Check if this is Rorb
+    this_Rorb <- FALSE
+    if (gene_name == "Rorb") this_Rorb <- TRUE
+    
+    # Set legend position 
+    leg_pos <- "none"
+    if (this_Rorb) leg_pos = "bottom"
+    
+    # Reformat gene names
+    if (this_Rorb) {
+      gene_name <- expression("ROR" * beta)
+    } else {
+      gene_name <- toupper(gene_name)
+    }
+    
+    # Remake Rorb 
+    if (this_Rorb) {
+      
+      rorb_decomp<- plot.ratecount(
+        wisp.results = laminar.model,
+        pred.type = "pred",
+        count.type = "count",
+        dim.boundaries = unlist(laminar.model[["plots"]][["ratecount"]][["plot_pred_parent_cortex_fixEff_Bcl11b"]][["layers"]][[49]][["data"]]),
+        count.alpha.none = 0.5,
+        count.alpha.ran = 0,
+        pred.alpha.none = 1,
+        pred.alpha.ran = 0,
+        rans.to.print = "none",
+        childs.to.print = c("Rorb")
+      )
+      ratecount_plots[[p_]] <- rorb_decomp[[1]]
+      
+    } else {
+      
+      # Recolor plot
+      ratecount_plots[[p_]] <- laminar.model[["plots"]][["ratecount"]][[p_]] 
+      
+    }
     
     # Recolor plot
-    ratecount_plots[[p_]] <- laminar.model[["plots"]][["ratecount"]][[p_]] 
-    
-  }
-  
-  # Recolor plot
-  ratecount_plots[[p_]] <- ratecount_plots[[p_]] +
-    labs(title = gene_name, x = NULL, y = NULL) + 
-    theme(
-      plot.title = element_text(hjust = 0.5, size = title_size),
-      axis.title = element_text(size = axis_size),
-      axis.text = element_text(size = axis_size),
-      legend.title = element_text(size = legend_size),
-      legend.text = element_text(size = legend_size),
-      legend.position = leg_pos
-    ) + 
-    scale_color_manual(
-      labels = c("Left, P12", "right, P12", "left, P18", "right, P18"),
-      values = c("deeppink", "deeppink4", "deepskyblue", "deepskyblue4")
-    )
-  
-  if (this_Rorb) {
-    # Extract data frame from plot 
-    found_P12 <- FALSE 
-    this_layer <- 1
-    while(!found_P12) {
-      df12 <- ratecount_plots[[p_]][["layers"]][[this_layer]][["data"]]
-      if(all(df12$ran == "none" & df12$treatment == "ref")) found_P12 <- TRUE
-      else this_layer <- this_layer + 1
-    }
-    found_P18 <- FALSE 
-    this_layer <- 1 
-    while(!found_P18) {
-      df18 <- ratecount_plots[[p_]][["layers"]][[this_layer]][["data"]]
-      if(all(df18$ran == "none" & df18$treatment == "ref")) found_P18 <- TRUE
-      else this_layer <- this_layer + 1
-    }
-    # Find t-points
-    rise <- 25
-    tpoints_ref <- laminar.model$fitted.parameters[grepl("baseline_cortex_tpoint_Rorb", laminar.model$param.names)]
-    tpoints_18 <- laminar.model$fitted.parameters[grepl("beta_tpoint_cortex_Rorb_18_X_Tns/Blk", laminar.model$param.names)]
-    rorb_markup_tp <- data.frame(
-      tp_ref = tpoints_ref,
-      tp_18 = tpoints_ref + tpoints_18,
-      tpy = rep(-rise, length(tpoints_ref)),
-      tpyend = rep(0, length(tpoints_ref))
-    )
-    # Find rates
-    Rates_block3 <- c(
-      laminar.model$fitted.parameters["baseline_cortex_Rt_Rorb_Tns/Blk3"], # ref level 
-      laminar.model$fitted.parameters["baseline_cortex_Rt_Rorb_Tns/Blk3"] + 
-        laminar.model$fitted.parameters[grepl("beta_Rt_cortex_Rorb_18_X_Tns/Blk3", laminar.model$param.names)], # affect of age
-      laminar.model$fitted.parameters["baseline_cortex_Rt_Rorb_Tns/Blk3"] + 
-        laminar.model$fitted.parameters[grepl("beta_Rt_cortex_Rorb_18_X_Tns/Blk3", laminar.model$param.names)] +    # affect of age
-        laminar.model$fitted.parameters[grepl("beta_Rt_cortex_Rorb_right_X_Tns/Blk3", laminar.model$param.names)] + # affect of hemisphere
-        laminar.model$fitted.parameters[grepl("beta_Rt_cortex_Rorb_right18_X_Tns/Blk3", laminar.model$param.names)] # affect of hemisphere and age
-    )
-    Rates_block3 <- exp(Rates_block3) - 1
-    rorb_markup_Rt <- data.frame(
-      Rts_ref = Rates_block3,
-      Rtsx = rep(57, length(Rates_block3)),
-      Rtsxend = rep(57 + 4, length(Rates_block3))
-    )
-    # Find slope
-    #  ... the slope M outside of log space equals the slope m inside log space times  
-    #       the rate R outside log space plus 1, i.e., M = m * (R + 1)
-    #       ... Why? m = dr/dx = d(log(R+1)/dx = dR/dx * 1/(R+1)
-    P12_rise <- c(
-      laminar.model$fitted.parameters["baseline_cortex_Rt_Rorb_Tns/Blk2"] - laminar.model$fitted.parameters["baseline_cortex_Rt_Rorb_Tns/Blk1"],
-      laminar.model$fitted.parameters["baseline_cortex_Rt_Rorb_Tns/Blk3"] - laminar.model$fitted.parameters["baseline_cortex_Rt_Rorb_Tns/Blk2"],
-      laminar.model$fitted.parameters["baseline_cortex_Rt_Rorb_Tns/Blk4"] - laminar.model$fitted.parameters["baseline_cortex_Rt_Rorb_Tns/Blk3"]
-    )
-    P18_rise <- c(
-      laminar.model$fitted.parameters["baseline_cortex_Rt_Rorb_Tns/Blk2"] + 
-        laminar.model$fitted.parameters[grepl("beta_Rt_cortex_Rorb_18_X_Tns/Blk2", laminar.model$param.names)] - 
-        (laminar.model$fitted.parameters["baseline_cortex_Rt_Rorb_Tns/Blk1"] + 
-          laminar.model$fitted.parameters[grepl("beta_Rt_cortex_Rorb_18_X_Tns/Blk1", laminar.model$param.names)]),
-      laminar.model$fitted.parameters["baseline_cortex_Rt_Rorb_Tns/Blk3"] + 
-        laminar.model$fitted.parameters[grepl("beta_Rt_cortex_Rorb_18_X_Tns/Blk3", laminar.model$param.names)] - 
-        (laminar.model$fitted.parameters["baseline_cortex_Rt_Rorb_Tns/Blk2"] + 
-          laminar.model$fitted.parameters[grepl("beta_Rt_cortex_Rorb_18_X_Tns/Blk2", laminar.model$param.names)]),
-      laminar.model$fitted.parameters["baseline_cortex_Rt_Rorb_Tns/Blk4"] + 
-        laminar.model$fitted.parameters[grepl("beta_Rt_cortex_Rorb_18_X_Tns/Blk4", laminar.model$param.names)] - 
-        (laminar.model$fitted.parameters["baseline_cortex_Rt_Rorb_Tns/Blk3"] + 
-          laminar.model$fitted.parameters[grepl("beta_Rt_cortex_Rorb_18_X_Tns/Blk3", laminar.model$param.names)])
-    )
-    P12_slope_scalar <- c(
-      laminar.model$fitted.parameters["baseline_cortex_tslope_Rorb_Tns/Blk1"],
-      laminar.model$fitted.parameters["baseline_cortex_tslope_Rorb_Tns/Blk2"],
-      laminar.model$fitted.parameters["baseline_cortex_tslope_Rorb_Tns/Blk3"]
-    )
-    P18_slope_scalar <- c(
-      laminar.model$fitted.parameters["baseline_cortex_tslope_Rorb_Tns/Blk1"] + 
-        laminar.model$fitted.parameters[grepl("beta_tslope_cortex_Rorb_18_X_Tns/Blk1", laminar.model$param.names)],
-      laminar.model$fitted.parameters["baseline_cortex_tslope_Rorb_Tns/Blk2"] + 
-        laminar.model$fitted.parameters[grepl("beta_tslope_cortex_Rorb_18_X_Tns/Blk2", laminar.model$param.names)],
-      laminar.model$fitted.parameters["baseline_cortex_tslope_Rorb_Tns/Blk3"] + 
-        laminar.model$fitted.parameters[grepl("beta_tslope_cortex_Rorb_18_X_Tns/Blk3", laminar.model$param.names)]
-    )
-    P12_log_slope <- P12_rise*P12_slope_scalar/4
-    P18_log_slope <- P18_rise*P18_slope_scalar/4
-    P12_slope <- P12_log_slope * (df12$pred[round(tpoints_ref, 0)] + 1)
-    P18_slope <- P18_log_slope * (df18$pred[round(tpoints_ref + tpoints_18,0)] + 1)
-    P12_run <- rise/P12_slope
-    P18_run <- rise/P18_slope
     ratecount_plots[[p_]] <- ratecount_plots[[p_]] +
-      geom_segment(
-        data = rorb_markup_tp,
-        aes(x = tp_ref - P12_run, xend = tp_ref, y = tpy, yend = tpyend),
-        color = "deeppink", linetype = "solid", linewidth = 1.5,
-        arrow = arrow(length = unit(0.15, "inches"), type = "closed")
-        ) +
-      geom_segment(
-        data = rorb_markup_tp,
-        aes(x = tp_18 - P18_run, xend = tp_18, y = tpy, yend = tpyend),
-        color = "deepskyblue", linetype = "solid", linewidth = 1.5,
-        arrow = arrow(length = unit(0.15, "inches"), type = "closed")
-      ) +
-      geom_segment(
-        data = rorb_markup_Rt,
-        aes(x = Rtsx, xend = Rtsxend, y = Rts_ref, yend = Rts_ref),
-        color = c("deeppink", "deepskyblue", "deepskyblue4"), linetype = "solid", linewidth = 1.5,
-        arrow = arrow(length = unit(0.15, "inches"), type = "closed")
+      labs(title = gene_name, x = NULL, y = NULL) + 
+      theme(
+        plot.title = element_text(hjust = 0.5, size = title_size),
+        axis.title = element_text(size = axis_size),
+        axis.text = element_text(size = axis_size),
+        legend.title = element_text(size = legend_size),
+        legend.text = element_text(size = legend_size),
+        legend.position = leg_pos
+      ) + 
+      scale_color_manual(
+        name = "",
+        labels = c("Left, P12", "right, P12", "left, P18", "right, P18"),
+        values = colors4
       )
+    
+    if (this_Rorb) {
+      # Extract data frame from plot 
+      found_P12 <- FALSE 
+      this_layer <- 1
+      while(!found_P12) {
+        df12 <- ratecount_plots[[p_]][["layers"]][[this_layer]][["data"]]
+        if(all(df12$ran == "none" & df12$treatment == "ref")) found_P12 <- TRUE
+        else this_layer <- this_layer + 1
+      }
+      found_P18 <- FALSE 
+      this_layer <- 1 
+      while(!found_P18) {
+        df18 <- ratecount_plots[[p_]][["layers"]][[this_layer]][["data"]]
+        if(all(df18$ran == "none" & df18$treatment == "ref")) found_P18 <- TRUE
+        else this_layer <- this_layer + 1
+      }
+      # Find t-points
+      rise <- 25
+      tpoints_ref <- laminar.model$fitted.parameters[grepl("baseline_cortex_tpoint_Rorb", laminar.model$param.names)]
+      tpoints_18 <- laminar.model$fitted.parameters[grepl("beta_tpoint_cortex_Rorb_18_X_Tns/Blk", laminar.model$param.names)]
+      rorb_markup_tp <- data.frame(
+        tp_ref = tpoints_ref,
+        tp_18 = tpoints_ref + tpoints_18,
+        tpy = rep(-rise, length(tpoints_ref)),
+        tpyend = rep(0, length(tpoints_ref))
+      )
+      # Find rates
+      Rates_block3 <- c(
+        laminar.model$fitted.parameters["baseline_cortex_Rt_Rorb_Tns/Blk3"], # ref level 
+        laminar.model$fitted.parameters["baseline_cortex_Rt_Rorb_Tns/Blk3"] + 
+          laminar.model$fitted.parameters[grepl("beta_Rt_cortex_Rorb_18_X_Tns/Blk3", laminar.model$param.names)], # affect of age
+        laminar.model$fitted.parameters["baseline_cortex_Rt_Rorb_Tns/Blk3"] + 
+          laminar.model$fitted.parameters[grepl("beta_Rt_cortex_Rorb_18_X_Tns/Blk3", laminar.model$param.names)] +    # affect of age
+          laminar.model$fitted.parameters[grepl("beta_Rt_cortex_Rorb_right_X_Tns/Blk3", laminar.model$param.names)] + # affect of hemisphere
+          laminar.model$fitted.parameters[grepl("beta_Rt_cortex_Rorb_right18_X_Tns/Blk3", laminar.model$param.names)] # affect of hemisphere and age
+      )
+      Rates_block3 <- exp(Rates_block3) - 1
+      rorb_markup_Rt <- data.frame(
+        Rts_ref = Rates_block3,
+        Rtsx = rep(57, length(Rates_block3)),
+        Rtsxend = rep(57 + 4, length(Rates_block3))
+      )
+      # Find slope
+      #  ... the slope M outside of log space equals the slope m inside log space times  
+      #       the rate R outside log space plus 1, i.e., M = m * (R + 1)
+      #       ... Why? m = dr/dx = d(log(R+1)/dx = dR/dx * 1/(R+1)
+      P12_rise <- c(
+        laminar.model$fitted.parameters["baseline_cortex_Rt_Rorb_Tns/Blk2"] - laminar.model$fitted.parameters["baseline_cortex_Rt_Rorb_Tns/Blk1"],
+        laminar.model$fitted.parameters["baseline_cortex_Rt_Rorb_Tns/Blk3"] - laminar.model$fitted.parameters["baseline_cortex_Rt_Rorb_Tns/Blk2"],
+        laminar.model$fitted.parameters["baseline_cortex_Rt_Rorb_Tns/Blk4"] - laminar.model$fitted.parameters["baseline_cortex_Rt_Rorb_Tns/Blk3"]
+      )
+      P18_rise <- c(
+        laminar.model$fitted.parameters["baseline_cortex_Rt_Rorb_Tns/Blk2"] + 
+          laminar.model$fitted.parameters[grepl("beta_Rt_cortex_Rorb_18_X_Tns/Blk2", laminar.model$param.names)] - 
+          (laminar.model$fitted.parameters["baseline_cortex_Rt_Rorb_Tns/Blk1"] + 
+             laminar.model$fitted.parameters[grepl("beta_Rt_cortex_Rorb_18_X_Tns/Blk1", laminar.model$param.names)]),
+        laminar.model$fitted.parameters["baseline_cortex_Rt_Rorb_Tns/Blk3"] + 
+          laminar.model$fitted.parameters[grepl("beta_Rt_cortex_Rorb_18_X_Tns/Blk3", laminar.model$param.names)] - 
+          (laminar.model$fitted.parameters["baseline_cortex_Rt_Rorb_Tns/Blk2"] + 
+             laminar.model$fitted.parameters[grepl("beta_Rt_cortex_Rorb_18_X_Tns/Blk2", laminar.model$param.names)]),
+        laminar.model$fitted.parameters["baseline_cortex_Rt_Rorb_Tns/Blk4"] + 
+          laminar.model$fitted.parameters[grepl("beta_Rt_cortex_Rorb_18_X_Tns/Blk4", laminar.model$param.names)] - 
+          (laminar.model$fitted.parameters["baseline_cortex_Rt_Rorb_Tns/Blk3"] + 
+             laminar.model$fitted.parameters[grepl("beta_Rt_cortex_Rorb_18_X_Tns/Blk3", laminar.model$param.names)])
+      )
+      P12_slope_scalar <- c(
+        laminar.model$fitted.parameters["baseline_cortex_tslope_Rorb_Tns/Blk1"],
+        laminar.model$fitted.parameters["baseline_cortex_tslope_Rorb_Tns/Blk2"],
+        laminar.model$fitted.parameters["baseline_cortex_tslope_Rorb_Tns/Blk3"]
+      )
+      P18_slope_scalar <- c(
+        laminar.model$fitted.parameters["baseline_cortex_tslope_Rorb_Tns/Blk1"] + 
+          laminar.model$fitted.parameters[grepl("beta_tslope_cortex_Rorb_18_X_Tns/Blk1", laminar.model$param.names)],
+        laminar.model$fitted.parameters["baseline_cortex_tslope_Rorb_Tns/Blk2"] + 
+          laminar.model$fitted.parameters[grepl("beta_tslope_cortex_Rorb_18_X_Tns/Blk2", laminar.model$param.names)],
+        laminar.model$fitted.parameters["baseline_cortex_tslope_Rorb_Tns/Blk3"] + 
+          laminar.model$fitted.parameters[grepl("beta_tslope_cortex_Rorb_18_X_Tns/Blk3", laminar.model$param.names)]
+      )
+      P12_log_slope <- P12_rise*P12_slope_scalar/4
+      P18_log_slope <- P18_rise*P18_slope_scalar/4
+      P12_slope <- P12_log_slope * (df12$pred[round(tpoints_ref, 0)] + 1)
+      P18_slope <- P18_log_slope * (df18$pred[round(tpoints_ref + tpoints_18,0)] + 1)
+      P12_run <- rise/P12_slope
+      P18_run <- rise/P18_slope
+      ratecount_plots[[p_]] <- ratecount_plots[[p_]] +
+        geom_segment(
+          data = rorb_markup_tp,
+          aes(x = tp_ref - P12_run, xend = tp_ref, y = tpy, yend = tpyend),
+          color = colors4[1], linetype = "solid", linewidth = 1.5,
+          arrow = arrow(length = unit(0.15, "inches"), type = "closed")
+        ) +
+        geom_segment(
+          data = rorb_markup_tp,
+          aes(x = tp_18 - P18_run, xend = tp_18, y = tpy, yend = tpyend),
+          color = colors4[3], linetype = "solid", linewidth = 1.5,
+          arrow = arrow(length = unit(0.15, "inches"), type = "closed")
+        ) +
+        geom_segment(
+          data = rorb_markup_Rt,
+          aes(x = Rtsx, xend = Rtsxend, y = Rts_ref, yend = Rts_ref),
+          color = c(colors4[1], colors4[3], colors4[4]), linetype = "solid", linewidth = 1.5,
+          arrow = arrow(length = unit(0.15, "inches"), type = "closed")
+        )
+    }
   }
+  other_gene_col <- arrangeGrob(
+    ratecount_plots[[2]], # Cux2
+    ratecount_plots[[6]], # Satb2
+    ratecount_plots[[3]], # Fezf2
+    ratecount_plots[[4]], # Nxph3
+    ratecount_plots[[1]], # Bcl11b
+    ncol = 1
+  )
+  Rorb_ran_block <- arrangeGrob(
+    ratecount_plots_Rorb_ran[[1]], 
+    ratecount_plots_Rorb_ran[[2]],
+    ratecount_plots_Rorb_ran[[3]],
+    ratecount_plots_Rorb_ran[[4]], 
+    ncol = 2
+  )
+  Rorb_col <- arrangeGrob(Rorb_ran_block, ratecount_plots[[5]], ncol = 1)
+  grid.arrange(Rorb_col, other_gene_col, widths = c(1, 0.5), ncol = 2)
+  
+  # export
+  dev.copy(png, filename = "fig_results_ratecount.png", width = 1500, height = 1215)
+  dev.off()
+  
 }
-other_gene_col <- arrangeGrob(
-  ratecount_plots[[2]], # Cux2
-  ratecount_plots[[6]], # Satb2
-  ratecount_plots[[3]], # Fezf2
-  ratecount_plots[[4]], # Nxph3
-  ratecount_plots[[1]], # Bcl11b
-  ncol = 1
+make_fig_results_ratecount()
+
+make_fig_residuals <- function() {
+  
+  # Grab plots 
+  hist_plot <- laminar.model[["plots"]][["residuals"]][["all_hist"]]
+  qq_plot <- laminar.model[["plots"]][["residuals"]][["all_qq"]]
+  
+  # Change titles 
+  hist_plot <- hist_plot + 
+    labs(title = "") 
+  qq_plot <- qq_plot + 
+    labs(title = "")
+  
+  grid.arrange(hist_plot, qq_plot, ncol = 2, top = textGrob(
+    "Log-Linked Residuals", 
+    gp = gpar(fontsize = 30) 
+  ))
+  
+  # export
+  dev.copy(png, filename = "fig_residuals.png", width = 1365, height = 605)
+  dev.off()
+  
+}
+make_fig_residuals()
+
+make_MCMCbs_comparison <- function() {
+  
+  # Grab plots 
+  walks_low <- laminar.model[["plots"]][["MCMC"]][["plot.walks.parameters_low"]]
+  walks_high <- laminar.model[["plots"]][["MCMC"]][["plot.walks.parameters_high"]]
+  walks_nll <- laminar.model[["plots"]][["MCMC"]][["plot.walks.nll"]]
+  
+  plot_autocor <- laminar.model[["plots"]][["parameter.normality"]][["plot_sample_correlations"]]
+  plot_shaprio <- laminar.model[["plots"]][["parameter.normality"]][["plot_comparison_Shaprio"]]
+  plot_density <- laminar.model[["plots"]][["parameter.normality"]][["plot_comparison_density"]]
+  
+  # Resize titles 
+  title_size <- 20 
+  walks_low <- walks_low + theme(plot.title = element_text(hjust = 0.5, size = title_size))
+  walks_high <- walks_high + theme(plot.title = element_text(hjust = 0.5, size = title_size))
+  walks_nll <- walks_nll + theme(plot.title = element_text(hjust = 0.5, size = title_size), legend.position = "none")
+  plot_autocor <- plot_autocor + theme(plot.title = element_text(hjust = 0.5, size = title_size))
+  plot_shaprio <- plot_shaprio + theme(plot.title = element_text(hjust = 0.5, size = title_size))
+  plot_density <- plot_density + theme(plot.title = element_text(hjust = 0.5, size = title_size))
+  
+  # Arrange plots
+  grid.arrange(
+    walks_low, plot_density,
+    walks_high,  plot_shaprio,
+    walks_nll, plot_autocor,
+    ncol = 2,
+    top = textGrob(
+      "MCMC and Boostrap Comparison", 
+      gp = gpar(fontsize = 24) 
+    )
   )
-Rorb_ran_block <- arrangeGrob(
-  ratecount_plots_Rorb_ran[[1]], 
-  ratecount_plots_Rorb_ran[[2]],
-  ratecount_plots_Rorb_ran[[3]],
-  ratecount_plots_Rorb_ran[[4]], 
-  ncol = 2
-  )
-Rorb_col <- arrangeGrob(Rorb_ran_block, ratecount_plots[[5]], ncol = 1)
-grid.arrange(Rorb_col, other_gene_col, widths = c(1, 0.5), ncol = 2)
+  
+  # export
+  dev.copy(png, filename = "fig_MCMCbs_comparison.png", width = 1500, height = 950)
+  dev.off()
+  
+}
+make_MCMCbs_comparison()
 
 # Make results table for stats #####
 
