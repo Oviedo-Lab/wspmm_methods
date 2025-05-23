@@ -564,63 +564,99 @@ make_MCMCbs_comparison()
 
 # Make results table for stats #####
 
-param_stats <- laminar.model[["stats"]][["parameters"]][,-c(5,7)]
-param_stats[,2:5] <- round(param_stats[,2:5], 4)
-param_stats <- param_stats[!grepl("wfactor", param_stats$parameter) & !grepl("baseline", param_stats$parameter),]
-param_stats_list <- list() 
-for (g in gene.list) {
-  # Grab gene mask
-  gene_mask <- grepl(g, param_stats$parameter)
-  # Split into lists by gene 
-  param_stats_g <- param_stats[gene_mask,]
-  # Split parameter names into columns to reorganize data
-  split_cols_fix <- do.call(rbind, strsplit(param_stats_g$parameter, "_")) # want cols 2,5,7 (spatial param, treatment, block)
-  # Reorganize data
-  results_cols <- c(2:6)
-  col_names <- c("est", "CI.low", "CI.high", "p.adj", "sig")
-  param_stats_list_g <- list()
-  for (trt in unique(split_cols_fix[,5])) {
-    treatment_mask <- split_cols_fix[,5] == trt
-    results <- param_stats_g[treatment_mask, results_cols]
-    param_type <- split_cols_fix[treatment_mask,2]
-    param_type[param_type == "Rt"] <- "r"
-    param_type[param_type == "tpoint"] <- "p"
-    param_type[param_type == "tslope"] <- "s"
-    block <- split_cols_fix[treatment_mask,7]
-    block <- gsub("Tns/Blk", "", block)
-    block <- paste0(param_type, block)
-    treatment <- rep(trt, length(results[,1]))
-    param_stats_list_g[[trt]] <- as.data.frame(cbind(treatment, block, results))
-    colnames(param_stats_list_g[[trt]]) <- c("effect", "z", col_names)
-  }
-  param_stats_list[[g]] <- as.data.frame(do.call(rbind, param_stats_list_g))
-  rownames(param_stats_list[[g]]) <- NULL
-  # For each gene and parameter type (ran, fix, baseline), will have five numeric value columns: est, low, high, p-adj, significance
-}
-
 library(dplyr)
 library(knitr)
 library(kableExtra)
 
-# Sample data
-df <- param_stats_list[["Rorb"]]
-
-effect_lengths <- c()
-for (e in unique(df$effect)) {
-  effect_lengths <- c(effect_lengths, sum(df$effect == e))
+make_stat_table <- function() {
+  
+  param_stats <- laminar.model[["stats"]][["parameters"]][,-c(5,7)]
+  param_stats[,2:5] <- round(param_stats[,2:5], 4)
+  param_stats <- param_stats[!grepl("wfactor", param_stats$parameter) & !grepl("baseline", param_stats$parameter),]
+  param_stats_list <- list() 
+  for (g in gene.list) {
+    # Grab gene mask
+    gene_mask <- grepl(g, param_stats$parameter)
+    # Split into lists by gene 
+    param_stats_g <- param_stats[gene_mask,]
+    # Split parameter names into columns to reorganize data
+    split_cols_fix <- do.call(rbind, strsplit(param_stats_g$parameter, "_")) # want cols 2,5,7 (spatial param, treatment, block)
+    # Reorganize data
+    results_cols <- c(2:6)
+    col_names <- c("est", "CI.low", "CI.high", "p.adj", "sig")
+    param_stats_list_g <- list()
+    for (trt in unique(split_cols_fix[,5])) {
+      treatment_mask <- split_cols_fix[,5] == trt
+      results <- param_stats_g[treatment_mask, results_cols]
+      results[,1:4] <- round(results[,1:4], 3)
+      param_type <- split_cols_fix[treatment_mask,2]
+      param_type[param_type == "Rt"] <- "r"
+      param_type[param_type == "tpoint"] <- "p"
+      param_type[param_type == "tslope"] <- "s"
+      block <- split_cols_fix[treatment_mask,7]
+      block <- gsub("Tns/Blk", "", block)
+      block <- paste0("$", param_type, "_", block, "$")
+      treatment <- rep(trt, length(results[,1]))
+      param_stats_list_g[[trt]] <- as.data.frame(cbind(treatment, block, results))
+      colnames(param_stats_list_g[[trt]]) <- c("effect", "$z$", col_names)
+    }
+    param_stats_list[[g]] <- as.data.frame(do.call(rbind, param_stats_list_g))
+    rownames(param_stats_list[[g]]) <- NULL
+    # For each gene and parameter type (ran, fix, baseline), will have five numeric value columns: est, low, high, p-adj, significance
+  }
+  
+  # Sample data
+  df <- param_stats_list[["Rorb"]]
+  
+  effect_lengths <- c()
+  for (e in unique(df$effect)) {
+    effect_lengths <- c(effect_lengths, sum(df$effect == e))
+  }
+  names(effect_lengths) <- c(
+    "Fixed Effects: Hemisphere (right)", 
+    "Fixed Effect: Age (P18)", 
+    "Fixed Effect: Hemisphere-Age Interaction"
+  )
+  df <- df[,-which(colnames(df) == "effect")]
+  df$p.adj[df$p.adj > 1] <- "1.000"
+  df$p.adj[df$p.adj <= 0] <- "$<0.001$"
+  
+  for (g in gene.list) {
+    if (g == "Rorb") next
+    df2 <- param_stats_list[[g]]
+    df2 <- df2[,-which(colnames(df2) == "effect")]
+    df2$p.adj[df2$p.adj > 1] <- "1.000"
+    df2$p.adj[df2$p.adj <= 0] <- "$<0.001$"
+    df <- cbind(
+      df,
+      rep(" ", nrow(df)),
+      rep(" ", nrow(df))
+    )
+    colnames(df) <- c(colnames(df)[1:(ncol(df)-2)], paste0("est.",g), paste("p.adj.",g))
+    for (p in 1:effect_lengths[1]) {
+      mask <- df[p,1] == df2[,1]
+      if (any(mask)) {
+        df[df[p,1] == df[,1],c(ncol(df)-1, ncol(df))] <- df2[mask,c("est", "p.adj")]
+      }
+    }
+  }
+  
+  # Create the table with row grouping
+  kbl(df, format = "latex", 
+      booktabs = TRUE, escape = FALSE, 
+      caption = "Fixed effect estimates.\\label{table:FEestimates}", 
+      linesep = "") %>%
+    add_header_above(
+      c(
+        " ", 
+        "RORB" = 5,
+        "Bcl11b" = 2, "Fezf2" = 2,  "Satb2" = 2,  "Nxph3" = 2,  "Cux2" = 2
+      )) %>%
+    group_rows(index = effect_lengths) %>%
+    kable_styling(latex_options = c("scale_down"), font_size = 8)
+  
 }
-names(effect_lengths) <- c(
-  "Fixed Effects: Hemisphere (right)", 
-  "Fixed Effect: Age (P18)", 
-  "Fixed Effect: Hemisphere-Age Interaction"
-)
-df <- df[,-which(colnames(df) == "effect")]
-df$p.adj[df$p.adj > 1] <- 1
-
-# Create the table with row grouping
-kbl(df, format = "latex", booktabs = TRUE, escape = FALSE, linesep = "") %>%
-  group_rows(index = effect_lengths) %>%
-  kable_styling(latex_options = c("scale_down"), font_size = 8)
+make_stat_table()
 
 # Compare bs and MCMC results #####
 
