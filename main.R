@@ -104,7 +104,7 @@ model.settings = list(
   ctol = 1e-6,                                          # convergence tolerance
   max_penalty_at_distance_factor = 0.01,                # maximum penalty at distance from structural parameter values
   LROcutoff = 2.0,                                      # cutoff for LROcp, a multiple of standard deviation
-  LROwindow_factor = 2.0,                               # window factor for LROcp, larger means larger rolling window
+  LROwindow_factor = 1.25,                               # window factor for LROcp, larger means larger rolling window
   rise_threshold_factor = 0.8,                          # amount of detected rise as fraction of total required to end run in initial slope estimation
   max_evals = 1000,                                     # maximum number of evaluations for optimization
   rng_seed = 42,                                        # random seed for optimization (controls bootstrap resamples only)
@@ -124,7 +124,7 @@ laminar.model <- wisp(
   MCMC.step.size = 1.0,
   MCMC.prior = 1.0, 
   MCMC.neighbor.filter = 2,
-  bootstraps.num = 0,
+  bootstraps.num = 1e2,
   converged.resamples.only = TRUE,
   max.fork = bs_chunksize,
   dim.bounds = colMeans(layer.boundary.bins),
