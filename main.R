@@ -120,11 +120,11 @@ laminar.model <- wisp(
   # Settings used on R side
   use.median = FALSE,
   MCMC.burnin = 0,
-  MCMC.steps = 1e2,
+  MCMC.steps = 1e4,
   MCMC.step.size = 1.0,
   MCMC.prior = 1.0, 
   MCMC.neighbor.filter = 2,
-  bootstraps.num = 1e2,
+  bootstraps.num = 1e4,
   converged.resamples.only = TRUE,
   max.fork = bs_chunksize,
   dim.bounds = colMeans(layer.boundary.bins),
@@ -137,125 +137,6 @@ laminar.model <- wisp(
 # Save
 # ... laminar.model <- readRDS("saved_laminar_model-final.rds")
 saveRDS(laminar.model, file = "saved_laminar_model.rds")
-
-eval_age_constraint <- function() {
-    
-    # Pull in bs diagnostics for pinned age evaluation and unconstrained run (1000 bootstraps each)
-    bs_diagnostics_pinnedage <- read.csv("bs_diagnostics_pinnedage.csv")
-    bs_diagnostics_unconstrained <- read.csv("bs_diagnostics_unconstrained.csv")
-    
-    # Set baseline value
-    baseline <- bs_diagnostics_unconstrained[1001,"neg.loglik"]
-    
-    # Normalize
-    neg.loglik.pinnedage <- bs_diagnostics_pinnedage$neg.loglik/baseline
-    neg.loglik.unconstrained <- bs_diagnostics_unconstrained$neg.loglik/baseline
-    df_dens = data.frame(
-      sw_stat = c(neg.loglik.pinnedage, neg.loglik.unconstrained),
-      parameters = rep(c("pinned age", "unconstrained"), each = length(neg.loglik.pinnedage))
-    )
-    
-    # Make density plot
-    label_size <- 5.5
-    title_size <- 20 
-    axis_size <- 12 
-    legend_size <- 10
-    pinned_age_constraint <- ggplot(df_dens, aes(x = sw_stat, color = parameters)) +
-      geom_density(linewidth = 1.2) +
-      theme_minimal() +
-      labs(
-        title = "Distribution of Model Fits", 
-        x = "Normalized Negative Log Likelihood", 
-        y = "Density"
-      ) +
-      theme(
-        plot.title = element_text(hjust = 0.5, size = title_size),
-        axis.title = element_text(size = axis_size),
-        axis.text = element_text(size = axis_size),
-        legend.title = element_text(size = legend_size),
-        legend.text = element_text(size = legend_size)
-      )
-    print(pinned_age_constraint)
-    
-    # Find chance of getting unconstrained mean from pinned age distribution
-    number_of_bs <- 1000
-    null_means <- rep(NA,number_of_bs)
-    for (i in 1:number_of_bs) {
-      idx <- sample(1:1001, 1001, replace = TRUE)
-      null_means[i] <- mean(neg.loglik.pinnedage[idx])
-    }
-    p_value <- sum(abs(number_of_bs) > abs(mean(neg.loglik.unconstrained)))/number_of_bs
-    cat("\nP-value for unconstrained mean in pinned age distribution:", p_value, "\n")
-    raw_ratio <- mean(neg.loglik.pinnedage)/mean(neg.loglik.unconstrained)
-    cat("\nRatio of pinned age mean over unconstrained mean:", raw_ratio, "\n")
-    full_data_ratio <- neg.loglik.pinnedage[1001]/neg.loglik.unconstrained[1001]
-    cat("\nRatio of pinned age neg.loglik over unconstrained neg.loglik (full data):", full_data_ratio, "\n")
-    
-  }
-eval_age_constraint()
-
-# Check age effects in model ###########################################################################################
-
-# What are age effects estimated by the model?
-age_effect_mask <- grepl("beta_Rt_cortex", laminar.model$param.names) & grepl("_18_", laminar.model$param.names)
-age_effects <- laminar.model$fitted.parameters[age_effect_mask]
-age_effects_mean <- mean(age_effects)
-age_effects_mean
-age_effects_unlinked <- exp(age_effects_mean) 
-age_effects_unlinked # This value is what a P12 value should be multipled by in order to get expected P18 value
-
-# This gives mean count per gene over the entire sample
-P12 <- (13237 * 2.84 + 10444 * 1.755)/2
-P18 <- (16954 * 3.269 + 13481 * 1.977)/2
-# ... to get per bin, divide by 100
-P12 <- P12/100
-P18 <- P18/100
-cat("\nP12, gene count per bin:", P12, "\n")
-cat("\nP18, gene count per bin:", P18, "\n")
-log_age_effect_empirical <- log((P18-1)/(P12-1))
-
-# Which age effects were significant?
-sig_mask <- laminar.model[["stats"]][["parameters"]]$p.value.adj < 0.05
-sig_mask[is.na(sig_mask)] <- FALSE
-sig_age_mask <- sig_mask & age_effect_mask
-sum(sig_age_mask)
-View(laminar.model[["stats"]][["parameters"]][sig_age_mask,])
-
-# These parameters, what percentage of the estimated distribution is below the expected age effect from a naive take on the data?
-nsamples <- nrow(laminar.model[["sample.params.bs"]])
-nparams <- sum(sig_age_mask)
-below_emp_expected <- rep(NA, nparams)
-for (j in 1:nparams) {
-  i <- which(sig_age_mask)[j]
-  below_emp_expected[j] <- sum(laminar.model[["sample.params.bs"]][,i] < log_age_effect_empirical)/nsamples
-  cat("\nParam:", laminar.model$param.names[i])
-  cat("\nBelow empirical expected:", below_emp_expected[j])
-}
-below_emp_expected
-
-# Find random rate effects by age
-# ... M1 and M3 are P12, 2 and 4 are P18
-mP12_mask <- grepl("wfactor_rate_1_", laminar.model$param.names) | grepl("wfactor_rate_3_", laminar.model$param.names)
-mP18_mask <- grepl("wfactor_rate_2_", laminar.model$param.names) | grepl("wfactor_rate_4_", laminar.model$param.names)
-mP12 <- laminar.model$fitted.parameters[mP12_mask]
-mP18 <- laminar.model$fitted.parameters[mP18_mask]
-hist(mP12)
-hist(mP18)
-# ... interesting: it put the P12 mice at the extremes, and put the P18 mice in the middle
-# ... First pass: what it's done is estimate that age actually has a larger effect than the naive 
-#      count implies (0.5 vs 0.35), and thus to fit the two observed P18 mice, it has to actually 
-#      *lower* their values relative to what it expects from the "average" P18 mouse. 
-# ... Is this really the case? As experiment, could rerun the model, forcing it to keep a 
-#      mean effect for age of zero, and see how the likelihood compares. 
-#      ... > quick and dirty way to accomplish this? > center age effects on zero, then run 
-#             optimization from there. 
-#          > If the optimization drags it back to a heavy age skew, then that's some evidence that 
-#             the fit is better with the age effect. Still, in this case, probably want to follow up 
-#             by running the optimization again with a penalty for age skew off zero. 
-#          > ... eh, maybe just do the complicated thing from the start and be done with it!!
-#          > ... could even write a function for others to use, something like: pick a factor (e.g., age), 
-#                 and it will run the optimization forcing that factor to have a mean effecg of zero. 
-#                  ... can probably just add this as an argument to the fit function? eh ... no, just make a new one? idk. 
 
 # Make and export figures #####
 
@@ -657,6 +538,125 @@ make_stat_table <- function() {
   
 }
 make_stat_table()
+
+# Check age effects in model ###########################################################################################
+
+eval_age_constraint <- function() {
+  
+  # Pull in bs diagnostics for pinned age evaluation and unconstrained run (1000 bootstraps each)
+  bs_diagnostics_pinnedage <- read.csv("bs_diagnostics_pinnedage.csv")
+  bs_diagnostics_unconstrained <- read.csv("bs_diagnostics_unconstrained.csv")
+  
+  # Set baseline value
+  baseline <- bs_diagnostics_unconstrained[1001,"neg.loglik"]
+  
+  # Normalize
+  neg.loglik.pinnedage <- bs_diagnostics_pinnedage$neg.loglik/baseline
+  neg.loglik.unconstrained <- bs_diagnostics_unconstrained$neg.loglik/baseline
+  df_dens = data.frame(
+    sw_stat = c(neg.loglik.pinnedage, neg.loglik.unconstrained),
+    parameters = rep(c("pinned age", "unconstrained"), each = length(neg.loglik.pinnedage))
+  )
+  
+  # Make density plot
+  label_size <- 5.5
+  title_size <- 20 
+  axis_size <- 12 
+  legend_size <- 10
+  pinned_age_constraint <- ggplot(df_dens, aes(x = sw_stat, color = parameters)) +
+    geom_density(linewidth = 1.2) +
+    theme_minimal() +
+    labs(
+      title = "Distribution of Model Fits", 
+      x = "Normalized Negative Log Likelihood", 
+      y = "Density"
+    ) +
+    theme(
+      plot.title = element_text(hjust = 0.5, size = title_size),
+      axis.title = element_text(size = axis_size),
+      axis.text = element_text(size = axis_size),
+      legend.title = element_text(size = legend_size),
+      legend.text = element_text(size = legend_size)
+    )
+  print(pinned_age_constraint)
+  
+  # Find chance of getting unconstrained mean from pinned age distribution
+  number_of_bs <- 1000
+  null_means <- rep(NA,number_of_bs)
+  for (i in 1:number_of_bs) {
+    idx <- sample(1:1001, 1001, replace = TRUE)
+    null_means[i] <- mean(neg.loglik.pinnedage[idx])
+  }
+  p_value <- sum(abs(number_of_bs) > abs(mean(neg.loglik.unconstrained)))/number_of_bs
+  cat("\nP-value for unconstrained mean in pinned age distribution:", p_value, "\n")
+  raw_ratio <- mean(neg.loglik.pinnedage)/mean(neg.loglik.unconstrained)
+  cat("\nRatio of pinned age mean over unconstrained mean:", raw_ratio, "\n")
+  full_data_ratio <- neg.loglik.pinnedage[1001]/neg.loglik.unconstrained[1001]
+  cat("\nRatio of pinned age neg.loglik over unconstrained neg.loglik (full data):", full_data_ratio, "\n")
+  
+}
+eval_age_constraint()
+
+# What are age effects estimated by the model?
+age_effect_mask <- grepl("beta_Rt_cortex", laminar.model$param.names) & grepl("_18_", laminar.model$param.names)
+age_effects <- laminar.model$fitted.parameters[age_effect_mask]
+age_effects_mean <- mean(age_effects)
+age_effects_mean
+age_effects_unlinked <- exp(age_effects_mean) 
+age_effects_unlinked # This value is what a P12 value should be multipled by in order to get expected P18 value
+
+# This gives mean count per gene over the entire sample
+P12 <- (13237 * 2.84 + 10444 * 1.755)/2
+P18 <- (16954 * 3.269 + 13481 * 1.977)/2
+# ... to get per bin, divide by 100
+P12 <- P12/100
+P18 <- P18/100
+cat("\nP12, gene count per bin:", P12, "\n")
+cat("\nP18, gene count per bin:", P18, "\n")
+log_age_effect_empirical <- log((P18-1)/(P12-1))
+
+# Which age effects were significant?
+sig_mask <- laminar.model[["stats"]][["parameters"]]$p.value.adj < 0.05
+sig_mask[is.na(sig_mask)] <- FALSE
+sig_age_mask <- sig_mask & age_effect_mask
+sum(sig_age_mask)
+View(laminar.model[["stats"]][["parameters"]][sig_age_mask,])
+
+# These parameters, what percentage of the estimated distribution is below the expected age effect from a naive take on the data?
+nsamples <- nrow(laminar.model[["sample.params.bs"]])
+nparams <- sum(sig_age_mask)
+below_emp_expected <- rep(NA, nparams)
+for (j in 1:nparams) {
+  i <- which(sig_age_mask)[j]
+  below_emp_expected[j] <- sum(laminar.model[["sample.params.bs"]][,i] < log_age_effect_empirical)/nsamples
+  cat("\nParam:", laminar.model$param.names[i])
+  cat("\nBelow empirical expected:", below_emp_expected[j])
+}
+below_emp_expected
+
+# Find random rate effects by age
+# ... M1 and M3 are P12, 2 and 4 are P18
+mP12_mask <- grepl("wfactor_rate_1_", laminar.model$param.names) | grepl("wfactor_rate_3_", laminar.model$param.names)
+mP18_mask <- grepl("wfactor_rate_2_", laminar.model$param.names) | grepl("wfactor_rate_4_", laminar.model$param.names)
+mP12 <- laminar.model$fitted.parameters[mP12_mask]
+mP18 <- laminar.model$fitted.parameters[mP18_mask]
+hist(mP12)
+hist(mP18)
+# ... interesting: it put the P12 mice at the extremes, and put the P18 mice in the middle
+# ... First pass: what it's done is estimate that age actually has a larger effect than the naive 
+#      count implies (0.5 vs 0.35), and thus to fit the two observed P18 mice, it has to actually 
+#      *lower* their values relative to what it expects from the "average" P18 mouse. 
+# ... Is this really the case? As experiment, could rerun the model, forcing it to keep a 
+#      mean effect for age of zero, and see how the likelihood compares. 
+#      ... > quick and dirty way to accomplish this? > center age effects on zero, then run 
+#             optimization from there. 
+#          > If the optimization drags it back to a heavy age skew, then that's some evidence that 
+#             the fit is better with the age effect. Still, in this case, probably want to follow up 
+#             by running the optimization again with a penalty for age skew off zero. 
+#          > ... eh, maybe just do the complicated thing from the start and be done with it!!
+#          > ... could even write a function for others to use, something like: pick a factor (e.g., age), 
+#                 and it will run the optimization forcing that factor to have a mean effecg of zero. 
+#                  ... can probably just add this as an argument to the fit function? eh ... no, just make a new one? idk. 
 
 # Compare bs and MCMC results #####
 
