@@ -103,8 +103,8 @@ model.settings = list(
   buffer_factor = 0.05,                                 # buffer factor for penalizing distance from structural parameter values
   ctol = 1e-6,                                          # convergence tolerance
   max_penalty_at_distance_factor = 0.01,                # maximum penalty at distance from structural parameter values
-  LROcutoff = 1.5,                                      # cutoff for LROcp
-  LROwindow_factor = 3.0,                               # window factor for LROcp, larger means larger rolling window
+  LROcutoff = 2.0,                                      # cutoff for LROcp, a multiple of standard deviation
+  LROwindow_factor = 2.0,                               # window factor for LROcp, larger means larger rolling window
   rise_threshold_factor = 0.8,                          # amount of detected rise as fraction of total required to end run in initial slope estimation
   max_evals = 1000,                                     # maximum number of evaluations for optimization
   rng_seed = 42,                                        # random seed for optimization (controls bootstrap resamples only)
@@ -120,12 +120,12 @@ laminar.model <- wisp(
   # Settings used on R side
   use.median = FALSE,
   MCMC.burnin = 0,
-  MCMC.steps = 1e4,
+  MCMC.steps = 1e2,
   MCMC.step.size = 1.0,
   MCMC.prior = 1.0, 
   MCMC.neighbor.filter = 2,
-  bootstraps.num = 1e4,
-  converged.resamples.only = FALSE,
+  bootstraps.num = 0,
+  converged.resamples.only = TRUE,
   max.fork = bs_chunksize,
   dim.bounds = colMeans(layer.boundary.bins),
   verbose = TRUE,
@@ -285,7 +285,7 @@ make_fig_results_ratecount <- function() {
       pred.type = "pred",
       count.type = "count",
       dim.boundaries = unlist(laminar.model[["plots"]][["ratecount"]][["plot_pred_parent_cortex_fixEff_Bcl11b"]][["layers"]][[49]][["data"]]),
-      y.lim = c(0, 215),
+      #y.lim = c(0, 215),
       count.alpha.none = 0,
       count.alpha.ran = 0.5,
       pred.alpha.none = 0,
