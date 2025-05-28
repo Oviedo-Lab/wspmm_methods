@@ -58,6 +58,19 @@ layer.boundary.bins <- count_data$layer.boundary.bins
 coordinate_transform_plots <- count_data$plots
 count_data <- count_data$df
 
+extract_transcript_counts <- function() {
+  mice <- unique(count_data$mouse)
+  counts <- count_data[,which(colnames(count_data) %in% gene.list)]
+  counts_all <- count_data[,c(18:738)]
+  for (i in mice) {
+    print(i)
+    mask <- count_data$mouse == i
+    print(sum(counts_all[mask,])/sum(mask)/ncol(counts_all))
+    print(sum(counts[mask,])/sum(mask)/ncol(counts))
+  }
+}
+extract_transcript_counts()
+
 # Save layer boundaries
 write.csv(
   layer.boundary.bins,
@@ -282,6 +295,8 @@ make_fig_results_ratecount <- function() {
         laminar.model$fitted.parameters["baseline_cortex_Rt_Rorb_Tns/Blk3"] + 
           laminar.model$fitted.parameters[grepl("beta_Rt_cortex_Rorb_18_X_Tns/Blk3", laminar.model$param.names)], # affect of age
         laminar.model$fitted.parameters["baseline_cortex_Rt_Rorb_Tns/Blk3"] + 
+          laminar.model$fitted.parameters[grepl("beta_Rt_cortex_Rorb_right_X_Tns/Blk3", laminar.model$param.names)], + # affect of hemisphere
+        laminar.model$fitted.parameters["baseline_cortex_Rt_Rorb_Tns/Blk3"] + 
           laminar.model$fitted.parameters[grepl("beta_Rt_cortex_Rorb_18_X_Tns/Blk3", laminar.model$param.names)] +    # affect of age
           laminar.model$fitted.parameters[grepl("beta_Rt_cortex_Rorb_right_X_Tns/Blk3", laminar.model$param.names)] + # affect of hemisphere
           laminar.model$fitted.parameters[grepl("beta_Rt_cortex_Rorb_right18_X_Tns/Blk3", laminar.model$param.names)] # affect of hemisphere and age
@@ -350,7 +365,7 @@ make_fig_results_ratecount <- function() {
         geom_segment(
           data = rorb_markup_Rt,
           aes(x = Rtsx, xend = Rtsxend, y = Rts_ref, yend = Rts_ref),
-          color = c(colors4[1], colors4[3], colors4[4]), linetype = "solid", linewidth = 1.5,
+          color = c(colors4[1], colors4[3], colors4[2], colors4[4]), linetype = "solid", linewidth = 1.5,
           arrow = arrow(length = unit(0.15, "inches"), type = "closed")
         )
     }
@@ -476,6 +491,39 @@ make_stat_table <- function() {
       param_type[param_type == "tslope"] <- "s"
       block <- split_cols_fix[treatment_mask,7]
       block <- gsub("Tns/Blk", "", block)
+      if (g == "Rorb") {
+        # extend param_type and block by 1
+        old_mask <- c()
+        param_type_new <- c() 
+        block_new <- c()
+        last_param_type <- "z"
+        last_block <- 0
+        for (ti in seq_along(param_type)) {
+          t <- param_type[ti]
+          b <- as.integer(block[ti])
+          if (t == last_param_type || length(block_new) == 0) {
+            param_type_new <- c(param_type_new, t)
+            block_new <- c(block_new, as.character(b))
+            old_mask <- c(old_mask, TRUE)
+          } else {
+            param_type_new <- c(param_type_new, last_param_type, t)
+            block_new <- c(block_new, as.character(last_block+1), as.character(b))
+            old_mask <- c(old_mask, FALSE, TRUE)
+          }
+          if (ti == length(param_type)) {
+            param_type_new <- c(param_type_new, t)
+            block_new <- c(block_new, as.character(b+1))
+            old_mask <- c(old_mask, FALSE)
+          }
+          last_param_type <- t
+          last_block <- b
+        }
+        param_type <- param_type_new
+        block <- block_new
+        new_results <- as.data.frame(array(NA, dim = c(length(block), ncol(results))))
+        new_results[old_mask,] <- as.data.frame(results[,])
+        results <- new_results
+      }
       block <- paste0("$", param_type, "_", block, "$")
       treatment <- rep(trt, length(results[,1]))
       param_stats_list_g[[trt]] <- as.data.frame(cbind(treatment, block, results))
