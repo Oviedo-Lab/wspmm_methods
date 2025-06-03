@@ -23,18 +23,16 @@ Standard deviation of means: 0.397
 Total cells by type (Map My Cells):
 ------------------------------
 
-      Astro-Epen          CB GABA          CB Glut     CNU-HYa GABA     CNU-HYa Glut     CNU-LGE GABA 
-            3952               82               19               12                2              671 
-    CNU-MGE GABA CTX-CGE/MGE GABA      DG-IMN Glut         filtered          HY GABA           Immune 
-              20             1351               11            18208               37              331 
-      IT-ET Glut         LSX GABA          MB GABA          MB Glut       MB-HB Sero       MH-LH Glut 
-           16066               29               79                5                1               15 
-         MY GABA          MY Glut   NP-CT-L6b Glut      OB-IMN GABA              OEC        OPC-Oligo 
-             430               21             4922              149               23             1499 
-          P GABA  TSCRPT_filtered         Vascular          HY Glut    HY Gnrh1 Glut           P Glut 
-             142               99             5914                1                1                2 
-     Pineal Glut          TH Glut          MB Dopa       OB-CR Glut 
-               5               12                2                3 
+      Astro-Epen          CB GABA          CB Glut     CNU-HYa GABA     CNU-HYa Glut     CNU-LGE GABA     CNU-MGE GABA CTX-CGE/MGE GABA 
+            3952               82               19               12                2              671               20             1351 
+     DG-IMN Glut         filtered          HY GABA           Immune       IT-ET Glut         LSX GABA          MB GABA          MB Glut 
+              11            18208               37              331            16066               29               79                5 
+      MB-HB Sero       MH-LH Glut          MY GABA          MY Glut   NP-CT-L6b Glut      OB-IMN GABA              OEC        OPC-Oligo 
+               1               15              430               21             4922              149               23             1499 
+          P GABA  TSCRPT_filtered         Vascular          HY Glut    HY Gnrh1 Glut           P Glut      Pineal Glut          TH Glut 
+             142               99             5914                1                1                2                5               12 
+         MB Dopa       OB-CR Glut 
+               2                3 
 ----
 
 Number of mice: 4
@@ -140,7 +138,10 @@ row: 1920/2400
 row: 2400/2400
 Extrapolated 'none' rows
 Took log of observed counts
-Estimated change points with LROcp and found initial parameter estimates for fixed-effect treatments
+Estimated gamma dispersion of raw counts
+Estimated change points
+Found average log counts for each parent-child combination
+Estimated initial parameters for fixed-effect treatments
 Built initial beta (ref and fixed-effects) matrices
 Initialized random effect warping factors
 Made and mapped parameter vector
@@ -166,23 +167,23 @@ Final boundary distance: 0.247647
 Nearby feasible parameters found!
 Performing initial fit of full data
 Penalized neg_loglik: 12046.2
-step: 1/100
-step: 10/100
-step: 20/100
-step: 30/100
-step: 40/100
-step: 50/100
-step: 60/100
-step: 70/100
-step: 80/100
-step: 90/100
+step: 1/10000
+step: 1000/10000
+step: 2000/10000
+step: 3000/10000
+step: 4000/10000
+step: 5000/10000
+step: 6000/10000
+step: 7000/10000
+step: 8000/10000
+step: 9000/10000
 All complete!
-Acceptance rate (aim for 0.2-0.3): 0.207469
+Acceptance rate (aim for 0.2-0.3): 0.126903
 
 MCMC simulation complete... 
-MCMC run time (total), minutes: 0.358
-MCMC run time (per retained step), seconds: 0.215
-MCMC run time (per step), seconds: 0.107
+MCMC run time (total), minutes: 43.983
+MCMC run time (per retained step), seconds: 0.264
+MCMC run time (per step), seconds: 0.132
 
 Running bootstrap fits (with forking): 
 Checking feasibility of provided parameters
@@ -191,622 +192,22 @@ Checking feasibility of provided parameters
 Provided parameters are feasible
 Performing initial fit of full data
 Penalized neg_loglik: 12046.2
-Gam dispersion for parent cortex, child Bcl11b: 0.620077Gam dispersion for parent cortex, child Bcl11b: 0.624109
-
-Gam dispersion for parent cortex, child Cux2: 1.568685
-Gam dispersion for parent cortex, child Cux2: 1.596421
-Gam dispersion for parent cortex, child Fezf2: 1.203859
-Gam dispersion for parent cortex, child Fezf2: 1.267298
-Gam dispersion for parent cortex, child Nxph3: 1.058326
-Gam dispersion for parent cortex, child Nxph3: 1.072286
-Gam dispersion for parent cortex, child Rorb: 0.864499
-Gam dispersion for parent cortex, child Rorb: 0.875827
-Gam dispersion for parent cortex, child Satb2: 0.371880
-Gam dispersion for parent cortex, child Satb2: 0.360986
-Gam dispersion for parent cortex, child Bcl11b: 0.611207Gam dispersion for parent cortex, child Bcl11b: 0.650767
-
-Gam dispersion for parent cortex, child Cux2: 1.648129
-Gam dispersion for parent cortex, child Cux2: 1.579372
-Gam dispersion for parent cortex, child Fezf2: 1.207406
-Gam dispersion for parent cortex, child Fezf2: 1.264924
-Gam dispersion for parent cortex, child Nxph3: 0.995962
-Gam dispersion for parent cortex, child Nxph3: 1.053134
-Gam dispersion for parent cortex, child Rorb: 0.881766
-Gam dispersion for parent cortex, child Rorb: 0.851700
-Gam dispersion for parent cortex, child Satb2: 0.361553
-Gam dispersion for parent cortex, child Satb2: 0.377316
-Batch: 1/50, 2.65009 sec/bs
-Gam dispersion for parent cortex, child Bcl11b: 0.616115Gam dispersion for parent cortex, child Bcl11b: 0.630532
-
-Gam dispersion for parent cortex, child Cux2: 1.599970
-Gam dispersion for parent cortex, child Cux2: 1.611457
-Gam dispersion for parent cortex, child Fezf2: 1.160444
-Gam dispersion for parent cortex, child Fezf2: 1.191864
-Gam dispersion for parent cortex, child Nxph3: 1.075699
-Gam dispersion for parent cortex, child Nxph3: 1.008961
-Gam dispersion for parent cortex, child Rorb: 0.879620
-Gam dispersion for parent cortex, child Rorb: 0.858002
-Gam dispersion for parent cortex, child Satb2: 0.357407
-Gam dispersion for parent cortex, child Satb2: 0.372148
-Gam dispersion for parent cortex, child Bcl11b: 0.619451Gam dispersion for parent cortex, child Bcl11b: 0.632463
-
-Gam dispersion for parent cortex, child Cux2: 1.587032
-Gam dispersion for parent cortex, child Cux2: 1.615905
-Gam dispersion for parent cortex, child Fezf2: 1.262498
-Gam dispersion for parent cortex, child Fezf2: 1.238498
-Gam dispersion for parent cortex, child Nxph3: 1.059288
-Gam dispersion for parent cortex, child Nxph3: 1.021997
-Gam dispersion for parent cortex, child Rorb: 0.883281
-Gam dispersion for parent cortex, child Rorb: 0.860746
-Gam dispersion for parent cortex, child Satb2: 0.365383
-Gam dispersion for parent cortex, child Satb2: 0.358320
-Gam dispersion for parent cortex, child Bcl11b: 0.672330Gam dispersion for parent cortex, child Bcl11b: 0.625041
-
-Gam dispersion for parent cortex, child Cux2: 1.568399
-Gam dispersion for parent cortex, child Cux2: 1.607987
-Gam dispersion for parent cortex, child Fezf2: 1.183884
-Gam dispersion for parent cortex, child Fezf2: 1.174466
-Gam dispersion for parent cortex, child Nxph3: 1.035058
-Gam dispersion for parent cortex, child Nxph3: 1.012670
-Gam dispersion for parent cortex, child Rorb: 0.898744
-Gam dispersion for parent cortex, child Rorb: 0.855905
-Gam dispersion for parent cortex, child Satb2: 0.357305
-Gam dispersion for parent cortex, child Satb2: 0.358863
-Gam dispersion for parent cortex, child Bcl11b: 0.603600Gam dispersion for parent cortex, child Bcl11b: 0.636898
-
-Gam dispersion for parent cortex, child Cux2: 1.649451
-Gam dispersion for parent cortex, child Cux2: 1.571982
-Gam dispersion for parent cortex, child Fezf2: 1.240506
-Gam dispersion for parent cortex, child Fezf2: 1.173626
-Gam dispersion for parent cortex, child Nxph3: 1.036557
-Gam dispersion for parent cortex, child Nxph3: 1.031058
-Gam dispersion for parent cortex, child Rorb: 0.857468
-Gam dispersion for parent cortex, child Rorb: 0.844912
-Gam dispersion for parent cortex, child Satb2: 0.361297
-Gam dispersion for parent cortex, child Satb2: 0.359679
-Batch: 5/50, 2.46094 sec/bs
-Gam dispersion for parent cortex, child Bcl11b: 0.658079Gam dispersion for parent cortex, child Bcl11b: 0.627583
-
-Gam dispersion for parent cortex, child Cux2: 1.636361
-Gam dispersion for parent cortex, child Cux2: 1.619952
-Gam dispersion for parent cortex, child Fezf2: 1.231196
-Gam dispersion for parent cortex, child Fezf2: 1.207960
-Gam dispersion for parent cortex, child Nxph3: 1.038656
-Gam dispersion for parent cortex, child Nxph3: 0.989217
-Gam dispersion for parent cortex, child Rorb: 0.855943Gam dispersion for parent cortex, child Rorb: 0.871241
-
-Gam dispersion for parent cortex, child Satb2: 0.357115
-Gam dispersion for parent cortex, child Satb2: 0.362546
-Gam dispersion for parent cortex, child Bcl11b: 0.616528Gam dispersion for parent cortex, child Bcl11b: 0.631616
-
-Gam dispersion for parent cortex, child Cux2: 1.617667
-Gam dispersion for parent cortex, child Cux2: 1.566038
-Gam dispersion for parent cortex, child Fezf2: 1.210302
-Gam dispersion for parent cortex, child Fezf2: 1.262000
-Gam dispersion for parent cortex, child Nxph3: 1.050569
-Gam dispersion for parent cortex, child Nxph3: 1.077410
-Gam dispersion for parent cortex, child Rorb: 0.885296
-Gam dispersion for parent cortex, child Rorb: 0.890918
-Gam dispersion for parent cortex, child Satb2: 0.361110
-Gam dispersion for parent cortex, child Satb2: 0.361976
-Gam dispersion for parent cortex, child Bcl11b: 0.601852Gam dispersion for parent cortex, child Bcl11b: 0.606221
-
-Gam dispersion for parent cortex, child Cux2: 1.602789
-Gam dispersion for parent cortex, child Cux2: 1.557572
-Gam dispersion for parent cortex, child Fezf2: 1.300472
-Gam dispersion for parent cortex, child Fezf2: 1.182214
-Gam dispersion for parent cortex, child Nxph3: 1.013490
-Gam dispersion for parent cortex, child Nxph3: 1.071805
-Gam dispersion for parent cortex, child Rorb: 0.854386
-Gam dispersion for parent cortex, child Rorb: 0.905064
-Gam dispersion for parent cortex, child Satb2: 0.364525
-Gam dispersion for parent cortex, child Satb2: 0.360161
-Gam dispersion for parent cortex, child Bcl11b: 0.614026Gam dispersion for parent cortex, child Bcl11b: 0.608209
-
-Gam dispersion for parent cortex, child Cux2: 1.554054
-Gam dispersion for parent cortex, child Cux2: 1.544944
-Gam dispersion for parent cortex, child Fezf2: 1.243092
-Gam dispersion for parent cortex, child Fezf2: 1.222259
-Gam dispersion for parent cortex, child Nxph3: 1.043863
-Gam dispersion for parent cortex, child Nxph3: 1.012859
-Gam dispersion for parent cortex, child Rorb: 0.830592
-Gam dispersion for parent cortex, child Rorb: 0.878865
-Gam dispersion for parent cortex, child Satb2: 0.364783
-Gam dispersion for parent cortex, child Satb2: 0.368135
-Gam dispersion for parent cortex, child Bcl11b: 0.656526Gam dispersion for parent cortex, child Bcl11b: 0.625220
-
-Gam dispersion for parent cortex, child Cux2: 1.623169
-Gam dispersion for parent cortex, child Cux2: 1.593958
-Gam dispersion for parent cortex, child Fezf2: 1.259746
-Gam dispersion for parent cortex, child Fezf2: 1.216548
-Gam dispersion for parent cortex, child Nxph3: 1.048059
-Gam dispersion for parent cortex, child Nxph3: 1.088009
-Gam dispersion for parent cortex, child Rorb: 0.876063
-Gam dispersion for parent cortex, child Rorb: 0.884282
-Gam dispersion for parent cortex, child Satb2: 0.366298
-Gam dispersion for parent cortex, child Satb2: 0.373791
-Batch: 10/50, 2.29738 sec/bs
-Gam dispersion for parent cortex, child Bcl11b: 0.627545Gam dispersion for parent cortex, child Bcl11b: 0.628080
-
-Gam dispersion for parent cortex, child Cux2: 1.618775
-Gam dispersion for parent cortex, child Cux2: 1.581969
-Gam dispersion for parent cortex, child Fezf2: 1.159028
-Gam dispersion for parent cortex, child Fezf2: 1.230800
-Gam dispersion for parent cortex, child Nxph3: 0.995631
-Gam dispersion for parent cortex, child Nxph3: 1.044682
-Gam dispersion for parent cortex, child Rorb: 0.893963
-Gam dispersion for parent cortex, child Rorb: 0.874954
-Gam dispersion for parent cortex, child Satb2: 0.363323
-Gam dispersion for parent cortex, child Satb2: 0.364959
-Gam dispersion for parent cortex, child Bcl11b: 0.665880Gam dispersion for parent cortex, child Bcl11b: 0.627834
-
-Gam dispersion for parent cortex, child Cux2: 1.608696
-Gam dispersion for parent cortex, child Cux2: 1.602971
-Gam dispersion for parent cortex, child Fezf2: 1.171612
-Gam dispersion for parent cortex, child Fezf2: 1.282466
-Gam dispersion for parent cortex, child Nxph3: 1.031323
-Gam dispersion for parent cortex, child Nxph3: 1.046695
-Gam dispersion for parent cortex, child Rorb: 0.876353
-Gam dispersion for parent cortex, child Rorb: 0.838257
-Gam dispersion for parent cortex, child Satb2: 0.362747
-Gam dispersion for parent cortex, child Satb2: 0.358316
-Gam dispersion for parent cortex, child Bcl11b: 0.621391Gam dispersion for parent cortex, child Bcl11b: 0.631288
-
-Gam dispersion for parent cortex, child Cux2: 1.589381
-Gam dispersion for parent cortex, child Cux2: 1.598951
-Gam dispersion for parent cortex, child Fezf2: 1.197018
-Gam dispersion for parent cortex, child Fezf2: 1.272260
-Gam dispersion for parent cortex, child Nxph3: 1.061367
-Gam dispersion for parent cortex, child Nxph3: 1.046624
-Gam dispersion for parent cortex, child Rorb: 0.865191
-Gam dispersion for parent cortex, child Rorb: 0.866697
-Gam dispersion for parent cortex, child Satb2: 0.355530
-Gam dispersion for parent cortex, child Satb2: 0.357225
-Gam dispersion for parent cortex, child Bcl11b: 0.626060Gam dispersion for parent cortex, child Bcl11b: 0.628205
-
-Gam dispersion for parent cortex, child Cux2: 1.637409
-Gam dispersion for parent cortex, child Cux2: 1.569107
-Gam dispersion for parent cortex, child Fezf2: 1.271228
-Gam dispersion for parent cortex, child Fezf2: 1.221882
-Gam dispersion for parent cortex, child Nxph3: 1.030207
-Gam dispersion for parent cortex, child Nxph3: 1.030084
-Gam dispersion for parent cortex, child Rorb: 0.866331
-Gam dispersion for parent cortex, child Rorb: 0.833859
-Gam dispersion for parent cortex, child Satb2: 0.366087
-Gam dispersion for parent cortex, child Satb2: 0.362360
-Gam dispersion for parent cortex, child Bcl11b: 0.654904Gam dispersion for parent cortex, child Bcl11b: 0.641865
-
-Gam dispersion for parent cortex, child Cux2: 1.581105
-Gam dispersion for parent cortex, child Cux2: 1.591802
-Gam dispersion for parent cortex, child Fezf2: 1.261325
-Gam dispersion for parent cortex, child Fezf2: 1.201941
-Gam dispersion for parent cortex, child Nxph3: 1.036219
-Gam dispersion for parent cortex, child Nxph3: 1.110617
-Gam dispersion for parent cortex, child Rorb: 0.869571
-Gam dispersion for parent cortex, child Rorb: 0.832728
-Gam dispersion for parent cortex, child Satb2: 0.361062
-Gam dispersion for parent cortex, child Satb2: 0.369491
-Batch: 15/50, 2.64553 sec/bs
-Gam dispersion for parent cortex, child Bcl11b: 0.636547Gam dispersion for parent cortex, child Bcl11b: 0.638595
-
-Gam dispersion for parent cortex, child Cux2: 1.620177
-Gam dispersion for parent cortex, child Cux2: 1.582939
-Gam dispersion for parent cortex, child Fezf2: 1.251377
-Gam dispersion for parent cortex, child Fezf2: 1.240181
-Gam dispersion for parent cortex, child Nxph3: 1.089375
-Gam dispersion for parent cortex, child Nxph3: 1.058911
-Gam dispersion for parent cortex, child Rorb: 0.879611
-Gam dispersion for parent cortex, child Rorb: 0.870737
-Gam dispersion for parent cortex, child Satb2: 0.369414
-Gam dispersion for parent cortex, child Satb2: 0.369907
-Gam dispersion for parent cortex, child Bcl11b: 0.645958Gam dispersion for parent cortex, child Bcl11b: 0.649633
-
-Gam dispersion for parent cortex, child Cux2: 1.580333
-Gam dispersion for parent cortex, child Cux2: 1.582682
-Gam dispersion for parent cortex, child Fezf2: 1.198241
-Gam dispersion for parent cortex, child Fezf2: 1.246772
-Gam dispersion for parent cortex, child Nxph3: 1.036937
-Gam dispersion for parent cortex, child Nxph3: 1.018363
-Gam dispersion for parent cortex, child Rorb: 0.856734
-Gam dispersion for parent cortex, child Rorb: 0.873811
-Gam dispersion for parent cortex, child Satb2: 0.366575
-Gam dispersion for parent cortex, child Satb2: 0.365922
-Gam dispersion for parent cortex, child Bcl11b: 0.589295Gam dispersion for parent cortex, child Bcl11b: 0.624757
-
-Gam dispersion for parent cortex, child Cux2: 1.597311
-Gam dispersion for parent cortex, child Cux2: 1.570796
-Gam dispersion for parent cortex, child Fezf2: 1.229320
-Gam dispersion for parent cortex, child Fezf2: 1.211159
-Gam dispersion for parent cortex, child Nxph3: 1.013672
-Gam dispersion for parent cortex, child Nxph3: 1.056610
-Gam dispersion for parent cortex, child Rorb: 0.868453
-Gam dispersion for parent cortex, child Rorb: 0.850304
-Gam dispersion for parent cortex, child Satb2: 0.362945
-Gam dispersion for parent cortex, child Satb2: 0.366955
-Gam dispersion for parent cortex, child Bcl11b: 0.635701Gam dispersion for parent cortex, child Bcl11b: 0.595094
-
-Gam dispersion for parent cortex, child Cux2: 1.620962
-Gam dispersion for parent cortex, child Cux2: 1.595828
-Gam dispersion for parent cortex, child Fezf2: 1.183449
-Gam dispersion for parent cortex, child Fezf2: 1.209664
-Gam dispersion for parent cortex, child Nxph3: 1.004986
-Gam dispersion for parent cortex, child Nxph3: 1.049903
-Gam dispersion for parent cortex, child Rorb: 0.889291
-Gam dispersion for parent cortex, child Rorb: 0.843117
-Gam dispersion for parent cortex, child Satb2: 0.356097
-Gam dispersion for parent cortex, child Satb2: 0.373273
-Gam dispersion for parent cortex, child Bcl11b: 0.626621Gam dispersion for parent cortex, child Bcl11b: 0.652911
-
-Gam dispersion for parent cortex, child Cux2: 1.621306
-Gam dispersion for parent cortex, child Cux2: 1.585831
-Gam dispersion for parent cortex, child Fezf2: 1.205138
-Gam dispersion for parent cortex, child Fezf2: 1.212295
-Gam dispersion for parent cortex, child Nxph3: 1.004708
-Gam dispersion for parent cortex, child Nxph3: 1.028580
-Gam dispersion for parent cortex, child Rorb: 0.873023
-Gam dispersion for parent cortex, child Rorb: 0.843093
-Gam dispersion for parent cortex, child Satb2: 0.365555
-Gam dispersion for parent cortex, child Satb2: 0.366715
-Batch: 20/50, 2.33461 sec/bs
-Gam dispersion for parent cortex, child Bcl11b: 0.645916Gam dispersion for parent cortex, child Bcl11b: 0.650235
-
-Gam dispersion for parent cortex, child Cux2: 1.549343
-Gam dispersion for parent cortex, child Cux2: 1.591310
-Gam dispersion for parent cortex, child Fezf2: 1.215250
-Gam dispersion for parent cortex, child Fezf2: 1.230979
-Gam dispersion for parent cortex, child Nxph3: 1.088420
-Gam dispersion for parent cortex, child Nxph3: 1.031444
-Gam dispersion for parent cortex, child Rorb: 0.877693
-Gam dispersion for parent cortex, child Rorb: 0.842188
-Gam dispersion for parent cortex, child Satb2: 0.360029
-Gam dispersion for parent cortex, child Satb2: 0.368025
-Gam dispersion for parent cortex, child Bcl11b: 0.626970Gam dispersion for parent cortex, child Bcl11b: 0.632425
-
-Gam dispersion for parent cortex, child Cux2: 1.599931
-Gam dispersion for parent cortex, child Cux2: 1.642920
-Gam dispersion for parent cortex, child Fezf2: 1.221019
-Gam dispersion for parent cortex, child Fezf2: 1.202583
-Gam dispersion for parent cortex, child Nxph3: 0.997292
-Gam dispersion for parent cortex, child Nxph3: 1.061400
-Gam dispersion for parent cortex, child Rorb: 0.891615
-Gam dispersion for parent cortex, child Rorb: 0.883276
-Gam dispersion for parent cortex, child Satb2: 0.348525
-Gam dispersion for parent cortex, child Satb2: 0.349428
-Gam dispersion for parent cortex, child Bcl11b: 0.664026Gam dispersion for parent cortex, child Bcl11b: 0.625978
-
-Gam dispersion for parent cortex, child Cux2: 1.585180
-Gam dispersion for parent cortex, child Cux2: 1.628107
-Gam dispersion for parent cortex, child Fezf2: 1.201252
-Gam dispersion for parent cortex, child Fezf2: 1.265523
-Gam dispersion for parent cortex, child Nxph3: 1.072915
-Gam dispersion for parent cortex, child Nxph3: 1.010845
-Gam dispersion for parent cortex, child Rorb: 0.875078Gam dispersion for parent cortex, child Rorb: 0.868881
-
-Gam dispersion for parent cortex, child Satb2: 0.360218
-Gam dispersion for parent cortex, child Satb2: 0.357804
-Gam dispersion for parent cortex, child Bcl11b: 0.649332Gam dispersion for parent cortex, child Bcl11b: 0.645842
-
-Gam dispersion for parent cortex, child Cux2: 1.619003
-Gam dispersion for parent cortex, child Cux2: 1.571204
-Gam dispersion for parent cortex, child Fezf2: 1.273186
-Gam dispersion for parent cortex, child Fezf2: 1.242522
-Gam dispersion for parent cortex, child Nxph3: 1.072396
-Gam dispersion for parent cortex, child Nxph3: 1.030349
-Gam dispersion for parent cortex, child Rorb: 0.850378
-Gam dispersion for parent cortex, child Rorb: 0.859127
-Gam dispersion for parent cortex, child Satb2: 0.356618
-Gam dispersion for parent cortex, child Satb2: 0.365631
-Gam dispersion for parent cortex, child Bcl11b: 0.679275Gam dispersion for parent cortex, child Bcl11b: 0.639393
-
-Gam dispersion for parent cortex, child Cux2: 1.548004
-Gam dispersion for parent cortex, child Cux2: 1.605896
-Gam dispersion for parent cortex, child Fezf2: 1.244117
-Gam dispersion for parent cortex, child Fezf2: 1.180115
-Gam dispersion for parent cortex, child Nxph3: 1.040139
-Gam dispersion for parent cortex, child Nxph3: 1.032999
-Gam dispersion for parent cortex, child Rorb: 0.861335
-Gam dispersion for parent cortex, child Rorb: 0.885055
-Gam dispersion for parent cortex, child Satb2: 0.349344
-Gam dispersion for parent cortex, child Satb2: 0.364304
-Batch: 25/50, 2.48792 sec/bs
-Gam dispersion for parent cortex, child Bcl11b: 0.626719Gam dispersion for parent cortex, child Bcl11b: 0.634954
-
-Gam dispersion for parent cortex, child Cux2: 1.603131
-Gam dispersion for parent cortex, child Cux2: 1.609202
-Gam dispersion for parent cortex, child Fezf2: 1.208917
-Gam dispersion for parent cortex, child Fezf2: 1.119572
-Gam dispersion for parent cortex, child Nxph3: 1.035163
-Gam dispersion for parent cortex, child Nxph3: 1.027864
-Gam dispersion for parent cortex, child Rorb: 0.844015
-Gam dispersion for parent cortex, child Rorb: 0.877853
-Gam dispersion for parent cortex, child Satb2: 0.353698
-Gam dispersion for parent cortex, child Satb2: 0.374562
-Gam dispersion for parent cortex, child Bcl11b: 0.644273Gam dispersion for parent cortex, child Bcl11b: 0.626556
-
-Gam dispersion for parent cortex, child Cux2: 1.594048
-Gam dispersion for parent cortex, child Cux2: 1.641321
-Gam dispersion for parent cortex, child Fezf2: 1.202476
-Gam dispersion for parent cortex, child Fezf2: 1.165229
-Gam dispersion for parent cortex, child Nxph3: 0.988980
-Gam dispersion for parent cortex, child Nxph3: 1.004771
-Gam dispersion for parent cortex, child Rorb: 0.858492
-Gam dispersion for parent cortex, child Rorb: 0.879512
-Gam dispersion for parent cortex, child Satb2: 0.367623
-Gam dispersion for parent cortex, child Satb2: 0.359870
-Gam dispersion for parent cortex, child Bcl11b: 0.660739Gam dispersion for parent cortex, child Bcl11b: 0.616797
-
-Gam dispersion for parent cortex, child Cux2: 1.625257
-Gam dispersion for parent cortex, child Cux2: 1.569323
-Gam dispersion for parent cortex, child Fezf2: 1.226557
-Gam dispersion for parent cortex, child Fezf2: 1.175959
-Gam dispersion for parent cortex, child Nxph3: 1.036750
-Gam dispersion for parent cortex, child Nxph3: 1.035303
-Gam dispersion for parent cortex, child Rorb: 0.856762
-Gam dispersion for parent cortex, child Rorb: 0.842810
-Gam dispersion for parent cortex, child Satb2: 0.355438
-Gam dispersion for parent cortex, child Satb2: 0.366402
-Gam dispersion for parent cortex, child Bcl11b: 0.655302Gam dispersion for parent cortex, child Bcl11b: 0.589179
-
-Gam dispersion for parent cortex, child Cux2: 1.606852
-Gam dispersion for parent cortex, child Cux2: 1.614227
-Gam dispersion for parent cortex, child Fezf2: 1.203157
-Gam dispersion for parent cortex, child Fezf2: 1.272094
-Gam dispersion for parent cortex, child Nxph3: 0.991022
-Gam dispersion for parent cortex, child Nxph3: 0.994522
-Gam dispersion for parent cortex, child Rorb: 0.840461
-Gam dispersion for parent cortex, child Rorb: 0.876121
-Gam dispersion for parent cortex, child Satb2: 0.364232
-Gam dispersion for parent cortex, child Satb2: 0.362092
-Gam dispersion for parent cortex, child Bcl11b: 0.646422Gam dispersion for parent cortex, child Bcl11b: 0.611622
-
-Gam dispersion for parent cortex, child Cux2: 1.576877
-Gam dispersion for parent cortex, child Cux2: 1.594966
-Gam dispersion for parent cortex, child Fezf2: 1.185851
-Gam dispersion for parent cortex, child Fezf2: 1.163987
-Gam dispersion for parent cortex, child Nxph3: 1.025841
-Gam dispersion for parent cortex, child Nxph3: 1.062481
-Gam dispersion for parent cortex, child Rorb: 0.879348
-Gam dispersion for parent cortex, child Rorb: 0.867886
-Gam dispersion for parent cortex, child Satb2: 0.359233
-Gam dispersion for parent cortex, child Satb2: 0.360516
-Batch: 30/50, 2.51467 sec/bs
-Gam dispersion for parent cortex, child Bcl11b: 0.620224Gam dispersion for parent cortex, child Bcl11b: 0.622528
-
-Gam dispersion for parent cortex, child Cux2: 1.604241
-Gam dispersion for parent cortex, child Cux2: 1.595797
-Gam dispersion for parent cortex, child Fezf2: 1.252847
-Gam dispersion for parent cortex, child Fezf2: 1.241886
-Gam dispersion for parent cortex, child Nxph3: 1.058838
-Gam dispersion for parent cortex, child Nxph3: 1.046438
-Gam dispersion for parent cortex, child Rorb: 0.892920
-Gam dispersion for parent cortex, child Rorb: 0.856069
-Gam dispersion for parent cortex, child Satb2: 0.368746
-Gam dispersion for parent cortex, child Satb2: 0.361501
-Gam dispersion for parent cortex, child Bcl11b: 0.624666Gam dispersion for parent cortex, child Bcl11b: 0.640887
-
-Gam dispersion for parent cortex, child Cux2: 1.594129
-Gam dispersion for parent cortex, child Cux2: 1.615578
-Gam dispersion for parent cortex, child Fezf2: 1.220148
-Gam dispersion for parent cortex, child Fezf2: 1.209611
-Gam dispersion for parent cortex, child Nxph3: 1.009621Gam dispersion for parent cortex, child Nxph3: 1.057144
-
-Gam dispersion for parent cortex, child Rorb: 0.868205
-Gam dispersion for parent cortex, child Rorb: 0.895255
-Gam dispersion for parent cortex, child Satb2: 0.360999
-Gam dispersion for parent cortex, child Satb2: 0.352494
-Gam dispersion for parent cortex, child Bcl11b: 0.631207Gam dispersion for parent cortex, child Bcl11b: 0.636878
-
-Gam dispersion for parent cortex, child Cux2: 1.554303
-Gam dispersion for parent cortex, child Cux2: 1.625225
-Gam dispersion for parent cortex, child Fezf2: 1.212933
-Gam dispersion for parent cortex, child Fezf2: 1.266726
-Gam dispersion for parent cortex, child Nxph3: 0.997192
-Gam dispersion for parent cortex, child Nxph3: 1.001712
-Gam dispersion for parent cortex, child Rorb: 0.855108
-Gam dispersion for parent cortex, child Rorb: 0.893237
-Gam dispersion for parent cortex, child Satb2: 0.359418
-Gam dispersion for parent cortex, child Satb2: 0.368027
-Gam dispersion for parent cortex, child Bcl11b: 0.645030Gam dispersion for parent cortex, child Bcl11b: 0.633910
-
-Gam dispersion for parent cortex, child Cux2: 1.560402
-Gam dispersion for parent cortex, child Cux2: 1.603865
-Gam dispersion for parent cortex, child Fezf2: 1.243102
-Gam dispersion for parent cortex, child Fezf2: 1.158020
-Gam dispersion for parent cortex, child Nxph3: 1.107713
-Gam dispersion for parent cortex, child Nxph3: 1.038922
-Gam dispersion for parent cortex, child Rorb: 0.890647
-Gam dispersion for parent cortex, child Rorb: 0.857857
-Gam dispersion for parent cortex, child Satb2: 0.367542
-Gam dispersion for parent cortex, child Satb2: 0.350546
-Gam dispersion for parent cortex, child Bcl11b: 0.623765Gam dispersion for parent cortex, child Bcl11b: 0.650089
-
-Gam dispersion for parent cortex, child Cux2: 1.610260
-Gam dispersion for parent cortex, child Cux2: 1.557021
-Gam dispersion for parent cortex, child Fezf2: 1.282262
-Gam dispersion for parent cortex, child Fezf2: 1.249819
-Gam dispersion for parent cortex, child Nxph3: 1.009430
-Gam dispersion for parent cortex, child Nxph3: 1.003799
-Gam dispersion for parent cortex, child Rorb: 0.850045
-Gam dispersion for parent cortex, child Rorb: 0.852793
-Gam dispersion for parent cortex, child Satb2: 0.362123Gam dispersion for parent cortex, child Satb2: 0.362230
-
-Batch: 35/50, 2.77522 sec/bs
-Gam dispersion for parent cortex, child Bcl11b: 0.638648Gam dispersion for parent cortex, child Bcl11b: 0.635146
-
-Gam dispersion for parent cortex, child Cux2: 1.637695
-Gam dispersion for parent cortex, child Cux2: 1.593844
-Gam dispersion for parent cortex, child Fezf2: 1.173624
-Gam dispersion for parent cortex, child Fezf2: 1.249325
-Gam dispersion for parent cortex, child Nxph3: 1.008056
-Gam dispersion for parent cortex, child Nxph3: 1.074710
-Gam dispersion for parent cortex, child Rorb: 0.835121
-Gam dispersion for parent cortex, child Rorb: 0.867618
-Gam dispersion for parent cortex, child Satb2: 0.354502
-Gam dispersion for parent cortex, child Satb2: 0.366734
-Gam dispersion for parent cortex, child Bcl11b: 0.638731Gam dispersion for parent cortex, child Bcl11b: 0.618389
-
-Gam dispersion for parent cortex, child Cux2: 1.560646
-Gam dispersion for parent cortex, child Cux2: 1.565423
-Gam dispersion for parent cortex, child Fezf2: 1.231099
-Gam dispersion for parent cortex, child Fezf2: 1.161762
-Gam dispersion for parent cortex, child Nxph3: 1.023402
-Gam dispersion for parent cortex, child Nxph3: 1.038557
-Gam dispersion for parent cortex, child Rorb: 0.891896
-Gam dispersion for parent cortex, child Rorb: 0.901972
-Gam dispersion for parent cortex, child Satb2: 0.353346
-Gam dispersion for parent cortex, child Satb2: 0.368020
-Gam dispersion for parent cortex, child Bcl11b: 0.627270Gam dispersion for parent cortex, child Bcl11b: 0.648169
-
-Gam dispersion for parent cortex, child Cux2: 1.601046
-Gam dispersion for parent cortex, child Cux2: 1.576908
-Gam dispersion for parent cortex, child Fezf2: 1.172977
-Gam dispersion for parent cortex, child Fezf2: 1.188720
-Gam dispersion for parent cortex, child Nxph3: 1.039329
-Gam dispersion for parent cortex, child Nxph3: 1.052601
-Gam dispersion for parent cortex, child Rorb: 0.877076
-Gam dispersion for parent cortex, child Rorb: 0.848989
-Gam dispersion for parent cortex, child Satb2: 0.366239
-Gam dispersion for parent cortex, child Satb2: 0.365209
-Gam dispersion for parent cortex, child Bcl11b: 0.627798Gam dispersion for parent cortex, child Bcl11b: 0.614252
-
-Gam dispersion for parent cortex, child Cux2: 1.580820
-Gam dispersion for parent cortex, child Cux2: 1.588175
-Gam dispersion for parent cortex, child Fezf2: 1.250667
-Gam dispersion for parent cortex, child Fezf2: 1.223101
-Gam dispersion for parent cortex, child Nxph3: 1.018486
-Gam dispersion for parent cortex, child Nxph3: 1.068999
-Gam dispersion for parent cortex, child Rorb: 0.862196
-Gam dispersion for parent cortex, child Rorb: 0.886093
-Gam dispersion for parent cortex, child Satb2: 0.361937
-Gam dispersion for parent cortex, child Satb2: 0.360778
-Gam dispersion for parent cortex, child Bcl11b: 0.640846Gam dispersion for parent cortex, child Bcl11b: 0.620861
-
-Gam dispersion for parent cortex, child Cux2: 1.655460
-Gam dispersion for parent cortex, child Cux2: 1.567336
-Gam dispersion for parent cortex, child Fezf2: 1.264521
-Gam dispersion for parent cortex, child Fezf2: 1.197802
-Gam dispersion for parent cortex, child Nxph3: 1.037887
-Gam dispersion for parent cortex, child Nxph3: 1.045887
-Gam dispersion for parent cortex, child Rorb: 0.867075
-Gam dispersion for parent cortex, child Rorb: 0.839365
-Gam dispersion for parent cortex, child Satb2: 0.365519
-Gam dispersion for parent cortex, child Satb2: 0.369745
-Batch: 40/50, 2.51324 sec/bs
-Gam dispersion for parent cortex, child Bcl11b: 0.660745Gam dispersion for parent cortex, child Bcl11b: 0.626405
-
-Gam dispersion for parent cortex, child Cux2: 1.630500
-Gam dispersion for parent cortex, child Cux2: 1.586723
-Gam dispersion for parent cortex, child Fezf2: 1.185201
-Gam dispersion for parent cortex, child Fezf2: 1.234478
-Gam dispersion for parent cortex, child Nxph3: 1.014051
-Gam dispersion for parent cortex, child Nxph3: 1.039650
-Gam dispersion for parent cortex, child Rorb: 0.874381
-Gam dispersion for parent cortex, child Rorb: 0.861222
-Gam dispersion for parent cortex, child Satb2: 0.357065
-Gam dispersion for parent cortex, child Satb2: 0.363417
-Gam dispersion for parent cortex, child Bcl11b: 0.610497Gam dispersion for parent cortex, child Bcl11b: 0.625341
-
-Gam dispersion for parent cortex, child Cux2: 1.578502
-Gam dispersion for parent cortex, child Cux2: 1.612055
-Gam dispersion for parent cortex, child Fezf2: 1.224303
-Gam dispersion for parent cortex, child Fezf2: 1.205031
-Gam dispersion for parent cortex, child Nxph3: 1.033023
-Gam dispersion for parent cortex, child Nxph3: 1.064020
-Gam dispersion for parent cortex, child Rorb: 0.822937
-Gam dispersion for parent cortex, child Rorb: 0.869323
-Gam dispersion for parent cortex, child Satb2: 0.367606
-Gam dispersion for parent cortex, child Satb2: 0.381766
-Gam dispersion for parent cortex, child Bcl11b: 0.632367Gam dispersion for parent cortex, child Bcl11b: 0.618339
-
-Gam dispersion for parent cortex, child Cux2: 1.593995
-Gam dispersion for parent cortex, child Cux2: 1.652713
-Gam dispersion for parent cortex, child Fezf2: 1.247747
-Gam dispersion for parent cortex, child Fezf2: 1.214213
-Gam dispersion for parent cortex, child Nxph3: 1.106579
-Gam dispersion for parent cortex, child Nxph3: 1.067527
-Gam dispersion for parent cortex, child Rorb: 0.877418
-Gam dispersion for parent cortex, child Rorb: 0.852981
-Gam dispersion for parent cortex, child Satb2: 0.360688
-Gam dispersion for parent cortex, child Satb2: 0.357611
-Gam dispersion for parent cortex, child Bcl11b: 0.616204Gam dispersion for parent cortex, child Bcl11b: 0.628914
-
-Gam dispersion for parent cortex, child Cux2: 1.605089
-Gam dispersion for parent cortex, child Cux2: 1.611244
-Gam dispersion for parent cortex, child Fezf2: 1.195912
-Gam dispersion for parent cortex, child Fezf2: 1.226176
-Gam dispersion for parent cortex, child Nxph3: 1.017348
-Gam dispersion for parent cortex, child Nxph3: 1.052021
-Gam dispersion for parent cortex, child Rorb: 0.829185
-Gam dispersion for parent cortex, child Rorb: 0.859704
-Gam dispersion for parent cortex, child Satb2: 0.362375
-Gam dispersion for parent cortex, child Satb2: 0.360232
-Gam dispersion for parent cortex, child Bcl11b: 0.620442Gam dispersion for parent cortex, child Bcl11b: 0.613905
-
-Gam dispersion for parent cortex, child Cux2: 1.610388
-Gam dispersion for parent cortex, child Cux2: 1.541188
-Gam dispersion for parent cortex, child Fezf2: 1.198741
-Gam dispersion for parent cortex, child Fezf2: 1.207462
-Gam dispersion for parent cortex, child Nxph3: 1.000040
-Gam dispersion for parent cortex, child Nxph3: 1.009314
-Gam dispersion for parent cortex, child Rorb: 0.841262
-Gam dispersion for parent cortex, child Rorb: 0.838148
-Gam dispersion for parent cortex, child Satb2: 0.357574
-Gam dispersion for parent cortex, child Satb2: 0.354413
-Batch: 45/50, 2.41913 sec/bs
-Gam dispersion for parent cortex, child Bcl11b: 0.620381
-Gam dispersion for parent cortex, child Bcl11b: 0.654719
-Gam dispersion for parent cortex, child Cux2: 1.615506
-Gam dispersion for parent cortex, child Cux2: 1.573175
-Gam dispersion for parent cortex, child Fezf2: 1.201059
-Gam dispersion for parent cortex, child Fezf2: 1.190326
-Gam dispersion for parent cortex, child Nxph3: 1.002910
-Gam dispersion for parent cortex, child Nxph3: 1.028199
-Gam dispersion for parent cortex, child Rorb: 0.887933
-Gam dispersion for parent cortex, child Rorb: 0.891535
-Gam dispersion for parent cortex, child Satb2: 0.364625
-Gam dispersion for parent cortex, child Satb2: 0.356967
-Gam dispersion for parent cortex, child Bcl11b: 0.630254Gam dispersion for parent cortex, child Bcl11b: 0.649323
-
-Gam dispersion for parent cortex, child Cux2: 1.599845
-Gam dispersion for parent cortex, child Cux2: 1.592897
-Gam dispersion for parent cortex, child Fezf2: 1.175936
-Gam dispersion for parent cortex, child Fezf2: 1.205598
-Gam dispersion for parent cortex, child Nxph3: 1.012743
-Gam dispersion for parent cortex, child Nxph3: 1.017600
-Gam dispersion for parent cortex, child Rorb: 0.865489
-Gam dispersion for parent cortex, child Rorb: 0.828429
-Gam dispersion for parent cortex, child Satb2: 0.357771
-Gam dispersion for parent cortex, child Satb2: 0.362078
-Gam dispersion for parent cortex, child Bcl11b: 0.606489Gam dispersion for parent cortex, child Bcl11b: 0.640497
-
-Gam dispersion for parent cortex, child Cux2: 1.594262
-Gam dispersion for parent cortex, child Cux2: 1.616574
-Gam dispersion for parent cortex, child Fezf2: 1.302816
-Gam dispersion for parent cortex, child Fezf2: 1.225985
-Gam dispersion for parent cortex, child Nxph3: 1.062184
-Gam dispersion for parent cortex, child Nxph3: 1.018849
-Gam dispersion for parent cortex, child Rorb: 0.870811
-Gam dispersion for parent cortex, child Rorb: 0.895076
-Gam dispersion for parent cortex, child Satb2: 0.371192
-Gam dispersion for parent cortex, child Satb2: 0.367414
-Gam dispersion for parent cortex, child Bcl11b: 0.645786Gam dispersion for parent cortex, child Bcl11b: 0.635542
-
-Gam dispersion for parent cortex, child Cux2: 1.615171
-Gam dispersion for parent cortex, child Cux2: 1.611578
-Gam dispersion for parent cortex, child Fezf2: 1.210632
-Gam dispersion for parent cortex, child Fezf2: 1.212505
-Gam dispersion for parent cortex, child Nxph3: 1.016621
-Gam dispersion for parent cortex, child Nxph3: 1.031497
-Gam dispersion for parent cortex, child Rorb: 0.878896
-Gam dispersion for parent cortex, child Rorb: 0.914466
-Gam dispersion for parent cortex, child Satb2: 0.355664
-Gam dispersion for parent cortex, child Satb2: 0.359004
+Batch: 1/1000, 0.442292 sec/bs
+Batch: 100/1000, 0.47071 sec/bs
+Batch: 200/1000, 0.475894 sec/bs
+Batch: 300/1000, 0.472006 sec/bs
+Batch: 400/1000, 0.476857 sec/bs
+Batch: 500/1000, 0.449645 sec/bs
+Batch: 600/1000, 0.460921 sec/bs
+Batch: 700/1000, 0.471814 sec/bs
+Batch: 800/1000, 0.476173 sec/bs
+Batch: 900/1000, 0.465311 sec/bs
 All complete!
 
 Bootstrap simulation complete... 
-Bootstrap run time (total), minutes: 4.363
-Bootstrap run time (per sample), seconds: 2.618
-Bootstrap run time (per sample, per thread), seconds: 5.236
+Bootstrap run time (total), minutes: 79.555
+Bootstrap run time (per sample), seconds: 0.477
+Bootstrap run time (per sample, per thread), seconds: 4.773
 
 Setting full-data fit as parameters... 
 Checking feasibility of provided parameters
@@ -824,24 +225,17 @@ Estimating p-values from resampled parameters...
 
 Recommended resample size for alpha = 0.05, 171 tests: 
 with bootstrapping/MCMC: 3420
-Actual resample size: 101
+Actual resample size: 10001
 
 Stat summary (head only):
 ------------------------------
-                                 parameter     estimate      CI.low    CI.high   p.value p.value.adj
-1       baseline_cortex_Rt_Bcl11b_Tns/Blk1  3.395107965  3.34378568 3.43176527        NA          NA
-2   beta_Rt_cortex_Bcl11b_right_X_Tns/Blk1  0.002982114 -0.07282644 0.07754008 0.9504950    4.752475
-3      beta_Rt_cortex_Bcl11b_18_X_Tns/Blk1  0.593448754  0.52211681 0.67128274 0.0000000    0.000000
-4 beta_Rt_cortex_Bcl11b_right18_X_Tns/Blk1  0.041416239 -0.08997738 0.15806254 0.3861386   15.059406
-5       baseline_cortex_Rt_Bcl11b_Tns/Blk2  2.319604756  1.91861920 2.52637408        NA          NA
-6   beta_Rt_cortex_Bcl11b_right_X_Tns/Blk2 -0.036314639 -0.71561711 0.53302441 0.9009901    7.207921
-     alpha.adj significance
-1           NA             
-2 0.0100000000           ns
-3 0.0002923977          ***
-4 0.0012820513           ns
-5           NA             
-6 0.0062500000           ns
+                                 parameter     estimate      CI.low    CI.high   p.value p.value.adj    alpha.adj significance
+1       baseline_cortex_Rt_Bcl11b_Tns/Blk1  3.395107965  3.33075830 3.42701879        NA          NA           NA             
+2   beta_Rt_cortex_Bcl11b_right_X_Tns/Blk1  0.002982114 -0.08744400 0.09010423 0.9243076    7.394461 0.0062500000           ns
+3      beta_Rt_cortex_Bcl11b_18_X_Tns/Blk1  0.593448754  0.49621515 0.71042712 0.0000000    0.000000 0.0002923977          ***
+4 beta_Rt_cortex_Bcl11b_right18_X_Tns/Blk1  0.041416239 -0.09912658 0.17034774 0.3192681   17.240476 0.0009259259           ns
+5       baseline_cortex_Rt_Bcl11b_Tns/Blk2  2.319604756  1.87343256 2.51428827        NA          NA           NA             
+6   beta_Rt_cortex_Bcl11b_right_X_Tns/Blk2 -0.036314639 -0.65554710 0.63865617 0.8715128   10.458154 0.0041666667           ns
 ----
 
 Analyzing residuals: 
@@ -875,10 +269,4 @@ Making rate-count plots...
 Printing child summary plots: 
 ----------------------------------------
 
-Making summary plots for cortex: Bcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2          cortex
-Bcl11b 0.5755897
-Cux2   1.5532862
-Fezf2  1.1235449
-Nxph3  0.9487012
-Rorb   0.8244495
-Satb2  0.3428156
+Making summary plots for cortex: Bcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2
