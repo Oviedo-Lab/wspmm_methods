@@ -26,7 +26,7 @@ snk.report("Analysis of MERFISH data by Warped Sigmoid, Poisson-Process Mixed-Ef
 # Set file paths and bootstrap chunk size
 source("merfish_preprocessing.R")
 data_path <- paste0(projects_folder, "MERFISH/data_SSp/")
-bs_chunksize <- 10
+bs_chunksize <- 2
 
 # Define list of genes to analyze
 gene.list <- c("Bcl11b", "Fezf2", "Satb2", "Nxph3", "Cux2", "Rorb")  
@@ -117,11 +117,12 @@ model.settings = list(
   ctol = 1e-6,                                          # convergence tolerance
   max_penalty_at_distance_factor = 0.01,                # maximum penalty at distance from structural parameter values
   LROcutoff = 2.0,                                      # cutoff for LROcp, a multiple of standard deviation
-  LROwindow_factor = 1.25,                               # window factor for LROcp, larger means larger rolling window
+  LROwindow_factor = 1.25,                              # window factor for LROcp, larger means larger rolling window
   rise_threshold_factor = 0.8,                          # amount of detected rise as fraction of total required to end run in initial slope estimation
   max_evals = 1000,                                     # maximum number of evaluations for optimization
   rng_seed = 42,                                        # random seed for optimization (controls bootstrap resamples only)
-  warp_precision = 1e-7                                 # decimal precision to retain when selecting really big number as pseudo infinity for unbound warping
+  warp_precision = 1e-7,                                # decimal precision to retain when selecting really big number as pseudo infinity for unbound warping
+  recompute_gamma_dispersion = TRUE                    # whether to recompute gamma dispersion matrix (if true, will recompute on each fit)
 )
 
 # Fit model
@@ -133,11 +134,11 @@ laminar.model <- wisp(
   # Settings used on R side
   use.median = FALSE,
   MCMC.burnin = 0,
-  MCMC.steps = 1e4,
+  MCMC.steps = 1e2,
   MCMC.step.size = 1.0,
   MCMC.prior = 1.0, 
   MCMC.neighbor.filter = 2,
-  bootstraps.num = 1e4,
+  bootstraps.num = 1e2,
   converged.resamples.only = TRUE,
   max.fork = bs_chunksize,
   dim.bounds = colMeans(layer.boundary.bins),
