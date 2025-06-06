@@ -16,7 +16,7 @@ RemoveL1 <- TRUE
 
 # Helper function, make rotation matrix
 rot_matrix <- function(
-    theta
+    theta               # angle to rotate coordinates, in radians
   ) {
     return(
       matrix(
@@ -29,7 +29,7 @@ rot_matrix <- function(
 
 # Helper function, matrix transform
 matrix_transform <- function(
-    coord, 
+    coord,              # Set of coordinates to rotate, columns as dimensions, rows as points
     transform           # A matrix, or angle in radians
   ) {
     if (is.null(dim(transform))) transform <- rot_matrix(transform)
@@ -37,11 +37,12 @@ matrix_transform <- function(
   }
 
 # Helper function for parameterized affine transforms
+# ... not currently used, leaving here for future utility
 affine <- function(
-    coord, 
+    coord,              # Set of coordinates to rotate, columns as dimensions, rows as points
     scale_H = 1,
     scale_W = 1,
-    theta = 0,
+    theta = 0,          # angle to rotate coordinates, in radians
     shear_x = 0,
     shear_y = 0
   ) {
@@ -56,9 +57,9 @@ parse_hdf5 <- function(
     file_path,
     mouse_num,
     z_view_bottom = TRUE,
-    raw = TRUE,
-    ROI_only = TRUE,
-    remove_L1 = RemoveL1,
+    raw = TRUE,             # Grab normalized transcript counts, or raw ones?
+    ROI_only = TRUE,        # Grab all transcripts, or just those in ROI?
+    remove_L1 = RemoveL1,   # Exclude transcripts in layer 1?
     ROIname = "Primary auditory area"
   ) {
     
@@ -249,7 +250,7 @@ parse_csv <- function(
     file_path,
     mouse_num,
     z_view_bottom = TRUE,
-    remove_L1 = RemoveL1
+    remove_L1 = RemoveL1    # Exclude transcripts in layer 1?  
   ) {
     
     # Load data
@@ -382,9 +383,9 @@ parse_csv <- function(
 # Load and parse data, HDF5
 make_count_data <- function(
     data_path, 
-    remove_L1 = RemoveL1,
+    remove_L1 = RemoveL1,   # Exclude transcripts in layer 1?
     ROIname = "Primary auditory area",
-    raw = TRUE,
+    raw = TRUE,             # Grab normalized transcript counts, or raw ones?
     verbose = TRUE
   ) {
     
@@ -470,7 +471,7 @@ make_count_data <- function(
 # Load and parse data, csv
 make_count_data_csv <- function(
     data_path, 
-    remove_L1 = RemoveL1,
+    remove_L1 = RemoveL1,   # Exclude transcripts in layer 1?
     verbose = TRUE
   ) {
     
@@ -531,7 +532,7 @@ make_count_data_csv <- function(
 # Helper function for plotting
 plot_results <- function(
     df, 
-    coordinates, 
+    coordinates,         # Set of coordinates to rotate, columns as dimensions, rows as points
     mouse_num,
     plot_title,
     separate_hemi = TRUE
@@ -602,8 +603,8 @@ plot_results <- function(
 coordinate_transform <- function(
     mouse_num, 
     df,
-    nat_left = FALSE, 
-    nat_right = FALSE,
+    nat_left = FALSE,    # This setting used based on manual visual checks to ensure consistent orientation, causes angle and coordinate sign flips in layer leveling
+    nat_right = FALSE,   # This setting used based on manual visual checks to ensure consistent orientation, causes angle and coordinate sign flips in layer leveling
     verbose = TRUE
   ) {
     
@@ -812,183 +813,6 @@ coordinate_transform <- function(
     )
     plot_list <- c(plot_list, list(plot_flattened = plot_flattened))
     
-    # # Step 4: Linearly transform each patch to vertically "straighten" them while preserving area
-    # if (verbose) snk.report...("Step 4, linearly transforming each patch to vertically straighten them while preserving area")
-    # 
-    # # Helper functions for linear minimization of skew
-    # 
-    # layer_x_min_diff <- function(
-    #   df, 
-    #   mask
-    # ) {
-    #   x_mins <- c()
-    #   for (layer in names(mask)) {
-    #     if (length(mask[[layer]]) != nrow(df)) stop("Mask does not match data frame")
-    #     if (any(mask[[layer]])) x_mins <- c(x_mins, min(df[mask[[layer]], x_coord]))
-    #   }
-    #   return(abs(min(x_mins)-max(x_mins)))
-    # }
-    # 
-    # layer_x_max_diff <- function(
-    #   df, 
-    #   mask
-    # ) {
-    #   x_maxs <- c()
-    #   for (layer in names(mask)) {
-    #     if (length(mask[[layer]]) != nrow(df)) stop("Mask does not match data frame")
-    #     if (any(mask[[layer]])) x_maxs <- c(x_maxs, max(df[mask[[layer]], x_coord]))
-    #   }
-    #   return(abs(min(x_maxs)-max(x_maxs)))
-    # }
-    # 
-    # # Define loss function
-    # transform_loss <- function(
-    #   parameters, 
-    #   coord, 
-    #   mask_hemisphere, 
-    #   mask_layers, 
-    #   initial_height, 
-    #   initial_width
-    # ) {
-    #   
-    #   # Find min_max x difference
-    #   min_max_x <- layer_x_min_diff(coord, mask_layers) + layer_x_max_diff(coord, mask_layers)
-    #   
-    #   # Apply the transformation to the coordinates
-    #   coord[mask_hemisphere,] <- affine(
-    #     coord[mask_hemisphere,], 
-    #     scale_H = parameters[1],
-    #     scale_W = parameters[2],
-    #     theta = parameters[3],
-    #     shear_x = parameters[4],
-    #     shear_y = parameters[5]
-    #     )
-    #   
-    #   # Find current height and width 
-    #   current_height <- max(coord[mask_hemisphere, y_coord]) - min(coord[mask_hemisphere, y_coord])
-    #   current_width <- max(coord[mask_hemisphere, x_coord]) - min(coord[mask_hemisphere, x_coord])
-    #   
-    #   # Find distance from initial height and width
-    #   distance <- abs(current_height - initial_height) + abs(current_width - initial_width)
-    #   
-    #   # Find and return loss
-    #   return(distance + min_max_x)
-    #   
-    # }
-    # 
-    # # Find initial height and width
-    # initial_height_left <- max(coordinates[mask_left,y_coord]) - min(coordinates[mask_left,y_coord])
-    # initial_width_left <- max(coordinates[mask_left,x_coord]) - min(coordinates[mask_left,x_coord])
-    # initial_height_right <- max(coordinates[mask_right,y_coord]) - min(coordinates[mask_right,y_coord])
-    # initial_width_right <- max(coordinates[mask_right,x_coord]) - min(coordinates[mask_right,x_coord])
-    # 
-    # # Find linear transformation which minimizes loss for each hemisphere, by x-distance ("skew")
-    # n_points <- nrow(coordinates)
-    # point_mask <- rep(TRUE, n_points)
-    # if (n_points > 1e4) {
-    #   if (verbose) snk.report...(paste0("Detected ", n_points, " points. Downsampling to 10,000 points."))
-    #   point_mask[-c(sample(1:n_points, 1e4))] <- FALSE
-    # }
-    # parameters_left <- optim(
-    #   par = c(1,1,0,0,0),
-    #   fn = transform_loss,
-    #   coord = coordinates,
-    #   mask_hemisphere = mask_left,
-    #   mask_layers = layer_rows_left,
-    #   initial_height = initial_height_left,
-    #   initial_width = initial_width_left,
-    #   method = "BFGS",
-    #   control = list(maxit = 50)
-    # )$par
-    # parameters_right <- optim(
-    #   par = c(1,1,0,0,0),
-    #   fn = transform_loss,
-    #   coord = coordinates,
-    #   mask_hemisphere = mask_right,
-    #   mask_layers = layer_rows_right,
-    #   initial_height = initial_height_right,
-    #   initial_width = initial_width_right,
-    #   method = "BFGS",
-    #   control = list(maxit = 50)
-    # )$par
-    # 
-    # # Apply the linear transformation to the coordinates
-    # coordinates[mask_left,] <- affine(
-    #   coordinates[mask_left,],
-    #   scale_H = parameters_left[1],
-    #   scale_W = parameters_left[2],
-    #   theta = parameters_left[3],
-    #   shear_x = parameters_left[4],
-    #   shear_y = parameters_left[5]
-    #   )
-    # coordinates[mask_right,] <- affine(
-    #   coordinates[mask_right,],
-    #   scale_H = parameters_right[1],
-    #   scale_W = parameters_right[2],
-    #   theta = parameters_right[3],
-    #   shear_x = parameters_right[4],
-    #   shear_y = parameters_right[5]
-    #   )
-    # 
-    # # Test by plotting
-    # plot_linear_skew <- plot_results(
-    #   df, coordinates, mouse_num,
-    #   paste("Transformed cortical layers (linear skew), mouse", mouse_num)
-    # )
-    # plot_list <- c(plot_list, list(plot_linear_skew = plot_linear_skew))
-# 
-#     # Step 5: Level all layers
-#     if (verbose) snk.report...("Step 5, leveling all layers")
-# 
-#     # Find each point's y-distance to the mean y-point of each layer
-#     left_transforms <- array(0, dim = c(nrow(coordinates),2))
-#     right_transforms <- array(0, dim = c(nrow(coordinates),2))
-#     for (layer in names(layer_rows_left)) { # same names for each hemisphere
-#       if (any(layer_rows_left[[layer]])) {
-# 
-#         # Find normalized distances
-#         left_mean <- mean(coordinates[layer_rows_left[[layer]], y_coord])
-#         right_mean <- mean(coordinates[layer_rows_right[[layer]], y_coord])
-#         left_distances <- abs(coordinates[layer_rows_left[[layer]], y_coord] - left_mean)
-#         right_distances <- abs(coordinates[layer_rows_right[[layer]], y_coord] - right_mean)
-#         left_distances <- (max(left_distances) - left_distances) / max(left_distances)
-#         right_distances <- (max(right_distances) - right_distances) / max(right_distances)
-# 
-#         # Apply transformation to left
-#         left_transforms[layer_rows_left[[layer]],] <- as.matrix(coordinates[layer_rows_left[[layer]],]) * (1-left_distances) +
-#           as.matrix(
-#             level_layer(
-#               coordinates,
-#               "left",
-#               mask_left,
-#               layer_rows_left[[layer]],
-#               flip_right = FALSE
-#               )
-#             )[layer_rows_left[[layer]][mask_left],] * left_distances
-# 
-#         # Apply transformation to right
-#         right_transforms[layer_rows_right[[layer]],] <- as.matrix(coordinates[layer_rows_right[[layer]],]) * (1-right_distances) +
-#           as.matrix(
-#             level_layer(
-#               coordinates,
-#               "right",
-#               mask_right,
-#               layer_rows_right[[layer]],
-#               flip_right = FALSE
-#               )
-#             )[layer_rows_right[[layer]][mask_right],] * right_distances
-#       }
-#     }
-#     coordinates[mask_left,] <- left_transforms[mask_left,]
-#     coordinates[mask_right,] <- right_transforms[mask_right,]
-# 
-#     # Test by plotting
-#     plot_level_all <- plot_results(
-#       df, coordinates, mouse_num,
-#       paste0("Transformed cortical layers (level all layers), mouse ", mouse_num)
-#     )
-#     plot_list <- c(plot_list, list(plot_level_all = plot_level_all))
-    
     # Translate so all points are positive 
     coordinates[,x_coord] <- coordinates[,x_coord] - min(coordinates[,x_coord])
     coordinates[,y_coord] <- coordinates[,y_coord] - min(coordinates[,y_coord])
@@ -1000,12 +824,12 @@ coordinate_transform <- function(
 # Define helper function for binning coordinates and smoothing edges
 coordinate_binning <- function(
     mouse_num,
-    total_bins, 
-    layer_names,
+    total_bins,             # Number of bins to use when binning data
+    layer_names,            # e.g., c("L1", "L23", "L4", "L5", "L6a", "L6b")
     df,
-    L1_removed = RemoveL1,
-    nat_left = FALSE,
-    nat_right = FALSE,
+    L1_removed = RemoveL1,  # Exclude transcripts in layer 1?
+    nat_left = FALSE,       # This setting used based on manual visual checks to ensure consistent orientation, causes angle and coordinate sign flips in layer leveling
+    nat_right = FALSE,      # This setting used based on manual visual checks to ensure consistent orientation, causes angle and coordinate sign flips in layer leveling
     verbose = TRUE
   ) {
     
@@ -1206,12 +1030,12 @@ coordinate_binning <- function(
 
 # Helper function to transform coordinates for each mouse and extract layer boundary estimates
 cortical_coordinate_transform <- function(
-    count_data,
-    total_bins,
+    count_data,               # Data to transform
+    total_bins,               # Number of bins into which to divide the spatial axes, e.g., 100
     keep_plots = FALSE,
-    L1_removed = RemoveL1,
-    nat_left = FALSE,
-    nat_right = FALSE,
+    L1_removed = RemoveL1,    # Include data labeled as layer 1?
+    nat_left = FALSE,         # This setting used based on manual visual checks to ensure consistent orientation, causes angle and coordinate sign flips in layer leveling
+    nat_right = FALSE,        # This setting used based on manual visual checks to ensure consistent orientation, causes angle and coordinate sign flips in layer leveling
     verbose = TRUE
   ) {
     
@@ -1232,6 +1056,7 @@ cortical_coordinate_transform <- function(
     rownames(layer_boundary_bins) <- unique(count_data$mouse)
     plots <- list()
     
+    # Loop through mice
     for (mouse_num in unique(count_data$mouse)) {
       if (verbose) snk.report(paste("Mouse number", mouse_num))
       
@@ -1270,6 +1095,7 @@ cortical_coordinate_transform <- function(
       
     }
     
+    # Check if this is Allen data
     if (!("trscrpt_gene_symb" %in% colnames(count_data))) {
       # ... Allen data formatted differently
       
