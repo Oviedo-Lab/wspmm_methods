@@ -151,7 +151,7 @@ laminar.model <- wisp(
   )
 
 # Save
-# ... load with: laminar.model <- readRDS("saved_laminar_model-final.rds")
+# ... load with: laminar.model <- readRDS("saved_laminar_model-final-noplots.rds")
 saveRDS(laminar.model, file = "saved_laminar_model.rds")
 
 # Make and export figures #####
