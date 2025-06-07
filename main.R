@@ -130,7 +130,7 @@ model.settings = list(
 # ... all settings shown here are defaults
 laminar.model <- wisp(
     # Data to model
-    count.data.raw = count.data.WSPmm,
+    count.data = count.data.WSPmm,
     # Variable labels
     variables = data.variables,
     # Settings used on R side
