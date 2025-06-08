@@ -21,7 +21,7 @@ options(error = recover)
 
 # Report what's happening and send all output to both the console and text file
 sink("output.txt", split = TRUE, append = FALSE, type = "output")
-snk.report("Analysis of MERFISH data by Warped Sigmoid, Poisson-Process Mixed-Effects Model (WSPmm)\n")
+snk.report("Analysis of MERFISH data by Warped Sigmoid, Poisson-Process Mixed-Effects Model (WSPmm)", end_breaks = 1)
 
 # Source preprocessing functions, set file path, and bootstrap chunk size
 source("merfish_preprocessing.R")
@@ -60,14 +60,15 @@ count_data <- count_data$df
 
 # Simple check of transcripts per cell per gene per mouse
 extract_transcript_counts <- function() {
+    snk.report("Transcript counts per cell per gene per mouse", end_breaks = 1)
     mice <- unique(count_data$mouse)
     counts <- count_data[,which(colnames(count_data) %in% gene.list)]
     counts_all <- count_data[,c(18:738)]
     for (i in mice) {
-      print(i)
+      snk.print_vec("mouse", i, initial_breaks = 2)
       mask <- count_data$mouse == i
-      print(sum(counts_all[mask,])/sum(mask)/ncol(counts_all))
-      print(sum(counts[mask,])/sum(mask)/ncol(counts))
+      snk.print_vec("All genes", sum(counts_all[mask,])/sum(mask)/ncol(counts_all))
+      snk.print_vec("modeled genes only", sum(counts[mask,])/sum(mask)/ncol(counts))
     }
   }
 extract_transcript_counts()
@@ -126,6 +127,16 @@ model.settings = list(
     warp_precision = 1e-7                                 # decimal precision to retain when selecting really big number as pseudo infinity for unbound warping
   )
 
+# Settings for MCMC walk
+# ... all settings shown here are defaults
+MCMC.settings = list(
+    MCMC.burnin = 0,
+    MCMC.steps = 1e4,
+    MCMC.step.size = 1.0,
+    MCMC.prior = 1.0, 
+    MCMC.neighbor.filter = 2
+  )
+
 # Fit model
 # ... all settings shown here are defaults
 laminar.model <- wisp(
@@ -135,11 +146,7 @@ laminar.model <- wisp(
     variables = data.variables,
     # Settings used on R side
     use.median = FALSE,
-    MCMC.burnin = 0,
-    MCMC.steps = 1e4,
-    MCMC.step.size = 1.0,
-    MCMC.prior = 1.0, 
-    MCMC.neighbor.filter = 2,
+    MCMC.settings = MCMC.settings,
     bootstraps.num = 1e4,
     converged.resamples.only = TRUE,
     max.fork = bs_chunksize,

@@ -9,7 +9,7 @@ library(gridExtra)
 library(hdf5r)
 
 # Report 
-snk.report...("Loading helper function definitions for preprocessing MERFISH data", initial_breaks = 2)
+snk.report...("Loading helper function definitions for preprocessing MERFISH data")
 RemoveL1 <- TRUE
 
 # Load raw data ########################################################################################################
