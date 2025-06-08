@@ -60,7 +60,7 @@ count_data <- count_data$df
 
 # Simple check of transcripts per cell per gene per mouse
 extract_transcript_counts <- function() {
-    snk.report("Transcript counts per cell per gene per mouse", end_breaks = 1)
+    snk.report("Transcript counts per cell per gene per mouse")
     mice <- unique(count_data$mouse)
     counts <- count_data[,which(colnames(count_data) %in% gene.list)]
     counts_all <- count_data[,c(18:738)]
