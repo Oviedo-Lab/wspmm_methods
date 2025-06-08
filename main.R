@@ -113,7 +113,6 @@ data.variables = list(
   )
 
 # Model settings 
-# ... all settings shown here are defaults
 model.settings = list(
     # ... these are global options needed to set up model
     buffer_factor = 0.05,                                 # buffer factor for penalizing distance from structural parameter values
@@ -128,9 +127,8 @@ model.settings = list(
   )
 
 # Settings for MCMC walk
-# ... all settings shown here are defaults
 MCMC.settings = list(
-    MCMC.burnin = 0,
+    MCMC.burnin = 1e2,
     MCMC.steps = 1e4,
     MCMC.step.size = 1.0,
     MCMC.prior = 1.0, 
@@ -138,7 +136,6 @@ MCMC.settings = list(
   )
 
 # Fit model
-# ... all settings shown here are defaults
 laminar.model <- wisp(
     # Data to model
     count.data = count.data.WSPmm,
