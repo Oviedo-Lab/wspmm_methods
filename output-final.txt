@@ -81,61 +81,108 @@ Step 2, rotating each patch so that L4 aligns with the x-axis with anterior in p
 Step 3, modeling and flattening laminar curve based on L4... 
 Binning transformed coordinates... 
 Smoothing bin edges with nonlinear transformation... 
-Estimating layer boundaries... [1] "1"
-[1] 1.67718
-[1] 1.290272
-[1] "2"
-[1] 1.883585
-[1] 1.237653
-[1] "3"
-[1] 1.02861
-[1] 0.6498947
-[1] "4"
-[1] 1.211916
-[1] 0.8911802
+Estimating layer boundaries... 
 
+Transcript counts per cell per gene per mouse
+ 
+mouse: 1
+All genes: 1.677
+modeled genes only: 1.29
+ 
+mouse: 2
+All genes: 1.884
+modeled genes only: 1.238
+ 
+mouse: 3
+All genes: 1.029
+modeled genes only: 0.65
+ 
+mouse: 4
+All genes: 1.212
+modeled genes only: 0.891
 
-Initializing Cpp (wspc) model: 
+Parsing data and settings for wisp model
 ----------------------------------------
 
+Model settings:
+	buffer_factor: 0.05
+	ctol: 1e-06
+	max_penalty_at_distance_factor: 0.01
+	LROcutoff: 2
+	LROwindow_factor: 1.25
+	rise_threshold_factor: 0.8
+	max_evals: 1000
+	rng_seed: 42
+	warp_precision: 1e-07
+	inf_warp: 450359962.73705
+
+MCMC settings:
+	MCMC.burnin: 100
+	MCMC.steps: 10000
+	MCMC.step.size: 1
+	MCMC.prior: 1
+	MCMC.neighbor.filter: 2
+
+Variable dictionary:
+	count: count
+	bin: bin
+	parent: cortex
+	child: gene
+	ran: mouse
+	fixedeffects: hemisphere, age
+
+Parsed data (head only):
+------------------------------
+  count bin parent  child ran hemisphere age
+1     0 100 cortex Bcl11b   1       left  12
+2     0  99 cortex Bcl11b   1       left  12
+3     0  93 cortex Bcl11b   1       left  12
+4     0  98 cortex Bcl11b   1       left  12
+5     0  94 cortex Bcl11b   1       left  12
+6     0  94 cortex Bcl11b   1       left  12
+----
+
+Initializing Cpp (wspc) model
+----------------------------------------
+
+Infinity handling:
+machine epsilon: (eps_): 2.22045e-16
+pseudo-infinity (inf_): 1e+100
 warp_precision: 1e-07
-eps_: 2.22045e-16
-inf_warp: 4.5036e+08
-Data structure check passed
-Saving tokenized count
+implied pseudo-infinity for unbounded warp (inf_warp): 4.5036e+08
+
+Extracting variables and data information:
 Found max bin: 100.000000
-Extracted fixed effects:
+Fixed effects:
 "hemisphere" "age"
 Ref levels:
 "left" "12"
-Created treatment levels
+Created treatment levels:
 "ref" "right" "18" "right18"
-Created treatment-to-fix translation matrix
-Pre-computed weight matrix rows
-Extracted parent grouping variables:
+Parent grouping variables:
 "cortex"
-Extracted child grouping variables:
+Child grouping variables:
 "Bcl11b" "Cux2" "Fezf2" "Nxph3" "Rorb" "Satb2"
-Extracted random-effect grouping variables:
+Random-effect grouping variables:
 "none" "1" "2" "3" "4"
-Extracted tokenized count columns
-Grabbed size constants for summed count data, total rows: 12000
-Initialized columns for summed count data
-Initialized count indexes, number of rows with unique model components: 120
-Pre-computing bin masks
-Creating summed-count data columns ...
+Total rows in summed count data table: 12000
+Number of rows with unique model components: 120
+
+Creating summed-count data columns:
 Random level 0, 1/5 complete
 Random level 1, 2/5 complete
 Random level 2, 3/5 complete
 Random level 3, 4/5 complete
 Random level 4, 5/5 complete
-Extracted non-NA indexes
-Making extrapolation pool ...
+
+Making extrapolation pool:
 row: 480/2400
 row: 960/2400
 row: 1440/2400
 row: 1920/2400
 row: 2400/2400
+
+Making initial parameter estimates:
 Extrapolated 'none' rows
 Took log of observed counts
 Estimated gamma dispersion of raw counts
@@ -148,14 +195,11 @@ Made and mapped parameter vector
 Number of parameters: 300
 Constructed grouping variable IDs
 Computed size of boundary vector: 1260
-Finished initializing wspc object
 
-Estimating model parameters: 
----------------
-Forking available and bootstrap requested.... 
-If bootstrapping not desired, set bootstraps.num = 0... 
+Estimating model parameters
+----------------------------------------
 
-Running MCMC stimulations (single-threaded): 
+Running MCMC stimulations
 Checking feasibility of provided parameters
 Found tpoint below buffer, dist: -1.000000, deg: 3, row: 100
 ... tpoints found below buffer
@@ -167,47 +211,47 @@ Final boundary distance: 0.247647
 Nearby feasible parameters found!
 Performing initial fit of full data
 Penalized neg_loglik: 12046.2
-step: 1/10000
-step: 1000/10000
-step: 2000/10000
-step: 3000/10000
-step: 4000/10000
-step: 5000/10000
-step: 6000/10000
-step: 7000/10000
-step: 8000/10000
-step: 9000/10000
+step: 1/10100
+step: 1010/10100
+step: 2020/10100
+step: 3030/10100
+step: 4040/10100
+step: 5050/10100
+step: 6060/10100
+step: 7070/10100
+step: 8080/10100
+step: 9090/10100
 All complete!
-Acceptance rate (aim for 0.2-0.3): 0.126903
+Acceptance rate (aim for 0.2-0.3): 0.132683
 
 MCMC simulation complete... 
-MCMC run time (total), minutes: 43.983
-MCMC run time (per retained step), seconds: 0.264
-MCMC run time (per step), seconds: 0.132
+MCMC run time (total), minutes: 41.804
+MCMC run time (per retained step), seconds: 0.248
+MCMC run time (per step), seconds: 0.124
 
-Running bootstrap fits (with forking): 
+Running bootstrap fits
 Checking feasibility of provided parameters
 ... no tpoints below buffer
 ... no negative rates predicted
 Provided parameters are feasible
 Performing initial fit of full data
 Penalized neg_loglik: 12046.2
-Batch: 1/1000, 0.442292 sec/bs
-Batch: 100/1000, 0.47071 sec/bs
-Batch: 200/1000, 0.475894 sec/bs
-Batch: 300/1000, 0.472006 sec/bs
-Batch: 400/1000, 0.476857 sec/bs
-Batch: 500/1000, 0.449645 sec/bs
-Batch: 600/1000, 0.460921 sec/bs
-Batch: 700/1000, 0.471814 sec/bs
-Batch: 800/1000, 0.476173 sec/bs
-Batch: 900/1000, 0.465311 sec/bs
+Batch: 1/1000, 0.49428 sec/bs
+Batch: 100/1000, 0.510199 sec/bs
+Batch: 200/1000, 0.485788 sec/bs
+Batch: 300/1000, 0.494074 sec/bs
+Batch: 400/1000, 0.478453 sec/bs
+Batch: 500/1000, 0.463247 sec/bs
+Batch: 600/1000, 0.506274 sec/bs
+Batch: 700/1000, 0.496685 sec/bs
+Batch: 800/1000, 0.510393 sec/bs
+Batch: 900/1000, 0.524441 sec/bs
 All complete!
 
 Bootstrap simulation complete... 
-Bootstrap run time (total), minutes: 79.555
-Bootstrap run time (per sample), seconds: 0.477
-Bootstrap run time (per sample, per thread), seconds: 4.773
+Bootstrap run time (total), minutes: 84.467
+Bootstrap run time (per sample), seconds: 0.507
+Bootstrap run time (per sample, per thread), seconds: 5.068
 
 Setting full-data fit as parameters... 
 Checking feasibility of provided parameters
@@ -215,7 +259,7 @@ Checking feasibility of provided parameters
 ... no negative rates predicted
 Provided parameters are feasible
 
-Running stats on simulation results: 
+Running stats on simulation results
 ----------------------------------------
 
 Grabbing sample results, only resamples with converged fit... 
@@ -223,22 +267,22 @@ Grabbing parameter values...
 Computing 95% confidence intervals... 
 Estimating p-values from resampled parameters... 
 
-Recommended resample size for alpha = 0.05, 171 tests: 
+Recommended resample size for alpha = 0.05, 171 tests
 with bootstrapping/MCMC: 3420
 Actual resample size: 10001
 
 Stat summary (head only):
 ------------------------------
                                  parameter     estimate      CI.low    CI.high   p.value p.value.adj    alpha.adj significance
-1       baseline_cortex_Rt_Bcl11b_Tns/Blk1  3.395107965  3.33075830 3.42701879        NA          NA           NA             
-2   beta_Rt_cortex_Bcl11b_right_X_Tns/Blk1  0.002982114 -0.08744400 0.09010423 0.9243076    7.394461 0.0062500000           ns
-3      beta_Rt_cortex_Bcl11b_18_X_Tns/Blk1  0.593448754  0.49621515 0.71042712 0.0000000    0.000000 0.0002923977          ***
-4 beta_Rt_cortex_Bcl11b_right18_X_Tns/Blk1  0.041416239 -0.09912658 0.17034774 0.3192681   17.240476 0.0009259259           ns
-5       baseline_cortex_Rt_Bcl11b_Tns/Blk2  2.319604756  1.87343256 2.51428827        NA          NA           NA             
-6   beta_Rt_cortex_Bcl11b_right_X_Tns/Blk2 -0.036314639 -0.65554710 0.63865617 0.8715128   10.458154 0.0041666667           ns
+1       baseline_cortex_Rt_Bcl11b_Tns/Blk1  3.395107965  3.33066961 3.42663916        NA          NA           NA             
+2   beta_Rt_cortex_Bcl11b_right_X_Tns/Blk1  0.002982114 -0.08980296 0.09116521 0.9254075     7.40326 0.0062500000           ns
+3      beta_Rt_cortex_Bcl11b_18_X_Tns/Blk1  0.593448754  0.49882849 0.71775524 0.0000000     0.00000 0.0002923977          ***
+4 beta_Rt_cortex_Bcl11b_right18_X_Tns/Blk1  0.041416239 -0.09881439 0.17096762 0.3238676    18.13659 0.0008928571           ns
+5       baseline_cortex_Rt_Bcl11b_Tns/Blk2  2.319604756  1.86781005 2.50771125        NA          NA           NA             
+6   beta_Rt_cortex_Bcl11b_right_X_Tns/Blk2 -0.036314639 -0.65752316 0.65418943 0.8724128     9.59654 0.0045454545           ns
 ----
 
-Analyzing residuals: 
+Analyzing residuals
 ----------------------------------------
 
 Computing residuals... 
@@ -256,17 +300,14 @@ Log-residual summary by grouping variables (head only):
 6    ran_lvl_4 0.2249876 0.4285400 0.18364650
 ----
 
-
-Printing effect distributions: 
-----------------------------------------
-
+Making MCMC walks plots... 
+Making MCMC vs bootstrap parameter distribution comparison plots... 
+Making effect parameter distribution plots... 
 Warping factors distributions... 
 Rate effects distribution... 
 Slope effects distribution... 
 tpoint effects distribution... 
 Making rate-count plots... 
+Making parameter plots... 
 
-Printing child summary plots: 
-----------------------------------------
-
-Making summary plots for cortex: Bcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2
+Printing child summary plots for cortexBcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2
