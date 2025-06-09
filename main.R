@@ -172,7 +172,7 @@ make_fig_results_ratecount <- function() {
     ratecount_plots <- list()
     length(ratecount_plots) <- n_plots - 1
     names(ratecount_plots) <- p_names
-    title_size <- 40 
+    title_size <- 30 
     axis_size <- 24 
     legend_size <- 20
     ratecount_plots_Rorb_ran <- list()
@@ -181,7 +181,6 @@ make_fig_results_ratecount <- function() {
     names(ratecount_plots_Rorb_ran) <- mice
     for (p in 1:4) {
       
-      gene_name <- bquote("ROR" * beta * ", " * .(mice[p]))
       ratecount_plots_Rorb_ran[[mice[p]]] <- plot.ratecount(
         wisp.results = laminar.model,
         pred.type = "pred",
@@ -195,7 +194,7 @@ make_fig_results_ratecount <- function() {
         rans.to.print = as.character(p),
         childs.to.print = c("Rorb")
       )[[1]] +
-        labs(title = gene_name, x = NULL, y = NULL) + 
+        labs(title = mice[p], x = NULL, y = NULL) + 
         theme(
           plot.title = element_text(hjust = 0.5, size = title_size),
           axis.title = element_text(size = axis_size),
@@ -205,7 +204,7 @@ make_fig_results_ratecount <- function() {
           legend.position = "none"
         ) + 
         scale_color_manual(
-          labels = c("Left, P12", "right, P12", "left, P18", "right, P18"),
+          labels = c("left, P12", "right, P12", "left, P18", "right, P18"),
           values = colors4
         )
       
@@ -221,7 +220,6 @@ make_fig_results_ratecount <- function() {
       
       # Set legend position 
       leg_pos <- "none"
-      if (this_Rorb) leg_pos = "bottom"
       
       # Reformat gene names
       if (this_Rorb) {
@@ -229,6 +227,9 @@ make_fig_results_ratecount <- function() {
       } else {
         gene_name <- toupper(gene_name)
       }
+      
+      # Recolor plot
+      ratecount_plots[[p_]] <- laminar.model[["plots"]][["ratecount"]][[p_]] 
       
       # Remake Rorb 
       if (this_Rorb) {
@@ -245,14 +246,23 @@ make_fig_results_ratecount <- function() {
           rans.to.print = "none",
           childs.to.print = c("Rorb")
         )
-        ratecount_plots[[p_]] <- rorb_decomp[[1]]
+        Rorb_none <- rorb_decomp[[1]]  +
+          labs(title = gene_name) + 
+          theme(
+            plot.title = element_text(hjust = 0.5, size = title_size),
+            axis.title = element_text(size = axis_size),
+            axis.text = element_text(size = axis_size),
+            legend.title = element_text(size = legend_size),
+            legend.text = element_text(size = legend_size),
+            legend.position = "top"
+          ) + 
+          scale_color_manual(
+            name = "",
+            labels = c("left, P12", "right, P12", "left, P18", "right, P18"),
+            values = colors4
+          )
         
-      } else {
-        
-        # Recolor plot
-        ratecount_plots[[p_]] <- laminar.model[["plots"]][["ratecount"]][[p_]] 
-        
-      }
+      } 
       
       # Recolor plot
       ratecount_plots[[p_]] <- ratecount_plots[[p_]] +
@@ -267,7 +277,7 @@ make_fig_results_ratecount <- function() {
         ) + 
         scale_color_manual(
           name = "",
-          labels = c("Left, P12", "right, P12", "left, P18", "right, P18"),
+          labels = c("left, P12", "right, P12", "left, P18", "right, P18"),
           values = colors4
         )
       
@@ -276,19 +286,19 @@ make_fig_results_ratecount <- function() {
         found_P12 <- FALSE 
         this_layer <- 1
         while(!found_P12) {
-          df12 <- ratecount_plots[[p_]][["layers"]][[this_layer]][["data"]]
+          df12 <- Rorb_none[["layers"]][[this_layer]][["data"]]
           if(all(df12$ran == "none" & df12$treatment == "ref")) found_P12 <- TRUE
           else this_layer <- this_layer + 1
         }
         found_P18 <- FALSE 
         this_layer <- 1 
         while(!found_P18) {
-          df18 <- ratecount_plots[[p_]][["layers"]][[this_layer]][["data"]]
+          df18 <- Rorb_none[["layers"]][[this_layer]][["data"]]
           if(all(df18$ran == "none" & df18$treatment == "ref")) found_P18 <- TRUE
           else this_layer <- this_layer + 1
         }
         # Find t-points
-        rise <- 25
+        rise <- 10
         tpoints_ref <- laminar.model$fitted.parameters[grepl("baseline_cortex_tpoint_Rorb", laminar.model$param.names)]
         tpoints_18 <- laminar.model$fitted.parameters[grepl("beta_tpoint_cortex_Rorb_18_X_Tns/Blk", laminar.model$param.names)]
         rorb_markup_tp <- data.frame(
@@ -357,7 +367,7 @@ make_fig_results_ratecount <- function() {
         P18_slope <- P18_log_slope * (df18$pred[round(tpoints_ref + tpoints_18,0)] + 1)
         P12_run <- rise/P12_slope
         P18_run <- rise/P18_slope
-        ratecount_plots[[p_]] <- ratecount_plots[[p_]] +
+        Rorb_none <- Rorb_none +
           geom_segment(
             data = rorb_markup_tp,
             aes(x = tp_ref - P12_run, xend = tp_ref, y = tpy, yend = tpyend),
@@ -378,14 +388,23 @@ make_fig_results_ratecount <- function() {
           )
       }
     }
+    
+    # First figure
     other_gene_col <- arrangeGrob(
       ratecount_plots[[2]], # Cux2
       ratecount_plots[[6]], # Satb2
       ratecount_plots[[3]], # Fezf2
+      ratecount_plots[[5]], # Rorb
       ratecount_plots[[4]], # Nxph3
       ratecount_plots[[1]], # Bcl11b
-      ncol = 1
+      ncol = 3
     )
+    
+    png("fig_results_ratecount.png", width = 1800, height = 1100)
+    grid.arrange(other_gene_col, ncol = 1)
+    dev.off()
+    
+    # Second figure
     Rorb_ran_block <- arrangeGrob(
       ratecount_plots_Rorb_ran[[1]], 
       ratecount_plots_Rorb_ran[[2]],
@@ -393,11 +412,9 @@ make_fig_results_ratecount <- function() {
       ratecount_plots_Rorb_ran[[4]], 
       ncol = 2
     )
-    Rorb_col <- arrangeGrob(Rorb_ran_block, ratecount_plots[[5]], ncol = 1)
-    grid.arrange(Rorb_col, other_gene_col, widths = c(1, 0.5), ncol = 2)
     
-    # export
-    dev.copy(png, filename = "fig_results_ratecount.png", width = 1500, height = 1215)
+    png("fig_results_ratecount_Rorb.png", width = 1400, height = 1400)
+    grid.arrange(Rorb_none, Rorb_ran_block, heights = c(1, 0.5), ncol = 1)
     dev.off()
     
   }
