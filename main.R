@@ -4,11 +4,10 @@
 
 # Clear global environment
 rm(list = ls())
-# If using VS Code with httpgd, ensure clean start
-httpgd::hgd_close() 
 projects_folder <- "/Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/"
 
 # For for WSPmm and snk ("sink") printing
+# ... version 1.0 used for the preprint (draft 1)
 library(wispack)
 
 # Set random seed for reproducibility
