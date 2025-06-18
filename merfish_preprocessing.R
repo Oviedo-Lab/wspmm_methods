@@ -60,7 +60,8 @@ parse_hdf5 <- function(
     raw = TRUE,             # Grab normalized transcript counts, or raw ones?
     ROI_only = TRUE,        # Grab all transcripts, or just those in ROI?
     remove_L1 = RemoveL1,   # Exclude transcripts in layer 1?
-    ROIname = "Primary auditory area"
+    ROIname = "Primary auditory area",
+    drop_blanks = TRUE
   ) {
     
     # Load data
@@ -83,12 +84,13 @@ parse_hdf5 <- function(
     
     # Gene names
     nonblanks <- file[["/var/Genes"]][]
-    gene_names <- file[["/var/_index"]][nonblanks]
+    if (drop_blanks) gene_names <- file[["/var/_index"]][nonblanks]
+    else gene_names <- file[["/var/_index"]][]
     
     # Raw transcript counts, rows are cells, columns genes
     if (raw) transcript_counts_raw <- t(file[["/raw/X"]][,])     # should have integer elements, not normalized
     else transcript_counts_raw <- t(file[["/X"]][,])             # should have integer elements, normalized for MapMyCells
-    transcript_counts_raw <- transcript_counts_raw[, nonblanks]  # drop blanks
+    if (drop_blanks) transcript_counts_raw <- transcript_counts_raw[, nonblanks]  # drop blanks
     colnames(transcript_counts_raw) <- gene_names               
     n_cells <- nrow(transcript_counts_raw)
     
@@ -386,7 +388,8 @@ make_count_data <- function(
     remove_L1 = RemoveL1,   # Exclude transcripts in layer 1?
     ROIname = "Primary auditory area",
     raw = TRUE,             # Grab normalized transcript counts, or raw ones?
-    verbose = TRUE
+    verbose = TRUE,
+    drop_blanks = TRUE
   ) {
     
     # Get a list of all HDF5 files in the "data" folder
@@ -411,7 +414,7 @@ make_count_data <- function(
     for (f in seq_along(files)) {
       if (f < length(files)) cat(f, ", ", sep="")
       else cat(f, "\n")
-      assign(paste0("mouse", f), parse_hdf5(file_path = files[f], mouse_num = f, raw = raw, remove_L1 = remove_L1, ROIname = ROIname))
+      assign(paste0("mouse", f), parse_hdf5(file_path = files[f], mouse_num = f, raw = raw, remove_L1 = remove_L1, ROIname = ROIname, drop_blanks = drop_blanks))
       slice_plots[[paste0("slice_plot", f)]] <- get(paste0("mouse", f))$slice_plot
       assign(paste0("mouse", f), get(paste0("mouse", f))$transcript_counts)
       ind_var_fields <- which(colnames(get(paste0("mouse", f))) %in% c(
@@ -1126,7 +1129,7 @@ cortical_coordinate_transform <- function(
 create.count.data.WSPmm <- function(
     df.merfish,                                    # data frame of MERFISH data, produced by cortical_coordinate_transform function
     bin.dim = c("x_bins", "y_bins"),               # dimension by which to bin; must be one of these two; will collapse along the other
-    gene.list,                                     # list of genes to include in count data, forms the "child" level of the model
+    gene.list,                                     # character vector of genes to include in count data, forms the "child" level of the model
     fixed.effect.names, 
     parent = NULL                                  # parent level for fixed effects; if NULL, will use "cortex"
   ) { 
@@ -1134,7 +1137,7 @@ create.count.data.WSPmm <- function(
     # Run checks 
     if (length(bin.dim) != 1 || !(bin.dim %in% c("x_bins","y_bins"))) stop("bin.dim must be one of 'x_bins' or 'y_bins'")
     if (!all(c("mouse", "cell_num", fixed.effect.names, parent) %in% colnames(df.merfish))) stop("df.merfish missing mouse, cell_num, parent, or fixed effect column")
-    
+   
     # Make count data column names and find its dimensions 
     num_genes <- length(gene.list)
     num_cells <- nrow(df.merfish)
@@ -1176,11 +1179,83 @@ create.count.data.WSPmm <- function(
       count_data[idx_initial:idx_final, "count"] <- df.merfish[, g]
     }
     
-    # return data frames and token_counts vector 
+    # return count data as data.frame
     return(count_data)
     
   }
 
+# Function to convert to WSPmm format
+create.blank.list.WSPmm <- function(
+    df.merfish,                                    # data frame of MERFISH data, produced by cortical_coordinate_transform function
+    gene.list,                                     # character vector of genes to include in count data, forms the "child" level of the model
+    nearest_blank,                                 # list of integer vectors, each giving the blank number(s) nearest to a gene, that gene name labelling the vector (list element)
+    fixed.effect.names,
+    partition_size = 10, 
+    parent = NULL
+  ) { 
+    
+    # Run checks 
+    blank_mask <- grepl("Blank", colnames(df.merfish))
+    if (sum(blank_mask) == 0) stop("No Blank columns found in df.merfish.")
+    if (!all(c("mouse", fixed.effect.names) %in% colnames(df.merfish))) stop("df.merfish missing fixed effect column")
+    
+    # Make partition for blank list
+    x_bins_range <- range(df.merfish[,"x_bins"], na.rm = TRUE)
+    y_bins_range <- range(df.merfish[,"y_bins"], na.rm = TRUE)
+    x_bins_partition <- seq(x_bins_range[1], x_bins_range[2], length.out = partition_size + 1)
+    y_bins_partition <- seq(y_bins_range[1], y_bins_range[2], length.out = partition_size + 1)
+    
+    # Initialize columns for partition spot numbers
+    n_cells <- nrow(df.merfish)
+    xb <- rep(0, n_cells)
+    yb <- rep(0, n_cells)
+    
+    # Assign partition spot numbers
+    for (i in 1:partition_size) {
+      xb[df.merfish[,"x_bins"] >= x_bins_partition[i] & df.merfish[,"x_bins"] <= x_bins_partition[i+1]] <- i
+      yb[df.merfish[,"y_bins"] >= y_bins_partition[i] & df.merfish[,"y_bins"] <= y_bins_partition[i+1]] <- i
+    }
+    
+    # Extract blank data 
+    blank_data <- df.merfish[,blank_mask]
+    # ... assure columns are in ascending order
+    blank_data <- blank_data[,order(colnames(blank_data), decreasing = FALSE)]
+    
+    # Make list of blank counts
+    # ... this will be a list the length of the number of rows of count_data (the tokenized version used to initialize a wisp), 
+    #      each element of which is an integer vector of blank values which can be subtracted from the gene count.
+    num_genes <- length(gene.list)
+    blank_counts_list <- list() 
+    length(blank_counts_list) <- num_genes * n_cells
+    idx <- 1
+    fe_gv_names <- c("mouse", fixed.effect.names)
+    if (!is.null(parent)) fe_gv_names <- c(fe_gv_names, parent)
+    interX_cols <- interaction(cbind(xb, yb, df.merfish[,fe_gv_names]), drop = TRUE)
+    group_lookup <- split(seq_len(n_cells), interX_cols)
+    for (i in 1:num_genes) {
+      g <- gene.list[i]
+      g_blanks <- as.matrix(blank_data[, nearest_blank[[g]]])
+      
+      for (group_cells in group_lookup) {
+        blank_counts <- c(g_blanks[group_cells,])
+        blank_counts <- blank_counts[blank_counts > 0]
+        if (length(blank_counts) == 0) blank_counts <- c(0)
+        # Store result for each cell in group
+        for (cell in group_cells) {
+          blank_counts_list[[cell + (n_cells * (i - 1))]] <- blank_counts
+        }
+      }
+      
+    }
+    
+    return(
+      list(
+        df = df.merfish[,!blank_mask],
+        blank_counts = blank_counts_list
+      )
+    )
+    
+  }
 
 # Function to convert to WSPmm format
 create.count.data.WSPmm.allen <- function(
