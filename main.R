@@ -37,8 +37,7 @@ count_data <- make_count_data(
     data_path,
     remove_L1 = TRUE,        # If TRUE, removes any points labeled as layer 1
     ROIname = "Primary somatosensory area",
-    raw = TRUE,              # If FALSE, uses normalized data, and that is not desired
-    drop_blanks = FALSE
+    raw = TRUE               # If FALSE, uses normalized data, and that is not desired
   )
 
 # Transform coordinates for each mouse into laminar and columnar axes and extract layer boundary estimates
@@ -56,22 +55,6 @@ count_data <- cortical_coordinate_transform(
 # Unpack 
 layer.boundary.bins <- count_data$layer.boundary.bins
 coordinate_transform_plots <- count_data$plots
-count_data <- count_data$df
-
-# Load in nearest blank list
-nearest_blank <- readRDS("nearest_blank.rds")
-
-# Define fixed effects to test
-fixed.effect.names <- c("hemisphere", "age")
-# Extract blank count list and unpack again 
-count_data <- create.blank.list.WSPmm(
-  df.merfish = count_data,   
-  gene.list = gene.list,
-  nearest_blank, 
-  fixed.effect.names = fixed.effect.names,
-  partition_size = 10
-  )
-blank_count_list <- count_data$blank_counts
 count_data <- count_data$df
 
 # Simple check of transcripts per cell per gene per mouse
@@ -98,8 +81,10 @@ write.csv(
 
 # Fit WSPmm model to MERFISH data ######################################################################################
 
-# Create count data for WSPmm object, from preprocessed count_data, using laminar axis (y)
+# Define fixed effects to test
+fixed.effect.names <- c("hemisphere", "age")
 
+# Create count data for WSPmm object, from preprocessed count_data, using laminar axis (y)
 count.data.WSPmm <- create.count.data.WSPmm(
     df.merfish = count_data,
     bin.dim = "y_bins",
@@ -132,7 +117,7 @@ model.settings = list(
     ctol = 1e-6,                                          # convergence tolerance
     max_penalty_at_distance_factor = 0.01,                # maximum penalty at distance from structural parameter values
     LROcutoff = 2.0,                                      # cutoff for LROcp, a multiple of standard deviation
-    LROwindow_factor = 2.0,                              # window factor for LROcp, larger means larger rolling window
+    LROwindow_factor = 1.25,                              # window factor for LROcp, larger means larger rolling window
     rise_threshold_factor = 0.8,                          # amount of detected rise as fraction of total required to end run in initial slope estimation
     max_evals = 1000,                                     # maximum number of evaluations for optimization
     rng_seed = 42,                                        # random seed for optimization (controls bootstrap resamples only)
@@ -142,7 +127,7 @@ model.settings = list(
 # Settings for MCMC walk
 MCMC.settings = list(
     MCMC.burnin = 1e2,
-    MCMC.steps = 1e2,
+    MCMC.steps = 1e4,
     MCMC.step.size = 1.0,
     MCMC.prior = 1.0, 
     MCMC.neighbor.filter = 2
@@ -152,13 +137,12 @@ MCMC.settings = list(
 laminar.model <- wisp(
     # Data to model
     count.data = count.data.WSPmm,
-    blank_count_list = blank_count_list,
     # Variable labels
     variables = data.variables,
     # Settings used on R side
     use.median = FALSE,
     MCMC.settings = MCMC.settings,
-    bootstraps.num = 1e2,
+    bootstraps.num = 1e4,
     converged.resamples.only = TRUE,
     max.fork = bs_chunksize,
     dim.bounds = colMeans(layer.boundary.bins),
