@@ -24,7 +24,7 @@ snk.report("Analysis of MERFISH data by Warped Sigmoid, Poisson-Process Mixed-Ef
 
 # Source preprocessing functions, set file path, and bootstrap chunk size
 source("merfish_preprocessing.R")
-data_path <- paste0(projects_folder, "MERFISH/data_SSp/")
+data_path <- paste0(projects_folder, "_molecular_mechanisms_of_ACx_lateralization/data_SSp/")
 bs_chunksize <- 10
 
 # Define list of genes to analyze
@@ -89,7 +89,8 @@ count.data.WSPmm <- create.count.data.WSPmm(
     df.merfish = count_data,
     bin.dim = "y_bins",
     gene.list = gene.list,
-    fixed.effect.names = fixed.effect.names
+    fixed.effect.names = fixed.effect.names, 
+    parent = "celltype_MMC"                                  # parent level for fixed effects; if NULL, will use "cortex"
   )
 
 # Save pre-processed count data
@@ -104,7 +105,7 @@ write.csv(
 data.variables = list(
     count = "count",
     bin = "bin", 
-    parent = "cortex", 
+    parent = "celltype_MMC", 
     child = "gene",
     ran = "mouse",
     fixedeffects = fixed.effect.names
@@ -127,7 +128,7 @@ model.settings = list(
 # Settings for MCMC walk
 MCMC.settings = list(
     MCMC.burnin = 1e2,
-    MCMC.steps = 1e4,
+    MCMC.steps = 1e3,
     MCMC.step.size = 1.0,
     MCMC.prior = 1.0, 
     MCMC.neighbor.filter = 2
@@ -142,7 +143,7 @@ laminar.model <- wisp(
     # Settings used on R side
     use.median = FALSE,
     MCMC.settings = MCMC.settings,
-    bootstraps.num = 1e4,
+    bootstraps.num = 1e3,
     converged.resamples.only = TRUE,
     max.fork = bs_chunksize,
     dim.bounds = colMeans(layer.boundary.bins),

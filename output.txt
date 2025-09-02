@@ -9,25 +9,21 @@ Loading raw data
 
 Found 4 HDF5 files.... 
 File names:
-	mouse 1: /Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/MERFISH/data_SSp//Somatosensory_ACxDev1_CBA-CAJ_FFPE_P12_z0-3_celltyped_filtered_withCCF.hdf5
-	mouse 2: /Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/MERFISH/data_SSp//Somatosensory_ACxDev1_CBA-CAJ_FFPE_P18_celltyped_filtered_withCCF.hdf5
-	mouse 3: /Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/MERFISH/data_SSp//Somatosensory_ACxDev1_CBA-CAJ_P12_celltyped_filtered_withCCF.hdf5
-	mouse 4: /Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/MERFISH/data_SSp//Somatosensory_ACxDev1_CBA-CAJ_P18_celltyped_filtered_withCCF.hdf5
+	mouse 1: /Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/_molecular_mechanisms_of_ACx_lateralization/data_SSp//Somatosensory_ACxDev1_CBA-CAJ_FFPE_P12_z0-3_celltyped_filtered_withCCF.hdf5
+	mouse 2: /Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/_molecular_mechanisms_of_ACx_lateralization/data_SSp//Somatosensory_ACxDev1_CBA-CAJ_FFPE_P18_celltyped_filtered_withCCF.hdf5
+	mouse 3: /Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/_molecular_mechanisms_of_ACx_lateralization/data_SSp//Somatosensory_ACxDev1_CBA-CAJ_P12_celltyped_filtered_withCCF.hdf5
+	mouse 4: /Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/_molecular_mechanisms_of_ACx_lateralization/data_SSp//Somatosensory_ACxDev1_CBA-CAJ_P18_celltyped_filtered_withCCF.hdf5
 Loading and parsing file for mouse number: 1, 2, 3, 4 
 
-Mean transcript counts per cell for each mouse: 1.49, 1.673, 0.914, 1.076
-Mean of means: 1.288
-Standard deviation of means: 0.353
+Mean transcript counts per cell for each mouse: 1.677, 1.884, 1.029, 1.212
+Mean of means: 1.45
+Standard deviation of means: 0.397
 
 Total cells by type (Map My Cells):
 ------------------------------
 
-      Astro-Epen          CB GABA          CB Glut     CNU-HYa GABA     CNU-HYa Glut     CNU-LGE GABA     CNU-MGE GABA CTX-CGE/MGE GABA      DG-IMN Glut         filtered          HY GABA           Immune 
-            3952               82               19               12                2              671               20             1351               11            18208               37              331 
-      IT-ET Glut         LSX GABA          MB GABA          MB Glut       MB-HB Sero       MH-LH Glut          MY GABA          MY Glut   NP-CT-L6b Glut      OB-IMN GABA              OEC        OPC-Oligo 
-           16066               29               79                5                1               15              430               21             4922              149               23             1499 
-          P GABA  TSCRPT_filtered         Vascular          HY Glut    HY Gnrh1 Glut           P Glut      Pineal Glut          TH Glut          MB Dopa       OB-CR Glut 
-             142               99             5914                1                1                2                5               12                2                3 
+   Astro-Epen      filtered     GABAergic Glutamatergic        Immune           OEC     OPC-Oligo  Serotonergic      Vascular  Dopaminergic 
+         3952         18307          3002         21085           331            23          1499             1          5914             2 
 ----
 
 Number of mice: 4
@@ -104,7 +100,7 @@ Model settings:
 	ctol: 1e-06
 	max_penalty_at_distance_factor: 0.01
 	LROcutoff: 2
-	LROwindow_factor: 2
+	LROwindow_factor: 1.25
 	rise_threshold_factor: 0.8
 	max_evals: 1000
 	rng_seed: 42
@@ -113,7 +109,7 @@ Model settings:
 
 MCMC settings:
 	MCMC.burnin: 100
-	MCMC.steps: 100
+	MCMC.steps: 1000
 	MCMC.step.size: 1
 	MCMC.prior: 1
 	MCMC.neighbor.filter: 2
@@ -121,20 +117,20 @@ MCMC settings:
 Variable dictionary:
 	count: count
 	bin: bin
-	parent: cortex
+	parent: celltype_MMC
 	child: gene
 	ran: mouse
 	fixedeffects: hemisphere, age
 
 Parsed data (head only):
 ------------------------------
-  count bin parent  child ran hemisphere age
-1     0 100 cortex Bcl11b   1       left  12
-2     0  99 cortex Bcl11b   1       left  12
-3     0  93 cortex Bcl11b   1       left  12
-4     0  98 cortex Bcl11b   1       left  12
-5     0  94 cortex Bcl11b   1       left  12
-6     0  94 cortex Bcl11b   1       left  12
+  count bin        parent  child ran hemisphere age
+1     0 100 Glutamatergic Bcl11b   1       left  12
+2     0  99     GABAergic Bcl11b   1       left  12
+3     0  93 Glutamatergic Bcl11b   1       left  12
+4     0  98 Glutamatergic Bcl11b   1       left  12
+5     0  94      Vascular Bcl11b   1       left  12
+6     0  94      Vascular Bcl11b   1       left  12
 ----
 
 Initializing Cpp (wspc) model
@@ -155,13 +151,13 @@ Ref levels:
 Created treatment levels:
 "ref" "right" "18" "right18"
 Parent grouping variables:
-"cortex"
+"Astro-Epen" "Dopaminergic" "GABAergic" "Glutamatergic" "Immune" "OEC" "OPC-Oligo" "Serotonergic" "Vascular" "filtered"
 Child grouping variables:
 "Bcl11b" "Cux2" "Fezf2" "Nxph3" "Rorb" "Satb2"
 Random-effect grouping variables:
 "none" "1" "2" "3" "4"
-Total rows in summed count data table: 12000
-Number of rows with unique model components: 120
+Total rows in summed count data table: 120000
+Number of rows with unique model components: 1200
 
 Creating summed-count data columns:
 Random level 0, 1/5 complete
@@ -171,217 +167,14 @@ Random level 3, 4/5 complete
 Random level 4, 5/5 complete
 
 Making extrapolation pool:
-row: 480/2400
-row: 960/2400
-row: 1440/2400
-row: 1920/2400
-row: 2400/2400
 
-Making initial parameter estimates:
-Extrapolated 'none' rows
-Took log of observed counts
-Estimated gamma dispersion of raw counts
-Estimated change points
-Found average log counts for each parent-child combination
-Estimated initial parameters for fixed-effect treatments
-Built initial beta (ref and fixed-effects) matrices
-Initialized random effect warping factors
-Made and mapped parameter vector
-Number of parameters: 264
-Constructed grouping variable IDs
-Computed size of boundary vector: 1080
+Enter a frame number, or 0 to exit   
 
-Estimating model parameters
-----------------------------------------
+1: wisp(count.data = count.data.WSPmm, variables = data.variables, use.median = FALSE, MCMC.settings = MCMC.settings, bootstraps.num = 1000, converged.resamples.only = TRUE, max.fork = bs_chunksize, dim.bounds = colMean
+2: new(wspc, data, model.settings.internal, verbose)
+3: initialize(value, ...)
+4: initialize(value, ...)
+5: .Object$initialize(...)
+6: Rcpp::cpp_object_initializer(.self, .refClassDef, ...)
+7: new_CppObject_xp(fields$.module, fields$.pointer, ...)
 
-Running MCMC stimulations
-Checking feasibility of provided parameters
-Found tpoint below buffer, dist: -1.333333, deg: 2, row: 1200
-... tpoints found below buffer
-Provided parameters not feasible, searching nearby
-Initial boundary distance (want to make >0): -1.33333
-Numer of evals: 4
-Success code: 2
-Final boundary distance: 0.247647
-Nearby feasible parameters found!
-Performing initial fit of full data
-Penalized neg_loglik: 10867.6
-step: 1/200
-step: 20/200
-step: 40/200
-step: 60/200
-step: 80/200
-step: 100/200
-step: 120/200
-step: 140/200
-step: 160/200
-step: 180/200
-All complete!
-Acceptance rate (aim for 0.2-0.3): 0.1657
-
-MCMC simulation complete... 
-MCMC run time (total), minutes: 0.759
-MCMC run time (per retained step), seconds: 0.228
-MCMC run time (per step), seconds: 0.114
-
-Running bootstrap fits
-Checking feasibility of provided parameters
-... no tpoints below buffer
-... no negative rates predicted
-Provided parameters are feasible
-Performing initial fit of full data
-Penalized neg_loglik: 10867.6
-Batch: 1/10, 0.619495 sec/bs
-Batch: 2/10, 0.676656 sec/bs
-Batch: 3/10, 0.634661 sec/bs
-Batch: 4/10, 0.702063 sec/bs
-Batch: 5/10, 0.590988 sec/bs
-Batch: 6/10, 0.549226 sec/bs
-Batch: 7/10, 0.498239 sec/bs
-Batch: 8/10, 0.582062 sec/bs
-Batch: 9/10, 0.565668 sec/bs
-All complete!
-
-Bootstrap simulation complete... 
-Bootstrap run time (total), minutes: 1.069
-Bootstrap run time (per sample), seconds: 0.641
-Bootstrap run time (per sample, per thread), seconds: 6.412
-
-Setting full-data fit as parameters... 
-Checking feasibility of provided parameters
-... no tpoints below buffer
-... no negative rates predicted
-Provided parameters are feasible
-
-Running stats on simulation results
-----------------------------------------
-
-Warning: Only 68 out of 101 resamples converged to fit. Results may be unreliable. Using all resamples.... 
-Grabbing sample results... 
-Grabbing parameter values... 
-Computing 95% confidence intervals... 
-Estimating p-values from resampled parameters... 
-
-Recommended resample size for alpha = 0.05, 144 tests
-with bootstrapping/MCMC: 2880
-Actual resample size: 101
-
-Stat summary (head only):
-------------------------------
-                                 parameter   estimate      CI.low   CI.high    p.value p.value.adj    alpha.adj significance
-1       baseline_cortex_Rt_Bcl11b_Tns/Blk1  2.4520323  1.81412607 2.4964384         NA          NA           NA             
-2   beta_Rt_cortex_Bcl11b_right_X_Tns/Blk1 -0.2424107 -0.49752833 0.1489097 0.02970297    2.613861 0.0005681818           ns
-3      beta_Rt_cortex_Bcl11b_18_X_Tns/Blk1  0.8275392  0.62521599 1.1173366 0.00000000    0.000000 0.0003472222          ***
-4 beta_Rt_cortex_Bcl11b_right18_X_Tns/Blk1  0.3560355 -0.06079595 0.6401426 0.00990099    0.950495 0.0005208333           ns
-5       baseline_cortex_Rt_Bcl11b_Tns/Blk2  3.4626777  1.79627536 3.7467804         NA          NA           NA             
-6   beta_Rt_cortex_Bcl11b_right_X_Tns/Blk2 -1.0619562 -1.66973524 0.3537655 0.00000000    0.000000 0.0003496503          ***
-----
-
-Analyzing residuals
-----------------------------------------
-
-Computing residuals... 
-Making masks... 
-Making plots and saving stats... 
-
-Log-residual summary by grouping variables (head only):
-------------------------------
-         group      mean        sd  variance
-1          all 0.3384390 0.5497725 0.3022498
-2 ran_lvl_none 0.3544726 0.4630738 0.2144373
-3    ran_lvl_1 0.3279285 0.5960759 0.3553065
-4    ran_lvl_2 0.3502136 0.5779388 0.3340133
-5    ran_lvl_3 0.2959326 0.5702728 0.3252110
-6    ran_lvl_4 0.3476138 0.6070572 0.3685184
-----
-
-Making MCMC walks plots... 
-Making MCMC vs bootstrap parameter distribution comparison plots... 
-Making effect parameter distribution plots... 
-Warping factors distributions... 
-Rate effects distribution... 
-Slope effects distribution... 
-tpoint effects distribution... 
-Making rate-count plots... 
-Making parameter plots... 
-
-Printing child summary plots for cortexBcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2
-Making rate-count plots... 
-Making rate-count plots... 
-Making rate-count plots... 
-Making rate-count plots... 
-Making rate-count plots... 
-Making rate-count plots... 
-Making rate-count plots... 
-Making rate-count plots... 
-Making rate-count plots... 
-Making rate-count plots... 
-Making rate-count plots... 
-Making rate-count plots... 
-Making rate-count plots... 
-Making rate-count plots... RStudioGD 
-        2 
-RStudioGD 
-        2 
-RStudioGD 
-        2 
-\begin{table}
-\centering
-\caption{Fixed effect estimates.\label{table:FEestimates}}
-\centering
-\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
-\fontsize{8}{10}\selectfont
-\begin{tabular}[t]{lrrrllllllllllll}
-\toprule
-\multicolumn{1}{c}{ } & \multicolumn{5}{c}{RORB} & \multicolumn{2}{c}{Bcl11b} & \multicolumn{2}{c}{Fezf2} & \multicolumn{2}{c}{Satb2} & \multicolumn{2}{c}{Nxph3} & \multicolumn{2}{c}{Cux2} \\
-\cmidrule(l{3pt}r{3pt}){2-6} \cmidrule(l{3pt}r{3pt}){7-8} \cmidrule(l{3pt}r{3pt}){9-10} \cmidrule(l{3pt}r{3pt}){11-12} \cmidrule(l{3pt}r{3pt}){13-14} \cmidrule(l{3pt}r{3pt}){15-16}
-$z$ & est & CI.low & CI.high & p.adj & sig & est.Bcl11b & p.adj. Bcl11b & est.Fezf2 & p.adj. Fezf2 & est.Satb2 & p.adj. Satb2 & est.Nxph3 & p.adj. Nxph3 & est.Cux2 & p.adj. Cux2\\
-\midrule
-\addlinespace[0.3em]
-\multicolumn{16}{l}{\textbf{Fixed Effects: Hemisphere (right)}}\\
-\hspace{1em}$r_1$ & 0.359 & 0.096 & 0.577 & $<0.001$ & *** & -0.242 & 1.000 & -0.144 & 1.000 & -0.094 & 1.000 & 0.177 & 1.000 & 0.336 & $<0.001$\\
-\hspace{1em}$r_2$ & 0.147 & -0.741 & 1.094 & 1.000 & ns & -1.062 & $<0.001$ & -0.306 & 1.000 & 0.126 & 1.000 & 0.718 & 1.000 & -0.086 & 1.000\\
-\hspace{1em}$r_3$ & 0.188 & 0.074 & 0.507 & 1.000 & ns & 0.265 & 1.000 & 1.361 & 0.97 & 0.027 & 1.000 & -0.313 & 1.000 &  & \\
-\hspace{1em}$r_4$ & 0.292 & -0.098 & 0.669 & 1.000 & ns &  &  & 0.018 & 1.000 & -0.066 & 1.000 &  &  &  & \\
-\hspace{1em}$r_5$ & NA & NA & NA & NA & NA &  &  &  &  &  &  &  &  &  \vphantom{2} & \\
-\hspace{1em}$s_1$ & 0.973 & -2.221 & 3.656 & 1.000 & ns & 1.511 & 1.000 & 1.21 & 1.000 & 0.777 & 1.000 & 0.162 & 1.000 & 0.581 & 1.000\\
-\hspace{1em}$s_2$ & 0.489 & -0.919 & 1.782 & 1.000 & ns & 5.962 & $<0.001$ & 1.481 & 0.931 & 2.485 & $<0.001$ & -2.692 & 1.000 &  & \\
-\hspace{1em}$s_3$ & -0.216 & -2.248 & 1.608 & 1.000 & ns &  &  & -0.61 & 1.000 & 2.153 & $<0.001$ &  &  &  & \\
-\hspace{1em}$s_4$ & NA & NA & NA & NA & NA &  &  &  &  &  &  &  &  &  \vphantom{2} & \\
-\hspace{1em}$p_1$ & 0.184 & -2.993 & 3.543 & 1.000 & ns & -2.646 & 1.000 & 2.252 & 1.000 & 0.227 & 1.000 & 1.686 & 1.000 & 0.198 & 0.98\\
-\hspace{1em}$p_2$ & -0.336 & -2.154 & 3.054 & 1.000 & ns & 5.074 & $<0.001$ & -2.423 & 1.000 & -0.711 & 1.000 & 1.744 & 1.000 &  & \\
-\hspace{1em}$p_3$ & 1.105 & -1.166 & 2.910 & 1.000 & ns &  &  & -2.732 & 1.000 & 0.524 & 1.000 &  &  &  & \\
-\hspace{1em}$p_4$ & NA & NA & NA & NA & NA &  &  &  &  &  &  &  &  &  \vphantom{2} & \\
-\addlinespace[0.3em]
-\multicolumn{16}{l}{\textbf{Fixed Effect: Age (P18)}}\\
-\hspace{1em}$r_1$ & 0.347 & 0.057 & 0.738 & $<0.001$ & *** & 0.828 & $<0.001$ & 0.115 & 1.000 & -0.065 & 1.000 & 0.547 & $<0.001$ & 1.183 & $<0.001$\\
-\hspace{1em}$r_2$ & 1.684 & 1.104 & 3.247 & $<0.001$ & *** & -0.198 & 1.000 & 1.646 & $<0.001$ & 0.258 & 0.941 & 1.318 & $<0.001$ & 1.453 & $<0.001$\\
-\hspace{1em}$r_3$ & 1.670 & 1.094 & 2.058 & $<0.001$ & *** & 0.605 & $<0.001$ & 0.447 & 1.000 & 0.399 & $<0.001$ & 0.196 & 1.000 &  & \\
-\hspace{1em}$r_4$ & 0.880 & 0.632 & 1.584 & $<0.001$ & *** &  &  & 0.07 & 1.000 & 0.424 & $<0.001$ &  &  &  & \\
-\hspace{1em}$r_5$ & NA & NA & NA & NA & NA &  &  &  &  &  &  &  &  &  \vphantom{1} & \\
-\hspace{1em}$s_1$ & -0.472 & -4.676 & 0.010 & 1.000 & ns & 1.452 & 1.000 & -0.268 & 1.000 & -1.151 & 1.000 & -0.306 & 1.000 & 0.108 & 1.000\\
-\hspace{1em}$s_2$ & 1.310 & -0.582 & 3.385 & 1.000 & ns & 0.718 & 1.000 & -0.279 & 1.000 & 0.366 & 1.000 & -2.31 & 1.000 &  & \\
-\hspace{1em}$s_3$ & -0.571 & -2.637 & 0.635 & 1.000 & ns &  &  & -0.222 & 1.000 & 2.164 & $<0.001$ &  &  &  & \\
-\hspace{1em}$s_4$ & NA & NA & NA & NA & NA &  &  &  &  &  &  &  &  &  \vphantom{1} & \\
-\hspace{1em}$p_1$ & -2.034 & -6.322 & 2.667 & 1.000 & ns & -6.228 & $<0.001$ & 6.632 & $<0.001$ & 5.988 & $<0.001$ & 4.54 & 0.921 & 2.645 & $<0.001$\\
-\hspace{1em}$p_2$ & 4.016 & 2.049 & 5.633 & $<0.001$ & *** & 7.3 & $<0.001$ & 1.423 & 1.000 & 16.477 & $<0.001$ & 5.75 & $<0.001$ &  & \\
-\hspace{1em}$p_3$ & 2.925 & 0.528 & 3.921 & $<0.001$ & *** &  &  & 3.349 & $<0.001$ & 2.229 & $<0.001$ &  &  &  & \\
-\hspace{1em}$p_4$ & NA & NA & NA & NA & NA &  &  &  &  &  &  &  &  &  \vphantom{1} & \\
-\addlinespace[0.3em]
-\multicolumn{16}{l}{\textbf{Fixed Effect: Hemisphere-Age Interaction}}\\
-\hspace{1em}$r_1$ & -0.339 & -0.599 & 0.178 & 1.000 & ns & 0.356 & 0.951 & 0.171 & 1.000 & -0.306 & 1.000 & -0.189 & 1.000 & -0.401 & 0.99\\
-\hspace{1em}$r_2$ & -0.888 & -2.218 & 0.056 & 1.000 & ns & 0.675 & 1.000 & -1.349 & 0.98 & -0.108 & 1.000 & 0.411 & 1.000 & -0.321 & $<0.001$\\
-\hspace{1em}$r_3$ & -0.590 & -1.321 & -0.165 & 1.000 & ns & -0.463 & 1 & 0.016 & 1.000 & -0.033 & 1.000 & 0.025 & 1.000 &  & \\
-\hspace{1em}$r_4$ & -0.676 & -1.480 & -0.256 & $<0.001$ & *** &  &  & -0.027 & 1.000 & -0.179 & $<0.001$ &  &  &  & \\
-\hspace{1em}$r_5$ & NA & NA & NA & NA & NA &  &  &  &  &  &  &  &  &  & \\
-\hspace{1em}$s_1$ & -0.963 & -3.607 & 3.639 & 1.000 & ns & -0.952 & 1.000 & 1.997 & 1.000 & -0.756 & 1.000 & 0.455 & 1.000 & -0.447 & 1.000\\
-\hspace{1em}$s_2$ & 0.233 & -1.155 & 1.182 & 1.000 & ns & -6.23 & $<0.001$ & 0.46 & 1.000 & -0.779 & 1.000 & 2.289 & 1.000 &  & \\
-\hspace{1em}$s_3$ & 0.210 & -1.326 & 2.634 & 1.000 & ns &  &  & 0.155 & 1.000 & -1.535 & 1.000 &  &  &  & \\
-\hspace{1em}$s_4$ & NA & NA & NA & NA & NA &  &  &  &  &  &  &  &  &  & \\
-\hspace{1em}$p_1$ & -2.433 & -5.747 & 1.036 & 1.000 & ns & 2.945 & $<0.001$ & -5.901 & $<0.001$ & -2.832 & $<0.001$ & -3.815 & 0.96 & -0.864 & 1.000\\
-\hspace{1em}$p_2$ & -2.829 & -4.193 & 0.287 & $<0.001$ & *** & -3.104 & 1.000 & -1.058 & 1.000 & -4.791 & $<0.001$ & -5.499 & $<0.001$ &  & \\
-\hspace{1em}$p_3$ & -1.356 & -3.287 & 2.348 & 1.000 & ns &  &  & -0.448 & 1.000 & -4.289 & $<0.001$ &  &  &  & \\
-\hspace{1em}$p_4$ & NA & NA & NA & NA & NA &  &  &  &  &  &  &  &  &  & \\
-\bottomrule
-\end{tabular}}
-\end{table}

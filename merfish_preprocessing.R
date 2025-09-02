@@ -225,9 +225,16 @@ parse_hdf5 <- function(
     # ... transcript_counts$cellsupertype_MMC <- cellsupertype_names[transcript_counts$cellsupertype_MMC]
     transcript_counts$celltype_MMC <- celltype_names[transcript_counts$celltype_MMC]
     
+    # Simple clean 
+    transcript_counts$celltype_MMC[grepl("Glut", transcript_counts$celltype_MMC)] <- "Glutamatergic"
+    transcript_counts$celltype_MMC[grepl("GABA", transcript_counts$celltype_MMC)] <- "GABAergic"
+    transcript_counts$celltype_MMC[grepl("Sero", transcript_counts$celltype_MMC)] <- "Serotonergic"
+    transcript_counts$celltype_MMC[grepl("Dopa", transcript_counts$celltype_MMC)] <- "Dopaminergic"
+    transcript_counts$celltype_MMC[grepl("filtered", transcript_counts$celltype_MMC)] <- "filtered"
+    
     # Collapse GABA cell types together 
-    GABA_mask <- which(transcript_counts$celltype_MMC == "CTX-CGE GABA" | transcript_counts$celltype_MMC == "CTX-MGE GABA")
-    transcript_counts$celltype_MMC[GABA_mask] <- "CTX-CGE/MGE GABA"
+    #GABA_mask <- which(transcript_counts$celltype_MMC == "CTX-CGE GABA" | transcript_counts$celltype_MMC == "CTX-MGE GABA")
+    #transcript_counts$celltype_MMC[GABA_mask] <- "CTX-CGE/MGE GABA"
     
     # Convert to factor 
     transcript_counts$celltype_MMC <- as.factor(transcript_counts$celltype_MMC)
