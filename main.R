@@ -90,7 +90,7 @@ count.data.WSPmm <- create.count.data.WSPmm(
     bin.dim = "y_bins",
     gene.list = gene.list,
     fixed.effect.names = fixed.effect.names, 
-    parent = "celltype_MMC"                                  # parent level for fixed effects; if NULL, will use "cortex"
+    parent = NULL # "celltype_MMC"                                  # parent level for fixed effects; if NULL, will use "cortex"
   )
 
 # Save pre-processed count data
@@ -105,7 +105,7 @@ write.csv(
 data.variables = list(
     count = "count",
     bin = "bin", 
-    parent = "celltype_MMC", 
+    parent = "cortex", #"celltype_MMC", 
     child = "gene",
     ran = "mouse",
     fixedeffects = fixed.effect.names
@@ -143,7 +143,7 @@ laminar.model <- wisp(
     # Settings used on R side
     use.median = FALSE,
     MCMC.settings = MCMC.settings,
-    bootstraps.num = 1e3,
+    bootstraps.num = 0,
     converged.resamples.only = TRUE,
     max.fork = bs_chunksize,
     dim.bounds = colMeans(layer.boundary.bins),

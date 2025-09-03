@@ -117,20 +117,20 @@ MCMC settings:
 Variable dictionary:
 	count: count
 	bin: bin
-	parent: celltype_MMC
+	parent: cortex
 	child: gene
 	ran: mouse
 	fixedeffects: hemisphere, age
 
 Parsed data (head only):
 ------------------------------
-  count bin        parent  child ran hemisphere age
-1     0 100 Glutamatergic Bcl11b   1       left  12
-2     0  99     GABAergic Bcl11b   1       left  12
-3     0  93 Glutamatergic Bcl11b   1       left  12
-4     0  98 Glutamatergic Bcl11b   1       left  12
-5     0  94      Vascular Bcl11b   1       left  12
-6     0  94      Vascular Bcl11b   1       left  12
+  count bin parent  child ran hemisphere age
+1     0 100 cortex Bcl11b   1       left  12
+2     0  99 cortex Bcl11b   1       left  12
+3     0  93 cortex Bcl11b   1       left  12
+4     0  98 cortex Bcl11b   1       left  12
+5     0  94 cortex Bcl11b   1       left  12
+6     0  94 cortex Bcl11b   1       left  12
 ----
 
 Initializing Cpp (wspc) model
@@ -151,13 +151,13 @@ Ref levels:
 Created treatment levels:
 "ref" "right" "18" "right18"
 Parent grouping variables:
-"Astro-Epen" "Dopaminergic" "GABAergic" "Glutamatergic" "Immune" "OEC" "OPC-Oligo" "Serotonergic" "Vascular" "filtered"
+"cortex"
 Child grouping variables:
 "Bcl11b" "Cux2" "Fezf2" "Nxph3" "Rorb" "Satb2"
 Random-effect grouping variables:
 "none" "1" "2" "3" "4"
-Total rows in summed count data table: 120000
-Number of rows with unique model components: 1200
+Total rows in summed count data table: 12000
+Number of rows with unique model components: 120
 
 Creating summed-count data columns:
 Random level 0, 1/5 complete
@@ -167,14 +167,113 @@ Random level 3, 4/5 complete
 Random level 4, 5/5 complete
 
 Making extrapolation pool:
+row: 480/2400
+row: 960/2400
+row: 1440/2400
+row: 1920/2400
+row: 2400/2400
 
-Enter a frame number, or 0 to exit   
+Making initial parameter estimates:
+Extrapolated 'none' rows
+Took log of observed counts
+Estimated gamma dispersion of raw counts
+Estimated change points
+Found average log counts for each parent-child combination
+Estimated initial parameters for fixed-effect treatments
+Built initial beta (ref and fixed-effects) matrices
+Initialized random effect warping factors
+Made and mapped parameter vector
+Number of parameters: 300
+Constructed grouping variable IDs
+Computed size of boundary vector: 1260
 
-1: wisp(count.data = count.data.WSPmm, variables = data.variables, use.median = FALSE, MCMC.settings = MCMC.settings, bootstraps.num = 1000, converged.resamples.only = TRUE, max.fork = bs_chunksize, dim.bounds = colMean
-2: new(wspc, data, model.settings.internal, verbose)
-3: initialize(value, ...)
-4: initialize(value, ...)
-5: .Object$initialize(...)
-6: Rcpp::cpp_object_initializer(.self, .refClassDef, ...)
-7: new_CppObject_xp(fields$.module, fields$.pointer, ...)
+Estimating model parameters
+----------------------------------------
 
+Running MCMC stimulations
+Checking feasibility of provided parameters
+Found tpoint below buffer, dist: -1.000000, deg: 2, row: 100, tpoint_ext(d + 1): 78.666667, tpoint_ext(d): 74.666667
+... tpoints found below buffer
+Provided parameters not feasible, searching nearby
+Initial boundary distance (want to make >0): -3.001
+Numer of evals: 3
+Success code: 2
+Final boundary distance: 0.247647
+Nearby feasible parameters found!
+Performing initial fit of full data
+Penalized neg_loglik: 12046.2
+step: 1/1100
+step: 110/1100
+step: 220/1100
+step: 330/1100
+step: 440/1100
+step: 550/1100
+step: 660/1100
+step: 770/1100
+step: 880/1100
+step: 990/1100
+All complete!
+Acceptance rate (aim for 0.2-0.3): 0.134368
+
+MCMC simulation complete... 
+MCMC run time (total), minutes: 4.966
+MCMC run time (per retained step), seconds: 0.271
+MCMC run time (per step), seconds: 0.135
+
+Setting full-data fit as parameters... 
+Checking feasibility of provided parameters
+... no tpoints below buffer
+... no negative rates predicted
+Provided parameters are feasible
+
+Running stats on simulation results
+----------------------------------------
+
+Grabbing sample results... 
+Grabbing parameter values... 
+Computing 95% confidence intervals... 
+Estimating p-values from resampled parameters... 
+
+Recommended resample size for alpha = 0.05, 171 tests
+with bootstrapping/MCMC: 3420
+Actual resample size: 1001
+
+Stat summary (head only):
+------------------------------
+                                 parameter     estimate       CI.low    CI.high   p.value p.value.adj    alpha.adj significance
+1       baseline_cortex_Rt_Bcl11b_Tns/Blk1  3.395107965  3.081457426 3.59955965        NA          NA           NA             
+2   beta_Rt_cortex_Bcl11b_right_X_Tns/Blk1  0.002982114 -0.325203723 0.04922467 0.9740260    3.896104 0.0125000000           ns
+3      beta_Rt_cortex_Bcl11b_18_X_Tns/Blk1  0.593448754  0.055793486 0.71609729 0.0000000    0.000000 0.0002923977          ***
+4 beta_Rt_cortex_Bcl11b_right18_X_Tns/Blk1  0.041416239 -0.008581189 0.80994129 0.8181818   10.636364 0.0038461538           ns
+5       baseline_cortex_Rt_Bcl11b_Tns/Blk2  2.319604756  1.655437902 2.42447428        NA          NA           NA             
+6   beta_Rt_cortex_Bcl11b_right_X_Tns/Blk2 -0.036314639  0.098658548 0.66047609 0.8441558    8.441558 0.0050000000           ns
+----
+
+Analyzing residuals
+----------------------------------------
+
+Computing residuals... 
+Making masks... 
+Making plots and saving stats... 
+
+Log-residual summary by grouping variables (head only):
+------------------------------
+         group      mean        sd   variance
+1          all 0.2252133 0.3833440 0.14695264
+2 ran_lvl_none 0.2244876 0.3081029 0.09492742
+3    ran_lvl_1 0.2201257 0.3885565 0.15097618
+4    ran_lvl_2 0.2112826 0.3954888 0.15641141
+5    ran_lvl_3 0.2459086 0.4480074 0.20071067
+6    ran_lvl_4 0.2249876 0.4285400 0.18364650
+----
+
+Making MCMC walks plots... 
+Making effect parameter distribution plots... 
+Warping factors distributions... 
+Rate effects distribution... 
+Slope effects distribution... 
+tpoint effects distribution... 
+Making rate-count plots... 
+Making parameter plots... 
+
+Printing child summary plots for cortexBcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2
