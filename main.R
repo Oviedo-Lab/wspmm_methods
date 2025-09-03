@@ -90,7 +90,7 @@ count.data.WSPmm <- create.count.data.WSPmm(
     bin.dim = "y_bins",
     gene.list = gene.list,
     fixed.effect.names = fixed.effect.names, 
-    parent = NULL # "celltype_MMC"                                  # parent level for fixed effects; if NULL, will use "cortex"
+    parent = "celltype_MMC"                                  # parent level for fixed effects; if NULL, will use "cortex"
   )
 
 # Save pre-processed count data
@@ -105,7 +105,7 @@ write.csv(
 data.variables = list(
     count = "count",
     bin = "bin", 
-    parent = "cortex", #"celltype_MMC", 
+    parent = "celltype_MMC", 
     child = "gene",
     ran = "mouse",
     fixedeffects = fixed.effect.names
