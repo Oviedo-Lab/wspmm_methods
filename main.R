@@ -129,7 +129,7 @@ model.settings = list(
 MCMC.settings = list(
     MCMC.burnin = 1e2,
     MCMC.steps = 1e3,
-    MCMC.step.size = 1.0,
+    MCMC.step.size = 0.1,
     MCMC.prior = 1.0, 
     MCMC.neighbor.filter = 2
   )
@@ -152,6 +152,13 @@ laminar.model <- wisp(
     # Setting to pass to C++ model
     model.settings = model.settings
   )
+
+this_gene <- "Fezf2"
+gene_mask <- grepl(this_gene, names(laminar.model[["plots"]][["ratecount"]]))
+n_plots <- length(laminar.model[["plots"]][["ratecount"]])
+for (p in 1:n_plots) {
+  if (gene_mask[p]) print(laminar.model[["plots"]][["ratecount"]][[p]])
+}
 
 # Save
 # ... load with: laminar.model <- readRDS("saved_laminar_model-final-noplots.rds")

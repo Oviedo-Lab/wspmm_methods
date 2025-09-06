@@ -110,7 +110,7 @@ Model settings:
 MCMC settings:
 	MCMC.burnin: 100
 	MCMC.steps: 1000
-	MCMC.step.size: 1
+	MCMC.step.size: 0.1
 	MCMC.prior: 1
 	MCMC.neighbor.filter: 2
 
@@ -183,9 +183,9 @@ Estimated initial parameters for fixed-effect treatments
 Built initial beta (ref and fixed-effects) matrices
 Initialized random effect warping factors
 Made and mapped parameter vector
-Number of parameters: 2520
+Number of parameters: 2484
 Constructed grouping variable IDs
-Computed size of boundary vector: 13240
+Computed size of boundary vector: 13060
 
 Estimating model parameters
 ----------------------------------------
@@ -196,10 +196,160 @@ Checking feasibility of provided parameters
 ... no NAN rates predicted
 ... no negative rates predicted
 Provided parameters are feasible
+Initial boundary distance (want >0): 0.01
 Performing initial fit of full data
+Penalized neg_loglik: 49713.2
+step: 1/1100
+step: 110/1100
+step: 220/1100
+step: 330/1100
+step: 440/1100
+step: 550/1100
+step: 660/1100
+step: 770/1100
+step: 880/1100
+step: 990/1100
+All complete!
+Acceptance rate (aim for 0.2-0.3): 0.965759
 
-Enter a frame number, or 0 to exit   
+MCMC simulation complete... 
+MCMC run time (total), minutes: 6.935
+MCMC run time (per retained step), seconds: 0.378
+MCMC run time (per step), seconds: 0.189
 
-1: wisp(count.data = count.data.WSPmm, variables = data.variables, use.median = FALSE, MCMC.settings = MCMC.settings, bootstraps.num = 0, converged.resamples.only = TRUE, max.fork = bs_chunksize, dim.bounds = colMeans(layer.boundary.bins
-2: cpp_model$MCMC(MCMC.settings.internal$MCMC.steps + MCMC.settings.internal$MCMC.burnin, MCMC.settings.internal$MCMC.neighbor.filter, MCMC.settings.internal$MCMC.step.size, MCMC.settings.internal$MCMC.prior, verbose)
+Setting full-data fit as parameters... 
+Checking feasibility of provided parameters
+... no tpoints below buffer
+... no NAN rates predicted
+... no negative rates predicted
+Provided parameters are feasible
+Initial boundary distance (want >0): 0.01
 
+Running stats on simulation results
+----------------------------------------
+
+Grabbing sample results... 
+Grabbing parameter values... 
+Computing 95% confidence intervals... 
+Estimating p-values from resampled parameters... 
+
+Recommended resample size for alpha = 0.05, 1809 tests
+with bootstrapping/MCMC: 36180
+Actual resample size: 1001
+
+Stat summary (head only):
+------------------------------
+                                     parameter   estimate     CI.low    CI.high p.value p.value.adj    alpha.adj significance
+1       baseline_Astro-Epen_Rt_Bcl11b_Tns/Blk1 0.60872230 0.60742529 0.61019201      NA          NA           NA             
+2   beta_Rt_Astro-Epen_Bcl11b_right_X_Tns/Blk1 0.07026662 0.06993991 0.07041361       0           0 2.763958e-05          ***
+3      beta_Rt_Astro-Epen_Bcl11b_18_X_Tns/Blk1 0.04294500 0.04290322 0.04309582       0           0 2.765487e-05          ***
+4 beta_Rt_Astro-Epen_Bcl11b_right18_X_Tns/Blk1 0.49194175 0.49127928 0.49361549       0           0 2.767017e-05          ***
+5       baseline_Astro-Epen_Rt_Bcl11b_Tns/Blk2 0.38392363 0.38342657 0.38464507      NA          NA           NA             
+6   beta_Rt_Astro-Epen_Bcl11b_right_X_Tns/Blk2 0.07543356 0.07478333 0.07551818       0           0 2.768549e-05          ***
+----
+
+Analyzing residuals
+----------------------------------------
+
+Computing residuals... 
+Making masks... 
+Making plots and saving stats... 
+
+Log-residual summary by grouping variables (head only):
+------------------------------
+         group          mean        sd  variance
+1          all -0.0008636085 0.5146057 0.2648191
+2 ran_lvl_none  0.0202123955 0.3593308 0.1291186
+3    ran_lvl_1 -0.2341282701 0.5795051 0.3358261
+4    ran_lvl_2 -0.1582303536 0.6145852 0.3777150
+5    ran_lvl_3  0.1997289280 0.5554087 0.3084788
+6    ran_lvl_4  0.1204987551 0.5982205 0.3578678
+----
+
+Making MCMC walks plots... 
+Making effect parameter distribution plots... 
+Warping factors distributions... 
+Rate effects distribution... 
+Slope effects distribution... 
+tpoint effects distribution... 
+Making rate-count plots... 
+Making parameter plots... 
+
+Printing child summary plots for Astro-EpenBcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2
+
+Printing child summary plots for DopaminergicBcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2
+
+Printing child summary plots for GABAergicBcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2
+
+Printing child summary plots for GlutamatergicBcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2
+
+Printing child summary plots for ImmuneBcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2
+
+Printing child summary plots for OECBcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2
+
+Printing child summary plots for OPC-OligoBcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2
+
+Printing child summary plots for SerotonergicBcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2
+
+Printing child summary plots for VascularBcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2
+
+Printing child summary plots for filteredBcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2Warning messages:
+1: Removed 5683 rows containing missing values or values outside the scale range (`geom_point()`).
+2: Removed 5600 rows containing missing values or values outside the scale range (`geom_point()`).
+3: Removed 11 rows containing missing values or values outside the scale range (`geom_point()`).
+4: Removed 21 rows containing missing values or values outside the scale range (`geom_point()`).
+5: Removed 21 rows containing missing values or values outside the scale range (`geom_point()`).
+6: Removed 30 rows containing missing values or values outside the scale range (`geom_point()`).
+7: Removed 1415 rows containing missing values or values outside the scale range (`geom_point()`).
+8: Removed 1417 rows containing missing values or values outside the scale range (`geom_point()`).
+9: Removed 1427 rows containing missing values or values outside the scale range (`geom_point()`).
+10: Removed 1424 rows containing missing values or values outside the scale range (`geom_point()`).
+11: Removed 402 rows containing missing values or values outside the scale range (`geom_point()`).
+12: Removed 402 rows containing missing values or values outside the scale range (`geom_point()`).
+13: Removed 402 rows containing missing values or values outside the scale range (`geom_point()`).
+14: Removed 402 rows containing missing values or values outside the scale range (`geom_point()`).
+15: Removed 402 rows containing missing values or values outside the scale range (`geom_point()`).
+16: Removed 402 rows containing missing values or values outside the scale range (`geom_point()`).
+17: Removed 422 rows containing missing values or values outside the scale range (`geom_point()`).
+18: Removed 422 rows containing missing values or values outside the scale range (`geom_point()`).
+19: Removed 422 rows containing missing values or values outside the scale range (`geom_point()`).
+20: Removed 401 rows containing missing values or values outside the scale range (`geom_point()`).
+21: Removed 401 rows containing missing values or values outside the scale range (`geom_point()`).
+22: Removed 401 rows containing missing values or values outside the scale range (`geom_point()`).
+23: Removed 401 rows containing missing values or values outside the scale range (`geom_point()`).
+24: Removed 401 rows containing missing values or values outside the scale range (`geom_point()`).
+ [1] "plot_pred_parent_Astro-Epen"                  "plot_pred_parent_Astro-Epen_fixEff_Bcl11b"   
+ [3] "plot_pred_parent_Astro-Epen_fixEff_Cux2"      "plot_pred_parent_Astro-Epen_fixEff_Fezf2"    
+ [5] "plot_pred_parent_Astro-Epen_fixEff_Nxph3"     "plot_pred_parent_Astro-Epen_fixEff_Rorb"     
+ [7] "plot_pred_parent_Astro-Epen_fixEff_Satb2"     "plot_pred_parent_Dopaminergic"               
+ [9] "plot_pred_parent_Dopaminergic_fixEff_Bcl11b"  "plot_pred_parent_Dopaminergic_fixEff_Cux2"   
+[11] "plot_pred_parent_Dopaminergic_fixEff_Fezf2"   "plot_pred_parent_Dopaminergic_fixEff_Nxph3"  
+[13] "plot_pred_parent_Dopaminergic_fixEff_Rorb"    "plot_pred_parent_Dopaminergic_fixEff_Satb2"  
+[15] "plot_pred_parent_GABAergic"                   "plot_pred_parent_GABAergic_fixEff_Bcl11b"    
+[17] "plot_pred_parent_GABAergic_fixEff_Cux2"       "plot_pred_parent_GABAergic_fixEff_Fezf2"     
+[19] "plot_pred_parent_GABAergic_fixEff_Nxph3"      "plot_pred_parent_GABAergic_fixEff_Rorb"      
+[21] "plot_pred_parent_GABAergic_fixEff_Satb2"      "plot_pred_parent_Glutamatergic"              
+[23] "plot_pred_parent_Glutamatergic_fixEff_Bcl11b" "plot_pred_parent_Glutamatergic_fixEff_Cux2"  
+[25] "plot_pred_parent_Glutamatergic_fixEff_Fezf2"  "plot_pred_parent_Glutamatergic_fixEff_Nxph3" 
+[27] "plot_pred_parent_Glutamatergic_fixEff_Rorb"   "plot_pred_parent_Glutamatergic_fixEff_Satb2" 
+[29] "plot_pred_parent_Immune"                      "plot_pred_parent_Immune_fixEff_Bcl11b"       
+[31] "plot_pred_parent_Immune_fixEff_Cux2"          "plot_pred_parent_Immune_fixEff_Fezf2"        
+[33] "plot_pred_parent_Immune_fixEff_Nxph3"         "plot_pred_parent_Immune_fixEff_Rorb"         
+[35] "plot_pred_parent_Immune_fixEff_Satb2"         "plot_pred_parent_OEC"                        
+[37] "plot_pred_parent_OEC_fixEff_Bcl11b"           "plot_pred_parent_OEC_fixEff_Cux2"            
+[39] "plot_pred_parent_OEC_fixEff_Fezf2"            "plot_pred_parent_OEC_fixEff_Nxph3"           
+[41] "plot_pred_parent_OEC_fixEff_Rorb"             "plot_pred_parent_OEC_fixEff_Satb2"           
+[43] "plot_pred_parent_OPC-Oligo"                   "plot_pred_parent_OPC-Oligo_fixEff_Bcl11b"    
+[45] "plot_pred_parent_OPC-Oligo_fixEff_Cux2"       "plot_pred_parent_OPC-Oligo_fixEff_Fezf2"     
+[47] "plot_pred_parent_OPC-Oligo_fixEff_Nxph3"      "plot_pred_parent_OPC-Oligo_fixEff_Rorb"      
+[49] "plot_pred_parent_OPC-Oligo_fixEff_Satb2"      "plot_pred_parent_Serotonergic"               
+[51] "plot_pred_parent_Serotonergic_fixEff_Bcl11b"  "plot_pred_parent_Serotonergic_fixEff_Cux2"   
+[53] "plot_pred_parent_Serotonergic_fixEff_Fezf2"   "plot_pred_parent_Serotonergic_fixEff_Nxph3"  
+[55] "plot_pred_parent_Serotonergic_fixEff_Rorb"    "plot_pred_parent_Serotonergic_fixEff_Satb2"  
+[57] "plot_pred_parent_Vascular"                    "plot_pred_parent_Vascular_fixEff_Bcl11b"     
+[59] "plot_pred_parent_Vascular_fixEff_Cux2"        "plot_pred_parent_Vascular_fixEff_Fezf2"      
+[61] "plot_pred_parent_Vascular_fixEff_Nxph3"       "plot_pred_parent_Vascular_fixEff_Rorb"       
+[63] "plot_pred_parent_Vascular_fixEff_Satb2"       "plot_pred_parent_filtered"                   
+[65] "plot_pred_parent_filtered_fixEff_Bcl11b"      "plot_pred_parent_filtered_fixEff_Cux2"       
+[67] "plot_pred_parent_filtered_fixEff_Fezf2"       "plot_pred_parent_filtered_fixEff_Nxph3"      
+[69] "plot_pred_parent_filtered_fixEff_Rorb"        "plot_pred_parent_filtered_fixEff_Satb2"      
