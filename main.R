@@ -90,7 +90,7 @@ count.data.WSPmm <- create.count.data.WSPmm(
     bin.dim = "y_bins",
     gene.list = gene.list,
     fixed.effect.names = fixed.effect.names, 
-    parent = "celltype_MMC"                                  # parent level for fixed effects; if NULL, will use "cortex"
+    context = "celltype_MMC"                                  # context level for fixed effects; if NULL, will use "cortex"
   )
 
 # Save pre-processed count data
@@ -105,8 +105,8 @@ write.csv(
 data.variables = list(
     count = "count",
     bin = "bin", 
-    parent = "celltype_MMC", 
-    child = "gene",
+    context = "celltype_MMC", 
+    species = "gene",
     ran = "mouse",
     fixedeffects = fixed.effect.names
   )
@@ -148,12 +148,12 @@ laminar.model <- wisp(
     max.fork = bs_chunksize,
     dim.bounds = colMeans(layer.boundary.bins),
     verbose = TRUE,
-    print.child.summaries = TRUE,
+    print.species.summaries = TRUE,
     # Setting to pass to C++ model
     model.settings = model.settings
   )
 
-this_gene <- "Fezf2"
+this_gene <- "Rorb"
 gene_mask <- grepl(this_gene, names(laminar.model[["plots"]][["ratecount"]]))
 n_plots <- length(laminar.model[["plots"]][["ratecount"]])
 for (p in 1:n_plots) {
@@ -191,14 +191,14 @@ make_fig_results_ratecount <- function() {
         wisp.results = laminar.model,
         pred.type = "pred",
         count.type = "count",
-        dim.boundaries = unlist(laminar.model[["plots"]][["ratecount"]][["plot_pred_parent_cortex_fixEff_Bcl11b"]][["layers"]][[49]][["data"]]),
+        dim.boundaries = unlist(laminar.model[["plots"]][["ratecount"]][["plot_pred_context_cortex_fixEff_Bcl11b"]][["layers"]][[49]][["data"]]),
         #y.lim = c(0, 215),
         count.alpha.none = 0,
         count.alpha.ran = 0.5,
         pred.alpha.none = 0,
         pred.alpha.ran = 1,
         rans.to.print = as.character(p),
-        childs.to.print = c("Rorb")
+        speciess.to.print = c("Rorb")
       )[[1]] +
         labs(title = mice[p], x = NULL, y = NULL) + 
         theme(
@@ -218,7 +218,7 @@ make_fig_results_ratecount <- function() {
     for (p in 2:n_plots) {
       
       p_ <- names(laminar.model[["plots"]][["ratecount"]])[p]
-      gene_name <- gsub("plot_pred_parent_cortex_fixEff_", "", p_)
+      gene_name <- gsub("plot_pred_context_cortex_fixEff_", "", p_)
       
       # Check if this is Rorb
       this_Rorb <- FALSE
@@ -244,13 +244,13 @@ make_fig_results_ratecount <- function() {
           wisp.results = laminar.model,
           pred.type = "pred",
           count.type = "count",
-          dim.boundaries = unlist(laminar.model[["plots"]][["ratecount"]][["plot_pred_parent_cortex_fixEff_Bcl11b"]][["layers"]][[49]][["data"]]),
+          dim.boundaries = unlist(laminar.model[["plots"]][["ratecount"]][["plot_pred_context_cortex_fixEff_Bcl11b"]][["layers"]][[49]][["data"]]),
           count.alpha.none = 0.5,
           count.alpha.ran = 0,
           pred.alpha.none = 1,
           pred.alpha.ran = 0,
           rans.to.print = "none",
-          childs.to.print = c("Rorb")
+          speciess.to.print = c("Rorb")
         )
         Rorb_none <- rorb_decomp[[1]]  +
           labs(title = gene_name) + 

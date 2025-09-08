@@ -117,20 +117,20 @@ MCMC settings:
 Variable dictionary:
 	count: count
 	bin: bin
-	parent: celltype_MMC
-	child: gene
+	context: celltype_MMC
+	species: gene
 	ran: mouse
 	fixedeffects: hemisphere, age
 
 Parsed data (head only):
 ------------------------------
-  count bin        parent  child ran hemisphere age
-1     0 100 Glutamatergic Bcl11b   1       left  12
-2     0  99     GABAergic Bcl11b   1       left  12
-3     0  93 Glutamatergic Bcl11b   1       left  12
-4     0  98 Glutamatergic Bcl11b   1       left  12
-5     0  94      Vascular Bcl11b   1       left  12
-6     0  94      Vascular Bcl11b   1       left  12
+  count bin       context species ran hemisphere age
+1     0 100 Glutamatergic  Bcl11b   1       left  12
+2     0  99     GABAergic  Bcl11b   1       left  12
+3     0  93 Glutamatergic  Bcl11b   1       left  12
+4     0  98 Glutamatergic  Bcl11b   1       left  12
+5     0  94      Vascular  Bcl11b   1       left  12
+6     0  94      Vascular  Bcl11b   1       left  12
 ----
 
 Initializing Cpp (wspc) model
@@ -150,9 +150,9 @@ Ref levels:
 "left" "12"
 Created treatment levels:
 "ref" "right" "18" "right18"
-Parent grouping variables:
+context grouping variables:
 "Astro-Epen" "Dopaminergic" "GABAergic" "Glutamatergic" "Immune" "OEC" "OPC-Oligo" "Serotonergic" "Vascular" "filtered"
-Child grouping variables:
+species grouping variables:
 "Bcl11b" "Cux2" "Fezf2" "Nxph3" "Rorb" "Satb2"
 Random-effect grouping variables:
 "none" "1" "2" "3" "4"
@@ -178,7 +178,7 @@ Extrapolated 'none' rows
 Took log of observed counts
 Estimated gamma dispersion of raw counts
 Estimated change points
-Found average log counts for each parent-child combination
+Found average log counts for each context-species combination
 Estimated initial parameters for fixed-effect treatments
 Built initial beta (ref and fixed-effects) matrices
 Initialized random effect warping factors
@@ -213,9 +213,9 @@ All complete!
 Acceptance rate (aim for 0.2-0.3): 0.965759
 
 MCMC simulation complete... 
-MCMC run time (total), minutes: 6.935
-MCMC run time (per retained step), seconds: 0.378
-MCMC run time (per step), seconds: 0.189
+MCMC run time (total), minutes: 6.461
+MCMC run time (per retained step), seconds: 0.352
+MCMC run time (per step), seconds: 0.176
 
 Setting full-data fit as parameters... 
 Checking feasibility of provided parameters
@@ -275,81 +275,22 @@ tpoint effects distribution...
 Making rate-count plots... 
 Making parameter plots... 
 
-Printing child summary plots for Astro-EpenBcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2
+Printing species summary plots for Astro-EpenBcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2
 
-Printing child summary plots for DopaminergicBcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2
+Printing species summary plots for DopaminergicBcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2
 
-Printing child summary plots for GABAergicBcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2
+Printing species summary plots for GABAergicBcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2
 
-Printing child summary plots for GlutamatergicBcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2
+Printing species summary plots for GlutamatergicBcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2
 
-Printing child summary plots for ImmuneBcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2
+Printing species summary plots for ImmuneBcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2
 
-Printing child summary plots for OECBcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2
+Printing species summary plots for OECBcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2
 
-Printing child summary plots for OPC-OligoBcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2
+Printing species summary plots for OPC-OligoBcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2
 
-Printing child summary plots for SerotonergicBcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2
+Printing species summary plots for SerotonergicBcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2
 
-Printing child summary plots for VascularBcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2
+Printing species summary plots for VascularBcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2
 
-Printing child summary plots for filteredBcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2Warning messages:
-1: Removed 5683 rows containing missing values or values outside the scale range (`geom_point()`).
-2: Removed 5600 rows containing missing values or values outside the scale range (`geom_point()`).
-3: Removed 11 rows containing missing values or values outside the scale range (`geom_point()`).
-4: Removed 21 rows containing missing values or values outside the scale range (`geom_point()`).
-5: Removed 21 rows containing missing values or values outside the scale range (`geom_point()`).
-6: Removed 30 rows containing missing values or values outside the scale range (`geom_point()`).
-7: Removed 1415 rows containing missing values or values outside the scale range (`geom_point()`).
-8: Removed 1417 rows containing missing values or values outside the scale range (`geom_point()`).
-9: Removed 1427 rows containing missing values or values outside the scale range (`geom_point()`).
-10: Removed 1424 rows containing missing values or values outside the scale range (`geom_point()`).
-11: Removed 402 rows containing missing values or values outside the scale range (`geom_point()`).
-12: Removed 402 rows containing missing values or values outside the scale range (`geom_point()`).
-13: Removed 402 rows containing missing values or values outside the scale range (`geom_point()`).
-14: Removed 402 rows containing missing values or values outside the scale range (`geom_point()`).
-15: Removed 402 rows containing missing values or values outside the scale range (`geom_point()`).
-16: Removed 402 rows containing missing values or values outside the scale range (`geom_point()`).
-17: Removed 422 rows containing missing values or values outside the scale range (`geom_point()`).
-18: Removed 422 rows containing missing values or values outside the scale range (`geom_point()`).
-19: Removed 422 rows containing missing values or values outside the scale range (`geom_point()`).
-20: Removed 401 rows containing missing values or values outside the scale range (`geom_point()`).
-21: Removed 401 rows containing missing values or values outside the scale range (`geom_point()`).
-22: Removed 401 rows containing missing values or values outside the scale range (`geom_point()`).
-23: Removed 401 rows containing missing values or values outside the scale range (`geom_point()`).
-24: Removed 401 rows containing missing values or values outside the scale range (`geom_point()`).
- [1] "plot_pred_parent_Astro-Epen"                  "plot_pred_parent_Astro-Epen_fixEff_Bcl11b"   
- [3] "plot_pred_parent_Astro-Epen_fixEff_Cux2"      "plot_pred_parent_Astro-Epen_fixEff_Fezf2"    
- [5] "plot_pred_parent_Astro-Epen_fixEff_Nxph3"     "plot_pred_parent_Astro-Epen_fixEff_Rorb"     
- [7] "plot_pred_parent_Astro-Epen_fixEff_Satb2"     "plot_pred_parent_Dopaminergic"               
- [9] "plot_pred_parent_Dopaminergic_fixEff_Bcl11b"  "plot_pred_parent_Dopaminergic_fixEff_Cux2"   
-[11] "plot_pred_parent_Dopaminergic_fixEff_Fezf2"   "plot_pred_parent_Dopaminergic_fixEff_Nxph3"  
-[13] "plot_pred_parent_Dopaminergic_fixEff_Rorb"    "plot_pred_parent_Dopaminergic_fixEff_Satb2"  
-[15] "plot_pred_parent_GABAergic"                   "plot_pred_parent_GABAergic_fixEff_Bcl11b"    
-[17] "plot_pred_parent_GABAergic_fixEff_Cux2"       "plot_pred_parent_GABAergic_fixEff_Fezf2"     
-[19] "plot_pred_parent_GABAergic_fixEff_Nxph3"      "plot_pred_parent_GABAergic_fixEff_Rorb"      
-[21] "plot_pred_parent_GABAergic_fixEff_Satb2"      "plot_pred_parent_Glutamatergic"              
-[23] "plot_pred_parent_Glutamatergic_fixEff_Bcl11b" "plot_pred_parent_Glutamatergic_fixEff_Cux2"  
-[25] "plot_pred_parent_Glutamatergic_fixEff_Fezf2"  "plot_pred_parent_Glutamatergic_fixEff_Nxph3" 
-[27] "plot_pred_parent_Glutamatergic_fixEff_Rorb"   "plot_pred_parent_Glutamatergic_fixEff_Satb2" 
-[29] "plot_pred_parent_Immune"                      "plot_pred_parent_Immune_fixEff_Bcl11b"       
-[31] "plot_pred_parent_Immune_fixEff_Cux2"          "plot_pred_parent_Immune_fixEff_Fezf2"        
-[33] "plot_pred_parent_Immune_fixEff_Nxph3"         "plot_pred_parent_Immune_fixEff_Rorb"         
-[35] "plot_pred_parent_Immune_fixEff_Satb2"         "plot_pred_parent_OEC"                        
-[37] "plot_pred_parent_OEC_fixEff_Bcl11b"           "plot_pred_parent_OEC_fixEff_Cux2"            
-[39] "plot_pred_parent_OEC_fixEff_Fezf2"            "plot_pred_parent_OEC_fixEff_Nxph3"           
-[41] "plot_pred_parent_OEC_fixEff_Rorb"             "plot_pred_parent_OEC_fixEff_Satb2"           
-[43] "plot_pred_parent_OPC-Oligo"                   "plot_pred_parent_OPC-Oligo_fixEff_Bcl11b"    
-[45] "plot_pred_parent_OPC-Oligo_fixEff_Cux2"       "plot_pred_parent_OPC-Oligo_fixEff_Fezf2"     
-[47] "plot_pred_parent_OPC-Oligo_fixEff_Nxph3"      "plot_pred_parent_OPC-Oligo_fixEff_Rorb"      
-[49] "plot_pred_parent_OPC-Oligo_fixEff_Satb2"      "plot_pred_parent_Serotonergic"               
-[51] "plot_pred_parent_Serotonergic_fixEff_Bcl11b"  "plot_pred_parent_Serotonergic_fixEff_Cux2"   
-[53] "plot_pred_parent_Serotonergic_fixEff_Fezf2"   "plot_pred_parent_Serotonergic_fixEff_Nxph3"  
-[55] "plot_pred_parent_Serotonergic_fixEff_Rorb"    "plot_pred_parent_Serotonergic_fixEff_Satb2"  
-[57] "plot_pred_parent_Vascular"                    "plot_pred_parent_Vascular_fixEff_Bcl11b"     
-[59] "plot_pred_parent_Vascular_fixEff_Cux2"        "plot_pred_parent_Vascular_fixEff_Fezf2"      
-[61] "plot_pred_parent_Vascular_fixEff_Nxph3"       "plot_pred_parent_Vascular_fixEff_Rorb"       
-[63] "plot_pred_parent_Vascular_fixEff_Satb2"       "plot_pred_parent_filtered"                   
-[65] "plot_pred_parent_filtered_fixEff_Bcl11b"      "plot_pred_parent_filtered_fixEff_Cux2"       
-[67] "plot_pred_parent_filtered_fixEff_Fezf2"       "plot_pred_parent_filtered_fixEff_Nxph3"      
-[69] "plot_pred_parent_filtered_fixEff_Rorb"        "plot_pred_parent_filtered_fixEff_Satb2"      
+Printing species summary plots for filteredBcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2

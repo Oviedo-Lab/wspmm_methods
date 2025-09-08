@@ -1133,35 +1133,35 @@ cortical_coordinate_transform <- function(
 create.count.data.WSPmm <- function(
     df.merfish,                                    # data frame of MERFISH data, produced by cortical_coordinate_transform function
     bin.dim = c("x_bins", "y_bins"),               # dimension by which to bin; must be one of these two; will collapse along the other
-    gene.list,                                     # character vector of genes to include in count data, forms the "child" level of the model
+    gene.list,                                     # character vector of genes to include in count data, forms the "species" level of the model
     fixed.effect.names, 
-    parent = NULL                                  # parent level for fixed effects; if NULL, will use "cortex"
+    context = NULL                                 # context level for fixed effects; if NULL, will use "context"
   ) { 
     
     # Run checks 
     if (length(bin.dim) != 1 || !(bin.dim %in% c("x_bins","y_bins"))) stop("bin.dim must be one of 'x_bins' or 'y_bins'")
-    if (!all(c("mouse", "cell_num", fixed.effect.names, parent) %in% colnames(df.merfish))) stop("df.merfish missing mouse, cell_num, parent, or fixed effect column")
+    if (!all(c("mouse", "cell_num", fixed.effect.names, context) %in% colnames(df.merfish))) stop("df.merfish missing mouse, cell_num, context, or fixed effect column")
    
     # Make count data column names and find its dimensions 
     num_genes <- length(gene.list)
     num_cells <- nrow(df.merfish)
-    if (is.null(parent)) parent <- "cortex"
+    if (is.null(context)) context <- "context"
     numrow <- num_cells * num_genes
     
-    # Make parent column 
-    if (parent == "cortex") parent_col <- rep("cortex", numrow)
-    else parent_col <- rep(df.merfish[,parent], num_genes)
+    # Make context column 
+    if (context == "context") context_col <- rep("context", numrow)
+    else context_col <- rep(df.merfish[,context], num_genes)
     
     # Pre-allocate as much of the count data as possible
     count_data <- data.frame(
       count = rep(as.numeric(NA), numrow),
       bin = rep(df.merfish[,bin.dim], num_genes),
-      parent = parent_col,
+      context = context_col,
       gene = rep(gene.list, each = num_cells), 
       mouse = rep(df.merfish[,"mouse"], num_genes),
       cell_num = rep(df.merfish[,"cell_num"], num_genes)
     )
-    colnames(count_data)[3] <- parent
+    colnames(count_data)[3] <- context
     
     # Fill out the fixed-effect columns
     count_data_fe <- data.frame(
@@ -1193,28 +1193,28 @@ create.count.data.WSPmm.allen <- function(
     df.merfish,                                    # data frame of MERFISH data, produced by the above functions
     bin.dim = c("x_bins", "y_bins"),               # dimension by which to bin; must be one of these two; will collapse along the other
     fixed.effect.names, 
-    parent = NULL                                  # parent level for fixed effects; if NULL, will use "cortex"
+    context = NULL                                 # context level for fixed effects; if NULL, will use "context"
   ) { 
     
     # Make count data column names and find its dimensions 
     num_genes <- length(gene.list)
-    if (is.null(parent)) parent <- "cortex"
+    if (is.null(context)) context <- "context"
     numrow <- nrow(df.merfish)
     
-    # Make parent column 
-    if (parent == "cortex") parent_col <- rep("cortex", numrow)
-    else parent_col <- rep(df.merfish[,parent], num_genes)
+    # Make context column 
+    if (context == "context") context_col <- rep("context", numrow)
+    else context_col <- rep(df.merfish[,context], num_genes)
     
     # Grab data
     count_data <- data.frame(
       count = df.merfish$trscrpt_ct,
       bin = df.merfish[,bin.dim],
-      parent = parent_col,
+      context = context_col,
       gene = df.merfish$trscrpt_gene_symb,
       mouse = df.merfish$mouse,
       cell_num = df.merfish$cluster_id
     )
-    colnames(count_data)[3] <- parent
+    colnames(count_data)[3] <- context
     
     # Add age column 
     df.merfish$age <- as.factor("p5x")
