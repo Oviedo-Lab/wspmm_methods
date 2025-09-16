@@ -206,6 +206,7 @@ parse_hdf5 <- function(
       x_coord, y_coord,
       transcript_counts_raw 
     )
+    rownames(transcript_counts) <-file[["/obs/_index"]][]
     
     # Make plot of whole cortical slice 
     layer_colors <- c("notROI" = "gray", "L1" = "gray4", "L23" = "tomato1", "L4" = "orange", "L5" = "springgreen2", "L6a" = "steelblue1", "L6b" = "purple") 
@@ -283,11 +284,11 @@ parse_csv <- function(
     
     # Make list of ages 
     age_list <- list(
-      "/Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/MERFISH/data_ACx_transcripts//transcripts-CCFreg_ACxDev1_CBA_CaJ_FFPE_P12_z0-3.csv" = 12,
-      "/Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/MERFISH/data_ACx_transcripts//transcripts-CCFreg_ACxDev1_CBA_CaJ_FFPE_P18.csv" = 18,
-      "/Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/MERFISH/data_ACx_transcripts//transcripts-CCFreg_ACxDev1_CBA_CaJ_FFPE_P7.csv" = 7,
-      "/Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/MERFISH/data_ACx_transcripts//transcripts-CCFreg_ACxDev1_CBA_CaJ_P12.csv" = 12, 
-      "/Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/MERFISH/data_ACx_transcripts//transcripts-CCFreg_ACxDev1_CBA_CaJ_P18.csv" = 18
+      "/Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/_molecular_mechanisms_of_ACx_lateralization/data_ACx_transcripts//transcripts-CCFreg_ACxDev1_CBA_CaJ_FFPE_P12_z0-3.csv" = 12,
+      "/Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/_molecular_mechanisms_of_ACx_lateralization/data_ACx_transcripts//transcripts-CCFreg_ACxDev1_CBA_CaJ_FFPE_P18.csv" = 18,
+      "/Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/_molecular_mechanisms_of_ACx_lateralization/data_ACx_transcripts//transcripts-CCFreg_ACxDev1_CBA_CaJ_FFPE_P7.csv" = 7,
+      "/Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/_molecular_mechanisms_of_ACx_lateralization/data_ACx_transcripts//transcripts-CCFreg_ACxDev1_CBA_CaJ_P12.csv" = 12, 
+      "/Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/_molecular_mechanisms_of_ACx_lateralization/data_ACx_transcripts//transcripts-CCFreg_ACxDev1_CBA_CaJ_P18.csv" = 18
     )
     
     # Grab metadata and form columns
