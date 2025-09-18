@@ -403,12 +403,14 @@ make_count_data <- function(
       pattern = "\\_withCCF.hdf5$", 
       full.names = TRUE
     )
+    files_short <- basename(files)
     names(files) <- paste("mouse", seq_along(files)) # These numbers will correspond to the ran levels assigned latter
+    names(files_short) <- names(files)
     if (verbose) {
       snk.report("Loading raw data")
       snk.horizontal_rule(reps = snk.simple_break_reps)
       snk.report...(paste("Found", length(files), "HDF5 files."))
-      snk.print_var_list("File names",files)
+      snk.print_var_list("File names",files_short)
     }
     
     # Loop through each file and parse it
@@ -480,6 +482,7 @@ make_count_data <- function(
 make_count_data_csv <- function(
     data_path, 
     remove_L1 = RemoveL1,   # Exclude transcripts in layer 1?
+    initialize_zeros = FALSE,
     verbose = TRUE
   ) {
     
@@ -489,12 +492,15 @@ make_count_data_csv <- function(
       pattern = "\\.csv$", 
       full.names = TRUE
     )
+    files_short <- basename(files)
     names(files) <- paste("mouse", seq_along(files)) # These numbers will correspond to the ran levels assigned latter
+    names(files_short) <- names(files)
+    
     if (verbose) {
       snk.report("Loading raw data")
       snk.horizontal_rule(reps = snk.simple_break_reps)
       snk.report...(paste("Found", length(files), "files."))
-      snk.print_var_list("File names",files)
+      snk.print_var_list("File names",files_short)
     }
     
     # Loop through each file and parse it
@@ -520,12 +526,14 @@ make_count_data_csv <- function(
     }
     
     # Initialize new coordinate columns 
-    count_data$x_trans <- rep(0,nrow(count_data))
-    count_data$y_trans <- rep(0,nrow(count_data))
-    count_data$x_bins_raw <- rep(0,nrow(count_data))
-    count_data$y_bins_raw <- rep(0,nrow(count_data))
-    count_data$x_bins <- rep(0,nrow(count_data))
-    count_data$y_bins <- rep(0,nrow(count_data))
+    if (initialize_zeros) {
+      count_data$x_trans <- rep(0,nrow(count_data))
+      count_data$y_trans <- rep(0,nrow(count_data))
+      count_data$x_bins_raw <- rep(0,nrow(count_data))
+      count_data$y_bins_raw <- rep(0,nrow(count_data))
+      count_data$x_bins <- rep(0,nrow(count_data))
+      count_data$y_bins <- rep(0,nrow(count_data))
+    }
     
     return(list(count_data = count_data, slice_plots = slice_plots))
     
