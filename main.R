@@ -22,8 +22,7 @@ options(error = recover)
 sink("output.txt", split = TRUE, append = FALSE, type = "output")
 snk.report("Analysis of MERFISH data by Warped Sigmoid, Poisson-Process Mixed-Effects Model (WSPmm)", end_breaks = 1)
 
-# Source preprocessing functions, set file path, and bootstrap chunk size
-source("merfish_preprocessing.R")
+# Set file path, and bootstrap chunk size
 data_path <- paste0(projects_folder, "_molecular_mechanisms_of_ACx_lateralization/data_SSp/")
 bs_chunksize <- 10
 
