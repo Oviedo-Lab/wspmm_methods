@@ -618,6 +618,145 @@ make_stat_table <- function() {
   }
 make_stat_table()
 
+# Radial data ##########################################################################################################
+
+# Load Droin et al. data
+library(R.matlab)
+files <- list.files(path = "Droin_data", pattern = "\\.mat$", full.names = TRUE)
+Droin_data <- lapply(files, readMat)
+names(Droin_data) <- basename(files)
+
+# Subset to genes of interest
+genes_to_keep <- c("ttc36", "cyp2e1", "tubb2a", "lpin1", "cyp2a5")
+for (fn in basename(files)) {
+  gene_idx <- which(unlist(Droin_data[[fn]][["all.genes"]]) %in% genes_to_keep)
+  genes_to_keep <- unlist(Droin_data[[fn]][["all.genes"]])[gene_idx]
+  Droin_data[[fn]][["seq.data"]] <- Droin_data[[fn]][["seq.data"]][gene_idx,]
+  Droin_data[[fn]][["mat.norm"]] <- Droin_data[[fn]][["mat.norm"]][gene_idx,]
+  Droin_data[[fn]][["MeanGeneExp"]] <- Droin_data[[fn]][["MeanGeneExp"]][gene_idx,]
+  Droin_data[[fn]][["SE"]] <- Droin_data[[fn]][["SE"]][gene_idx,]
+  Droin_data[[fn]][["q.vals"]] <- Droin_data[[fn]][["q.vals"]][gene_idx,]
+  rownames(Droin_data[[fn]][["seq.data"]]) <- genes_to_keep
+  rownames(Droin_data[[fn]][["mat.norm"]]) <- genes_to_keep
+  rownames(Droin_data[[fn]][["MeanGeneExp"]]) <- genes_to_keep
+  rownames(Droin_data[[fn]][["SE"]]) <- genes_to_keep
+  names(Droin_data[[fn]][["q.vals"]]) <- genes_to_keep
+  Droin_data[[fn]][["all.genes"]] <- genes_to_keep
+}
+
+transform_data <- function(x) {
+  log2(x + 1e-4) - log2(11e-5)
+}
+
+# Create count_data frame for use with WSPmm
+count_data <- data.frame()
+for (i in seq_along(Droin_data)) {
+  gene_list <- rownames(Droin_data[[i]][["mat.norm"]])
+  n_genes <- length(gene_list)
+  n_cells <- ncol(Droin_data[[i]][["mat.norm"]])
+  n_bins <- ncol(Droin_data[[i]][["Pmat"]])
+  
+  for (g in c(1:n_genes)) {
+    for (b in c(1:n_bins)) {
+      count_data <- rbind(
+        count_data,
+        data.frame(
+          mouse = rep(i, n_cells),
+          ZT = rep(as.numeric(gsub("\\D", "", names(Droin_data)[i])), n_cells),
+          bin = rep(b, n_cells),
+          gene = rep(gene_list[g], n_cells),
+          count = transform_data(Droin_data[[i]][["mat.norm"]][g,] * Droin_data[[i]][["Pmat"]][,b])
+        )
+      )
+    }
+  }
+}
+if (min(count_data$count) < 0) count_data$count <- count_data$count - min(count_data$count)
+
+# Define fixed effects to test
+fixed.effect.names <- c("ZT")
+
+# Define variables in the dataframe for the model
+data.variables <- list(
+  count = "count",
+  bin = "bin", 
+  context = "liver", 
+  species = "gene",
+  ran = "mouse",
+  timeseries = "ZT",
+  fixedeffects = fixed.effect.names
+)
+
+# Model settings 
+# ... all settings shown here are defaults
+model.settings <- list(
+  # ... these are global options needed to set up model
+  buffer_factor = 0.05,                                 # buffer factor for penalizing distance from structural parameter values
+  ctol = 1e-6,                                          # convergence tolerance
+  max_penalty_at_distance_factor = 0.01,                # maximum penalty at distance from structural parameter values
+  LROcutoff = 1.5,                                      # cutoff for LROcp, a multiple of standard deviation
+  LROwindow_factor = 1.25,                              # window factor for LROcp, larger means larger rolling window
+  rise_threshold_factor = 0.8,                          # amount of detected rise as fraction of total required to end run in initial slope estimation
+  max_evals = 1000,                                     # maximum number of evaluations for optimization
+  rng_seed = 42,                                        # random seed for optimization (controls bootstrap resamples only)
+  warp_precision = 1e-7,                                # decimal precision to retain when selecting really big number as pseudo infinity for unbound warping
+  round_none = FALSE
+)
+
+# Settings for MCMC walk
+MCMC.settings <- list(
+  MCMC.burnin = 1e2,
+  MCMC.steps = 1e3,
+  MCMC.step.size = 0.5,
+  MCMC.prior = 1.0, 
+  MCMC.neighbor.filter = 2
+)
+
+# Settings for plotting
+plot.settings <- list(
+  print.plots = TRUE,
+  dim.bounds = NULL, 
+  pred.type = "pred.log",
+  count.type = "count.log",
+  splitting_factor = NULL,
+  CI_style = FALSE,
+  label_size = 5.5,
+  title_size = 20,
+  axis_size = 12, 
+  legend_size = 10,
+  count_size = 2.5,
+  count_jitter = 0.0,
+  count.alpha.none = 0.8,
+  count.alpha.ran = 0.5,
+  pred.alpha.ran = 0.0
+)
+
+# Fit model
+# ... all settings shown here are defaults
+radial.model <- wisp(
+  count.data = count_data,
+  variables = data.variables,
+  fit_only = TRUE,
+  use.median = FALSE,
+  bootstraps.num = 0,
+  converged.resamples.only = TRUE,
+  max.fork = bs_chunksize,
+  verbose = TRUE,
+  model.settings = model.settings,
+  MCMC.settings = MCMC.settings,
+  plot.settings = plot.settings
+)
+
+for (p in seq_along(radial.model[["plots"]][["ratecount"]])) {
+  if (p == 1) next
+  plt <- radial.model[["plots"]][["ratecount"]][[p]]
+  plt <- plt + scale_color_manual(
+    values = c("#ADD8E6", "#FF7F50", "#9ACD31", "#FFC1CB")
+  ) 
+  print(plt)
+}
+
+
 # end sink
 sink(file = NULL)
 
