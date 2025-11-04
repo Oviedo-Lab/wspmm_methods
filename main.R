@@ -620,58 +620,68 @@ make_stat_table()
 
 # Radial data ##########################################################################################################
 
-# Load Droin et al. data
-library(R.matlab)
-files <- list.files(path = "Droin_data", pattern = "\\.mat$", full.names = TRUE)
-Droin_data <- lapply(files, readMat)
-names(Droin_data) <- basename(files)
-
-# Subset to genes of interest
-genes_to_keep <- c("ttc36", "cyp2e1", "tubb2a", "lpin1", "cyp2a5")
-for (fn in basename(files)) {
-  gene_idx <- which(unlist(Droin_data[[fn]][["all.genes"]]) %in% genes_to_keep)
-  genes_to_keep <- unlist(Droin_data[[fn]][["all.genes"]])[gene_idx]
-  Droin_data[[fn]][["seq.data"]] <- Droin_data[[fn]][["seq.data"]][gene_idx,]
-  Droin_data[[fn]][["mat.norm"]] <- Droin_data[[fn]][["mat.norm"]][gene_idx,]
-  Droin_data[[fn]][["MeanGeneExp"]] <- Droin_data[[fn]][["MeanGeneExp"]][gene_idx,]
-  Droin_data[[fn]][["SE"]] <- Droin_data[[fn]][["SE"]][gene_idx,]
-  Droin_data[[fn]][["q.vals"]] <- Droin_data[[fn]][["q.vals"]][gene_idx,]
-  rownames(Droin_data[[fn]][["seq.data"]]) <- genes_to_keep
-  rownames(Droin_data[[fn]][["mat.norm"]]) <- genes_to_keep
-  rownames(Droin_data[[fn]][["MeanGeneExp"]]) <- genes_to_keep
-  rownames(Droin_data[[fn]][["SE"]]) <- genes_to_keep
-  names(Droin_data[[fn]][["q.vals"]]) <- genes_to_keep
-  Droin_data[[fn]][["all.genes"]] <- genes_to_keep
-}
-
-transform_data <- function(x) {
-  log2(x + 1e-4) - log2(11e-5)
-}
-
-# Create count_data frame for use with WSPmm
-count_data <- data.frame()
-for (i in seq_along(Droin_data)) {
-  gene_list <- rownames(Droin_data[[i]][["mat.norm"]])
-  n_genes <- length(gene_list)
-  n_cells <- ncol(Droin_data[[i]][["mat.norm"]])
-  n_bins <- ncol(Droin_data[[i]][["Pmat"]])
+preprocess_Droin <- FALSE
+if (preprocess_Droin) {
+  # Load Droin et al. data
+  library(R.matlab)
+  files <- list.files(path = "Droin_data", pattern = "\\.mat$", full.names = TRUE)
+  Droin_data <- lapply(files, readMat)
+  names(Droin_data) <- basename(files)
   
-  for (g in c(1:n_genes)) {
-    for (b in c(1:n_bins)) {
-      count_data <- rbind(
-        count_data,
-        data.frame(
-          mouse = rep(i, n_cells),
-          ZT = rep(as.numeric(gsub("\\D", "", names(Droin_data)[i])), n_cells),
-          bin = rep(b, n_cells),
-          gene = rep(gene_list[g], n_cells),
-          count = transform_data(Droin_data[[i]][["mat.norm"]][g,] * Droin_data[[i]][["Pmat"]][,b])
+  # Subset to genes of interest
+  genes_to_keep <- c("ttc36", "cyp2e1", "tubb2a", "lpin1", "cyp2a5")
+  genes_to_keep <- c("glul", "ass1", "arntl", "dbp", "elovl3", "pck1")
+  for (fn in basename(files)) {
+    gene_idx <- which(unlist(Droin_data[[fn]][["all.genes"]]) %in% genes_to_keep)
+    genes_to_keep <- unlist(Droin_data[[fn]][["all.genes"]])[gene_idx]
+    Droin_data[[fn]][["seq.data"]] <- Droin_data[[fn]][["seq.data"]][gene_idx,]
+    Droin_data[[fn]][["mat.norm"]] <- Droin_data[[fn]][["mat.norm"]][gene_idx,]
+    Droin_data[[fn]][["MeanGeneExp"]] <- Droin_data[[fn]][["MeanGeneExp"]][gene_idx,]
+    Droin_data[[fn]][["SE"]] <- Droin_data[[fn]][["SE"]][gene_idx,]
+    Droin_data[[fn]][["q.vals"]] <- Droin_data[[fn]][["q.vals"]][gene_idx,]
+    rownames(Droin_data[[fn]][["seq.data"]]) <- genes_to_keep
+    rownames(Droin_data[[fn]][["mat.norm"]]) <- genes_to_keep
+    rownames(Droin_data[[fn]][["MeanGeneExp"]]) <- genes_to_keep
+    rownames(Droin_data[[fn]][["SE"]]) <- genes_to_keep
+    names(Droin_data[[fn]][["q.vals"]]) <- genes_to_keep
+    Droin_data[[fn]][["all.genes"]] <- genes_to_keep
+  }
+  
+  transform_data <- function(x) {
+    log2(x + 1e-4) - log2(11e-5)
+  }
+  
+  # Create count_data frame for use with WSPmm
+  count_data <- data.frame()
+  for (i in seq_along(Droin_data)) {
+    gene_list <- rownames(Droin_data[[i]][["mat.norm"]])
+    n_genes <- length(gene_list)
+    n_cells <- ncol(Droin_data[[i]][["mat.norm"]])
+    n_bins <- ncol(Droin_data[[i]][["Pmat"]])
+    
+    for (g in c(1:n_genes)) {
+      for (b in c(1:n_bins)) {
+        count_data <- rbind(
+          count_data,
+          data.frame(
+            mouse = rep(i, n_cells),
+            ZT = rep(as.numeric(gsub("\\D", "", names(Droin_data)[i])), n_cells),
+            bin = rep(b, n_cells),
+            gene = rep(gene_list[g], n_cells),
+            count = transform_data(Droin_data[[i]][["mat.norm"]][g,] * Droin_data[[i]][["Pmat"]][,b])
+          )
         )
-      )
+      }
     }
   }
+  if (min(count_data$count) < 0) count_data$count <- count_data$count - min(count_data$count)
+  
+  # Export
+  write.csv(count_data, file = "Droin_radial_count_data.csv", row.names = FALSE)
+} else {
+  # Import
+  count_data <- read.csv("Droin_radial_count_data.csv")
 }
-if (min(count_data$count) < 0) count_data$count <- count_data$count - min(count_data$count)
 
 # Define fixed effects to test
 fixed.effect.names <- c("ZT")
@@ -706,7 +716,7 @@ model.settings <- list(
 # Settings for MCMC walk
 MCMC.settings <- list(
   MCMC.burnin = 1e2,
-  MCMC.steps = 1e3,
+  MCMC.steps = 1e2,
   MCMC.step.size = 0.5,
   MCMC.prior = 1.0, 
   MCMC.neighbor.filter = 2
@@ -719,7 +729,7 @@ plot.settings <- list(
   pred.type = "pred.log",
   count.type = "count.log",
   splitting_factor = NULL,
-  CI_style = FALSE,
+  CI_style = TRUE,
   label_size = 5.5,
   title_size = 20,
   axis_size = 12, 
@@ -736,9 +746,9 @@ plot.settings <- list(
 radial.model <- wisp(
   count.data = count_data,
   variables = data.variables,
-  fit_only = TRUE,
+  fit_only = FALSE,
   use.median = FALSE,
-  bootstraps.num = 0,
+  bootstraps.num = 1e2,
   converged.resamples.only = TRUE,
   max.fork = bs_chunksize,
   verbose = TRUE,
@@ -747,14 +757,25 @@ radial.model <- wisp(
   plot.settings = plot.settings
 )
 
+
+
+v1 <- c("#ADD8E6", "#FF7F50", "#9ACD31", "#FFC1CB")
+v2 <- c("#ED6986", "#9CA620", "#2AA9A3", "#A28EC2")
+new_ratecount <- list()
 for (p in seq_along(radial.model[["plots"]][["ratecount"]])) {
   if (p == 1) next
   plt <- radial.model[["plots"]][["ratecount"]][[p]]
   plt <- plt + scale_color_manual(
-    values = c("#ADD8E6", "#FF7F50", "#9ACD31", "#FFC1CB")
+    values = v2
   ) 
   print(plt)
+  new_ratecount[[p - 1]] <- plt
+  print(p)
 }
+
+all_plots <- c(new_ratecount, radial.model[["plots"]][["timeseries"]])
+all_plots <- as.vector(rbind(new_ratecount, radial.model[["plots"]][["timeseries"]]))
+do.call(grid.arrange, c(all_plots, ncol = 2))
 
 
 # end sink

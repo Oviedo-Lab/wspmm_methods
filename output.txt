@@ -3,98 +3,6 @@
 Analysis of MERFISH data by Warped Sigmoid, Poisson-Process Mixed-Effects Model (WSPmm)
 
 
-Loading raw data
-----------------------------------------
-
-Found 4 HDF5 files.... 
-File names:
-	mouse 1: Somatosensory_ACxDev1_CBA-CAJ_FFPE_P12_z0-3_celltyped_filtered_withCCF.hdf5
-	mouse 2: Somatosensory_ACxDev1_CBA-CAJ_FFPE_P18_celltyped_filtered_withCCF.hdf5
-	mouse 3: Somatosensory_ACxDev1_CBA-CAJ_P12_celltyped_filtered_withCCF.hdf5
-	mouse 4: Somatosensory_ACxDev1_CBA-CAJ_P18_celltyped_filtered_withCCF.hdf5
-Loading and parsing file for mouse number: 1, 2, 3, 4 
-
-Mean transcript counts per cell for each mouse: 1.677, 1.884, 1.029, 1.212
-Mean of means: 1.45
-Standard deviation of means: 0.397
-
-Total cells by type (Map My Cells):
-------------------------------
-
-     Astro-Epen         CB GABA         CB Glut    CNU-HYa GABA    CNU-HYa Glut    CNU-LGE GABA    CNU-MGE GABA    CTX-CGE GABA    CTX-MGE GABA     DG-IMN Glut        filtered         HY GABA          Immune 
-           3952              82              19              12               2             671              20             552             799              11           18208              37             331 
-     IT-ET Glut        LSX GABA         MB GABA         MB Glut      MB-HB Sero      MH-LH Glut         MY GABA         MY Glut  NP-CT-L6b Glut     OB-IMN GABA             OEC       OPC-Oligo          P GABA 
-          16066              29              79               5               1              15             430              21            4922             149              23            1499             142 
-TSCRPT_filtered        Vascular         HY Glut   HY Gnrh1 Glut          P Glut     Pineal Glut         TH Glut         MB Dopa      OB-CR Glut 
-             99            5914               1               1               2               5              12               2               3 
-----
-
-Number of mice: 4
-Cells per mouse: 13237, 16954, 10444, 13481
-Means cells per mouse: 13529
-Total cells: 54116
-
-Transforming raw data into laminar and columnar coordinates
-----------------------------------------
-
-Mouse number 1
-Performing coordinate transform... 
-Grabbing coordinates and defining layers and hemispheres... 
-Step 1, centering each patch around the mean point of L5... 
-Step 2, rotating each patch so that L4 aligns with the x-axis with anterior in positive y direction... 
-Step 3, modeling and flattening laminar curve based on L4... 
-Binning transformed coordinates... 
-Smoothing bin edges with nonlinear transformation... 
-Estimating layer boundaries... 
-
-Mouse number 2
-Performing coordinate transform... 
-Grabbing coordinates and defining layers and hemispheres... 
-Step 1, centering each patch around the mean point of L5... 
-Step 2, rotating each patch so that L4 aligns with the x-axis with anterior in positive y direction... 
-Step 3, modeling and flattening laminar curve based on L4... 
-Binning transformed coordinates... 
-Smoothing bin edges with nonlinear transformation... 
-Estimating layer boundaries... 
-
-Mouse number 3
-Performing coordinate transform... 
-Grabbing coordinates and defining layers and hemispheres... 
-Step 1, centering each patch around the mean point of L5... 
-Step 2, rotating each patch so that L4 aligns with the x-axis with anterior in positive y direction... 
-Step 3, modeling and flattening laminar curve based on L4... 
-Binning transformed coordinates... 
-Smoothing bin edges with nonlinear transformation... 
-Estimating layer boundaries... 
-
-Mouse number 4
-Performing coordinate transform... 
-Grabbing coordinates and defining layers and hemispheres... 
-Step 1, centering each patch around the mean point of L5... 
-Step 2, rotating each patch so that L4 aligns with the x-axis with anterior in positive y direction... 
-Step 3, modeling and flattening laminar curve based on L4... 
-Binning transformed coordinates... 
-Smoothing bin edges with nonlinear transformation... 
-Estimating layer boundaries... 
-
-Transcript counts per cell per gene per mouse
- 
-mouse: 1
-All genes: 1.823
-modeled genes only: 1.29
- 
-mouse: 2
-All genes: 2.036
-modeled genes only: 1.238
- 
-mouse: 3
-All genes: 1.173
-modeled genes only: 0.65
- 
-mouse: 4
-All genes: 1.357
-modeled genes only: 0.891
-
 Parsing data and settings for wisp model
 ----------------------------------------
 
@@ -102,39 +10,56 @@ Model settings:
 	buffer_factor: 0.05
 	ctol: 1e-06
 	max_penalty_at_distance_factor: 0.01
-	LROcutoff: 2
+	LROcutoff: 1.5
 	LROwindow_factor: 1.25
 	rise_threshold_factor: 0.8
 	max_evals: 1000
 	rng_seed: 42
 	warp_precision: 1e-07
+	round_none: FALSE
 	inf_warp: 450359962.73705
+
+Plot settings:
+	print.plots: TRUE
+	pred.type: pred.log
+	count.type: count.log
+	CI_style: TRUE
+	label_size: 5.5
+	title_size: 20
+	axis_size: 12
+	legend_size: 10
+	count_size: 2.5
+	count_jitter: 0
+	count.alpha.ran: 0.5
+	count.alpha.none: 0.8
+	pred.alpha.ran: 0
+	pred.alpha.none: 1
 
 MCMC settings:
 	MCMC.burnin: 100
-	MCMC.steps: 1000
-	MCMC.step.size: 0.1
+	MCMC.steps: 100
+	MCMC.step.size: 0.5
 	MCMC.prior: 1
 	MCMC.neighbor.filter: 2
 
 Variable dictionary:
 	count: count
 	bin: bin
-	context: cortex
+	context: liver
 	species: gene
 	ran: mouse
-	timeseries: timeseries
-	fixedeffects: hemisphere, age
+	timeseries: ZT
+	fixedeffects: ZT
 
 Parsed data (head only):
 ------------------------------
-  count bin context species ran hemisphere age
-1     0 100  cortex  Bcl11b   1       left  12
-2     0  99  cortex  Bcl11b   1       left  12
-3     0  93  cortex  Bcl11b   1       left  12
-4     0  98  cortex  Bcl11b   1       left  12
-5     0  94  cortex  Bcl11b   1       left  12
-6     0  94  cortex  Bcl11b   1       left  12
+  count bin context species ran timeseries
+1     0   1   liver   arntl   1          0
+2     0   1   liver   arntl   1          0
+3     0   1   liver   arntl   1          0
+4     0   1   liver   arntl   1          0
+5     0   1   liver   arntl   1          0
+6     0   1   liver   arntl   1          0
 ----
 
 Initializing Cpp (wspc) model
@@ -147,36 +72,43 @@ warp_precision: 1e-07
 implied pseudo-infinity for unbounded warp (inf_warp): 4.5036e+08
 
 Extracting variables and data information:
-Found max bin: 100.000000
+Found max bin: 8.000000
 Fixed effects:
-"hemisphere" "age"
+"timeseries"
 Ref levels:
-"left" "12"
-No time series detected.
+"0"
+Time series detected:
+"0" "6" "12" "18"
 Created treatment levels:
-"ref" "right" "18" "right18"
+"ref" "6" "12" "18"
 Context grouping levels:
-"cortex"
+"liver"
 Species grouping levels:
-"Bcl11b" "Cux2" "Fezf2" "Nxph3" "Rorb" "Satb2"
+"arntl" "ass1" "dbp" "elovl3" "glul" "pck1"
 Random-effect grouping levels:
-"none" "1" "2" "3" "4"
-Total rows in summed count data table: 12000
-Number of rows with unique model components: 120
+"none" "1" "10" "2" "3" "4" "5" "6" "7" "8" "9"
+Total rows in summed count data table: 2112
+Number of rows with unique model components: 264
 
 Creating summed-count data columns and weight matrix:
-Random level 0, 1/5 complete
-Random level 1, 2/5 complete
-Random level 2, 3/5 complete
-Random level 3, 4/5 complete
-Random level 4, 5/5 complete
+Random level 0, 1/11 complete
+Random level 1, 2/11 complete
+Random level 2, 3/11 complete
+Random level 3, 4/11 complete
+Random level 4, 5/11 complete
+Random level 5, 6/11 complete
+Random level 6, 7/11 complete
+Random level 7, 8/11 complete
+Random level 8, 9/11 complete
+Random level 9, 10/11 complete
+Random level 10, 11/11 complete
 
 Making extrapolation pool:
-row: 480/2400
-row: 960/2400
-row: 1440/2400
-row: 1920/2400
-row: 2400/2400
+row: 38/192
+row: 76/192
+row: 114/192
+row: 152/192
+row: 190/192
 
 Making initial parameter estimates:
 Extrapolated 'none' rows
@@ -190,7 +122,7 @@ Initialized random-effect warping factors
 Made and mapped parameter vector
 Number of parameters: 300
 Constructed grouping variable IDs
-Size of boundary vector: 1260
+Size of boundary vector: 1584
 
 Estimating model parameters
 ----------------------------------------
@@ -201,26 +133,26 @@ Checking feasibility of provided parameters
 ... no NAN rates predicted
 ... no negative rates predicted
 Provided parameters are feasible
-Initial boundary distance (want >0): 0.247647
+Initial boundary distance (want > 0): 0.035378
 Performing initial fit of full data
-Penalized neg_loglik: 11975.6
-step: 1/1100
-step: 110/1100
-step: 220/1100
-step: 330/1100
-step: 440/1100
-step: 550/1100
-step: 660/1100
-step: 770/1100
-step: 880/1100
-step: 990/1100
+Penalized neg_loglik: 779.601
+step: 1/200
+step: 20/200
+step: 40/200
+step: 60/200
+step: 80/200
+step: 100/200
+step: 120/200
+step: 140/200
+step: 160/200
+step: 180/200
 All complete!
-Acceptance rate (aim for 0.2-0.3): 0.774375
+Acceptance rate (aim for 0.2-0.3): 0.065445
 
 MCMC simulation complete... 
-MCMC run time (total), minutes: 0.904
-MCMC run time (per retained step), seconds: 0.049
-MCMC run time (per step), seconds: 0.025
+MCMC run time (total), minutes: 1.371
+MCMC run time (per retained step), seconds: 0.411
+MCMC run time (per step), seconds: 0.206
 
 Running bootstrap fits
 Checking feasibility of provided parameters
@@ -228,25 +160,24 @@ Checking feasibility of provided parameters
 ... no NAN rates predicted
 ... no negative rates predicted
 Provided parameters are feasible
-Initial boundary distance (want >0): 0.247647
+Initial boundary distance (want > 0): 0.035378
 Performing initial fit of full data
-Penalized neg_loglik: 11975.6
-Batch: 1/100, 0.456736 sec/bs
-Batch: 10/100, 0.539292 sec/bs
-Batch: 20/100, 0.476887 sec/bs
-Batch: 30/100, 0.467652 sec/bs
-Batch: 40/100, 0.526758 sec/bs
-Batch: 50/100, 0.478044 sec/bs
-Batch: 60/100, 0.497381 sec/bs
-Batch: 70/100, 0.490387 sec/bs
-Batch: 80/100, 0.497588 sec/bs
-Batch: 90/100, 0.513821 sec/bs
+Penalized neg_loglik: 779.601
+Batch: 1/10, 0.193127 sec/bs
+Batch: 2/10, 0.193054 sec/bs
+Batch: 3/10, 0.1911 sec/bs
+Batch: 4/10, 0.181945 sec/bs
+Batch: 5/10, 0.179484 sec/bs
+Batch: 6/10, 0.18746 sec/bs
+Batch: 7/10, 0.174654 sec/bs
+Batch: 8/10, 0.197225 sec/bs
+Batch: 9/10, 0.174059 sec/bs
 All complete!
 
 Bootstrap simulation complete... 
-Bootstrap run time (total), minutes: 8.356
-Bootstrap run time (per sample), seconds: 0.501
-Bootstrap run time (per sample, per thread), seconds: 5.013
+Bootstrap run time (total), minutes: 0.339
+Bootstrap run time (per sample), seconds: 0.204
+Bootstrap run time (per sample, per thread), seconds: 2.037
 
 Setting full-data fit as parameters... 
 Checking feasibility of provided parameters
@@ -254,8 +185,14 @@ Checking feasibility of provided parameters
 ... no NAN rates predicted
 ... no negative rates predicted
 Provided parameters are feasible
-Initial boundary distance (want >0): 0.164251
+Initial boundary distance (want > 0): 0.132712
 
+Computing 95% CI for predicated values by bin
+----------------------------------------
+
+Grabbing sample results, only resamples with converged fit... 
+Computing predicted values for each sampled parameter set... 
+Computing 95% CIs... 
 Running stats on simulation results
 ----------------------------------------
 
@@ -264,19 +201,19 @@ Grabbing parameter values...
 Computing 95% confidence intervals... 
 Estimating p-values from resampled parameters... 
 
-Recommended resample size for alpha = 0.05, 171 tests
-with bootstrapping/MCMC: 3420
-Actual resample size: 1001
+Recommended resample size for alpha = 0.05, 90 tests
+with bootstrapping/MCMC: 1800
+Actual resample size: 101
 
 Stat summary (head only):
 ------------------------------
-                                 parameter      estimate      CI.low   CI.high   p.value p.value.adj    alpha.adj significance
-1       baseline_cortex_Rt_Bcl11b_Tns/Blk1  3.3874762662  3.30617452 3.4016474        NA          NA           NA             
-2   beta_Rt_cortex_Bcl11b_right_X_Tns/Blk1 -0.0002723492 -0.07129027 0.0790444 0.9920080    2.976024 0.0166666667           ns
-3      beta_Rt_cortex_Bcl11b_18_X_Tns/Blk1  0.6059294086  0.52008746 0.7366265 0.0000000    0.000000 0.0002923977          ***
-4 beta_Rt_cortex_Bcl11b_right18_X_Tns/Blk1  0.0476934492 -0.08339165 0.1712500 0.2687313   14.242757 0.0009433962           ns
-5       baseline_cortex_Rt_Bcl11b_Tns/Blk2  2.2516514786  2.00151120 2.5190760        NA          NA           NA             
-6   beta_Rt_cortex_Bcl11b_right_X_Tns/Blk2  0.1004792278 -0.41399671 0.5239034 0.5014985   18.053946 0.0013888889           ns
+                          parameter    estimate     CI.low    CI.high   p.value p.value.adj    alpha.adj significance
+1  baseline_liver_Rt_arntl_Tns/Blk1  0.64365556  0.6015548  0.7095116        NA          NA           NA             
+2  beta_Rt_liver_arntl_6_X_Tns/Blk1 -0.48207078 -0.6569537 -0.3992203 0.0000000    0.000000 0.0005555556          ***
+3 beta_Rt_liver_arntl_12_X_Tns/Blk1  0.02914767 -0.0935311  0.1693829 0.5346535    5.346535 0.0050000000           ns
+4 beta_Rt_liver_arntl_18_X_Tns/Blk1  0.30425977  0.1721984  0.4450159 0.0000000    0.000000 0.0005617978          ***
+5  baseline_liver_Rt_arntl_Tns/Blk2  0.54487281  0.5151216  0.5763395        NA          NA           NA             
+6  beta_Rt_liver_arntl_6_X_Tns/Blk2 -0.35802258 -0.4272955 -0.2947615 0.0000000    0.000000 0.0005681818          ***
 ----
 
 Analyzing residuals
@@ -289,97 +226,24 @@ Making plots and saving stats...
 Log-residual summary by grouping variables (head only):
 ------------------------------
          group      mean        sd   variance
-1          all 0.2387532 0.3908161 0.15273719
-2 ran_lvl_none 0.2323705 0.3161788 0.09996903
-3    ran_lvl_1 0.2381996 0.3967808 0.15743503
-4    ran_lvl_2 0.2130804 0.3931356 0.15455562
-5    ran_lvl_3 0.2747967 0.4583713 0.21010427
-6    ran_lvl_4 0.2417013 0.4391963 0.19289335
+1          all 0.2634964 0.2122775 0.04506174
+2 ran_lvl_none 0.2616429 0.2063038 0.04256125
+3    ran_lvl_1 0.2735325 0.2015947 0.04064041
+4   ran_lvl_10 0.2953933 0.1975515 0.03902659
+5    ran_lvl_2 0.2708463 0.2205540 0.04864405
+6    ran_lvl_3 0.2564153 0.2281527 0.05205368
 ----
 
 Making MCMC walks plots... 
 Making MCMC vs bootstrap parameter distribution comparison plots... 
 Making effect parameter distribution plots... 
 Making rate-count plots... 
+Making time series plots... 
+Making parameter plots... 
+Making parameter plots... 
+Making parameter plots... 
+Making parameter plots... 
+Making parameter plots... 
 Making parameter plots... 
 
-Printing species summary plots for cortex: Bcl11b, Cux2, Fezf2, Nxph3, Rorb, Satb2
-Making rate-count plots... 
-Making rate-count plots... 
-Making rate-count plots... 
-Making rate-count plots... 
-Making rate-count plots... 
-Making rate-count plots... 
-Making rate-count plots... 
-Making rate-count plots... 
-Making rate-count plots... 
-Making rate-count plots... 
-Making rate-count plots... 
-Making rate-count plots... 
-Making rate-count plots... 
-Making rate-count plots... RStudioGD 
-        2 
-RStudioGD 
-        2 
-RStudioGD 
-        2 
-\begin{table}
-\centering
-\caption{Fixed effect estimates.\label{table:FEestimates}}
-\centering
-\resizebox{\ifdim\width>\linewidth\linewidth\else\width\fi}{!}{
-\fontsize{8}{10}\selectfont
-\begin{tabular}[t]{lrrrllllllllllll}
-\toprule
-\multicolumn{1}{c}{ } & \multicolumn{5}{c}{RORB} & \multicolumn{2}{c}{Bcl11b} & \multicolumn{2}{c}{Fezf2} & \multicolumn{2}{c}{Satb2} & \multicolumn{2}{c}{Nxph3} & \multicolumn{2}{c}{Cux2} \\
-\cmidrule(l{3pt}r{3pt}){2-6} \cmidrule(l{3pt}r{3pt}){7-8} \cmidrule(l{3pt}r{3pt}){9-10} \cmidrule(l{3pt}r{3pt}){11-12} \cmidrule(l{3pt}r{3pt}){13-14} \cmidrule(l{3pt}r{3pt}){15-16}
-$z$ & est & CI.low & CI.high & p.adj & sig & est.Bcl11b & p.adj. Bcl11b & est.Fezf2 & p.adj. Fezf2 & est.Satb2 & p.adj. Satb2 & est.Nxph3 & p.adj. Nxph3 & est.Cux2 & p.adj. Cux2\\
-\midrule
-\addlinespace[0.3em]
-\multicolumn{16}{l}{\textbf{Fixed Effects: Hemisphere (right)}}\\
-\hspace{1em}$r_1$ & 0.368 & 0.016 & 0.646 & $<0.001$ & *** & 0 & 1.000 & -0.038 & 1.000 & -0.146 & 1.000 & 0.188 & 0.232 & 0.204 & 1.000\\
-\hspace{1em}$r_2$ & 0.337 & 0.197 & 0.470 & $<0.001$ & *** & 0.1 & 1.000 & 0.046 & 1.000 & 0.055 & 1.000 & 0.071 & 1.000 & 0.163 & 0.444\\
-\hspace{1em}$r_3$ & 0.256 & 0.092 & 0.431 & $<0.001$ & *** & 0.171 & 1.000 & 0.581 & 1.000 & 0.052 & 1.000 & 0.026 & 1.000 & -0.002 & 1.000\\
-\hspace{1em}$r_4$ & 0.195 & -0.014 & 0.487 & 0.971 & ns & 0.178 & 1.000 & -0.233 & 1.000 &  &  &  &  & 0.042 & 1.000\\
-\hspace{1em}$r_5$ & NA & NA & NA & NA & NA &  &  & 0.127 & 1.000 &  &  &  &  &  & \\
-\hspace{1em}$s_1$ & 3.652 & -2.605 & 6.962 & 1.000 & ns & -0.471 & 1.000 & -0.125 & 1.000 & 0.249 & 1.000 & -0.146 & 1 & 1.416 & 1.000\\
-\hspace{1em}$s_2$ & 0.309 & -1.838 & 2.444 & 1.000 & ns & 3.238 & $<0.001$ & 1.884 & 1.000 & 2.117 & $<0.001$ & -0.269 & 1.000 & 0.474 & 1.000\\
-\hspace{1em}$s_3$ & -0.143 & -2.612 & 3.240 & 1.000 & ns & 2.279 & 0.659 & -1.008 & 1.000 &  &  &  &  & 2.486 & 0.342\\
-\hspace{1em}$s_4$ & NA & NA & NA & NA & NA &  &  & 0.16 & 1.000 &  &  &  &  &  & \\
-\hspace{1em}$p_1$ & 4.949 & -1.526 & 7.576 & 0.121 & ns & 3.392 & $<0.001$ & 0.81 & 1.000 & -4.459 & $<0.001$ & 4.506 & 1.000 & 1.889 & 1.000\\
-\hspace{1em}$p_2$ & 1.135 & -1.783 & 3.542 & 1.000 & ns & 6.643 & $<0.001$ & 0.467 & 1.000 & -0.371 & 1.000 & 3.949 & $<0.001$ & 1.185 & 1.000\\
-\hspace{1em}$p_3$ & 0.473 & -1.099 & 1.906 & 1.000 & ns & 5.672 & $<0.001$ & -0.497 & 1.000 &  &  &  &  & 0.057 & 1.000\\
-\hspace{1em}$p_4$ & NA & NA & NA & NA & NA &  &  & 1.637 & 1.000 &  &  &  &  &  & \\
-\addlinespace[0.3em]
-\multicolumn{16}{l}{\textbf{Fixed Effect: Age (P18)}}\\
-\hspace{1em}$r_1$ & 0.383 & 0.016 & 0.683 & $<0.001$ & *** & 0.606 & $<0.001$ & 0.125 & 1.000 & -0.303 & 0.234 & 0.23 & 1.000 & 0.548 & $<0.001$\\
-\hspace{1em}$r_2$ & 0.622 & 0.349 & 0.843 & $<0.001$ & *** & 0.682 & $<0.001$ & 0.393 & 0.238 & 0.356 & $<0.001$ & 0.674 & $<0.001$ & 0.8 & $<0.001$\\
-\hspace{1em}$r_3$ & 0.990 & 0.842 & 1.354 & $<0.001$ & *** & 0.519 & 0.24 & 1.503 & $<0.001$ & 0.447 & $<0.001$ & 0.465 & $<0.001$ & 0.895 & $<0.001$\\
-\hspace{1em}$r_4$ & 0.733 & 0.469 & 1.064 & $<0.001$ & *** & 0.58 & $<0.001$ & 0.228 & 1.000 &  &  &  &  & 1.106 & $<0.001$\\
-\hspace{1em}$r_5$ & NA & NA & NA & NA & NA &  &  & 0.476 & $<0.001$ &  &  &  &  &  & \\
-\hspace{1em}$s_1$ & -0.665 & -4.949 & 3.836 & 1.000 & ns & -1.8 & 1.000 & -3.545 & 1.000 & -1.775 & 1.000 & 3.886 & $<0.001$ & 3.185 & $<0.001$\\
-\hspace{1em}$s_2$ & -0.228 & -3.081 & -0.014 & 1.000 & ns & 3.234 & $<0.001$ & 1.077 & 1.000 & 0.371 & 1.000 & -0.379 & 1.000 & 0.037 & 1.000\\
-\hspace{1em}$s_3$ & -0.269 & -4.408 & 0.116 & 1.000 & ns & 2.215 & 0.345 & -1.034 & 1.000 &  &  &  &  & 0.374 & 1.000\\
-\hspace{1em}$s_4$ & NA & NA & NA & NA & NA &  &  & 0.405 & 1.000 &  &  &  &  &  & \\
-\hspace{1em}$p_1$ & 4.862 & -0.289 & 8.488 & $<0.001$ & *** & 5.133 & $<0.001$ & -1.54 & 1.000 & -1.177 & 1.000 & 2.755 & 1.000 & 1.238 & 1.000\\
-\hspace{1em}$p_2$ & -0.775 & -2.541 & 1.466 & 1.000 & ns & 10.843 & $<0.001$ & -0.949 & 1.000 & 2.523 & $<0.001$ & 7.456 & $<0.001$ & 1.958 & $<0.001$\\
-\hspace{1em}$p_3$ & 1.163 & -0.167 & 2.732 & 1.000 & ns & 9.956 & $<0.001$ & 0.174 & 1.000 &  &  &  &  & 1.966 & $<0.001$\\
-\hspace{1em}$p_4$ & NA & NA & NA & NA & NA &  &  & 4.428 & $<0.001$ &  &  &  &  &  & \\
-\addlinespace[0.3em]
-\multicolumn{16}{l}{\textbf{Fixed Effect: Hemisphere-Age Interaction}}\\
-\hspace{1em}$r_1$ & -0.120 & -0.478 & 0.288 & 1.000 & ns & 0.048 & 1.000 & 0.074 & 1.000 & -0.044 & 1.000 & -0.243 & 1.000 & -0.222 & 1.000\\
-\hspace{1em}$r_2$ & -0.254 & -0.524 & 0.010 & 0.236 & ns & -0.329 & 1.000 & -0.07 & 1.000 & -0.056 & 1.000 & -0.11 & 1.000 & -0.106 & 1.000\\
-\hspace{1em}$r_3$ & -0.433 & -0.742 & -0.176 & $<0.001$ & *** & -0.36 & 1.000 & -0.978 & 0.336 & -0.28 & $<0.001$ & -0.279 & 1.000 & -0.018 & 1.000\\
-\hspace{1em}$r_4$ & -0.565 & -1.047 & -0.275 & $<0.001$ & *** & -0.381 & 0.124 & 0.283 & 1.000 &  &  &  &  & -0.314 & $<0.001$\\
-\hspace{1em}$r_5$ & NA & NA & NA & NA & NA &  &  & -0.187 & 1.000 &  &  &  &  &  & \\
-\hspace{1em}$s_1$ & -1.612 & -3.581 & 4.745 & 1.000 & ns & -0.56 & 1.000 & 0.463 & 1.000 & 0.019 & 1.000 & 3.565 & 0.339 & 1.252 & 1.000\\
-\hspace{1em}$s_2$ & -0.059 & -1.955 & 1.554 & 1.000 & ns & -1.118 & 1.000 & 0.538 & 1.000 & 0.259 & 1.000 & 0.19 & 1.000 & -0.351 & 1.000\\
-\hspace{1em}$s_3$ & 0.128 & -3.182 & 2.627 & 1.000 & ns & -0.436 & 1.000 & 1.086 & 1.000 &  &  &  &  & -0.454 & 1.000\\
-\hspace{1em}$s_4$ & NA & NA & NA & NA & NA &  &  & 1.631 & 1.000 &  &  &  &  &  & \\
-\hspace{1em}$p_1$ & 1.867 & -3.685 & 4.083 & 1.000 & ns & -4.755 & 0.123 & 2.261 & 1.000 & 5.051 & $<0.001$ & -1.252 & 1.000 & 1.236 & 1.000\\
-\hspace{1em}$p_2$ & 1.498 & -0.932 & 3.266 & 1.000 & ns & -10.973 & $<0.001$ & 2.026 & 1.000 & 0.451 & 0.871 & -3.552 & 0.122 & 0.031 & 1.000\\
-\hspace{1em}$p_3$ & 0.425 & -1.545 & 1.552 & 1.000 & ns & -9.706 & $<0.001$ & 0.716 & 1.000 &  &  &  &  & 0.117 & 1.000\\
-\hspace{1em}$p_4$ & NA & NA & NA & NA & NA &  &  & -3.131 & $<0.001$ &  &  &  &  &  & \\
-\bottomrule
-\end{tabular}}
-\end{table}
+Printing species summary plots for liver: arntl, ass1, dbp, elovl3, glul, pck1
