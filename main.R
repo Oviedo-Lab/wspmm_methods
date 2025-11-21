@@ -629,7 +629,6 @@ if (preprocess_Droin) {
   names(Droin_data) <- basename(files)
   
   # Subset to genes of interest
-  genes_to_keep <- c("ttc36", "cyp2e1", "tubb2a", "lpin1", "cyp2a5")
   genes_to_keep <- c("glul", "ass1", "arntl", "dbp", "elovl3", "pck1")
   for (fn in basename(files)) {
     gene_idx <- which(unlist(Droin_data[[fn]][["all.genes"]]) %in% genes_to_keep)
@@ -647,10 +646,6 @@ if (preprocess_Droin) {
     Droin_data[[fn]][["all.genes"]] <- genes_to_keep
   }
   
-  transform_data <- function(x) {
-    log2(x + 1e-4) - log2(11e-5)
-  }
-  
   # Create count_data frame for use with WSPmm
   count_data <- data.frame()
   for (i in seq_along(Droin_data)) {
@@ -659,25 +654,44 @@ if (preprocess_Droin) {
     n_cells <- ncol(Droin_data[[i]][["mat.norm"]])
     n_bins <- ncol(Droin_data[[i]][["Pmat"]])
     
+    Pmat_row_sums <- rowSums(Droin_data[[i]][["Pmat"]])
+    denormalized_rates <- Droin_data[[i]][["mat.norm"]] * 1e3
+    
+    # ... for each gene
     for (g in c(1:n_genes)) {
+      
+      # ... for each zone (i.e., spatial coordinate, or bin)
       for (b in c(1:n_bins)) {
+        
+        # Normalized count of gene g in each cell, for mouse i
+        sim_gene_counts_by_cell <- rpois(n_cells, denormalized_rates[g,])
+        
+        # Get probability of bin membership for each cell, for mouse i 
+        cell_weight <- rbinom(n = n_cells, size = 1, prob = Droin_data[[i]][["Pmat"]][,b] / Pmat_row_sums)
+        
         count_data <- rbind(
           count_data,
           data.frame(
+            # add mouse number
             mouse = rep(i, n_cells),
+            # extract ZT from file name and add
             ZT = rep(as.numeric(gsub("\\D", "", names(Droin_data)[i])), n_cells),
+            # add bin number
             bin = rep(b, n_cells),
+            # add gene name
             gene = rep(gene_list[g], n_cells),
-            count = transform_data(Droin_data[[i]][["mat.norm"]][g,] * Droin_data[[i]][["Pmat"]][,b])
+            # compute and log-transform the zone-weighted normalized gene counts
+            count = sim_gene_counts_by_cell * cell_weight
           )
         )
+        
       }
     }
   }
-  if (min(count_data$count) < 0) count_data$count <- count_data$count - min(count_data$count)
+  #if (min(count_data$count) < 0) count_data$count <- count_data$count - min(count_data$count)
   
   # Export
-  write.csv(count_data, file = "Droin_radial_count_data.csv", row.names = FALSE)
+  write.csv(count_data, file = "Droin_radial_count_data_sim.csv", row.names = FALSE)
 } else {
   # Import
   count_data <- read.csv("Droin_radial_count_data.csv")
@@ -724,16 +738,8 @@ MCMC.settings <- list(
 
 # Settings for plotting
 plot.settings <- list(
-  print.plots = TRUE,
-  dim.bounds = NULL, 
-  pred.type = "pred.log",
-  count.type = "count.log",
-  splitting_factor = NULL,
-  CI_style = TRUE,
-  label_size = 5.5,
-  title_size = 20,
-  axis_size = 12, 
-  legend_size = 10,
+  print.plots = FALSE,
+  title_size = 14,
   count_size = 2.5,
   count_jitter = 0.0,
   count.alpha.none = 0.8,
@@ -746,14 +752,11 @@ plot.settings <- list(
 radial.model <- wisp(
   count.data = count_data,
   variables = data.variables,
-  fit_only = FALSE,
-  use.median = FALSE,
-  bootstraps.num = 1e2,
-  converged.resamples.only = TRUE,
+  bootstraps.num = 1e3,
+  #fit_only = TRUE,
   max.fork = bs_chunksize,
-  verbose = TRUE,
   model.settings = model.settings,
-  MCMC.settings = MCMC.settings,
+  MCMC.settings = list(MCMC.steps = 0),
   plot.settings = plot.settings
 )
 

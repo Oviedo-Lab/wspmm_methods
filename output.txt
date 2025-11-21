@@ -2,6 +2,22 @@
 
 Analysis of MERFISH data by Warped Sigmoid, Poisson-Process Mixed-Effects Model (WSPmm)
 
+Enter a frame number, or 0 to exit   
+
+1: #51: sample(c(0, 1), n_cells, replace = TRUE, prob = probability_of_zone_membership_by_cell)
+2: sample.int(length(x), size, replace, prob)
+
+Called from: top level 
+[1] 2081
+[1] 2081
+[1] 0
+
+Enter a frame number, or 0 to exit   
+
+1: #51: sample(c(0, 1), n_cells, replace = TRUE, prob = probability_of_zone_membership_by_cell)
+2: sample.int(length(x), size, replace, prob)
+
+
 
 Parsing data and settings for wisp model
 ----------------------------------------
@@ -20,12 +36,14 @@ Model settings:
 	inf_warp: 450359962.73705
 
 Plot settings:
-	print.plots: TRUE
-	pred.type: pred.log
-	count.type: count.log
+	print.plots: FALSE
+	dim.bounds: 
+	pred.type: pred
+	count.type: count
+	splitting_factor: 
 	CI_style: TRUE
 	label_size: 5.5
-	title_size: 20
+	title_size: 14
 	axis_size: 12
 	legend_size: 10
 	count_size: 2.5
@@ -37,10 +55,2160 @@ Plot settings:
 
 MCMC settings:
 	MCMC.burnin: 100
-	MCMC.steps: 100
+	MCMC.steps: 0
 	MCMC.step.size: 0.5
 	MCMC.prior: 1
-	MCMC.neighbor.filter: 2
+	MCMC.neighbor.filter: 1
+
+Variable dictionary:
+	count: count
+	bin: bin
+	context: liver
+	species: gene
+	ran: mouse
+	timeseries: ZT
+	fixedeffects: ZT
+
+Parsed data (head only):
+------------------------------
+  count bin context species ran timeseries
+1     0   1   liver   arntl   1          0
+2     0   1   liver   arntl   1          0
+3     0   1   liver   arntl   1          0
+4     0   1   liver   arntl   1          0
+5     0   1   liver   arntl   1          0
+6     0   1   liver   arntl   1          0
+----
+
+Initializing Cpp (wspc) model
+----------------------------------------
+
+Infinity handling:
+machine epsilon: (eps_): 2.22045e-16
+pseudo-infinity (inf_): 1e+100
+warp_precision: 1e-07
+implied pseudo-infinity for unbounded warp (inf_warp): 4.5036e+08
+
+Extracting variables and data information:
+Found max bin: 8.000000
+Fixed effects:
+"timeseries"
+Ref levels:
+"0"
+Time series detected:
+"0" "6" "12" "18"
+Created treatment levels:
+"ref" "6" "12" "18"
+Context grouping levels:
+"liver"
+Species grouping levels:
+"arntl" "ass1" "dbp" "elovl3" "glul" "pck1"
+Random-effect grouping levels:
+"none" "1" "10" "2" "3" "4" "5" "6" "7" "8" "9"
+Total rows in summed count data table: 2112
+Number of rows with unique model components: 264
+
+Creating summed-count data columns and weight matrix:
+Random level 0, 1/11 complete
+Random level 1, 2/11 complete
+Random level 2, 3/11 complete
+Random level 3, 4/11 complete
+Random level 4, 5/11 complete
+Random level 5, 6/11 complete
+Random level 6, 7/11 complete
+Random level 7, 8/11 complete
+Random level 8, 9/11 complete
+Random level 9, 10/11 complete
+Random level 10, 11/11 complete
+
+Making extrapolation pool:
+row: 38/192
+row: 76/192
+row: 114/192
+row: 152/192
+row: 190/192
+
+Making initial parameter estimates:
+Extrapolated 'none' rows
+Took log of observed counts
+Estimated gamma dispersion of raw counts
+Estimated change points
+Found average log counts for each context-species combination
+Estimated initial parameters for fixed-effect treatments
+Built initial beta (ref and fixed-effects) matrices
+Initialized random-effect warping factors
+Made and mapped parameter vector
+Number of parameters: 204
+Constructed grouping variable IDs
+Size of boundary vector: 264
+
+Estimating model parameters
+----------------------------------------
+
+Running bootstrap fits
+
+Enter a frame number, or 0 to exit   
+
+1: wisp(count.data = count_data, variables = data.variables, bootstraps.num = 1000, max.fork = bs_chunksize, model.settings = model.settings, MCMC.settings = list(MCMC.steps = 0), plot.settings = plot.sett
+2: cpp_model$bs_batch(bootstraps.num, max.fork, verbose)
+
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+
+
+Parsing data and settings for wisp model
+----------------------------------------
+
+Model settings:
+	buffer_factor: 0.05
+	ctol: 1e-06
+	max_penalty_at_distance_factor: 0.01
+	LROcutoff: 1.5
+	LROwindow_factor: 1.25
+	rise_threshold_factor: 0.8
+	max_evals: 1000
+	rng_seed: 42
+	warp_precision: 1e-07
+	round_none: FALSE
+	inf_warp: 450359962.73705
+
+Plot settings:
+	print.plots: FALSE
+	dim.bounds: 
+	pred.type: pred
+	count.type: count
+	splitting_factor: 
+	CI_style: TRUE
+	label_size: 5.5
+	title_size: 14
+	axis_size: 12
+	legend_size: 10
+	count_size: 2.5
+	count_jitter: 0
+	count.alpha.ran: 0.5
+	count.alpha.none: 0.8
+	pred.alpha.ran: 0
+	pred.alpha.none: 1
+
+MCMC settings:
+	MCMC.burnin: 100
+	MCMC.steps: 0
+	MCMC.step.size: 0.5
+	MCMC.prior: 1
+	MCMC.neighbor.filter: 1
+
+Variable dictionary:
+	count: count
+	bin: bin
+	context: liver
+	species: gene
+	ran: mouse
+	timeseries: ZT
+	fixedeffects: ZT
+
+Parsed data (head only):
+------------------------------
+  count bin context species ran timeseries
+1     0   1   liver   arntl   1          0
+2     0   1   liver   arntl   1          0
+3     0   1   liver   arntl   1          0
+4     0   1   liver   arntl   1          0
+5     0   1   liver   arntl   1          0
+6     0   1   liver   arntl   1          0
+----
+
+Initializing Cpp (wspc) model
+----------------------------------------
+
+Infinity handling:
+machine epsilon: (eps_): 2.22045e-16
+pseudo-infinity (inf_): 1e+100
+warp_precision: 1e-07
+implied pseudo-infinity for unbounded warp (inf_warp): 4.5036e+08
+
+Extracting variables and data information:
+Found max bin: 8.000000
+Fixed effects:
+"timeseries"
+Ref levels:
+"0"
+Time series detected:
+"0" "6" "12" "18"
+Created treatment levels:
+"ref" "6" "12" "18"
+Context grouping levels:
+"liver"
+Species grouping levels:
+"arntl" "ass1" "dbp" "elovl3" "glul" "pck1"
+Random-effect grouping levels:
+"none" "1" "10" "2" "3" "4" "5" "6" "7" "8" "9"
+Total rows in summed count data table: 2112
+Number of rows with unique model components: 264
+
+Creating summed-count data columns and weight matrix:
+Random level 0, 1/11 complete
+Random level 1, 2/11 complete
+Random level 2, 3/11 complete
+Random level 3, 4/11 complete
+Random level 4, 5/11 complete
+Random level 5, 6/11 complete
+Random level 6, 7/11 complete
+Random level 7, 8/11 complete
+Random level 8, 9/11 complete
+Random level 9, 10/11 complete
+Random level 10, 11/11 complete
+
+Making extrapolation pool:
+row: 38/192
+row: 76/192
+row: 114/192
+row: 152/192
+row: 190/192
+
+Making initial parameter estimates:
+Extrapolated 'none' rows
+Took log of observed counts
+Estimated gamma dispersion of raw counts
+Estimated change points
+Found average log counts for each context-species combination
+Estimated initial parameters for fixed-effect treatments
+Built initial beta (ref and fixed-effects) matrices
+Initialized random-effect warping factors
+Made and mapped parameter vector
+Number of parameters: 204
+Constructed grouping variable IDs
+Size of boundary vector: 264
+
+Estimating model parameters
+----------------------------------------
+
+Running bootstrap fits
+Checking feasibility of provided parameters
+... no tpoints below buffer
+... no NAN rates predicted
+... no negative rates predicted
+Provided parameters are feasible
+Initial boundary distance (want > 0): 0.01
+Performing initial fit of full data
+Penalized neg_loglik: nan
+Batch: 1/100, 0.0164848 sec/bs
+Batch: 10/100, 0.0163964 sec/bs
+Batch: 20/100, 0.0164807 sec/bs
+Batch: 30/100, 0.0164729 sec/bs
+Batch: 40/100, 0.0164706 sec/bs
+Batch: 50/100, 0.0162729 sec/bs
+Batch: 60/100, 0.0161911 sec/bs
+Batch: 70/100, 0.0161856 sec/bs
+Batch: 80/100, 0.0163663 sec/bs
+Batch: 90/100, 0.0161374 sec/bs
+All complete!
+
+Bootstrap simulation complete... 
+Bootstrap run time (total), minutes: 0.278
+Bootstrap run time (per sample), seconds: 0.017
+Bootstrap run time (per sample, per thread), seconds: 0.167
+
+Setting full-data fit as parameters... 
+Checking feasibility of provided parameters
+... no tpoints below buffer
+... no NAN rates predicted
+... no negative rates predicted
+Provided parameters are feasible
+Initial boundary distance (want > 0): 0.01
+
+Running stats on simulation results
+----------------------------------------
+
+Warning: Only 0 out of 1001 resamples converged to fit. Results may be unreliable. Using all resamples.... 
+Grabbing parameter values... 
+Computing 95% confidence intervals... 
+Estimating p-values from resampled parameters... 
+
+Recommended resample size for alpha = 0.05, 18 tests
+with bootstrapping/MCMC: 360
+Actual resample size: 1001
+
+Stat summary (head only):
+------------------------------
+                          parameter estimate CI.low CI.high p.value p.value.adj   alpha.adj significance
+1  baseline_liver_Rt_arntl_Tns/Blk1        0      0       0      NA          NA          NA             
+2  beta_Rt_liver_arntl_6_X_Tns/Blk1        0      0       0       1          18 0.002777778           ns
+3 beta_Rt_liver_arntl_12_X_Tns/Blk1        0      0       0       1          17 0.002941176           ns
+4 beta_Rt_liver_arntl_18_X_Tns/Blk1        0      0       0       1          16 0.003125000           ns
+5   baseline_liver_Rt_ass1_Tns/Blk1        0      0       0      NA          NA          NA             
+6   beta_Rt_liver_ass1_6_X_Tns/Blk1        0      0       0       1          15 0.003333333           ns
+----
+
+Computing 95% CI for predicated values by bin
+----------------------------------------
+
+Warning: Only 0 out of 1001 resamples converged to fit. Results may be unreliable. Using all resamples.... 
+Computing predicted values for each sampled parameter set... 
+Computing 95% CIs... 
+Analyzing residuals
+----------------------------------------
+
+Computing residuals... 
+Making masks... 
+Making plots and saving stats... 
+
+Log-residual summary by grouping variables (head only):
+------------------------------
+         group mean sd variance
+1          all    0  0        0
+2 ran_lvl_none    0  0        0
+3    ran_lvl_1    0  0        0
+4   ran_lvl_10    0  0        0
+5    ran_lvl_2    0  0        0
+6    ran_lvl_3    0  0        0
+----
+
+Making effect parameter distribution plots... 
+Making rate-count plots... 
+Making time series plots... 
+Enter a frame number, or 0 to exit   
+
+1: wisp(count.data = count_data, variables = data.variables, bootstraps.num = 1000, max.fork = bs_chunksize, model.settings = model.settings, MCMC.settings = list(MCMC.steps = 0), plot.settings = plot.sett
+2: plot.timeseries(wisp.results = results, splitting_factor = plot.settings.internal$splitting_factor, pred.type = plot.settings.internal$pred.type, count.type = plot.settings.internal$count.type, print.al
+3: `colnames<-`(`*tmp*`, value = paste0("T", seq_len(ncol(tpoints))))
+
+
+
+Parsing data and settings for wisp model
+----------------------------------------
+
+Model settings:
+	buffer_factor: 0.05
+	ctol: 1e-06
+	max_penalty_at_distance_factor: 0.01
+	LROcutoff: 1.5
+	LROwindow_factor: 1.25
+	rise_threshold_factor: 0.8
+	max_evals: 1000
+	rng_seed: 42
+	warp_precision: 1e-07
+	round_none: FALSE
+	inf_warp: 450359962.73705
+
+Plot settings:
+	print.plots: FALSE
+	dim.bounds: 
+	pred.type: pred
+	count.type: count
+	splitting_factor: 
+	CI_style: TRUE
+	label_size: 5.5
+	title_size: 14
+	axis_size: 12
+	legend_size: 10
+	count_size: 2.5
+	count_jitter: 0
+	count.alpha.ran: 0.5
+	count.alpha.none: 0.8
+	pred.alpha.ran: 0
+	pred.alpha.none: 1
+
+Variable dictionary:
+	count: count
+	bin: bin
+	context: liver
+	species: gene
+	ran: mouse
+	timeseries: ZT
+	fixedeffects: ZT
+
+Parsed data (head only):
+------------------------------
+  count bin context species ran timeseries
+1     0   1   liver   arntl   1          0
+2     0   1   liver   arntl   1          0
+3     0   1   liver   arntl   1          0
+4     0   1   liver   arntl   1          0
+5     0   1   liver   arntl   1          0
+6     0   1   liver   arntl   1          0
+----
+
+Initializing Cpp (wspc) model
+----------------------------------------
+
+Infinity handling:
+machine epsilon: (eps_): 2.22045e-16
+pseudo-infinity (inf_): 1e+100
+warp_precision: 1e-07
+implied pseudo-infinity for unbounded warp (inf_warp): 4.5036e+08
+
+Extracting variables and data information:
+Found max bin: 8.000000
+Fixed effects:
+"timeseries"
+Ref levels:
+"0"
+Time series detected:
+"0" "6" "12" "18"
+Created treatment levels:
+"ref" "6" "12" "18"
+Context grouping levels:
+"liver"
+Species grouping levels:
+"arntl" "ass1" "dbp" "elovl3" "glul" "pck1"
+Random-effect grouping levels:
+"none" "1" "10" "2" "3" "4" "5" "6" "7" "8" "9"
+Total rows in summed count data table: 2112
+Number of rows with unique model components: 264
+
+Creating summed-count data columns and weight matrix:
+Random level 0, 1/11 complete
+Random level 1, 2/11 complete
+Random level 2, 3/11 complete
+Random level 3, 4/11 complete
+Random level 4, 5/11 complete
+Random level 5, 6/11 complete
+Random level 6, 7/11 complete
+Random level 7, 8/11 complete
+Random level 8, 9/11 complete
+Random level 9, 10/11 complete
+Random level 10, 11/11 complete
+
+Making extrapolation pool:
+row: 38/192
+row: 76/192
+row: 114/192
+row: 152/192
+row: 190/192
+
+Making initial parameter estimates:
+Extrapolated 'none' rows
+Took log of observed counts
+Estimated gamma dispersion of raw counts
+Estimated change points
+Found average log counts for each context-species combination
+Estimated initial parameters for fixed-effect treatments
+Built initial beta (ref and fixed-effects) matrices
+Initialized random-effect warping factors
+Made and mapped parameter vector
+Number of parameters: 204
+Constructed grouping variable IDs
+Size of boundary vector: 264
+
+Fitting model to data
+----------------------------------------
+
+Setting boundary penalty coefficients
+Initial neg_loglik: -0
+Initial neg_loglik with penalty: nan
+Initial min boundary distance: 0.01
+Final neg_loglik: -0
+Final neg_loglik with penalty: nan
+Final min boundary distance: 0.01
+Number of evaluations: 1
+Checking feasibility of provided parameters
+... no tpoints below buffer
+... no NAN rates predicted
+... no negative rates predicted
+Provided parameters are feasible
+Initial boundary distance (want > 0): 0.01
+
+Making rate-count plots... 
+Making time series plots... 
+Enter a frame number, or 0 to exit   
+
+1: wisp(count.data = count_data, variables = data.variables, bootstraps.num = 1000, fit_only = TRUE, max.fork = bs_chunksize, model.settings = model.settings, MCMC.settings = list(MCMC.steps = 0), plot.set
+2: plot.timeseries(wisp.results = results, splitting_factor = plot.settings.internal$splitting_factor, pred.type = plot.settings.internal$pred.type, count.type = plot.settings.internal$count.type, print.al
+3: `colnames<-`(`*tmp*`, value = paste0("T", seq_len(ncol(tpoints))))
+
+Called from: wisp(count.data = count_data, variables = data.variables, bootstraps.num = 1000, 
+    fit_only = TRUE, max.fork = bs_chunksize, model.settings = model.settings, 
+    MCMC.settings = list(MCMC.steps = 0), plot.settings = plot.settings)
+
+Enter a frame number, or 0 to exit   
+
+1: wisp(count.data = count_data, variables = data.variables, bootstraps.num = 1000, fit_only = TRUE, max.fork = bs_chunksize, model.settings = model.settings, MCMC.settings = list(MCMC.steps = 0), plot.set
+2: plot.timeseries(wisp.results = results, splitting_factor = plot.settings.internal$splitting_factor, pred.type = plot.settings.internal$pred.type, count.type = plot.settings.internal$count.type, print.al
+3: `colnames<-`(`*tmp*`, value = paste0("T", seq_len(ncol(tpoints))))
+
+
+Enter a frame number, or 0 to exit   
+
+1: wisp(count.data = count_data, variables = data.variables, bootstraps.num = 1000, fit_only = TRUE, max.fork = bs_chunksize, model.settings = model.settings, MCMC.settings = list(MCMC.steps = 0), plot.set
+2: plot.timeseries(wisp.results = results, splitting_factor = plot.settings.internal$splitting_factor, pred.type = plot.settings.internal$pred.type, count.type = plot.settings.internal$count.type, print.al
+3: `colnames<-`(`*tmp*`, value = paste0("T", seq_len(ncol(tpoints))))
+
+[1] 0
+[1] 0
+[1] 0
+   [1] 0.0016452669 0.0023714246 0.0010024126 0.0008582737 0.0010160227 0.0002864780 0.0000000000 0.0010349300 0.0013168949 0.0003316727 0.0011584960 0.0018679551 0.0000000000 0.0015856438 0.0007045297
+  [16] 0.0000000000 0.0007628979 0.0025160878 0.0023055898 0.0011847868 0.0009274755 0.0038809142 0.0007615252 0.0008096504 0.0000000000 0.0024752674 0.0000000000 0.0000000000 0.0010568866 0.0019268215
+  [31] 0.0010053205 0.0016472877 0.0011607810 0.0007404049 0.0014531349 0.0010057299 0.0006130493 0.0007491873 0.0020360304 0.0000000000 0.0009214019 0.0016021067 0.0000000000 0.0009954392 0.0006724340
+  [46] 0.0012505663 0.0000000000 0.0026191856 0.0042521733 0.0015525307 0.0000000000 0.0000000000 0.0020174862 0.0004660808 0.0000000000 0.0004933254 0.0005428839 0.0021080678 0.0017535654 0.0000000000
+  [61] 0.0007665956 0.0000000000 0.0005689982 0.0011551349 0.0000000000 0.0000000000 0.0017464797 0.0022771345 0.0000000000 0.0027156048 0.0000000000 0.0011795980 0.0004584709 0.0017246776 0.0022547107
+  [76] 0.0011543208 0.0012283125 0.0015555586 0.0019682691 0.0004045543 0.0017459224 0.0009871966 0.0000000000 0.0006544512 0.0007680837 0.0009333717 0.0013525591 0.0013221757 0.0000000000 0.0021166873
+  [91] 0.0000000000 0.0011685772 0.0018765556 0.0000000000 0.0000000000 0.0035983836 0.0017356419 0.0009851424 0.0011252237 0.0011744363 0.0010257691 0.0000000000 0.0000000000 0.0017840654 0.0007728061
+ [106] 0.0010732462 0.0000000000 0.0000000000 0.0000000000 0.0011377425 0.0027323388 0.0000000000 0.0000000000 0.0000000000 0.0005884680 0.0007693378 0.0025527163 0.0026229756 0.0006195566 0.0000000000
+ [121] 0.0022257959 0.0005928728 0.0010794196 0.0022902223 0.0006422760 0.0008270872 0.0010085813 0.0004373269 0.0012642364 0.0000000000 0.0006865106 0.0000000000 0.0023464704 0.0016877817 0.0016499239
+ [136] 0.0009718403 0.0000000000 0.0008496025 0.0004508533 0.0000000000 0.0000000000 0.0027337675 0.0009845836 0.0000000000 0.0025390662 0.0000000000 0.0011286629 0.0009963116 0.0014197889 0.0076945518
+ [151] 0.0000000000 0.0004968682 0.0011897157 0.0000000000 0.0020608412 0.0007330363 0.0010180261 0.0021535065 0.0009133232 0.0005042720 0.0006239730 0.0000000000 0.0020115839 0.0000000000 0.0007653434
+ [166] 0.0006853705 0.0007734623 0.0034916646 0.0010987616 0.0000000000 0.0000000000 0.0006197976 0.0010305607 0.0013029019 0.0013026876 0.0000000000 0.0000000000 0.0008034438 0.0005442593 0.0013840119
+ [181] 0.0005987618 0.0011218685 0.0007850880 0.0000000000 0.0011070461 0.0004163801 0.0008005960 0.0005423406 0.0004811324 0.0004294340 0.0000000000 0.0000000000 0.0000000000 0.0000000000 0.0036617642
+ [196] 0.0006010936 0.0012638604 0.0015929895 0.0006726607 0.0008084071 0.0004535195 0.0000000000 0.0012270515 0.0032312800 0.0027365263 0.0016559788 0.0013598592 0.0000000000 0.0008612673 0.0012873017
+ [211] 0.0005101526 0.0015691116 0.0006766585 0.0009525231 0.0000000000 0.0009007095 0.0000000000 0.0004258385 0.0018797348 0.0029137971 0.0006032312 0.0006453412 0.0011453051 0.0007782364 0.0018695282
+ [226] 0.0002857775 0.0031077484 0.0000000000 0.0000000000 0.0000000000 0.0007824025 0.0018808226 0.0000000000 0.0003053815 0.0000000000 0.0007997998 0.0006851522 0.0006984777 0.0008166211 0.0014099270
+ [241] 0.0015932239 0.0000000000 0.0000000000 0.0007454816 0.0011539397 0.0011770806 0.0000000000 0.0009456209 0.0018829003 0.0000000000 0.0000000000 0.0008568695 0.0000000000 0.0000000000 0.0019379204
+ [256] 0.0000000000 0.0007544646 0.0015120046 0.0013558918 0.0006093153 0.0009882318 0.0014117722 0.0000000000 0.0006651207 0.0000000000 0.0006919384 0.0010496421 0.0005898074 0.0011568743 0.0021137590
+ [271] 0.0014579676 0.0015905003 0.0008211726 0.0000000000 0.0025342055 0.0000000000 0.0016311527 0.0000000000 0.0000000000 0.0000000000 0.0016855984 0.0022251067 0.0000000000 0.0000000000 0.0022775223
+ [286] 0.0020613326 0.0012578510 0.0019757790 0.0000000000 0.0030763089 0.0006058620 0.0020470820 0.0012317655 0.0006666997 0.0000000000 0.0000000000 0.0008187467 0.0005939665 0.0000000000 0.0005343895
+ [301] 0.0016096598 0.0000000000 0.0003312770 0.0010414474 0.0022567936 0.0011445877 0.0007964488 0.0027019866 0.0029089882 0.0016573742 0.0010778505 0.0009503234 0.0006058885 0.0000000000 0.0007659896
+ [316] 0.0000000000 0.0003352607 0.0015517003 0.0007857351 0.0014209120 0.0005817955 0.0000000000 0.0016280713 0.0015690635 0.0000000000 0.0039834105 0.0013139565 0.0014678329 0.0003095457 0.0006790112
+ [331] 0.0011793886 0.0000000000 0.0010265787 0.0000000000 0.0000000000 0.0019832240 0.0012058680 0.0000000000 0.0004778004 0.0009769186 0.0000000000 0.0009062282 0.0015191202 0.0000000000 0.0010325914
+ [346] 0.0014297375 0.0000000000 0.0000000000 0.0007884246 0.0015338109 0.0000000000 0.0006681333 0.0006297813 0.0003784095 0.0023333367 0.0019906436 0.0000000000 0.0000000000 0.0006822506 0.0007192917
+ [361] 0.0016055818 0.0007537681 0.0000000000 0.0012892852 0.0010962262 0.0000000000 0.0006541840 0.0015803452 0.0000000000 0.0023006424 0.0000000000 0.0010580590 0.0004125148 0.0000000000 0.0010612361
+ [376] 0.0012577268 0.0008691791 0.0000000000 0.0004056157 0.0006279903 0.0000000000 0.0000000000 0.0000000000 0.0008003991 0.0000000000 0.0011842206 0.0012951122 0.0007641199 0.0000000000 0.0004937193
+ [391] 0.0011077445 0.0011885834 0.0007251645 0.0000000000 0.0008997215 0.0004532601 0.0011491095 0.0000000000 0.0006759537 0.0000000000 0.0000000000 0.0000000000 0.0017513052 0.0000000000 0.0008055930
+ [406] 0.0032688689 0.0000000000 0.0008345334 0.0010649619 0.0022848523 0.0014949819 0.0000000000 0.0030300562 0.0000000000 0.0019142411 0.0000000000 0.0014518502 0.0000000000 0.0013089530 0.0000000000
+ [421] 0.0000000000 0.0004309743 0.0004932146 0.0013866734 0.0000000000 0.0011142941 0.0006679935 0.0012008708 0.0028388256 0.0012002789 0.0000000000 0.0003125649 0.0021077261 0.0008987472 0.0000000000
+ [436] 0.0000000000 0.0015632139 0.0005647996 0.0028001581 0.0005662317 0.0012873999 0.0000000000 0.0009134339 0.0007483512 0.0011726311 0.0023024239 0.0018210391 0.0014347062 0.0000000000 0.0006568620
+ [451] 0.0000000000 0.0007789695 0.0000000000 0.0020156247 0.0014372058 0.0010635902 0.0000000000 0.0000000000 0.0013864028 0.0009470163 0.0004465001 0.0000000000 0.0008625796 0.0002632292 0.0006086369
+ [466] 0.0011469561 0.0014671647 0.0000000000 0.0018691283 0.0000000000 0.0000000000 0.0008673425 0.0017587055 0.0004096110 0.0005531292 0.0016257258 0.0000000000 0.0022010677 0.0004696658 0.0025595279
+ [481] 0.0039002469 0.0014917945 0.0000000000 0.0014629844 0.0000000000 0.0020054263 0.0006085747 0.0021342291 0.0009297823 0.0006547969 0.0018847001 0.0006566941 0.0003730074 0.0000000000 0.0006341195
+ [496] 0.0015488582 0.0005422164 0.0025084739 0.0000000000 0.0000000000 0.0011846914 0.0000000000 0.0015285864 0.0015484888 0.0000000000 0.0000000000 0.0000000000 0.0005617532 0.0012096102 0.0000000000
+ [511] 0.0021120013 0.0015121188 0.0000000000 0.0008491291 0.0009812459 0.0027113922 0.0000000000 0.0007439897 0.0008506724 0.0009403557 0.0000000000 0.0000000000 0.0012102549 0.0033687502 0.0030208466
+ [526] 0.0000000000 0.0016962310 0.0000000000 0.0006241495 0.0028251283 0.0026049758 0.0011669267 0.0022964544 0.0005601268 0.0007887566 0.0000000000 0.0020807697 0.0011751090 0.0011106299 0.0000000000
+ [541] 0.0004572372 0.0004561484 0.0016695189 0.0006597511 0.0017818688 0.0009683119 0.0021396840 0.0009470976 0.0002795698 0.0000000000 0.0028112822 0.0012281543 0.0007905726 0.0000000000 0.0020608477
+ [556] 0.0006822020 0.0008258556 0.0027121980 0.0016236355 0.0000000000 0.0000000000 0.0004788452 0.0000000000 0.0006734824 0.0010312549 0.0005224921 0.0005055487 0.0005914566 0.0005211369 0.0008386997
+ [571] 0.0005978941 0.0005262192 0.0000000000 0.0006165956 0.0004508635 0.0014035657 0.0000000000 0.0021254763 0.0021511340 0.0038421189 0.0016471365 0.0003688461 0.0006207020 0.0019375612 0.0019955420
+ [586] 0.0002788327 0.0000000000 0.0008237602 0.0011260791 0.0008152052 0.0000000000 0.0017466281 0.0005511274 0.0016856894 0.0023204707 0.0015649654 0.0000000000 0.0013455572 0.0009992213 0.0000000000
+ [601] 0.0018942361 0.0010469202 0.0022845830 0.0030049094 0.0005620434 0.0005513489 0.0024618741 0.0005440255 0.0012875278 0.0015587549 0.0008048772 0.0008377725 0.0026917687 0.0011830682 0.0011783056
+ [616] 0.0009162708 0.0008512783 0.0011172105 0.0009651051 0.0000000000 0.0027017033 0.0000000000 0.0000000000 0.0000000000 0.0010433316 0.0004803238 0.0000000000 0.0000000000 0.0022349346 0.0014057977
+ [631] 0.0007554528 0.0018035099 0.0005409516 0.0017065386 0.0034748690 0.0032893883 0.0000000000 0.0000000000 0.0000000000 0.0009686699 0.0036869546 0.0033269345 0.0000000000 0.0000000000 0.0000000000
+ [646] 0.0003379235 0.0000000000 0.0000000000 0.0000000000 0.0000000000 0.0000000000 0.0000000000 0.0007915745 0.0031198049 0.0008069600 0.0013723290 0.0008002991 0.0002988218 0.0025749840 0.0000000000
+ [661] 0.0012396422 0.0016659758 0.0000000000 0.0027959183 0.0020720106 0.0008503929 0.0015376828 0.0032333911 0.0000000000 0.0012551245 0.0000000000 0.0007171777 0.0010283678 0.0005182182 0.0011561253
+ [676] 0.0000000000 0.0009943643 0.0004552153 0.0006936263 0.0018397267 0.0005040591 0.0019562687 0.0000000000 0.0000000000 0.0012092875 0.0000000000 0.0005592132 0.0008256127 0.0000000000 0.0023710102
+ [691] 0.0005011251 0.0005346016 0.0000000000 0.0000000000 0.0008257214 0.0000000000 0.0023935500 0.0014288343 0.0018617427 0.0002863897 0.0011442445 0.0016126566 0.0018349326 0.0010809129 0.0007721534
+ [706] 0.0014444024 0.0000000000 0.0018812590 0.0007773951 0.0003445109 0.0014332041 0.0022280054 0.0018191792 0.0012475885 0.0005344962 0.0022357889 0.0013252412 0.0000000000 0.0010750773 0.0007672677
+ [721] 0.0000000000 0.0005709985 0.0000000000 0.0021556270 0.0011171399 0.0020665000 0.0000000000 0.0000000000 0.0009896635 0.0007057271 0.0011039807 0.0005353593 0.0018972205 0.0000000000 0.0004241589
+ [736] 0.0007088680 0.0021985081 0.0011658863 0.0000000000 0.0010471602 0.0012283972 0.0014313488 0.0009758458 0.0009926356 0.0000000000 0.0008117524 0.0000000000 0.0000000000 0.0023050523 0.0007058950
+ [751] 0.0010014925 0.0000000000 0.0000000000 0.0000000000 0.0004784983 0.0000000000 0.0000000000 0.0006350071 0.0008751618 0.0000000000 0.0010073770 0.0015664988 0.0028145583 0.0000000000 0.0000000000
+ [766] 0.0004611388 0.0011885403 0.0002807149 0.0010018348 0.0009041236 0.0015446064 0.0000000000 0.0000000000 0.0000000000 0.0000000000 0.0000000000 0.0000000000 0.0015173023 0.0010122627 0.0016562623
+ [781] 0.0012673081 0.0010713331 0.0034247447 0.0008700339 0.0017121328 0.0016037069 0.0026523738 0.0000000000 0.0000000000 0.0006249500 0.0005214641 0.0019938296 0.0024543025 0.0018816568 0.0000000000
+ [796] 0.0027843010 0.0000000000 0.0015716998 0.0008999938 0.0022752318 0.0000000000 0.0030306982 0.0012213900 0.0010316083 0.0000000000 0.0018022066 0.0012539924 0.0007080054 0.0000000000 0.0011433948
+ [811] 0.0000000000 0.0008017253 0.0025676700 0.0013278207 0.0043976861 0.0022510560 0.0000000000 0.0003435437 0.0012717664 0.0000000000 0.0010169442 0.0011468229 0.0003148277 0.0027005930 0.0000000000
+ [826] 0.0000000000 0.0000000000 0.0000000000 0.0004750526 0.0004642898 0.0005800203 0.0013145945 0.0007896941 0.0026641800 0.0005987018 0.0000000000 0.0013819212 0.0015746449 0.0026359076 0.0000000000
+ [841] 0.0021592683 0.0012104022 0.0034065779 0.0008983016 0.0000000000 0.0012910222 0.0027795594 0.0000000000 0.0017174036 0.0034653853 0.0022181266 0.0006534968 0.0022311937 0.0000000000 0.0000000000
+ [856] 0.0014980691 0.0016337883 0.0022062530 0.0000000000 0.0024341037 0.0000000000 0.0033333494 0.0014493071 0.0000000000 0.0000000000 0.0000000000 0.0005473297 0.0021539582 0.0010892040 0.0000000000
+ [871] 0.0007793956 0.0024412944 0.0008574433 0.0000000000 0.0000000000 0.0005605389 0.0000000000 0.0006121742 0.0000000000 0.0025510929 0.0000000000 0.0000000000 0.0011343752 0.0000000000 0.0000000000
+ [886] 0.0008905183 0.0013188541 0.0009892009 0.0013237254 0.0013376880 0.0000000000 0.0030764572 0.0022642297 0.0000000000 0.0022251844 0.0020616944 0.0006282842 0.0015284955 0.0006121971 0.0021431735
+ [901] 0.0000000000 0.0010047666 0.0010507795 0.0008977012 0.0013889172 0.0017552478 0.0008083777 0.0005428053 0.0008186280 0.0000000000 0.0020652963 0.0000000000 0.0011592140 0.0000000000 0.0010644795
+ [916] 0.0028154900 0.0009268881 0.0025151726 0.0014223907 0.0012650688 0.0000000000 0.0000000000 0.0007415090 0.0010570341 0.0019833936 0.0010571624 0.0006564164 0.0011694784 0.0000000000 0.0000000000
+ [931] 0.0004102374 0.0000000000 0.0000000000 0.0011022696 0.0007654982 0.0000000000 0.0003602270 0.0005321812 0.0000000000 0.0000000000 0.0006149663 0.0004755266 0.0033614408 0.0013295897 0.0000000000
+ [946] 0.0009060254 0.0005490813 0.0016927953 0.0009983939 0.0012382673 0.0000000000 0.0020781701 0.0033335617 0.0000000000 0.0000000000 0.0000000000 0.0017976804 0.0007049850 0.0028562471 0.0008240766
+ [961] 0.0009197589 0.0000000000 0.0000000000 0.0010524018 0.0013101923 0.0011939730 0.0000000000 0.0000000000 0.0006843183 0.0011976896 0.0000000000 0.0010590135 0.0000000000 0.0006505872 0.0005212891
+ [976] 0.0013922866 0.0012932724 0.0012481780 0.0000000000 0.0020059837 0.0000000000 0.0003924091 0.0006514988 0.0000000000 0.0000000000 0.0000000000 0.0008534253 0.0006190687 0.0004153808 0.0008511744
+ [991] 0.0045546347 0.0024652855 0.0023376346 0.0006587961 0.0011342257 0.0018861508 0.0000000000 0.0012441775 0.0012156814 0.0011238868
+ [ reached 'max' / getOption("max.print") -- omitted 787 entries ]
+[1] 1.767874
+[1] 1788.77
+
+
+Parsing data and settings for wisp model
+----------------------------------------
+
+Model settings:
+	buffer_factor: 0.05
+	ctol: 1e-06
+	max_penalty_at_distance_factor: 0.01
+	LROcutoff: 1.5
+	LROwindow_factor: 1.25
+	rise_threshold_factor: 0.8
+	max_evals: 1000
+	rng_seed: 42
+	warp_precision: 1e-07
+	round_none: FALSE
+	inf_warp: 450359962.73705
+
+Plot settings:
+	print.plots: FALSE
+	dim.bounds: 
+	pred.type: pred
+	count.type: count
+	splitting_factor: 
+	CI_style: TRUE
+	label_size: 5.5
+	title_size: 14
+	axis_size: 12
+	legend_size: 10
+	count_size: 2.5
+	count_jitter: 0
+	count.alpha.ran: 0.5
+	count.alpha.none: 0.8
+	pred.alpha.ran: 0
+	pred.alpha.none: 1
+
+MCMC settings:
+	MCMC.burnin: 100
+	MCMC.steps: 0
+	MCMC.step.size: 0.5
+	MCMC.prior: 1
+	MCMC.neighbor.filter: 1
+
+Variable dictionary:
+	count: count
+	bin: bin
+	context: liver
+	species: gene
+	ran: mouse
+	timeseries: ZT
+	fixedeffects: ZT
+
+Parsed data (head only):
+------------------------------
+  count bin context species ran timeseries
+1     0   1   liver   arntl   1          0
+2     0   1   liver   arntl   1          0
+3     0   1   liver   arntl   1          0
+4     0   1   liver   arntl   1          0
+5     0   1   liver   arntl   1          0
+6     0   1   liver   arntl   1          0
+----
+
+Initializing Cpp (wspc) model
+----------------------------------------
+
+Infinity handling:
+machine epsilon: (eps_): 2.22045e-16
+pseudo-infinity (inf_): 1e+100
+warp_precision: 1e-07
+implied pseudo-infinity for unbounded warp (inf_warp): 4.5036e+08
+
+Extracting variables and data information:
+Found max bin: 8.000000
+Fixed effects:
+"timeseries"
+Ref levels:
+"0"
+Time series detected:
+"0" "6" "12" "18"
+Created treatment levels:
+"ref" "6" "12" "18"
+Context grouping levels:
+"liver"
+Species grouping levels:
+"arntl" "ass1" "dbp" "elovl3" "glul" "pck1"
+Random-effect grouping levels:
+"none" "1" "10" "2" "3" "4" "5" "6" "7" "8" "9"
+Total rows in summed count data table: 2112
+Number of rows with unique model components: 264
+
+Creating summed-count data columns and weight matrix:
+Random level 0, 1/11 complete
+Random level 1, 2/11 complete
+Random level 2, 3/11 complete
+Random level 3, 4/11 complete
+Random level 4, 5/11 complete
+Random level 5, 6/11 complete
+Random level 6, 7/11 complete
+Random level 7, 8/11 complete
+Random level 8, 9/11 complete
+Random level 9, 10/11 complete
+Random level 10, 11/11 complete
+
+Making extrapolation pool:
+row: 38/192
+row: 76/192
+row: 114/192
+row: 152/192
+row: 190/192
+
+Making initial parameter estimates:
+Extrapolated 'none' rows
+Took log of observed counts
+Estimated gamma dispersion of raw counts
+Estimated change points
+Found average log counts for each context-species combination
+Estimated initial parameters for fixed-effect treatments
+Built initial beta (ref and fixed-effects) matrices
+Initialized random-effect warping factors
+Made and mapped parameter vector
+Number of parameters: 288
+Constructed grouping variable IDs
+Size of boundary vector: 1452
+
+Estimating model parameters
+----------------------------------------
+
+Running bootstrap fits
+Checking feasibility of provided parameters
+Found tpoint below buffer, dist: -0.003371, deg: 1, row: 640, tpoint_ext(d + 1): 8.000000, tpoint_ext(d): 7.003371
+... tpoints found below buffer
+Provided parameters not feasible, searching nearby
+Initial boundary distance (want > 0): -0.00599988
+Number of evals: 2
+Success code: 2
+Final boundary distance: 0.01
+Nearby feasible parameters found!
+Performing initial fit of full data
+Penalized neg_loglik: 328.337
+Batch: 1/100, 0.0194835 sec/bs
+Batch: 10/100, 0.0195889 sec/bs
+Batch: 20/100, 0.0197721 sec/bs
+Batch: 30/100, 0.0194863 sec/bs
+Batch: 40/100, 0.0190949 sec/bs
+Batch: 50/100, 0.0192557 sec/bs
+Batch: 60/100, 0.0189215 sec/bs
+Batch: 70/100, 0.0191567 sec/bs
+Batch: 80/100, 0.0189754 sec/bs
+Batch: 90/100, 0.0189616 sec/bs
+All complete!
+
+Bootstrap simulation complete... 
+Bootstrap run time (total), minutes: 0.329
+Bootstrap run time (per sample), seconds: 0.02
+Bootstrap run time (per sample, per thread), seconds: 0.197
+
+Setting full-data fit as parameters... 
+Checking feasibility of provided parameters
+... no tpoints below buffer
+... no NAN rates predicted
+... no negative rates predicted
+Provided parameters are feasible
+Initial boundary distance (want > 0): 0.01
+
+Running stats on simulation results
+----------------------------------------
+
+Warning: Only 0 out of 1001 resamples converged to fit. Results may be unreliable. Using all resamples.... 
+Grabbing parameter values... 
+Computing 95% confidence intervals... 
+Estimating p-values from resampled parameters... 
+
+Recommended resample size for alpha = 0.05, 81 tests
+with bootstrapping/MCMC: 1620
+Actual resample size: 1001
+
+Stat summary (head only):
+------------------------------
+                          parameter  estimate CI.low   CI.high    p.value p.value.adj    alpha.adj significance
+1  baseline_liver_Rt_arntl_Tns/Blk1 0.0000000      0 0.0000000         NA          NA           NA             
+2  beta_Rt_liver_arntl_6_X_Tns/Blk1 0.0000000      0 0.0000000 1.00000000   30.000000 0.0016666667           ns
+3 beta_Rt_liver_arntl_12_X_Tns/Blk1 0.0000000      0 0.0000000 1.00000000   29.000000 0.0017241379           ns
+4 beta_Rt_liver_arntl_18_X_Tns/Blk1 0.1732868      0 0.4479399 0.06293706    3.776224 0.0008333333           ns
+5  baseline_liver_Rt_arntl_Tns/Blk2 0.0000000      0 0.0000000         NA          NA           NA             
+6  beta_Rt_liver_arntl_6_X_Tns/Blk2 0.0000000      0 0.0000000 1.00000000   28.000000 0.0017857143           ns
+----
+
+Computing 95% CI for predicated values by bin
+----------------------------------------
+
+Warning: Only 0 out of 1001 resamples converged to fit. Results may be unreliable. Using all resamples.... 
+Computing predicted values for each sampled parameter set... 
+Computing 95% CIs... 
+Analyzing residuals
+----------------------------------------
+
+Computing residuals... 
+Making masks... 
+Making plots and saving stats... 
+
+Log-residual summary by grouping variables (head only):
+------------------------------
+         group         mean        sd   variance
+1          all -0.005277504 0.4094823 0.16767575
+2 ran_lvl_none -0.006075065 0.2758041 0.07606792
+3    ran_lvl_1 -0.019424116 0.5024630 0.25246902
+4   ran_lvl_10  0.025565276 0.2942980 0.08661132
+5    ran_lvl_2  0.111060759 0.3535040 0.12496504
+6    ran_lvl_3 -0.030465558 0.5149380 0.26516114
+----
+
+Making effect parameter distribution plots... 
+Making rate-count plots... 
+Making time series plots... 
+Making parameter plots... 
+Making parameter plots... 
+Making parameter plots... 
+Making parameter plots... 
+Making parameter plots... 
+Making parameter plots... 
+
+Parsing data and settings for wisp model
+----------------------------------------
+
+Model settings:
+	buffer_factor: 0.05
+	ctol: 1e-06
+	max_penalty_at_distance_factor: 0.01
+	LROcutoff: 1.5
+	LROwindow_factor: 1.25
+	rise_threshold_factor: 0.8
+	max_evals: 1000
+	rng_seed: 42
+	warp_precision: 1e-07
+	round_none: FALSE
+	inf_warp: 450359962.73705
+
+Plot settings:
+	print.plots: FALSE
+	dim.bounds: 
+	pred.type: pred
+	count.type: count
+	splitting_factor: 
+	CI_style: TRUE
+	label_size: 5.5
+	title_size: 14
+	axis_size: 12
+	legend_size: 10
+	count_size: 2.5
+	count_jitter: 0
+	count.alpha.ran: 0.5
+	count.alpha.none: 0.8
+	pred.alpha.ran: 0
+	pred.alpha.none: 1
+
+MCMC settings:
+	MCMC.burnin: 100
+	MCMC.steps: 0
+	MCMC.step.size: 0.5
+	MCMC.prior: 1
+	MCMC.neighbor.filter: 1
+
+Variable dictionary:
+	count: count
+	bin: bin
+	context: liver
+	species: gene
+	ran: mouse
+	timeseries: ZT
+	fixedeffects: ZT
+
+Parsed data (head only):
+------------------------------
+  count bin context species ran timeseries
+1     0   1   liver   arntl   1          0
+2     0   1   liver   arntl   1          0
+3     0   1   liver   arntl   1          0
+4     0   1   liver   arntl   1          0
+5     0   1   liver   arntl   1          0
+6     0   1   liver   arntl   1          0
+----
+
+Initializing Cpp (wspc) model
+----------------------------------------
+
+Infinity handling:
+machine epsilon: (eps_): 2.22045e-16
+pseudo-infinity (inf_): 1e+100
+warp_precision: 1e-07
+implied pseudo-infinity for unbounded warp (inf_warp): 4.5036e+08
+
+Extracting variables and data information:
+Found max bin: 8.000000
+Fixed effects:
+"timeseries"
+Ref levels:
+"0"
+Time series detected:
+"0" "6" "12" "18"
+Created treatment levels:
+"ref" "6" "12" "18"
+Context grouping levels:
+"liver"
+Species grouping levels:
+"arntl" "ass1" "dbp" "elovl3" "glul" "pck1"
+Random-effect grouping levels:
+"none" "1" "10" "2" "3" "4" "5" "6" "7" "8" "9"
+Total rows in summed count data table: 2112
+Number of rows with unique model components: 264
+
+Creating summed-count data columns and weight matrix:
+Random level 0, 1/11 complete
+Random level 1, 2/11 complete
+Random level 2, 3/11 complete
+Random level 3, 4/11 complete
+Random level 4, 5/11 complete
+Random level 5, 6/11 complete
+Random level 6, 7/11 complete
+Random level 7, 8/11 complete
+Random level 8, 9/11 complete
+Random level 9, 10/11 complete
+Random level 10, 11/11 complete
+
+Making extrapolation pool:
+row: 38/192
+row: 76/192
+row: 114/192
+row: 152/192
+row: 190/192
+
+Making initial parameter estimates:
+Extrapolated 'none' rows
+Took log of observed counts
+Estimated gamma dispersion of raw counts
+Estimated change points
+Found average log counts for each context-species combination
+Estimated initial parameters for fixed-effect treatments
+Built initial beta (ref and fixed-effects) matrices
+Initialized random-effect warping factors
+Made and mapped parameter vector
+Number of parameters: 288
+Constructed grouping variable IDs
+Size of boundary vector: 1452
+
+Estimating model parameters
+----------------------------------------
+
+Running bootstrap fits
+Checking feasibility of provided parameters
+Found tpoint below buffer, dist: -0.003607, deg: 1, row: 1160, tpoint_ext(d + 1): 2.982010, tpoint_ext(d): 1.985616
+... tpoints found below buffer
+Provided parameters not feasible, searching nearby
+Initial boundary distance (want > 0): -0.00360673
+Number of evals: 3
+Success code: 2
+Final boundary distance: 0.01
+Nearby feasible parameters found!
+Performing initial fit of full data
+Penalized neg_loglik: 536.126
+Batch: 1/100, 0.0210148 sec/bs
+Batch: 10/100, 0.0215651 sec/bs
+Batch: 20/100, 0.0210636 sec/bs
+Batch: 30/100, 0.0210838 sec/bs
+Batch: 40/100, 0.0211079 sec/bs
+Batch: 50/100, 0.0212498 sec/bs
+Batch: 60/100, 0.0208177 sec/bs
+Batch: 70/100, 0.0209938 sec/bs
+Batch: 80/100, 0.0209001 sec/bs
+Batch: 90/100, 0.0211886 sec/bs
+All complete!
+
+Bootstrap simulation complete... 
+Bootstrap run time (total), minutes: 0.36
+Bootstrap run time (per sample), seconds: 0.022
+Bootstrap run time (per sample, per thread), seconds: 0.216
+
+Setting full-data fit as parameters... 
+Checking feasibility of provided parameters
+... no tpoints below buffer
+... no NAN rates predicted
+... no negative rates predicted
+Provided parameters are feasible
+Initial boundary distance (want > 0): 0.01
+
+Running stats on simulation results
+----------------------------------------
+
+Warning: Only 0 out of 1001 resamples converged to fit. Results may be unreliable. Using all resamples.... 
+Grabbing parameter values... 
+Computing 95% confidence intervals... 
+Estimating p-values from resampled parameters... 
+
+Recommended resample size for alpha = 0.05, 81 tests
+with bootstrapping/MCMC: 1620
+Actual resample size: 1001
+
+Stat summary (head only):
+------------------------------
+                          parameter    estimate     CI.low   CI.high     p.value p.value.adj    alpha.adj significance
+1  baseline_liver_Rt_arntl_Tns/Blk1  0.36620410  0.0000000 0.5364793          NA          NA           NA             
+2  beta_Rt_liver_arntl_6_X_Tns/Blk1 -0.36620410 -0.6189287 0.0000000 0.002997003   0.1888112 0.0007936508           ns
+3 beta_Rt_liver_arntl_12_X_Tns/Blk1  0.00000000  0.0000000 0.0000000 1.000000000  26.0000000 0.0019230769           ns
+4 beta_Rt_liver_arntl_18_X_Tns/Blk1  0.00000000  0.0000000 0.0000000 1.000000000  25.0000000 0.0020000000           ns
+5  baseline_liver_Rt_arntl_Tns/Blk2  0.09155102  0.0000000 0.1621592          NA          NA           NA             
+6  beta_Rt_liver_arntl_6_X_Tns/Blk2 -0.09155102 -0.2137458 0.0000000 0.017982018   1.0429570 0.0008620690           ns
+----
+
+Computing 95% CI for predicated values by bin
+----------------------------------------
+
+Warning: Only 0 out of 1001 resamples converged to fit. Results may be unreliable. Using all resamples.... 
+Computing predicted values for each sampled parameter set... 
+Computing 95% CIs... 
+Analyzing residuals
+----------------------------------------
+
+Computing residuals... 
+Making masks... 
+Making plots and saving stats... 
+
+Log-residual summary by grouping variables (head only):
+------------------------------
+         group        mean        sd  variance
+1          all  0.01406243 0.9882704 0.9766785
+2 ran_lvl_none  0.01015747 0.6346932 0.4028354
+3    ran_lvl_1  0.15816890 1.1567182 1.3379969
+4   ran_lvl_10  0.06364689 0.8938569 0.7989802
+5    ran_lvl_2  0.28206919 1.0663782 1.1371625
+6    ran_lvl_3 -0.30849787 1.2572407 1.5806542
+----
+
+Making effect parameter distribution plots... 
+Making rate-count plots... 
+Making time series plots... 
+Making parameter plots... 
+Making parameter plots... 
+Making parameter plots... 
+Making parameter plots... 
+Making parameter plots... 
+Making parameter plots... [1] 1
+[1] 0.25
+
+
+Parsing data and settings for wisp model
+----------------------------------------
+
+Model settings:
+	buffer_factor: 0.05
+	ctol: 1e-06
+	max_penalty_at_distance_factor: 0.01
+	LROcutoff: 1.5
+	LROwindow_factor: 1.25
+	rise_threshold_factor: 0.8
+	max_evals: 1000
+	rng_seed: 42
+	warp_precision: 1e-07
+	round_none: FALSE
+	inf_warp: 450359962.73705
+
+Plot settings:
+	print.plots: FALSE
+	dim.bounds: 
+	pred.type: pred
+	count.type: count
+	splitting_factor: 
+	CI_style: TRUE
+	label_size: 5.5
+	title_size: 14
+	axis_size: 12
+	legend_size: 10
+	count_size: 2.5
+	count_jitter: 0
+	count.alpha.ran: 0.5
+	count.alpha.none: 0.8
+	pred.alpha.ran: 0
+	pred.alpha.none: 1
+
+MCMC settings:
+	MCMC.burnin: 100
+	MCMC.steps: 0
+	MCMC.step.size: 0.5
+	MCMC.prior: 1
+	MCMC.neighbor.filter: 1
+
+Variable dictionary:
+	count: count
+	bin: bin
+	context: liver
+	species: gene
+	ran: mouse
+	timeseries: ZT
+	fixedeffects: ZT
+
+Parsed data (head only):
+------------------------------
+  count bin context species ran timeseries
+1     0   1   liver   arntl   1          0
+2     0   1   liver   arntl   1          0
+3     0   1   liver   arntl   1          0
+4     0   1   liver   arntl   1          0
+5     0   1   liver   arntl   1          0
+6     0   1   liver   arntl   1          0
+----
+
+Initializing Cpp (wspc) model
+----------------------------------------
+
+Infinity handling:
+machine epsilon: (eps_): 2.22045e-16
+pseudo-infinity (inf_): 1e+100
+warp_precision: 1e-07
+implied pseudo-infinity for unbounded warp (inf_warp): 4.5036e+08
+
+Extracting variables and data information:
+Found max bin: 8.000000
+Fixed effects:
+"timeseries"
+Ref levels:
+"0"
+Time series detected:
+"0" "6" "12" "18"
+Created treatment levels:
+"ref" "6" "12" "18"
+Context grouping levels:
+"liver"
+Species grouping levels:
+"arntl" "ass1" "dbp" "elovl3" "glul" "pck1"
+Random-effect grouping levels:
+"none" "1" "10" "2" "3" "4" "5" "6" "7" "8" "9"
+Total rows in summed count data table: 2112
+Number of rows with unique model components: 264
+
+Creating summed-count data columns and weight matrix:
+Random level 0, 1/11 complete
+Random level 1, 2/11 complete
+Random level 2, 3/11 complete
+Random level 3, 4/11 complete
+Random level 4, 5/11 complete
+Random level 5, 6/11 complete
+Random level 6, 7/11 complete
+Random level 7, 8/11 complete
+Random level 8, 9/11 complete
+Random level 9, 10/11 complete
+Random level 10, 11/11 complete
+
+Making extrapolation pool:
+row: 38/192
+row: 76/192
+row: 114/192
+row: 152/192
+row: 190/192
+
+Making initial parameter estimates:
+Extrapolated 'none' rows
+Took log of observed counts
+Estimated gamma dispersion of raw counts
+Estimated change points
+Found average log counts for each context-species combination
+Estimated initial parameters for fixed-effect treatments
+Built initial beta (ref and fixed-effects) matrices
+Initialized random-effect warping factors
+Made and mapped parameter vector
+Number of parameters: 276
+Constructed grouping variable IDs
+Size of boundary vector: 1320
+
+Estimating model parameters
+----------------------------------------
+
+Running bootstrap fits
+Checking feasibility of provided parameters
+... no tpoints below buffer
+... no NAN rates predicted
+... no negative rates predicted
+Provided parameters are feasible
+Initial boundary distance (want > 0): 0.124494
+Performing initial fit of full data
+Penalized neg_loglik: 1056.89
+Batch: 1/100, 0.181319 sec/bs
+Batch: 10/100, 0.1833 sec/bs
+Batch: 20/100, 0.182458 sec/bs
+Batch: 30/100, 0.17833 sec/bs
+Batch: 40/100, 0.236971 sec/bs
+Batch: 50/100, 0.184428 sec/bs
+Batch: 60/100, 0.168955 sec/bs
+Batch: 70/100, 0.209776 sec/bs
+Batch: 80/100, 0.197535 sec/bs
+Batch: 90/100, 0.183607 sec/bs
+All complete!
+
+Bootstrap simulation complete... 
+Bootstrap run time (total), minutes: 3.087
+Bootstrap run time (per sample), seconds: 0.185
+Bootstrap run time (per sample, per thread), seconds: 1.852
+
+Setting full-data fit as parameters... 
+Checking feasibility of provided parameters
+... no tpoints below buffer
+... no NAN rates predicted
+... no negative rates predicted
+Provided parameters are feasible
+Initial boundary distance (want > 0): 0.407598
+
+Running stats on simulation results
+----------------------------------------
+
+Grabbing sample results, only resamples with converged fit... 
+Grabbing parameter values... 
+Computing 95% confidence intervals... 
+Estimating p-values from resampled parameters... 
+
+Recommended resample size for alpha = 0.05, 72 tests
+with bootstrapping/MCMC: 1440
+Actual resample size: 1000
+
+Stat summary (head only):
+------------------------------
+                          parameter   estimate    CI.low    CI.high p.value p.value.adj    alpha.adj significance
+1  baseline_liver_Rt_arntl_Tns/Blk1  2.3652126  1.965689  2.6566122      NA          NA           NA             
+2  beta_Rt_liver_arntl_6_X_Tns/Blk1 -1.7007176 -2.288152  5.2005266   0.013       0.585 0.0011111111           ns
+3 beta_Rt_liver_arntl_12_X_Tns/Blk1  0.1352588 -3.116484  0.7426754   0.582       7.566 0.0038461538           ns
+4 beta_Rt_liver_arntl_18_X_Tns/Blk1  0.5563225 -1.252843  1.6624910   0.060       1.980 0.0015151515           ns
+5  baseline_liver_Rt_arntl_Tns/Blk2  2.0911955  1.711205  2.4341497      NA          NA           NA             
+6  beta_Rt_liver_arntl_6_X_Tns/Blk2 -1.2086762 -1.882503 -0.1411389   0.000       0.000 0.0006944444          ***
+----
+
+Computing 95% CI for predicated values by bin
+----------------------------------------
+
+Grabbing sample results, only resamples with converged fit... 
+Computing predicted values for each sampled parameter set... 
+Computing 95% CIs... 
+Analyzing residuals
+----------------------------------------
+
+Computing residuals... 
+Making masks... 
+Making plots and saving stats... 
+
+Log-residual summary by grouping variables (head only):
+------------------------------
+         group      mean        sd   variance
+1          all 0.5284384 1.7681180 3.12624143
+2 ran_lvl_none 0.2896603 0.2836141 0.08043695
+3    ran_lvl_1 0.3818972 0.4481401 0.20082956
+4   ran_lvl_10 0.3405064 0.4092245 0.16746467
+5    ran_lvl_2 0.3404622 0.4064452 0.16519770
+6    ran_lvl_3 0.3564020 0.4582562 0.20999872
+----
+
+Making effect parameter distribution plots... 
+Making rate-count plots... 
+Making time series plots... 
+Making parameter plots... 
+Making parameter plots... 
+Making parameter plots... 
+Making parameter plots... 
+Making parameter plots... 
+Making parameter plots... [1] 2
+[1] 3
+[1] 4
+[1] 5
+[1] 6
+[1] 7
+[1] 150
+[1] 7.694552
+[1] 5.673126
+
+
+Parsing data and settings for wisp model
+----------------------------------------
+
+Model settings:
+	buffer_factor: 0.05
+	ctol: 1e-06
+	max_penalty_at_distance_factor: 0.01
+	LROcutoff: 1.5
+	LROwindow_factor: 1.25
+	rise_threshold_factor: 0.8
+	max_evals: 1000
+	rng_seed: 42
+	warp_precision: 1e-07
+	round_none: FALSE
+	inf_warp: 450359962.73705
+
+Plot settings:
+	print.plots: FALSE
+	dim.bounds: 
+	pred.type: pred
+	count.type: count
+	splitting_factor: 
+	CI_style: TRUE
+	label_size: 5.5
+	title_size: 14
+	axis_size: 12
+	legend_size: 10
+	count_size: 2.5
+	count_jitter: 0
+	count.alpha.ran: 0.5
+	count.alpha.none: 0.8
+	pred.alpha.ran: 0
+	pred.alpha.none: 1
+
+MCMC settings:
+	MCMC.burnin: 100
+	MCMC.steps: 0
+	MCMC.step.size: 0.5
+	MCMC.prior: 1
+	MCMC.neighbor.filter: 1
+
+Variable dictionary:
+	count: count
+	bin: bin
+	context: liver
+	species: gene
+	ran: mouse
+	timeseries: ZT
+	fixedeffects: ZT
+
+Parsed data (head only):
+------------------------------
+  count bin context species ran timeseries
+1     0   1   liver   arntl   1          0
+2     0   1   liver   arntl   1          0
+3     0   1   liver   arntl   1          0
+4     0   1   liver   arntl   1          0
+5     0   1   liver   arntl   1          0
+6     0   1   liver   arntl   1          0
+----
+
+Initializing Cpp (wspc) model
+----------------------------------------
+
+Infinity handling:
+machine epsilon: (eps_): 2.22045e-16
+pseudo-infinity (inf_): 1e+100
+warp_precision: 1e-07
+implied pseudo-infinity for unbounded warp (inf_warp): 4.5036e+08
+
+Extracting variables and data information:
+Found max bin: 8.000000
+Fixed effects:
+"timeseries"
+Ref levels:
+"0"
+Time series detected:
+"0" "6" "12" "18"
+Created treatment levels:
+"ref" "6" "12" "18"
+Context grouping levels:
+"liver"
+Species grouping levels:
+"arntl" "ass1" "dbp" "elovl3" "glul" "pck1"
+Random-effect grouping levels:
+"none" "1" "10" "2" "3" "4" "5" "6" "7" "8" "9"
+Total rows in summed count data table: 2112
+Number of rows with unique model components: 264
+
+Creating summed-count data columns and weight matrix:
+Random level 0, 1/11 complete
+Random level 1, 2/11 complete
+Random level 2, 3/11 complete
+Random level 3, 4/11 complete
+Random level 4, 5/11 complete
+Random level 5, 6/11 complete
+Random level 6, 7/11 complete
+Random level 7, 8/11 complete
+Random level 8, 9/11 complete
+Random level 9, 10/11 complete
+Random level 10, 11/11 complete
+
+Making extrapolation pool:
+row: 38/192
+row: 76/192
+row: 114/192
+row: 152/192
+row: 190/192
+
+Making initial parameter estimates:
+Extrapolated 'none' rows
+Took log of observed counts
+Estimated gamma dispersion of raw counts
+Estimated change points
+Found average log counts for each context-species combination
+Estimated initial parameters for fixed-effect treatments
+Built initial beta (ref and fixed-effects) matrices
+Initialized random-effect warping factors
+Made and mapped parameter vector
+Number of parameters: 276
+Constructed grouping variable IDs
+Size of boundary vector: 1320
+
+Estimating model parameters
+----------------------------------------
+
+Running bootstrap fits
+Checking feasibility of provided parameters
+... no tpoints below buffer
+... no NAN rates predicted
+... no negative rates predicted
+Provided parameters are feasible
+Initial boundary distance (want > 0): 0.495455
+Performing initial fit of full data
+Penalized neg_loglik: 1372.74
+Batch: 1/100, 0.155215 sec/bs
+Batch: 10/100, 0.164604 sec/bs
+Batch: 20/100, 0.174722 sec/bs
+Batch: 30/100, 0.158146 sec/bs
+Batch: 40/100, 0.151606 sec/bs
+Batch: 50/100, 0.163348 sec/bs
+Batch: 60/100, 0.161236 sec/bs
+Batch: 70/100, 0.166001 sec/bs
+Batch: 80/100, 0.156975 sec/bs
+Batch: 90/100, 0.155704 sec/bs
+All complete!
+
+Bootstrap simulation complete... 
+Bootstrap run time (total), minutes: 2.764
+Bootstrap run time (per sample), seconds: 0.166
+Bootstrap run time (per sample, per thread), seconds: 1.658
+
+Setting full-data fit as parameters... 
+Checking feasibility of provided parameters
+... no tpoints below buffer
+... no NAN rates predicted
+... no negative rates predicted
+Provided parameters are feasible
+Initial boundary distance (want > 0): 0.390515
+
+Running stats on simulation results
+----------------------------------------
+
+Grabbing sample results, only resamples with converged fit... 
+Grabbing parameter values... 
+Computing 95% confidence intervals... 
+Estimating p-values from resampled parameters... 
+
+Recommended resample size for alpha = 0.05, 72 tests
+with bootstrapping/MCMC: 1440
+Actual resample size: 1001
+
+Stat summary (head only):
+------------------------------
+                          parameter     estimate     CI.low    CI.high   p.value p.value.adj    alpha.adj significance
+1  baseline_liver_Rt_arntl_Tns/Blk1  5.446352076  5.2693347  5.5294850        NA          NA           NA             
+2  beta_Rt_liver_arntl_6_X_Tns/Blk1 -0.004446442 -0.1797264  0.2889479 0.9490509    3.796204 0.0125000000           ns
+3 beta_Rt_liver_arntl_12_X_Tns/Blk1 -0.538589935 -1.0148108 -0.2976330 0.0000000    0.000000 0.0006944444          ***
+4 beta_Rt_liver_arntl_18_X_Tns/Blk1  0.056853125 -0.4373341  0.3673059 0.8151848    8.151848 0.0050000000           ns
+5  baseline_liver_Rt_arntl_Tns/Blk2  5.706306691  5.6610371  5.7370716        NA          NA           NA             
+6  beta_Rt_liver_arntl_6_X_Tns/Blk2 -0.237287239 -0.3403855 -0.1344762 0.0000000    0.000000 0.0007042254          ***
+----
+
+Computing 95% CI for predicated values by bin
+----------------------------------------
+
+Grabbing sample results, only resamples with converged fit... 
+Computing predicted values for each sampled parameter set... 
+Computing 95% CIs... 
+Analyzing residuals
+----------------------------------------
+
+Computing residuals... 
+Making masks... 
+Making plots and saving stats... 
+
+Log-residual summary by grouping variables (head only):
+------------------------------
+         group      mean       sd variance
+1          all 0.9384047 1.965825 3.864469
+2 ran_lvl_none 0.9388454 1.966117 3.865617
+3    ran_lvl_1 0.9687934 2.031966 4.128888
+4   ran_lvl_10 0.9866562 2.036985 4.149309
+5    ran_lvl_2 0.9327302 1.939536 3.761800
+6    ran_lvl_3 0.8909233 1.940636 3.766068
+----
+
+Making effect parameter distribution plots... 
+Making rate-count plots... 
+Making time series plots... 
+Making parameter plots... 
+Making parameter plots... 
+Making parameter plots... 
+Making parameter plots... 
+Making parameter plots... 
+Making parameter plots... [1] 2
+[1] 3
+[1] 4
+[1] 5
+[1] 6
+[1] 7
+
+
+Parsing data and settings for wisp model
+----------------------------------------
+
+Model settings:
+	buffer_factor: 0.05
+	ctol: 1e-06
+	max_penalty_at_distance_factor: 0.01
+	LROcutoff: 1.5
+	LROwindow_factor: 1.25
+	rise_threshold_factor: 0.8
+	max_evals: 1000
+	rng_seed: 42
+	warp_precision: 1e-07
+	round_none: FALSE
+	inf_warp: 450359962.73705
+
+Plot settings:
+	print.plots: FALSE
+	dim.bounds: 
+	pred.type: pred
+	count.type: count
+	splitting_factor: 
+	CI_style: TRUE
+	label_size: 5.5
+	title_size: 14
+	axis_size: 12
+	legend_size: 10
+	count_size: 2.5
+	count_jitter: 0
+	count.alpha.ran: 0.5
+	count.alpha.none: 0.8
+	pred.alpha.ran: 0
+	pred.alpha.none: 1
+
+MCMC settings:
+	MCMC.burnin: 100
+	MCMC.steps: 0
+	MCMC.step.size: 0.5
+	MCMC.prior: 1
+	MCMC.neighbor.filter: 1
+
+Variable dictionary:
+	count: count
+	bin: bin
+	context: liver
+	species: gene
+	ran: mouse
+	timeseries: ZT
+	fixedeffects: ZT
+
+Parsed data (head only):
+------------------------------
+  count bin context species ran timeseries
+1     0   1   liver   arntl   1          0
+2     0   1   liver   arntl   1          0
+3     0   1   liver   arntl   1          0
+4     0   1   liver   arntl   1          0
+5     0   1   liver   arntl   1          0
+6     0   1   liver   arntl   1          0
+----
+
+Initializing Cpp (wspc) model
+----------------------------------------
+
+Infinity handling:
+machine epsilon: (eps_): 2.22045e-16
+pseudo-infinity (inf_): 1e+100
+warp_precision: 1e-07
+implied pseudo-infinity for unbounded warp (inf_warp): 4.5036e+08
+
+Extracting variables and data information:
+Found max bin: 8.000000
+Fixed effects:
+"timeseries"
+Ref levels:
+"0"
+Time series detected:
+"0" "6" "12" "18"
+Created treatment levels:
+"ref" "6" "12" "18"
+Context grouping levels:
+"liver"
+Species grouping levels:
+"arntl" "ass1" "dbp" "elovl3" "glul" "pck1"
+Random-effect grouping levels:
+"none" "1" "10" "2" "3" "4" "5" "6" "7" "8" "9"
+Total rows in summed count data table: 2112
+Number of rows with unique model components: 264
+
+Creating summed-count data columns and weight matrix:
+Random level 0, 1/11 complete
+Random level 1, 2/11 complete
+Random level 2, 3/11 complete
+Random level 3, 4/11 complete
+Random level 4, 5/11 complete
+Random level 5, 6/11 complete
+Random level 6, 7/11 complete
+Random level 7, 8/11 complete
+Random level 8, 9/11 complete
+Random level 9, 10/11 complete
+Random level 10, 11/11 complete
+
+Making extrapolation pool:
+row: 38/192
+row: 76/192
+row: 114/192
+row: 152/192
+row: 190/192
+
+Making initial parameter estimates:
+Extrapolated 'none' rows
+Took log of observed counts
+Estimated gamma dispersion of raw counts
+Estimated change points
+Found average log counts for each context-species combination
+Estimated initial parameters for fixed-effect treatments
+Built initial beta (ref and fixed-effects) matrices
+Initialized random-effect warping factors
+Made and mapped parameter vector
+Number of parameters: 288
+Constructed grouping variable IDs
+Size of boundary vector: 1452
+
+Estimating model parameters
+----------------------------------------
+
+Running bootstrap fits
+Checking feasibility of provided parameters
+... no tpoints below buffer
+... no NAN rates predicted
+... no negative rates predicted
+Provided parameters are feasible
+Initial boundary distance (want > 0): 0.495455
+Performing initial fit of full data
+Penalized neg_loglik: 1217.04
+Batch: 1/100, 0.192271 sec/bs
+Batch: 10/100, 0.194106 sec/bs
+Batch: 20/100, 0.186563 sec/bs
+Batch: 30/100, 0.191424 sec/bs
+Batch: 40/100, 0.210502 sec/bs
+Batch: 50/100, 0.190566 sec/bs
+Batch: 60/100, 0.186091 sec/bs
+Batch: 70/100, 0.190635 sec/bs
+Batch: 80/100, 0.215941 sec/bs
+Batch: 90/100, 0.202054 sec/bs
+All complete!
+
+Bootstrap simulation complete... 
+Bootstrap run time (total), minutes: 3.392
+Bootstrap run time (per sample), seconds: 0.204
+Bootstrap run time (per sample, per thread), seconds: 2.035
+
+Setting full-data fit as parameters... 
+Checking feasibility of provided parameters
+... no tpoints below buffer
+... no NAN rates predicted
+... no negative rates predicted
+Provided parameters are feasible
+Initial boundary distance (want > 0): 0.426419
+
+Running stats on simulation results
+----------------------------------------
+
+Grabbing sample results, only resamples with converged fit... 
+Grabbing parameter values... 
+Computing 95% confidence intervals... 
+Estimating p-values from resampled parameters... 
+
+Recommended resample size for alpha = 0.05, 81 tests
+with bootstrapping/MCMC: 1620
+Actual resample size: 1001
+
+Stat summary (head only):
+------------------------------
+                          parameter    estimate    CI.low   CI.high     p.value p.value.adj   alpha.adj significance
+1  baseline_liver_Rt_arntl_Tns/Blk1  4.71216391  4.357995  4.961151          NA          NA          NA             
+2  beta_Rt_liver_arntl_6_X_Tns/Blk1 -2.67665927 -4.488133  1.297892 0.000999001  0.04895105 0.001020408            *
+3 beta_Rt_liver_arntl_12_X_Tns/Blk1  0.07849226 -2.071139  3.055654 0.858141858  9.43956044 0.004545455           ns
+4 beta_Rt_liver_arntl_18_X_Tns/Blk1  0.88509693 -2.552338  2.937590 0.136863137  4.24275724 0.001612903           ns
+5  baseline_liver_Rt_arntl_Tns/Blk2  4.38909539  4.160332  4.517301          NA          NA          NA             
+6  beta_Rt_liver_arntl_6_X_Tns/Blk2 -2.55350400 -3.434491 -1.084953 0.000000000  0.00000000 0.000617284          ***
+----
+
+Computing 95% CI for predicated values by bin
+----------------------------------------
+
+Grabbing sample results, only resamples with converged fit... 
+Computing predicted values for each sampled parameter set... 
+Computing 95% CIs... 
+Analyzing residuals
+----------------------------------------
+
+Computing residuals... 
+Making masks... 
+Making plots and saving stats... 
+
+Log-residual summary by grouping variables (head only):
+------------------------------
+         group      mean        sd  variance
+1          all 0.3461031 0.6327526 0.4003759
+2 ran_lvl_none 0.2543193 0.3850566 0.1482686
+3    ran_lvl_1 0.2407606 0.3330487 0.1109214
+4   ran_lvl_10 0.2921610 0.4177927 0.1745507
+5    ran_lvl_2 0.2288763 0.4373652 0.1912883
+6    ran_lvl_3 0.3636031 0.6590413 0.4343354
+----
+
+Making effect parameter distribution plots... 
+Making rate-count plots... 
+Making time series plots... 
+Making parameter plots... 
+Making parameter plots... 
+Making parameter plots... 
+Making parameter plots... 
+Making parameter plots... 
+Making parameter plots... [1] 2
+[1] 3
+[1] 4
+[1] 5
+[1] 6
+[1] 7
+
+
+Parsing data and settings for wisp model
+----------------------------------------
+
+Model settings:
+	buffer_factor: 0.05
+	ctol: 1e-06
+	max_penalty_at_distance_factor: 0.01
+	LROcutoff: 1.5
+	LROwindow_factor: 1.25
+	rise_threshold_factor: 0.8
+	max_evals: 1000
+	rng_seed: 42
+	warp_precision: 1e-07
+	round_none: FALSE
+	inf_warp: 450359962.73705
+
+Plot settings:
+	print.plots: FALSE
+	dim.bounds: 
+	pred.type: pred.log
+	count.type: count.log
+	splitting_factor: 
+	CI_style: TRUE
+	label_size: 5.5
+	title_size: 14
+	axis_size: 12
+	legend_size: 10
+	count_size: 2.5
+	count_jitter: 0
+	count.alpha.ran: 0.5
+	count.alpha.none: 0.8
+	pred.alpha.ran: 0
+	pred.alpha.none: 1
+
+MCMC settings:
+	MCMC.burnin: 100
+	MCMC.steps: 0
+	MCMC.step.size: 0.5
+	MCMC.prior: 1
+	MCMC.neighbor.filter: 1
+
+Variable dictionary:
+	count: count
+	bin: bin
+	context: liver
+	species: gene
+	ran: mouse
+	timeseries: ZT
+	fixedeffects: ZT
+
+Parsed data (head only):
+------------------------------
+  count bin context species ran timeseries
+1     0   1   liver   arntl   1          0
+2     0   1   liver   arntl   1          0
+3     0   1   liver   arntl   1          0
+4     0   1   liver   arntl   1          0
+5     0   1   liver   arntl   1          0
+6     0   1   liver   arntl   1          0
+----
+
+Initializing Cpp (wspc) model
+----------------------------------------
+
+Infinity handling:
+machine epsilon: (eps_): 2.22045e-16
+pseudo-infinity (inf_): 1e+100
+warp_precision: 1e-07
+implied pseudo-infinity for unbounded warp (inf_warp): 4.5036e+08
+
+Extracting variables and data information:
+Found max bin: 8.000000
+Fixed effects:
+"timeseries"
+Ref levels:
+"0"
+Time series detected:
+"0" "6" "12" "18"
+Created treatment levels:
+"ref" "6" "12" "18"
+Context grouping levels:
+"liver"
+Species grouping levels:
+"arntl" "ass1" "dbp" "elovl3" "glul" "pck1"
+Random-effect grouping levels:
+"none" "1" "10" "2" "3" "4" "5" "6" "7" "8" "9"
+Total rows in summed count data table: 2112
+Number of rows with unique model components: 264
+
+Creating summed-count data columns and weight matrix:
+Random level 0, 1/11 complete
+Random level 1, 2/11 complete
+Random level 2, 3/11 complete
+Random level 3, 4/11 complete
+Random level 4, 5/11 complete
+Random level 5, 6/11 complete
+Random level 6, 7/11 complete
+Random level 7, 8/11 complete
+Random level 8, 9/11 complete
+Random level 9, 10/11 complete
+Random level 10, 11/11 complete
+
+Making extrapolation pool:
+row: 38/192
+row: 76/192
+row: 114/192
+row: 152/192
+row: 190/192
+
+Making initial parameter estimates:
+Extrapolated 'none' rows
+Took log of observed counts
+Estimated gamma dispersion of raw counts
+Estimated change points
+Found average log counts for each context-species combination
+Estimated initial parameters for fixed-effect treatments
+Built initial beta (ref and fixed-effects) matrices
+Initialized random-effect warping factors
+Made and mapped parameter vector
+Number of parameters: 276
+Constructed grouping variable IDs
+Size of boundary vector: 1320
+
+Estimating model parameters
+----------------------------------------
+
+Running bootstrap fits
+Checking feasibility of provided parameters
+... no tpoints below buffer
+... no NAN rates predicted
+... no negative rates predicted
+Provided parameters are feasible
+Initial boundary distance (want > 0): 0.495455
+Performing initial fit of full data
+Penalized neg_loglik: 1252.28
+Batch: 1/100, 0.191443 sec/bs
+Batch: 10/100, 0.199871 sec/bs
+Batch: 20/100, 0.137516 sec/bs
+Batch: 30/100, 0.136182 sec/bs
+Batch: 40/100, 0.221573 sec/bs
+Batch: 50/100, 0.189395 sec/bs
+Batch: 60/100, 0.139704 sec/bs
+Batch: 70/100, 0.191717 sec/bs
+Batch: 80/100, 0.192073 sec/bs
+Batch: 90/100, 0.14071 sec/bs
+All complete!
+
+Bootstrap simulation complete... 
+Bootstrap run time (total), minutes: 3.078
+Bootstrap run time (per sample), seconds: 0.185
+Bootstrap run time (per sample, per thread), seconds: 1.847
+
+Setting full-data fit as parameters... 
+Checking feasibility of provided parameters
+... no tpoints below buffer
+... no NAN rates predicted
+... no negative rates predicted
+Provided parameters are feasible
+Initial boundary distance (want > 0): 0.247586
+
+Running stats on simulation results
+----------------------------------------
+
+Grabbing sample results, only resamples with converged fit... 
+Grabbing parameter values... 
+Computing 95% confidence intervals... 
+Estimating p-values from resampled parameters... 
+
+Recommended resample size for alpha = 0.05, 72 tests
+with bootstrapping/MCMC: 1440
+Actual resample size: 1001
+
+Stat summary (head only):
+------------------------------
+                          parameter    estimate     CI.low    CI.high   p.value p.value.adj    alpha.adj significance
+1  baseline_liver_Rt_arntl_Tns/Blk1  5.45225195  5.3424239  5.5187835        NA          NA           NA             
+2  beta_Rt_liver_arntl_6_X_Tns/Blk1 -0.07509647 -0.2465507  0.1362531 0.2417582    4.351648 0.0027777778           ns
+3 beta_Rt_liver_arntl_12_X_Tns/Blk1 -0.48895282 -0.8218859 -0.1649403 0.0000000    0.000000 0.0006944444          ***
+4 beta_Rt_liver_arntl_18_X_Tns/Blk1 -0.22054567 -0.5339516  0.2625095 0.1518482    3.340659 0.0022727273           ns
+5  baseline_liver_Rt_arntl_Tns/Blk2  5.68265267  5.6440101  5.7193044        NA          NA           NA             
+6  beta_Rt_liver_arntl_6_X_Tns/Blk2 -0.22636666 -0.3317032 -0.1227206 0.0000000    0.000000 0.0007042254          ***
+----
+
+Computing 95% CI for predicated values by bin
+----------------------------------------
+
+Grabbing sample results, only resamples with converged fit... 
+Computing predicted values for each sampled parameter set... 
+Computing 95% CIs... 
+Analyzing residuals
+----------------------------------------
+
+Computing residuals... 
+Making masks... 
+Making plots and saving stats... 
+
+Log-residual summary by grouping variables (head only):
+------------------------------
+         group      mean        sd   variance
+1          all 0.1510790 0.3022957 0.09138271
+2 ran_lvl_none 0.1416741 0.2782410 0.07741803
+3    ran_lvl_1 0.1555957 0.3322289 0.11037604
+4   ran_lvl_10 0.1565610 0.3058908 0.09356916
+5    ran_lvl_2 0.1488581 0.2768341 0.07663714
+6    ran_lvl_3 0.1510757 0.3482935 0.12130834
+----
+
+Making effect parameter distribution plots... 
+Making rate-count plots... 
+Making time series plots... 
+Making parameter plots... 
+Making parameter plots... 
+Making parameter plots... 
+Making parameter plots... 
+Making parameter plots... 
+Making parameter plots... [1] 2
+[1] 3
+[1] 4
+[1] 5
+[1] 6
+[1] 7
+
+
+Parsing data and settings for wisp model
+----------------------------------------
+
+Model settings:
+	buffer_factor: 0.05
+	ctol: 1e-06
+	max_penalty_at_distance_factor: 0.01
+	LROcutoff: 1.5
+	LROwindow_factor: 1.25
+	rise_threshold_factor: 0.8
+	max_evals: 1000
+	rng_seed: 42
+	warp_precision: 1e-07
+	round_none: FALSE
+	inf_warp: 450359962.73705
+
+Plot settings:
+	print.plots: FALSE
+	dim.bounds: 
+	pred.type: pred.log
+	count.type: count.log
+	splitting_factor: 
+	CI_style: TRUE
+	label_size: 5.5
+	title_size: 14
+	axis_size: 12
+	legend_size: 10
+	count_size: 2.5
+	count_jitter: 0
+	count.alpha.ran: 0.5
+	count.alpha.none: 0.8
+	pred.alpha.ran: 0
+	pred.alpha.none: 1
+
+MCMC settings:
+	MCMC.burnin: 100
+	MCMC.steps: 0
+	MCMC.step.size: 0.5
+	MCMC.prior: 1
+	MCMC.neighbor.filter: 1
+
+Variable dictionary:
+	count: count
+	bin: bin
+	context: liver
+	species: gene
+	ran: mouse
+	timeseries: ZT
+	fixedeffects: ZT
+
+Parsed data (head only):
+------------------------------
+  count bin context species ran timeseries
+1     0   1   liver   arntl   1          0
+2     0   1   liver   arntl   1          0
+3     0   1   liver   arntl   1          0
+4     0   1   liver   arntl   1          0
+5     0   1   liver   arntl   1          0
+6     0   1   liver   arntl   1          0
+----
+
+Initializing Cpp (wspc) model
+----------------------------------------
+
+Infinity handling:
+machine epsilon: (eps_): 2.22045e-16
+pseudo-infinity (inf_): 1e+100
+warp_precision: 1e-07
+implied pseudo-infinity for unbounded warp (inf_warp): 4.5036e+08
+
+Extracting variables and data information:
+Found max bin: 8.000000
+Fixed effects:
+"timeseries"
+Ref levels:
+"0"
+Time series detected:
+"0" "6" "12" "18"
+Created treatment levels:
+"ref" "6" "12" "18"
+Context grouping levels:
+"liver"
+Species grouping levels:
+"arntl" "ass1" "dbp" "elovl3" "glul" "pck1"
+Random-effect grouping levels:
+"none" "1" "10" "2" "3" "4" "5" "6" "7" "8" "9"
+Total rows in summed count data table: 2112
+Number of rows with unique model components: 264
+
+Creating summed-count data columns and weight matrix:
+Random level 0, 1/11 complete
+Random level 1, 2/11 complete
+Random level 2, 3/11 complete
+Random level 3, 4/11 complete
+Random level 4, 5/11 complete
+Random level 5, 6/11 complete
+Random level 6, 7/11 complete
+Random level 7, 8/11 complete
+Random level 8, 9/11 complete
+Random level 9, 10/11 complete
+Random level 10, 11/11 complete
+
+Making extrapolation pool:
+row: 38/192
+row: 76/192
+row: 114/192
+row: 152/192
+row: 190/192
+
+Making initial parameter estimates:
+Extrapolated 'none' rows
+Took log of observed counts
+Estimated gamma dispersion of raw counts
+Estimated change points
+Found average log counts for each context-species combination
+Estimated initial parameters for fixed-effect treatments
+Built initial beta (ref and fixed-effects) matrices
+Initialized random-effect warping factors
+Made and mapped parameter vector
+Number of parameters: 276
+Constructed grouping variable IDs
+Size of boundary vector: 1320
+
+Estimating model parameters
+----------------------------------------
+
+Running bootstrap fits
+Checking feasibility of provided parameters
+... no tpoints below buffer
+... no NAN rates predicted
+... no negative rates predicted
+Provided parameters are feasible
+Initial boundary distance (want > 0): 0.124494
+Performing initial fit of full data
+Penalized neg_loglik: 1056.89
+Batch: 1/100, 0.187133 sec/bs
+Batch: 10/100, 0.187474 sec/bs
+Batch: 20/100, 0.187135 sec/bs
+Batch: 30/100, 0.180288 sec/bs
+Batch: 40/100, 0.241198 sec/bs
+Batch: 50/100, 0.187146 sec/bs
+Batch: 60/100, 0.171277 sec/bs
+Batch: 70/100, 0.210848 sec/bs
+Batch: 80/100, 0.203145 sec/bs
+Batch: 90/100, 0.185284 sec/bs
+All complete!
+
+Bootstrap simulation complete... 
+Bootstrap run time (total), minutes: 3.129
+Bootstrap run time (per sample), seconds: 0.188
+Bootstrap run time (per sample, per thread), seconds: 1.877
+
+Setting full-data fit as parameters... 
+Checking feasibility of provided parameters
+... no tpoints below buffer
+... no NAN rates predicted
+... no negative rates predicted
+Provided parameters are feasible
+Initial boundary distance (want > 0): 0.407598
+
+Running stats on simulation results
+----------------------------------------
+
+Grabbing sample results, only resamples with converged fit... 
+Grabbing parameter values... 
+Computing 95% confidence intervals... 
+Estimating p-values from resampled parameters... 
+
+Recommended resample size for alpha = 0.05, 72 tests
+with bootstrapping/MCMC: 1440
+Actual resample size: 1000
+
+Stat summary (head only):
+------------------------------
+                          parameter   estimate    CI.low    CI.high p.value p.value.adj    alpha.adj significance
+1  baseline_liver_Rt_arntl_Tns/Blk1  2.3652126  1.965689  2.6566122      NA          NA           NA             
+2  beta_Rt_liver_arntl_6_X_Tns/Blk1 -1.7007176 -2.288152  5.2005266   0.013       0.585 0.0011111111           ns
+3 beta_Rt_liver_arntl_12_X_Tns/Blk1  0.1352588 -3.116484  0.7426754   0.582       7.566 0.0038461538           ns
+4 beta_Rt_liver_arntl_18_X_Tns/Blk1  0.5563225 -1.252843  1.6624910   0.060       1.980 0.0015151515           ns
+5  baseline_liver_Rt_arntl_Tns/Blk2  2.0911955  1.711205  2.4341497      NA          NA           NA             
+6  beta_Rt_liver_arntl_6_X_Tns/Blk2 -1.2086762 -1.882503 -0.1411389   0.000       0.000 0.0006944444          ***
+----
+
+Computing 95% CI for predicated values by bin
+----------------------------------------
+
+Grabbing sample results, only resamples with converged fit... 
+Computing predicted values for each sampled parameter set... 
+Computing 95% CIs... 
+Analyzing residuals
+----------------------------------------
+
+Computing residuals... 
+Making masks... 
+Making plots and saving stats... 
+
+Log-residual summary by grouping variables (head only):
+------------------------------
+         group      mean        sd   variance
+1          all 0.5284384 1.7681180 3.12624143
+2 ran_lvl_none 0.2896603 0.2836141 0.08043695
+3    ran_lvl_1 0.3818972 0.4481401 0.20082956
+4   ran_lvl_10 0.3405064 0.4092245 0.16746467
+5    ran_lvl_2 0.3404622 0.4064452 0.16519770
+6    ran_lvl_3 0.3564020 0.4582562 0.20999872
+----
+
+Making effect parameter distribution plots... 
+Making rate-count plots... 
+Making time series plots... 
+Making parameter plots... 
+Making parameter plots... 
+Making parameter plots... 
+Making parameter plots... 
+Making parameter plots... 
+Making parameter plots... [1] 2
+[1] 3
+[1] 4
+[1] 5
+[1] 6
+[1] 7
+
+
+Parsing data and settings for wisp model
+----------------------------------------
+
+Model settings:
+	buffer_factor: 0.05
+	ctol: 1e-06
+	max_penalty_at_distance_factor: 0.01
+	LROcutoff: 1.5
+	LROwindow_factor: 1.25
+	rise_threshold_factor: 0.8
+	max_evals: 1000
+	rng_seed: 42
+	warp_precision: 1e-07
+	round_none: FALSE
+	inf_warp: 450359962.73705
+
+Plot settings:
+	print.plots: FALSE
+	dim.bounds: 
+	pred.type: pred
+	count.type: count
+	splitting_factor: 
+	CI_style: TRUE
+	label_size: 5.5
+	title_size: 14
+	axis_size: 12
+	legend_size: 10
+	count_size: 2.5
+	count_jitter: 0
+	count.alpha.ran: 0.5
+	count.alpha.none: 0.8
+	pred.alpha.ran: 0
+	pred.alpha.none: 1
+
+MCMC settings:
+	MCMC.burnin: 100
+	MCMC.steps: 0
+	MCMC.step.size: 0.5
+	MCMC.prior: 1
+	MCMC.neighbor.filter: 1
 
 Variable dictionary:
 	count: count
@@ -127,33 +2295,6 @@ Size of boundary vector: 1584
 Estimating model parameters
 ----------------------------------------
 
-Running MCMC stimulations
-Checking feasibility of provided parameters
-... no tpoints below buffer
-... no NAN rates predicted
-... no negative rates predicted
-Provided parameters are feasible
-Initial boundary distance (want > 0): 0.035378
-Performing initial fit of full data
-Penalized neg_loglik: 779.601
-step: 1/200
-step: 20/200
-step: 40/200
-step: 60/200
-step: 80/200
-step: 100/200
-step: 120/200
-step: 140/200
-step: 160/200
-step: 180/200
-All complete!
-Acceptance rate (aim for 0.2-0.3): 0.065445
-
-MCMC simulation complete... 
-MCMC run time (total), minutes: 1.371
-MCMC run time (per retained step), seconds: 0.411
-MCMC run time (per step), seconds: 0.206
-
 Running bootstrap fits
 Checking feasibility of provided parameters
 ... no tpoints below buffer
@@ -163,21 +2304,22 @@ Provided parameters are feasible
 Initial boundary distance (want > 0): 0.035378
 Performing initial fit of full data
 Penalized neg_loglik: 779.601
-Batch: 1/10, 0.193127 sec/bs
-Batch: 2/10, 0.193054 sec/bs
-Batch: 3/10, 0.1911 sec/bs
-Batch: 4/10, 0.181945 sec/bs
-Batch: 5/10, 0.179484 sec/bs
-Batch: 6/10, 0.18746 sec/bs
-Batch: 7/10, 0.174654 sec/bs
-Batch: 8/10, 0.197225 sec/bs
-Batch: 9/10, 0.174059 sec/bs
+Batch: 1/100, 0.214852 sec/bs
+Batch: 10/100, 0.199974 sec/bs
+Batch: 20/100, 0.223986 sec/bs
+Batch: 30/100, 0.229245 sec/bs
+Batch: 40/100, 0.218942 sec/bs
+Batch: 50/100, 0.225848 sec/bs
+Batch: 60/100, 0.218188 sec/bs
+Batch: 70/100, 0.214843 sec/bs
+Batch: 80/100, 0.236737 sec/bs
+Batch: 90/100, 0.200317 sec/bs
 All complete!
 
 Bootstrap simulation complete... 
-Bootstrap run time (total), minutes: 0.339
-Bootstrap run time (per sample), seconds: 0.204
-Bootstrap run time (per sample, per thread), seconds: 2.037
+Bootstrap run time (total), minutes: 3.64
+Bootstrap run time (per sample), seconds: 0.218
+Bootstrap run time (per sample, per thread), seconds: 2.184
 
 Setting full-data fit as parameters... 
 Checking feasibility of provided parameters
@@ -187,12 +2329,6 @@ Checking feasibility of provided parameters
 Provided parameters are feasible
 Initial boundary distance (want > 0): 0.132712
 
-Computing 95% CI for predicated values by bin
-----------------------------------------
-
-Grabbing sample results, only resamples with converged fit... 
-Computing predicted values for each sampled parameter set... 
-Computing 95% CIs... 
 Running stats on simulation results
 ----------------------------------------
 
@@ -203,19 +2339,25 @@ Estimating p-values from resampled parameters...
 
 Recommended resample size for alpha = 0.05, 90 tests
 with bootstrapping/MCMC: 1800
-Actual resample size: 101
+Actual resample size: 1001
 
 Stat summary (head only):
 ------------------------------
-                          parameter    estimate     CI.low    CI.high   p.value p.value.adj    alpha.adj significance
-1  baseline_liver_Rt_arntl_Tns/Blk1  0.64365556  0.6015548  0.7095116        NA          NA           NA             
-2  beta_Rt_liver_arntl_6_X_Tns/Blk1 -0.48207078 -0.6569537 -0.3992203 0.0000000    0.000000 0.0005555556          ***
-3 beta_Rt_liver_arntl_12_X_Tns/Blk1  0.02914767 -0.0935311  0.1693829 0.5346535    5.346535 0.0050000000           ns
-4 beta_Rt_liver_arntl_18_X_Tns/Blk1  0.30425977  0.1721984  0.4450159 0.0000000    0.000000 0.0005617978          ***
-5  baseline_liver_Rt_arntl_Tns/Blk2  0.54487281  0.5151216  0.5763395        NA          NA           NA             
-6  beta_Rt_liver_arntl_6_X_Tns/Blk2 -0.35802258 -0.4272955 -0.2947615 0.0000000    0.000000 0.0005681818          ***
+                          parameter    estimate      CI.low    CI.high   p.value p.value.adj    alpha.adj significance
+1  baseline_liver_Rt_arntl_Tns/Blk1  0.64365556  0.60413766  0.7120516        NA          NA           NA             
+2  beta_Rt_liver_arntl_6_X_Tns/Blk1 -0.48207078 -0.72207480 -0.3616463 0.0000000    0.000000 0.0005555556          ***
+3 beta_Rt_liver_arntl_12_X_Tns/Blk1  0.02914767 -0.10954511  0.1900415 0.6063936    4.851149 0.0062500000           ns
+4 beta_Rt_liver_arntl_18_X_Tns/Blk1  0.30425977  0.09518505  0.4510570 0.0000000    0.000000 0.0005617978          ***
+5  baseline_liver_Rt_arntl_Tns/Blk2  0.54487281  0.50995456  0.5686804        NA          NA           NA             
+6  beta_Rt_liver_arntl_6_X_Tns/Blk2 -0.35802258 -0.41777273 -0.2864114 0.0000000    0.000000 0.0005681818          ***
 ----
 
+Computing 95% CI for predicated values by bin
+----------------------------------------
+
+Grabbing sample results, only resamples with converged fit... 
+Computing predicted values for each sampled parameter set... 
+Computing 95% CIs... 
 Analyzing residuals
 ----------------------------------------
 
@@ -234,8 +2376,6 @@ Log-residual summary by grouping variables (head only):
 6    ran_lvl_3 0.2564153 0.2281527 0.05205368
 ----
 
-Making MCMC walks plots... 
-Making MCMC vs bootstrap parameter distribution comparison plots... 
 Making effect parameter distribution plots... 
 Making rate-count plots... 
 Making time series plots... 
@@ -244,6 +2384,232 @@ Making parameter plots...
 Making parameter plots... 
 Making parameter plots... 
 Making parameter plots... 
-Making parameter plots... 
+Making parameter plots... [1] 2
+[1] 3
+[1] 4
+[1] 5
+[1] 6
+[1] 7
 
-Printing species summary plots for liver: arntl, ass1, dbp, elovl3, glul, pck1
+
+Parsing data and settings for wisp model
+----------------------------------------
+
+Model settings:
+	buffer_factor: 0.05
+	ctol: 1e-06
+	max_penalty_at_distance_factor: 0.01
+	LROcutoff: 1.5
+	LROwindow_factor: 1.25
+	rise_threshold_factor: 0.8
+	max_evals: 1000
+	rng_seed: 42
+	warp_precision: 1e-07
+	round_none: FALSE
+	inf_warp: 450359962.73705
+
+Plot settings:
+	print.plots: FALSE
+	dim.bounds: 
+	pred.type: pred
+	count.type: count
+	splitting_factor: 
+	CI_style: TRUE
+	label_size: 5.5
+	title_size: 14
+	axis_size: 12
+	legend_size: 10
+	count_size: 2.5
+	count_jitter: 0
+	count.alpha.ran: 0.5
+	count.alpha.none: 0.8
+	pred.alpha.ran: 0
+	pred.alpha.none: 1
+
+MCMC settings:
+	MCMC.burnin: 100
+	MCMC.steps: 0
+	MCMC.step.size: 0.5
+	MCMC.prior: 1
+	MCMC.neighbor.filter: 1
+
+Variable dictionary:
+	count: count
+	bin: bin
+	context: liver
+	species: gene
+	ran: mouse
+	timeseries: ZT
+	fixedeffects: ZT
+
+Parsed data (head only):
+------------------------------
+  count bin context species ran timeseries
+1     0   1   liver   arntl   1          0
+2     0   1   liver   arntl   1          0
+3     0   1   liver   arntl   1          0
+4     0   1   liver   arntl   1          0
+5     0   1   liver   arntl   1          0
+6     0   1   liver   arntl   1          0
+----
+
+Initializing Cpp (wspc) model
+----------------------------------------
+
+Infinity handling:
+machine epsilon: (eps_): 2.22045e-16
+pseudo-infinity (inf_): 1e+100
+warp_precision: 1e-07
+implied pseudo-infinity for unbounded warp (inf_warp): 4.5036e+08
+
+Extracting variables and data information:
+Found max bin: 8.000000
+Fixed effects:
+"timeseries"
+Ref levels:
+"0"
+Time series detected:
+"0" "6" "12" "18"
+Created treatment levels:
+"ref" "6" "12" "18"
+Context grouping levels:
+"liver"
+Species grouping levels:
+"arntl" "ass1" "dbp" "elovl3" "glul" "pck1"
+Random-effect grouping levels:
+"none" "1" "10" "2" "3" "4" "5" "6" "7" "8" "9"
+Total rows in summed count data table: 2112
+Number of rows with unique model components: 264
+
+Creating summed-count data columns and weight matrix:
+Random level 0, 1/11 complete
+Random level 1, 2/11 complete
+Random level 2, 3/11 complete
+Random level 3, 4/11 complete
+Random level 4, 5/11 complete
+Random level 5, 6/11 complete
+Random level 6, 7/11 complete
+Random level 7, 8/11 complete
+Random level 8, 9/11 complete
+Random level 9, 10/11 complete
+Random level 10, 11/11 complete
+
+Making extrapolation pool:
+row: 38/192
+row: 76/192
+row: 114/192
+row: 152/192
+row: 190/192
+
+Making initial parameter estimates:
+Extrapolated 'none' rows
+Took log of observed counts
+Estimated gamma dispersion of raw counts
+Estimated change points
+Found average log counts for each context-species combination
+Estimated initial parameters for fixed-effect treatments
+Built initial beta (ref and fixed-effects) matrices
+Initialized random-effect warping factors
+Made and mapped parameter vector
+Number of parameters: 276
+Constructed grouping variable IDs
+Size of boundary vector: 1320
+
+Estimating model parameters
+----------------------------------------
+
+Running bootstrap fits
+Checking feasibility of provided parameters
+... no tpoints below buffer
+... no NAN rates predicted
+... no negative rates predicted
+Provided parameters are feasible
+Initial boundary distance (want > 0): 0.215133
+Performing initial fit of full data
+Penalized neg_loglik: 1052.88
+Batch: 1/100, 0.197425 sec/bs
+Batch: 10/100, 0.206434 sec/bs
+Batch: 20/100, 0.193473 sec/bs
+Batch: 30/100, 0.170165 sec/bs
+Batch: 40/100, 0.200403 sec/bs
+Batch: 50/100, 0.173899 sec/bs
+Batch: 60/100, 0.202638 sec/bs
+Batch: 70/100, 0.204203 sec/bs
+Batch: 80/100, 0.194841 sec/bs
+Batch: 90/100, 0.18303 sec/bs
+All complete!
+
+Bootstrap simulation complete... 
+Bootstrap run time (total), minutes: 3.353
+Bootstrap run time (per sample), seconds: 0.201
+Bootstrap run time (per sample, per thread), seconds: 2.012
+
+Setting full-data fit as parameters... 
+Checking feasibility of provided parameters
+... no tpoints below buffer
+... no NAN rates predicted
+... no negative rates predicted
+Provided parameters are feasible
+Initial boundary distance (want > 0): 0.444609
+
+Running stats on simulation results
+----------------------------------------
+
+Grabbing sample results, only resamples with converged fit... 
+Grabbing parameter values... 
+Computing 95% confidence intervals... 
+Estimating p-values from resampled parameters... 
+
+Recommended resample size for alpha = 0.05, 72 tests
+with bootstrapping/MCMC: 1440
+Actual resample size: 1001
+
+Stat summary (head only):
+------------------------------
+                          parameter   estimate     CI.low   CI.high     p.value p.value.adj    alpha.adj significance
+1  baseline_liver_Rt_arntl_Tns/Blk1  2.5274827  2.1516802 2.8314717          NA          NA           NA             
+2  beta_Rt_liver_arntl_6_X_Tns/Blk1 -1.5521636 -2.6048617 1.8792703 0.003996004  0.18781219 0.0010638298           ns
+3 beta_Rt_liver_arntl_12_X_Tns/Blk1 -0.2091238 -2.3266342 0.8040702 0.479520480  6.23376623 0.0038461538           ns
+4 beta_Rt_liver_arntl_18_X_Tns/Blk1  0.4611511 -0.5752271 1.8128593 0.172827173  4.49350649 0.0019230769           ns
+5  baseline_liver_Rt_arntl_Tns/Blk2  1.9702455  1.6141804 2.2600663          NA          NA           NA             
+6  beta_Rt_liver_arntl_6_X_Tns/Blk2 -0.9668436 -1.6352919 0.2374585 0.000999001  0.05094905 0.0009803922           ns
+----
+
+Computing 95% CI for predicated values by bin
+----------------------------------------
+
+Grabbing sample results, only resamples with converged fit... 
+Computing predicted values for each sampled parameter set... 
+Computing 95% CIs... 
+Analyzing residuals
+----------------------------------------
+
+Computing residuals... 
+Making masks... 
+Making plots and saving stats... 
+
+Log-residual summary by grouping variables (head only):
+------------------------------
+         group      mean        sd   variance
+1          all 0.3606895 0.4288739 0.18393285
+2 ran_lvl_none 0.3011992 0.3116785 0.09714349
+3    ran_lvl_1 0.4109897 0.4703305 0.22121078
+4   ran_lvl_10 0.4284880 0.5601720 0.31379263
+5    ran_lvl_2 0.3402102 0.4255596 0.18110097
+6    ran_lvl_3 0.3883576 0.5098673 0.25996471
+----
+
+Making effect parameter distribution plots... 
+Making rate-count plots... 
+Making time series plots... 
+Making parameter plots... 
+Making parameter plots... 
+Making parameter plots... 
+Making parameter plots... 
+Making parameter plots... 
+Making parameter plots... [1] 2
+[1] 3
+[1] 4
+[1] 5
+[1] 6
+[1] 7
