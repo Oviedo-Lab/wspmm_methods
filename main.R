@@ -26,10 +26,10 @@ snk.report("Analysis of MERFISH data by Warped Sigmoid, Poisson-Process Mixed-Ef
 data_path <- paste0(projects_folder, "_molecular_mechanisms_of_ACx_lateralization/data_SSp/")
 bs_chunksize <- 10
 
-# Define list of genes to analyze
-gene.list <- c("Bcl11b", "Fezf2", "Satb2", "Nxph3", "Cux2", "Rorb")  
-
 # Preprocessing MERFISH data ###########################################################################################
+
+# Define list of genes to analyze
+laminar.gene.list <- c("Bcl11b", "Fezf2", "Satb2", "Nxph3", "Cux2", "Rorb")  
 
 # Load and parse raw visgen data from files
 count_data <- make_count_data(
@@ -57,7 +57,7 @@ coordinate_transform_plots <- count_data$plots
 count_data <- count_data$df
 
 # Simple check of transcripts per cell per gene per mouse
-extract_transcript_counts <- function() {
+extract_transcript_counts <- function(gene.list) {
     snk.report("Transcript counts per cell per gene per mouse")
     mice <- unique(count_data$mouse)
     counts <- count_data[,which(colnames(count_data) %in% gene.list)]
@@ -69,7 +69,7 @@ extract_transcript_counts <- function() {
       snk.print_vec("modeled genes only", sum(counts[mask,])/sum(mask)/ncol(counts))
     }
   }
-extract_transcript_counts()
+extract_transcript_counts(laminar.gene.list)
 
 # Save layer boundaries
 write.csv(
@@ -87,7 +87,7 @@ fixed.effect.names <- c("hemisphere", "age")
 count.data.WSPmm <- create.count.data.WSPmm(
     df.merfish = count_data,
     bin.dim = "y_bins",
-    gene.list = gene.list,
+    gene.list = laminar.gene.list,
     fixed.effect.names = fixed.effect.names, 
     context = "cortex"
   )
@@ -501,7 +501,7 @@ make_stat_table <- function() {
     param_stats[,2:5] <- round(param_stats[,2:5], 4)
     param_stats <- param_stats[!grepl("wfactor", param_stats$parameter) & !grepl("baseline", param_stats$parameter),]
     param_stats_list <- list() 
-    for (g in gene.list) {
+    for (g in laminar.gene.list) {
       # Grab gene mask
       gene_mask <- grepl(g, param_stats$parameter)
       # Split into lists by gene 
@@ -581,7 +581,7 @@ make_stat_table <- function() {
     df$p.adj[df$p.adj > 1] <- "1.000"
     df$p.adj[df$p.adj <= 0] <- "$<0.001$"
     
-    for (g in gene.list) {
+    for (g in laminar.gene.list) {
       if (g == "Rorb") next
       df2 <- param_stats_list[[g]]
       df2 <- df2[,-which(colnames(df2) == "effect")]
@@ -760,8 +760,6 @@ radial.model <- wisp(
   plot.settings = plot.settings
 )
 
-
-
 v1 <- c("#ADD8E6", "#FF7F50", "#9ACD31", "#FFC1CB")
 v2 <- c("#ED6986", "#9CA620", "#2AA9A3", "#A28EC2")
 new_ratecount <- list()
@@ -779,6 +777,176 @@ for (p in seq_along(radial.model[["plots"]][["ratecount"]])) {
 all_plots <- c(new_ratecount, radial.model[["plots"]][["timeseries"]])
 all_plots <- as.vector(rbind(new_ratecount, radial.model[["plots"]][["timeseries"]]))
 do.call(grid.arrange, c(all_plots, ncol = 2))
+
+# Simulated data #######################################################################################################
+
+preprocess_Allen <- FALSE 
+if (preprocess_Allen) {
+  # Get complete Allen mouse brain data
+  data_path <- "/Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/_molecular_mechanisms_of_ACx_lateralization/development_work/data/Allen_data/Allen_data.csv"
+  library(data.table)
+  start_time <- Sys.time()
+  big_data_frame <- fread(data_path,
+                          nrows = 1e6 )
+  duration <- Sys.time() - start_time
+  cat("Time to read in first million rows of data: ", duration, units(duration), "\n")
+  start_time <- Sys.time()
+  big_data_frame <- fread(data_path)
+  duration <- Sys.time() - start_time
+  cat("Time to read in data: ", duration, units(duration), "\n")
+  View(big_data_frame[c(1:1000),])
+  for (s in unique(big_data_frame$slice_num)) {
+    mask <- big_data_frame$slice_num == s
+    print(sum(mask)/1e6)
+  }
+  
+  # Prune down to just a few interesting neuron markers
+  neuron.gene.list <- c("Slc17a6", "Slc17a7", "Slc17a8", "Pvalb", "Tac2", "Vip")
+  neuron.mask <- FALSE 
+  for (g in neuron.gene.list) {
+    neuron.mask <- neuron.mask | big_data_frame$trscrpt_gene_symb == g
+  }
+  print(sum(neuron.mask))
+  count_data_neurons <- big_data_frame[neuron.mask,]
+  
+  # Drop unneeded columns 
+  count_data_neurons <- count_data_neurons[,c(1,3,6,8,9)]
+  
+  # Rename columns 
+  colnames(count_data_neurons) <- c("count", "slice_num", "gene", "coord_x", "coord_y")
+  
+  # Identify which vglut marker to keep
+  for (g in neuron.gene.list) {
+    mask <- count_data_neurons$gene == g
+    cat("\ngene:", g, "count:", sum(count_data_neurons$count[mask]))
+  }
+  
+  # Keep only Slc17a7
+  count_data_neurons <- count_data_neurons[!c(count_data_neurons$gene == "Slc17a6" | count_data_neurons$gene == "Slc17a8"),]
+  
+  # Identify slices to form the basis of the simulation
+  library(ggplot2)
+  start <- 40
+  stop <- 50
+  for (s in c(start:stop)) {
+    df <- count_data_neurons[count_data_neurons$slice_num == s, c("gene", "coord_x", "coord_y")]
+    plt <- ggplot(df, aes(x = coord_x, y = coord_y, color = gene)) +
+      geom_point() + 
+      ggtitle(as.character(s)) +
+      theme_minimal()
+    print(plt)
+  }
+  
+  # Keep only these slices
+  mask <- count_data_neurons$slice_num == 29 | count_data_neurons$slice_num == 33 | count_data_neurons$slice_num == 42
+  count_data_neurons <- count_data_neurons[mask,]
+  
+  # Flip y-axis
+  y_med <- median(count_data_neurons$coord_y)
+  count_data_neurons$coord_y <- (count_data_neurons$coord_y - y_med) * -1 + y_med
+  
+  # Inspect data
+  plt <- ggplot(count_data_neurons, aes(x = coord_x, y = coord_y, color = gene)) +
+    geom_point(size = 0.5) + 
+    facet_wrap(~ slice_num) +
+    theme_minimal()
+  print(plt)
+  
+  # Save 
+  write.csv(count_data_neurons, "Allen_data.csv", row.names = FALSE)
+} else {
+  # Import
+  count_data_neurons <- read.csv("Allen_data.csv")
+}
+
+# Cut down to just a single 2x2 patch from one slice
+mask <- count_data_neurons$slice_num == 33 &
+  count_data_neurons$coord_y >= 2 & count_data_neurons$coord_y <=4 &
+  count_data_neurons$coord_x >= 1 & count_data_neurons$coord_x <=3 
+count_data_neurons_patch <- count_data_neurons[mask,]
+
+# Inspect data
+plt <- ggplot(count_data_neurons_patch, aes(x = coord_x, y = coord_y, color = gene, size = log(count + 1))) +
+  geom_point() + 
+  facet_wrap(~ slice_num) +
+  theme_minimal()
+print(plt)
+
+# Helper function to make noisy replicates
+make_noisy_replicate <- function(data, scale_factor = 0.05) {
+  data_shifted <- data
+  # Make affine transformation to shift cells around
+  Ax <- matrix(c(1,0,rnorm(1,0,scale_factor),1),2,2)  # shear x
+  Ay <- matrix(c(1,rnorm(1,0,scale_factor),0,1),2,2)  # shear y
+  As <- matrix(c(rnorm(1,0,scale_factor)+1, 0, 0, rnorm(1,0,scale_factor)+1),2,2) # scale
+  A <- As %*% Ay %*% Ax
+  # Make scales to keep cells roughly in bounds
+  x_mid <- diff(range(data$coord_x))/2 + min(data$coord_x)
+  distx <- (data$coord_x - x_mid)^2
+  distx <- distx/max(distx)
+  y_mid <- diff(range(data$coord_y))/2 + min(data$coord_y)
+  disty <- (data$coord_y - y_mid)^2
+  disty <- disty/max(disty)
+  # Applied scaled transformation
+  data_shifted$coord_x = distx*data$coord_x + (1-distx)* (A[1,1]*data$coord_x + A[1,2]*data$coord_y)
+  data_shifted$coord_y = disty*data$coord_y + (1-disty)* (A[2,1]*data$coord_x + A[2,2]*data$coord_y)
+  # Poisson resampling of genes
+  data_shifted$count <- rpois(nrow(data), data_shifted$count)
+  return(data_shifted)
+}
+
+count_data_neurons_patch_shifted <- make_noisy_replicate(count_data_neurons_patch)
+plt <- ggplot(count_data_neurons_patch_shifted, aes(x = coord_x, y = coord_y, color = gene, size = log(count + 1))) +
+  geom_point() + 
+  facet_wrap(~ slice_num) +
+  theme_minimal()
+print(plt)
+
+# Make function to simulate non-SVG
+mix_gene <- function(data, gene) {
+  data_mixed <- data
+  gene_mask <- data$gene == gene
+  gene_idx <- which(gene_mask) 
+  gene_idx_shuffled <- sample(gene_idx, length(gene_idx), replace = FALSE)
+  data_mixed$coord_x[gene_idx_shuffled] <- data$coord_x[gene_idx]
+  data_mixed$coord_y[gene_idx_shuffled] <- data$coord_y[gene_idx]
+  return(data_mixed)
+}
+
+count_data_neurons_patch_mixed <- mix_gene(count_data_neurons_patch, "Slc17a7")
+plt <- ggplot(count_data_neurons_patch_mixed, aes(x = coord_x, y = coord_y, color = gene, size = log(count + 1))) +
+  geom_point() + 
+  facet_wrap(~ slice_num) +
+  theme_minimal()
+print(plt)
+
+# Make function to simulate SV from an attractor point
+attract_gene <- function(data, gene, attraction_strength) {
+  # mix gene to start with clean slate 
+  data_mixed <- mix_gene(data, gene)
+  # Randomly select attractor cell
+  attractor_idx <- as.integer(sample(nrow(data_mixed), 1))
+  coord_attractor <- c(data_mixed$coord_x[attractor_idx], data_mixed$coord_y[attractor_idx])
+  gene_mask <- data_mixed$gene == gene
+  x_diff <- data_mixed$coord_x[gene_mask] - coord_attractor[1]
+  y_diff <- data_mixed$coord_y[gene_mask] - coord_attractor[2]
+  d <- sqrt(x_diff^2 + y_diff^2)
+  d_norm <- 1 - d/max(d)
+  data_attracted <- data_mixed
+  n_points <- sum(gene_mask)
+  data_attracted$coord_x[gene_mask] <- data_mixed$coord_x[gene_mask] - x_diff * pmin(d_norm * runif(n_points) * attraction_strength, 1)
+  data_attracted$coord_y[gene_mask] <- data_mixed$coord_y[gene_mask] - y_diff * pmin(d_norm * runif(n_points) * attraction_strength, 1)
+  return(data_attracted)
+}
+
+count_data_neurons_patch_attracted <- attract_gene(count_data_neurons_patch, "Slc17a7", runif(1)*2)
+plt <- ggplot(count_data_neurons_patch_attracted, aes(x = coord_x, y = coord_y, color = gene, size = log(count + 1))) +
+  geom_point() + 
+  facet_wrap(~ slice_num) +
+  theme_minimal()
+print(plt)
+
+# Make function to simulate an effect
 
 
 # end sink
