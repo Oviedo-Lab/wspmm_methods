@@ -187,3 +187,14 @@ Warning messages:
   replacement element 4 has 400 rows to replace 100 rows
 [1] 0
 [1] 1 2 3
+
+Enter a frame number, or 0 to exit   
+
+1: `units<-`(`*tmp*`, value = "sec")
+2: `units<-.difftime`(`*tmp*`, value = "sec")
+
+Enter an item from the menu, or 0 to exit
+Time difference of 0.511874 secs
+Time difference of 0.4187319 secs
+Time difference of 0.4172258 secs
+Time difference of 0.4492049 secs

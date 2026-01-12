@@ -1006,7 +1006,7 @@ simulate_data <- function(
     # ... may select none
     FSEs <- c()
     n_FSEs <- sample(c(0:n_SVGs), 1)
-    if (n_FSEs > 0) FSEs <- sample(SVGs, n_FSEs)
+    if (n_FSEs > 0) FSEs <- sort(sample(SVGs, n_FSEs))
     
     # Initialize variables
     sim_data_ref <- seed_data
@@ -1113,8 +1113,11 @@ plt <- ggplot(count_data_neurons_patch_attracted, aes(x = coord_x, y = coord_y, 
 print(plt)
 
 
+t <- Sys.time()
 test <- simulate_data(count_data_neurons_patch)
-
+d <- Sys.time() - t
+units(d) <- "secs"
+print(d)
 
 
 # end sink
