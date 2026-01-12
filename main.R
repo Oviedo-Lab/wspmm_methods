@@ -1206,7 +1206,8 @@ model_sim_wisp <- function(sim) {
       MCMC.settings = list(MCMC.steps = 0),
       bootstraps.num = 1e3,
       max.fork = bs_chunksize,
-      verbose = TRUE
+      plot.settings = list(print.plots = FALSE),
+      verbose = FALSE
     )
     
     # Extract effect estimates and effect p-values for comparing to ground truth
@@ -1250,14 +1251,24 @@ n_sims <- 100
 results <- data.frame()
 for (s in c(1:n_sims)) {
   
-  # Simulate data and extract count data for modeling
-  sim <- simulate_data(count_data_neurons_patch)
+  cat("\nRunning simulation ", s, "/", n_sims)
   
+  # Simulate data and extract count data for modeling
+  t_stim_start <- Sys.time()
+  sim <- simulate_data(count_data_neurons_patch)
+  d_sim <- Sys.time() - t_stim_start
+  units(d_sim) <- "secs"
+  
+  t_wisp_start <- Sys.time()
   wisp_results <- model_sim_wisp(sim)
+  d_wisp <- Sys.time() - t_wisp_start
+  units(d_wisp) <- "secs"
   wisp_results$method <- "wisp"
   wisp_results$sim <- s
   
   results <- rbind(results, wisp_results)
+  
+  cat(" (data sim time:", round(d_sim,2), "s, wisp time:", round(d_wisp,2), "s)")
   
 }
 
