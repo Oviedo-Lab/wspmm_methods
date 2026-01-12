@@ -859,18 +859,29 @@ if (preprocess_Allen) {
   count_data_neurons <- read.csv("Allen_data.csv")
 }
 
+# Cut down to just a single 2x2 patch from one slice
+count_data_neurons_patch <- count_data_neurons[
+  count_data_neurons$slice_num == 33 &
+    count_data_neurons$coord_y >= 2 & count_data_neurons$coord_y <=4 &
+    count_data_neurons$coord_x >= 1 & count_data_neurons$coord_x <=3,]
+
 # Helper function to make replicates
 make_replicate <- function(
     data, 
     rate_scalar = 0.5, # number between 0 and 1 ... should this vary by gene??
+    affine_transform = NULL,
     spatial_scalar = 0.05
   ) {
     data_shifted <- data
     # Make affine transformation to shift cells around
-    Ax <- matrix(c(1,0,rnorm(1,0,spatial_scalar),1),2,2)  # shear x
-    Ay <- matrix(c(1,rnorm(1,0,spatial_scalar),0,1),2,2)  # shear y
-    As <- matrix(c(rnorm(1,0,spatial_scalar)+1, 0, 0, rnorm(1,0,spatial_scalar)+1),2,2) # scale
-    A <- As %*% Ay %*% Ax
+    if (is.null(affine_transform)) {
+      Ax <- matrix(c(1,0,rnorm(1,0,spatial_scalar),1),2,2)  # shear x
+      Ay <- matrix(c(1,rnorm(1,0,spatial_scalar),0,1),2,2)  # shear y
+      As <- matrix(c(rnorm(1,0,spatial_scalar)+1, 0, 0, rnorm(1,0,spatial_scalar)+1),2,2) # scale
+      A <- As %*% Ay %*% Ax
+    } else {
+      A <- affine_transform
+    }
     # Make scales to keep cells roughly in bounds
     x_mid <- diff(range(data$coord_x))/2 + min(data$coord_x)
     distx <- (data$coord_x - x_mid)^2
@@ -886,26 +897,22 @@ make_replicate <- function(
     return(data_shifted)
   }
 
-# Helper function to simulate non-SVG
-smooth_gene <- function(
-    data, 
-    gene
+# Helper function to simulate non-SVGs
+smooth_data <- function(
+    data
   ) {
-    data_mixed <- data
-    gene_mask <- data$gene == gene
-    gene_idx <- which(gene_mask) 
-    gene_idx_shuffled <- sample(gene_idx, length(gene_idx), replace = FALSE)
-    data_mixed$coord_x[gene_idx_shuffled] <- data$coord_x[gene_idx]
-    data_mixed$coord_y[gene_idx_shuffled] <- data$coord_y[gene_idx]
-    return(data_mixed)
+    idx_shuffled <- sample(nrow(data), nrow(data), replace = FALSE)
+    data$coord_x[idx_shuffled] <- data$coord_x
+    data$coord_y[idx_shuffled] <- data$coord_y
+    return(data)
   }
 
 # Helper function to simulate SV from an attractor point and spatial effect
 induce_SV <- function(
     data_mixed, 
     gene, 
-    attractor, # number between 0 and 1
-    effect = 0.5          # number between 0 and 1, to simulate fixed effects on rate
+    attractor,    # number between 0 and 1
+    effect = 0.5  # number between 0 and 1, to simulate fixed effects on rate
   ) {
     # Get attractor coordinates
     n_rows <- nrow(data_mixed)
@@ -925,21 +932,22 @@ induce_SV <- function(
     n_points <- sum(gene_mask)
     d_norm_noise <- rbeta(n_points, shape1, shape2)
     # Scale differences with noisy normalized distance
-    x_diff_norm <- x_diff^2 * d_norm_noise
-    y_diff_norm <- y_diff^2 * d_norm_noise
+    x_diff_norm <- x_diff * d_norm_noise
+    y_diff_norm <- y_diff * d_norm_noise
     # Apply attraction
     data_attracted <- data_mixed
     data_attracted$coord_x[gene_mask] <- data_mixed$coord_x[gene_mask] - x_diff_norm 
     data_attracted$coord_y[gene_mask] <- data_mixed$coord_y[gene_mask] - y_diff_norm 
     # Apply effect
-    data_attracted$count[gene_mask] <- rpois(1, data_attracted$count[gene_mask] * (2*effect)^2)
+    data_attracted$count[gene_mask] <- rpois(sum(gene_mask), data_attracted$count[gene_mask] * (2*effect)^2)
     return(data_attracted)
   }
 
 # Helper function to bin data
 bin_data <- function(
     data,
-    n_bins = 100
+    n_bins = 100,
+    sum_counts = FALSE
   ) { 
     
     # Bin coordinates
@@ -956,33 +964,37 @@ bin_data <- function(
       labels = FALSE
     )
     
-    # Get number of genes 
-    genes <- unique(data$gene)
-    n_genes <- length(genes)
-    
-    # Sum counts in bins by genes 
-    countx <- rep(0, n_bins * n_genes)
-    county <- rep(0, n_bins * n_genes)
-    for (gi in c(1:n_genes)) {
-      g <- genes[gi]
-      maskg <- data$gene == g
-      for (i in c(1:n_bins)) {
-        maskx <- data$bin_x == i & maskg
-        masky <- data$bin_y == i & maskg
-        idx <- (gi - 1) * n_bins + i
-        countx[idx] <- sum(data$count[maskx])
-        county[idx] <- sum(data$count[masky])
+    if (sum_counts) {
+      # Get number of genes 
+      genes <- unique(data$gene)
+      n_genes <- length(genes)
+      
+      # Sum counts in bins by genes 
+      countx <- rep(0, n_bins * n_genes)
+      county <- rep(0, n_bins * n_genes)
+      for (gi in c(1:n_genes)) {
+        g <- genes[gi]
+        maskg <- data$gene == g
+        for (i in c(1:n_bins)) {
+          maskx <- data$bin_x == i & maskg
+          masky <- data$bin_y == i & maskg
+          idx <- (gi - 1) * n_bins + i
+          countx[idx] <- sum(data$count[maskx], na.rm = TRUE)
+          county[idx] <- sum(data$count[masky], na.rm = TRUE)
+        }
       }
+      
+      return(
+        data.frame(
+          bin = rep(c(1:n_bins), n_genes),
+          countx = countx,
+          county = county,
+          gene = rep(genes, each = n_bins)
+        )
+      )
+    } else {
+      return(data)
     }
-    
-    datac <- data.frame(
-      bin = rep(c(1:n_bins), n_genes),
-      countx = countx,
-      county = county,
-      gene = rep(genes, each = n_bins)
-    )
-    
-    return(datac)
     
   }
 
@@ -990,11 +1002,23 @@ bin_data <- function(
 simulate_data <- function(
     seed_data, 
     n_bins = 100,
-    n_replicates = 4 # number of replicates per treatment condition 
+    n_replicates = 4, # number of replicates per treatment condition 
+    replicate_spatial_scalar = 0.05, 
+    sum_counts = FALSE,
+    print_plots = FALSE
   ) {
     
+    # Print seed data 
+    if (print_plots) {
+      plt <- ggplot(seed_data, aes(x = coord_x, y = coord_y, color = gene, size = log(count + 1))) +
+        geom_point() + 
+        ggtitle("Seed data") +
+        theme_minimal()
+      print(plt)
+    }
+    
     # Get number and list of genes
-    genes <- unique(seed_data$gene)
+    genes <- sort(unique(seed_data$gene))
     n_genes <- length(genes)
     
     # Randomly select genes to be spatially variable 
@@ -1008,9 +1032,12 @@ simulate_data <- function(
     n_FSEs <- sample(c(0:n_SVGs), 1)
     if (n_FSEs > 0) FSEs <- sort(sample(SVGs, n_FSEs))
     
+    # Smooth seed data (no spatial variation)
+    seed_data_smoothed <- smooth_data(seed_data)
+    
     # Initialize variables
-    sim_data_ref <- seed_data
-    sim_data_trt <- seed_data
+    sim_data_ref <- seed_data_smoothed
+    sim_data_trt <- seed_data_smoothed
     
     # Select attractors
     attractor <- runif(n_genes)
@@ -1021,16 +1048,39 @@ simulate_data <- function(
     
     # Smooth, apply attractors, apply effects
     for (g in c(1:n_genes)) {
-      # Smooth gene (no spatial variation)
-      sim_data_ref <- smooth_gene(seed_data, genes[g])
-      mask <- seed_data$gene == genes[g]
-      sim_data_trt$coord_x[mask] <- sim_data_ref$coord_x[mask]
-      sim_data_trt$coord_y[mask] <- sim_data_ref$coord_y[mask]
+      # Print smoothed gene
+      if (print_plots) {
+        mask <- sim_data_ref$gene == genes[g]
+        sim_data_plt <- rbind(
+          sim_data_ref[mask,],
+          sim_data_trt[mask,]
+        )
+        sim_data_plt$fixedeffect <- c(rep("ref", sum(mask)), rep("trt", sum(mask)))
+        plt <- ggplot(sim_data_plt, aes(x = coord_x, y = coord_y, color = fixedeffect, size = log(count + 1))) +
+          geom_point() + 
+          ggtitle(paste0(genes[g], ", smoothed")) +
+          theme_minimal()
+        print(plt)
+      }
       if (any(g == SVGs)) {
         # Use attractor to induce spatial variability
         sim_data_ref <- induce_SV(sim_data_ref, genes[g], attractor[g])
         # Apply effects
         sim_data_trt <- induce_SV(sim_data_trt, genes[g], attractor[g], effect[g])
+        # Print spatially variable gene
+        if (print_plots) {
+          mask <- sim_data_ref$gene == genes[g]
+          sim_data_plt <- rbind(
+            sim_data_ref[mask,],
+            sim_data_trt[mask,]
+          )
+          sim_data_plt$fixedeffect <- c(rep("ref", sum(mask)), rep("trt", sum(mask)))
+          plt <- ggplot(sim_data_plt, aes(x = coord_x, y = coord_y, color = fixedeffect, size = log(count + 1))) +
+            geom_point() + 
+            ggtitle(paste0(genes[g], ", spatially variable")) +
+            theme_minimal()
+          print(plt)
+        }
       }
     }
     
@@ -1039,28 +1089,54 @@ simulate_data <- function(
     
     # Make replicates and bin data
     rep_names <- paste0("replicate", c(1:n_replicates))
-    sim_data_ref_reps <- as.data.frame(matrix(NA, nrow = n_replicates * n_bins * n_genes, ncol = 4))
-    sim_data_trt_reps <- as.data.frame(matrix(NA, nrow = n_replicates * n_bins * n_genes, ncol = 4))
-    for (r in c(1:n_replicates)) {
-      idx_start <- (r - 1) * n_bins * n_genes + 1
-      idx_end <- r * n_bins * n_genes
-      idx <- c(idx_start:idx_end)
-      sim_data_ref_reps[idx,] <- bin_data(make_replicate(sim_data_ref, replicate_rate_scalars[r]), n_bins)
-      sim_data_trt_reps[idx,] <- bin_data(make_replicate(sim_data_trt, replicate_rate_scalars[r]), n_bins)
+    nrow_rep <- nrow(sim_data_ref)
+    ncol_rep <- ncol(sim_data_ref) + 2
+    if (sum_counts) {
+      nrow_rep <- n_bins * n_genes
+      ncol_rep <- 4
     }
-    colnames(sim_data_ref_reps) <- c("bin", "countx", "county", "gene")
-    colnames(sim_data_trt_reps) <- c("bin", "countx", "county", "gene")
-    sim_data_ref_reps$replicate <- rep(rep_names, each = n_bins)
-    sim_data_trt_reps$replicate <- rep(rep_names, each = n_bins)
+    sim_data_ref_reps <- as.data.frame(matrix(NA, nrow = n_replicates * nrow_rep, ncol = ncol_rep))
+    sim_data_trt_reps <- as.data.frame(matrix(NA, nrow = n_replicates * nrow_rep, ncol = ncol_rep))
+    for (r in c(1:n_replicates)) {
+      # Make affine transform for replicate 
+      Ax <- matrix(c(1,0,rnorm(1,0,replicate_spatial_scalar),1),2,2)  # shear x
+      Ay <- matrix(c(1,rnorm(1,0,replicate_spatial_scalar),0,1),2,2)  # shear y
+      As <- matrix(c(rnorm(1,0,replicate_spatial_scalar)+1, 0, 0, rnorm(1,0,replicate_spatial_scalar)+1),2,2) # scale
+      A <- As %*% Ay %*% Ax
+      # Set index
+      idx_start <- (r - 1) * nrow_rep + 1
+      idx_end <- r * nrow_rep
+      idx <- c(idx_start:idx_end)
+      # Make replicate and bin data
+      sim_data_ref_reps[idx,] <- bin_data(make_replicate(data = sim_data_ref, rate_scalar = replicate_rate_scalars[r], affine_transform = A), n_bins, sum_counts)
+      sim_data_trt_reps[idx,] <- bin_data(make_replicate(data = sim_data_trt, rate_scalar = replicate_rate_scalars[r], affine_transform = A), n_bins, sum_counts)
+    }
+    if (sum_counts) {
+      colnames(sim_data_ref_reps) <- c("bin", "countx", "county", "gene")
+      colnames(sim_data_trt_reps) <- c("bin", "countx", "county", "gene")
+    } else {
+      colnames(sim_data_ref_reps) <- c(colnames(sim_data_ref), "bin_x", "bin_y") 
+      colnames(sim_data_trt_reps) <- c(colnames(sim_data_trt), "bin_x", "bin_y") 
+    }
+    sim_data_ref_reps$replicate <- rep(rep_names, each = nrow_rep)
+    sim_data_trt_reps$replicate <- rep(rep_names, each = nrow_rep)
     sim_data_ref_reps$fixedeffect <- "ref"
     sim_data_trt_reps$fixedeffect <- "trt"
     
     # Combine binned data
     sim_data <- rbind(sim_data_ref_reps, sim_data_trt_reps)
     
+    effect <- effect - 0.5
+    names(effect) <- genes
+    replicate_rate_scalars <- replicate_rate_scalars - 0.5
+    names(replicate_rate_scalars) <- rep_names
+    
     sim <- list(
-      SVGs = SVGs,
-      FSEs = FSEs, 
+      genes = genes,
+      SVGs_idx = SVGs,
+      SVGs = genes[SVGs],
+      FSEs_idx = FSEs, 
+      FSEs = genes[FSEs],
       attractor = attractor, 
       effect = effect, 
       replicate_rate_scalars = replicate_rate_scalars,
@@ -1071,53 +1147,126 @@ simulate_data <- function(
     
   }
 
-# Cut down to just a single 2x2 patch from one slice
-count_data_neurons_patch <- count_data_neurons[
-  count_data_neurons$slice_num == 33 &
-    count_data_neurons$coord_y >= 2 & count_data_neurons$coord_y <=4 &
-    count_data_neurons$coord_x >= 1 & count_data_neurons$coord_x <=3,]
-plt <- ggplot(count_data_neurons_patch, aes(x = coord_x, y = coord_y, color = gene, size = log(count + 1))) +
-  geom_point() + 
-  facet_wrap(~ slice_num) +
-  theme_minimal()
-print(plt)
+# Rate effect is consistent across all of space, so, average over all blocks for each gene
+extract_mean_rate_effect <- function(model) {
+  genes <- model[["grouping.variables"]][["species.lvls"]]
+  rate_effect <- rep(NA, length(genes))
+  names(rate_effect) <- genes
+  for (g in genes) {
+    mask <- grepl(paste0("beta_Rt_context_", g, "_trt_X"), names(model[["fitted.parameters"]]))
+    rate_effect[g] <- mean(model[["fitted.parameters"]][mask])
+  }
+  return(rate_effect)
+}
 
-# Demo, make noisy replicate
-count_data_neurons_patch_shifted <- make_replicate(count_data_neurons_patch)
-plt <- ggplot(count_data_neurons_patch_shifted, aes(x = coord_x, y = coord_y, color = gene, size = log(count + 1))) +
-  geom_point() + 
-  facet_wrap(~ slice_num) +
-  theme_minimal()
-print(plt)
+# Function to extract mean p-value across blocks for each gene 
+extract_mean_pvalue <- function(model) {
+  genes <- model[["grouping.variables"]][["species.lvls"]]
+  p_values <- rep(NA, length(genes))
+  names(p_values) <- genes
+  for (g in genes) {
+    mask <- grepl(paste0("beta_Rt_context_", g, "_trt_X"), model[["stats"]][["parameters"]]$parameter)
+    p_values[g] <- mean(model[["stats"]][["parameters"]]$p.value.adj[mask])
+  }
+  return(p_values)
+}
 
-# Demo, simulate non-SVG
-count_data_neurons_patch_mixed <- smooth_gene(count_data_neurons_patch, "Slc17a7")
-plt <- ggplot(count_data_neurons_patch_mixed, aes(x = coord_x, y = coord_y, color = gene, size = log(count + 1))) +
-  geom_point() + 
-  facet_wrap(~ slice_num) +
-  theme_minimal()
-print(plt)
+# Replicate random noise is consistent across genes, so, average over all genes for each replicate
+extract_mean_random_effect <- function(model) {
+  replicates <- model[["grouping.variables"]][["ran.lvls"]]
+  random_effect <- rep(NA, length(replicates))
+  names(random_effect) <- replicates
+  for (r in replicates) {
+    mask <- grepl(paste0("wfactor_rate_", r), names(model[["fitted.parameters"]]))
+    random_effect[r] <- mean(model[["fitted.parameters"]][mask])
+  }
+  random_effect <- random_effect[-c(1)]
+  return(random_effect)
+} 
 
-# Demo, simulate SV from an attractor point
-attractor <- as.integer(sample(nrow(count_data_neurons_patch_mixed), 1))
-count_data_neurons_patch_attracted <- induce_SV(
-  count_data_neurons_patch_mixed, 
-  "Slc17a7", 
-  attractor,
-  0.5
-  )
-plt <- ggplot(count_data_neurons_patch_attracted, aes(x = coord_x, y = coord_y, color = gene, size = log(count + 1))) +
-  geom_point() + 
-  facet_wrap(~ slice_num) +
-  theme_minimal()
-print(plt)
+# Function to model simulation with wisp
+model_sim_wisp <- function(sim) {
+    
+    # Transform data into count frame for wisp
+    keep_cols <- !(colnames(sim$data) %in% c("slice_num", "coord_x", "coord_y", "bin_y"))
+    sim_count <- sim$data[,keep_cols]
+    
+    # Set data variables
+    data.variables <- list(
+      bin = "bin_x", 
+      count = "count",
+      species = "gene",
+      ran = "replicate"
+    )
+    
+    # Fit model
+    model <- wisp(
+      count.data = sim_count,
+      variables = data.variables,
+      MCMC.settings = list(MCMC.steps = 0),
+      bootstraps.num = 1e3,
+      max.fork = bs_chunksize,
+      verbose = TRUE
+    )
+    
+    # Extract effect estimates and effect p-values for comparing to ground truth
+    rate_effects_est <- extract_mean_rate_effect(model)
+    random_effects_est <- extract_mean_random_effect(model)
+    rate_effects_pvalues <- extract_mean_pvalue(model)
+    
+    # Extract ground-truth
+    rate_effects_true <- sim$effect
+    random_effects_true <- sim$replicate_rate_scalars
+    SVGs <- rep(FALSE, length(sim$genes))
+    names(SVGs) <- sim$genes
+    SVGs[sim$SVGs] <- TRUE
+    FSEs <- rep(FALSE, length(sim$genes))
+    names(FSEs) <- sim$genes
+    FSEs[sim$FSEs] <- TRUE
+    
+    # Compile results in named vector 
+    results <- data.frame(
+      est = c(rate_effects_est, random_effects_est, rate_effects_pvalues, rep(NA, length(SVGs))),
+      true = c(rate_effects_true, random_effects_true, FSEs, SVGs),
+      param = c(
+        rep("rate_effect", length(rate_effects_est)), 
+        rep("random_effect", length(random_effects_est)), 
+        rep("FSE", length(rate_effects_pvalues)), 
+        rep("SVG", length(SVGs))
+      ),
+      id = c(
+        names(rate_effects_est), 
+        names(random_effects_est), 
+        names(rate_effects_pvalues), 
+        names(SVGs)
+      )
+    )
+    
+    return(results)
+    
+  }
+
+n_sims <- 100
+results <- data.frame()
+for (s in c(1:n_sims)) {
+  
+  # Simulate data and extract count data for modeling
+  sim <- simulate_data(count_data_neurons_patch)
+  
+  wisp_results <- model_sim_wisp(sim)
+  wisp_results$method <- "wisp"
+  wisp_results$sim <- s
+  
+  results <- rbind(results, wisp_results)
+  
+}
 
 
-t <- Sys.time()
-test <- simulate_data(count_data_neurons_patch)
-d <- Sys.time() - t
-units(d) <- "secs"
-print(d)
+
+
+
+
+
 
 
 # end sink
