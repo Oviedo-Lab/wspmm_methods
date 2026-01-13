@@ -1,1003 +1,204 @@
 
 
 Analysis of MERFISH data by Warped Sigmoid, Poisson-Process Mixed-Effects Model (WSPmm)
-Time difference of 2.953934 secs
 
-
-Parsing data and settings for wisp model
-----------------------------------------
-
-Model settings:
-	buffer_factor: 0.05
-	ctol: 1e-06
-	max_penalty_at_distance_factor: 0.01
-	LROcutoff: 2
-	LROwindow_factor: 1.25
-	rise_threshold_factor: 0.8
-	max_evals: 1000
-	rng_seed: 42
-	warp_precision: 1e-07
-	round_none: TRUE
-	inf_warp: 450359962.73705
-
-Plot settings:
-	print.plots: TRUE
-	dim.bounds: 
-	pred.type: pred
-	count.type: count
-	splitting_factor: 
-	CI_style: TRUE
-	label_size: 5.5
-	title_size: 20
-	axis_size: 12
-	legend_size: 10
-	count_size: 1.5
-	count_jitter: 0.5
-	count.alpha.ran: 0.25
-	count.alpha.none: 0.25
-	pred.alpha.ran: 0.9
-	pred.alpha.none: 1
-
-MCMC settings:
-	MCMC.burnin: 100
-	MCMC.steps: 0
-	MCMC.step.size: 0.5
-	MCMC.prior: 1
-	MCMC.neighbor.filter: 1
-
-Variable dictionary:
-	count: countx
-	bin: bin
-	context: context
-	species: gene
-	ran: replicate
-	timeseries: timeseries
-	fixedeffects: fixedeffect
-
-Parsed data (head only):
-------------------------------
-  count bin context species        ran fixedeffect
-1 12666   1 context Slc17a7 replicate1         ref
-2  7125   2 context Slc17a7 replicate1         ref
-3  6448   3 context Slc17a7 replicate1         ref
-4  7305   4 context Slc17a7 replicate1         ref
-5  8634   5 context Slc17a7 replicate1         ref
-6  5511   6 context Slc17a7 replicate1         ref
-----
-
-Initializing Cpp (wspc) model
-----------------------------------------
-
-Infinity handling:
-machine epsilon: (eps_): 2.22045e-16
-pseudo-infinity (inf_): 1e+100
-warp_precision: 1e-07
-implied pseudo-infinity for unbounded warp (inf_warp): 4.5036e+08
-
-Extracting variables and data information:
-Found max bin: 100.000000
-Fixed effects:
-"fixedeffect"
-Ref levels:
-"ref"
-No time series detected.
-Created treatment levels:
-"ref" "trt"
-Context grouping levels:
-"context"
-Species grouping levels:
-"Pvalb" "Slc17a7" "Tac2" "Vip"
-Random-effect grouping levels:
-"none" "replicate1" "replicate2" "replicate3" "replicate4"
-Total rows in summed count data table: 4000
-Number of rows with unique model components: 40
-
-Creating summed-count data columns and weight matrix:
-Random level 0, 1/5 complete
-Random level 1, 2/5 complete
-Random level 2, 3/5 complete
-Random level 3, 4/5 complete
-Random level 4, 5/5 complete
-
-Making extrapolation pool:
-row: 160/800
-row: 320/800
-row: 480/800
-row: 640/800
-row: 800/800
-
-Making initial parameter estimates:
-Extrapolated 'none' rows
-Took log of observed counts
-Estimated gamma dispersion of raw counts
-Estimated change points
-Found average log counts for each context-species combination
-Estimated initial parameters for fixed-effect treatments
-Built initial beta (ref and fixed-effects) matrices
-Initialized random-effect warping factors
-Made and mapped parameter vector
-Number of parameters: 158
-Constructed grouping variable IDs
-Size of boundary vector: 590
-
-Estimating model parameters
-----------------------------------------
-
-Running bootstrap fits
-Checking feasibility of provided parameters
-... no tpoints below buffer
-... no NAN rates predicted
-... no negative rates predicted
-Provided parameters are feasible
-Initial boundary distance (want > 0): 0.248799
-Performing initial fit of full data
-Penalized neg_loglik: 7738.96
-Batch: 1/50, 0.304456 sec/bs
-Batch: 5/50, 0.305783 sec/bs
-Batch: 10/50, 0.301823 sec/bs
-Batch: 15/50, 0.307941 sec/bs
-Batch: 20/50, 0.306917 sec/bs
-Batch: 25/50, 0.309688 sec/bs
-Batch: 30/50, 0.304673 sec/bs
-Batch: 35/50, 0.302663 sec/bs
-Batch: 40/50, 0.299996 sec/bs
-Batch: 45/50, 0.305363 sec/bs
-All complete!
-
-Bootstrap simulation complete... 
-Bootstrap run time (total), minutes: 5.264
-Bootstrap run time (per sample), seconds: 0.316
-Bootstrap run time (per sample, per thread), seconds: 6.317
-
-Setting full-data fit as parameters... 
-Checking feasibility of provided parameters
-... no tpoints below buffer
-... no NAN rates predicted
-... no negative rates predicted
-Provided parameters are feasible
-Initial boundary distance (want > 0): 0.227323
-
-Running stats on simulation results
-----------------------------------------
-
-Grabbing sample results, only resamples with converged fit... 
-Grabbing parameter values... 
-Computing 95% confidence intervals... 
-Estimating p-values from resampled parameters... 
-
-Recommended resample size for alpha = 0.05, 55 tests
-with bootstrapping/MCMC: 1100
-Actual resample size: 1001
-
-Stat summary (head only):
-------------------------------
-                             parameter   estimate     CI.low    CI.high p.value p.value.adj    alpha.adj significance
-1   baseline_context_Rt_Pvalb_Tns/Blk1  2.6448527  2.6929847  2.6929847      NA          NA           NA             
-2 beta_Rt_context_Pvalb_trt_X_Tns/Blk1  0.2918619  0.2075501  0.2535384       0           0 0.0009090909          ***
-3   baseline_context_Rt_Pvalb_Tns/Blk2  4.7193144  4.7363493  4.7363493      NA          NA           NA             
-4 beta_Rt_context_Pvalb_trt_X_Tns/Blk2  0.5113344  0.4750306  0.4945271       0           0 0.0009259259          ***
-5   baseline_context_Rt_Pvalb_Tns/Blk3  5.6865286  5.6810515  5.6810515      NA          NA           NA             
-6 beta_Rt_context_Pvalb_trt_X_Tns/Blk3 -0.1635607 -0.1430815 -0.1201447       0           0 0.0009433962          ***
-----
-
-Computing 95% CI for predicated values by bin
-----------------------------------------
-
-Grabbing sample results, only resamples with converged fit... 
-Computing predicted values for each sampled parameter set... 
-Computing 95% CIs... 
-Analyzing residuals
-----------------------------------------
-
-Computing residuals... 
-Making masks... 
-Making plots and saving stats... 
-
-Log-residual summary by grouping variables (head only):
-------------------------------
-               group      mean        sd  variance
-1                all 0.5882617 0.9073662 0.8233134
-2       ran_lvl_none 0.5821769 0.6911661 0.4777105
-3 ran_lvl_replicate1 0.6032203 1.0352680 1.0717798
-4 ran_lvl_replicate2 0.5758810 0.9371988 0.8783415
-5 ran_lvl_replicate3 0.6096795 0.9198349 0.8460963
-6 ran_lvl_replicate4 0.5703508 0.9195464 0.8455657
-----
-
-Making effect parameter distribution plots... 
-Making rate-count plots... 
-Making parameter plots... 
-Making parameter plots... 
-Making parameter plots... 
-Making parameter plots... 
-
-Printing species summary plots for context: Pvalb, Slc17a7, Tac2, Vip
-Making rate-count plots... $plot_pred.log_context_context
-
-$plot_pred.log_context_context_fixEff_Pvalb
-
-$plot_pred.log_context_context_fixEff_Slc17a7
-
-$plot_pred.log_context_context_fixEff_Tac2
-
-$plot_pred.log_context_context_fixEff_Vip
-
-[1] 2.644853
-[1] 2.644853
-[1] 4.719314
-[1] 0.2918619
-  [1] "baseline_context_Rt_Pvalb_Tns/Blk1"         "beta_Rt_context_Pvalb_trt_X_Tns/Blk1"       "baseline_context_Rt_Pvalb_Tns/Blk2"         "beta_Rt_context_Pvalb_trt_X_Tns/Blk2"      
-  [5] "baseline_context_Rt_Pvalb_Tns/Blk3"         "beta_Rt_context_Pvalb_trt_X_Tns/Blk3"       "baseline_context_Rt_Pvalb_Tns/Blk4"         "beta_Rt_context_Pvalb_trt_X_Tns/Blk4"      
-  [9] "baseline_context_Rt_Pvalb_Tns/Blk5"         "beta_Rt_context_Pvalb_trt_X_Tns/Blk5"       "baseline_context_Rt_Pvalb_Tns/Blk6"         "beta_Rt_context_Pvalb_trt_X_Tns/Blk6"      
- [13] "baseline_context_Rt_Slc17a7_Tns/Blk1"       "beta_Rt_context_Slc17a7_trt_X_Tns/Blk1"     "baseline_context_Rt_Slc17a7_Tns/Blk2"       "beta_Rt_context_Slc17a7_trt_X_Tns/Blk2"    
- [17] "baseline_context_Rt_Slc17a7_Tns/Blk3"       "beta_Rt_context_Slc17a7_trt_X_Tns/Blk3"     "baseline_context_Rt_Slc17a7_Tns/Blk4"       "beta_Rt_context_Slc17a7_trt_X_Tns/Blk4"    
- [21] "baseline_context_Rt_Slc17a7_Tns/Blk5"       "beta_Rt_context_Slc17a7_trt_X_Tns/Blk5"     "baseline_context_Rt_Slc17a7_Tns/Blk6"       "beta_Rt_context_Slc17a7_trt_X_Tns/Blk6"    
- [25] "baseline_context_Rt_Tac2_Tns/Blk1"          "beta_Rt_context_Tac2_trt_X_Tns/Blk1"        "baseline_context_Rt_Tac2_Tns/Blk2"          "beta_Rt_context_Tac2_trt_X_Tns/Blk2"       
- [29] "baseline_context_Rt_Tac2_Tns/Blk3"          "beta_Rt_context_Tac2_trt_X_Tns/Blk3"        "baseline_context_Rt_Tac2_Tns/Blk4"          "beta_Rt_context_Tac2_trt_X_Tns/Blk4"       
- [33] "baseline_context_Rt_Tac2_Tns/Blk5"          "beta_Rt_context_Tac2_trt_X_Tns/Blk5"        "baseline_context_Rt_Tac2_Tns/Blk6"          "beta_Rt_context_Tac2_trt_X_Tns/Blk6"       
- [37] "baseline_context_Rt_Vip_Tns/Blk1"           "beta_Rt_context_Vip_trt_X_Tns/Blk1"         "baseline_context_Rt_Vip_Tns/Blk2"           "beta_Rt_context_Vip_trt_X_Tns/Blk2"        
- [41] "baseline_context_Rt_Vip_Tns/Blk3"           "beta_Rt_context_Vip_trt_X_Tns/Blk3"         "baseline_context_tslope_Pvalb_Tns/Blk1"     "beta_tslope_context_Pvalb_trt_X_Tns/Blk1"  
- [45] "baseline_context_tslope_Pvalb_Tns/Blk2"     "beta_tslope_context_Pvalb_trt_X_Tns/Blk2"   "baseline_context_tslope_Pvalb_Tns/Blk3"     "beta_tslope_context_Pvalb_trt_X_Tns/Blk3"  
- [49] "baseline_context_tslope_Pvalb_Tns/Blk4"     "beta_tslope_context_Pvalb_trt_X_Tns/Blk4"   "baseline_context_tslope_Pvalb_Tns/Blk5"     "beta_tslope_context_Pvalb_trt_X_Tns/Blk5"  
- [53] "baseline_context_tslope_Slc17a7_Tns/Blk1"   "beta_tslope_context_Slc17a7_trt_X_Tns/Blk1" "baseline_context_tslope_Slc17a7_Tns/Blk2"   "beta_tslope_context_Slc17a7_trt_X_Tns/Blk2"
- [57] "baseline_context_tslope_Slc17a7_Tns/Blk3"   "beta_tslope_context_Slc17a7_trt_X_Tns/Blk3" "baseline_context_tslope_Slc17a7_Tns/Blk4"   "beta_tslope_context_Slc17a7_trt_X_Tns/Blk4"
- [61] "baseline_context_tslope_Slc17a7_Tns/Blk5"   "beta_tslope_context_Slc17a7_trt_X_Tns/Blk5" "baseline_context_tslope_Tac2_Tns/Blk1"      "beta_tslope_context_Tac2_trt_X_Tns/Blk1"   
- [65] "baseline_context_tslope_Tac2_Tns/Blk2"      "beta_tslope_context_Tac2_trt_X_Tns/Blk2"    "baseline_context_tslope_Tac2_Tns/Blk3"      "beta_tslope_context_Tac2_trt_X_Tns/Blk3"   
- [69] "baseline_context_tslope_Tac2_Tns/Blk4"      "beta_tslope_context_Tac2_trt_X_Tns/Blk4"    "baseline_context_tslope_Tac2_Tns/Blk5"      "beta_tslope_context_Tac2_trt_X_Tns/Blk5"   
- [73] "baseline_context_tslope_Vip_Tns/Blk1"       "beta_tslope_context_Vip_trt_X_Tns/Blk1"     "baseline_context_tslope_Vip_Tns/Blk2"       "beta_tslope_context_Vip_trt_X_Tns/Blk2"    
- [77] "baseline_context_tpoint_Pvalb_Tns/Blk1"     "beta_tpoint_context_Pvalb_trt_X_Tns/Blk1"   "baseline_context_tpoint_Pvalb_Tns/Blk2"     "beta_tpoint_context_Pvalb_trt_X_Tns/Blk2"  
- [81] "baseline_context_tpoint_Pvalb_Tns/Blk3"     "beta_tpoint_context_Pvalb_trt_X_Tns/Blk3"   "baseline_context_tpoint_Pvalb_Tns/Blk4"     "beta_tpoint_context_Pvalb_trt_X_Tns/Blk4"  
- [85] "baseline_context_tpoint_Pvalb_Tns/Blk5"     "beta_tpoint_context_Pvalb_trt_X_Tns/Blk5"   "baseline_context_tpoint_Slc17a7_Tns/Blk1"   "beta_tpoint_context_Slc17a7_trt_X_Tns/Blk1"
- [89] "baseline_context_tpoint_Slc17a7_Tns/Blk2"   "beta_tpoint_context_Slc17a7_trt_X_Tns/Blk2" "baseline_context_tpoint_Slc17a7_Tns/Blk3"   "beta_tpoint_context_Slc17a7_trt_X_Tns/Blk3"
- [93] "baseline_context_tpoint_Slc17a7_Tns/Blk4"   "beta_tpoint_context_Slc17a7_trt_X_Tns/Blk4" "baseline_context_tpoint_Slc17a7_Tns/Blk5"   "beta_tpoint_context_Slc17a7_trt_X_Tns/Blk5"
- [97] "baseline_context_tpoint_Tac2_Tns/Blk1"      "beta_tpoint_context_Tac2_trt_X_Tns/Blk1"    "baseline_context_tpoint_Tac2_Tns/Blk2"      "beta_tpoint_context_Tac2_trt_X_Tns/Blk2"   
-[101] "baseline_context_tpoint_Tac2_Tns/Blk3"      "beta_tpoint_context_Tac2_trt_X_Tns/Blk3"    "baseline_context_tpoint_Tac2_Tns/Blk4"      "beta_tpoint_context_Tac2_trt_X_Tns/Blk4"   
-[105] "baseline_context_tpoint_Tac2_Tns/Blk5"      "beta_tpoint_context_Tac2_trt_X_Tns/Blk5"    "baseline_context_tpoint_Vip_Tns/Blk1"       "beta_tpoint_context_Vip_trt_X_Tns/Blk1"    
-[109] "baseline_context_tpoint_Vip_Tns/Blk2"       "beta_tpoint_context_Vip_trt_X_Tns/Blk2"     "wfactor_point_replicate1_X_Pvalb"           "wfactor_rate_replicate1_X_Pvalb"           
-[113] "wfactor_slope_replicate1_X_Pvalb"           "wfactor_point_replicate2_X_Pvalb"           "wfactor_rate_replicate2_X_Pvalb"            "wfactor_slope_replicate2_X_Pvalb"          
-[117] "wfactor_point_replicate3_X_Pvalb"           "wfactor_rate_replicate3_X_Pvalb"            "wfactor_slope_replicate3_X_Pvalb"           "wfactor_point_replicate4_X_Pvalb"          
-[121] "wfactor_rate_replicate4_X_Pvalb"            "wfactor_slope_replicate4_X_Pvalb"           "wfactor_point_replicate1_X_Slc17a7"         "wfactor_rate_replicate1_X_Slc17a7"         
-[125] "wfactor_slope_replicate1_X_Slc17a7"         "wfactor_point_replicate2_X_Slc17a7"         "wfactor_rate_replicate2_X_Slc17a7"          "wfactor_slope_replicate2_X_Slc17a7"        
-[129] "wfactor_point_replicate3_X_Slc17a7"         "wfactor_rate_replicate3_X_Slc17a7"          "wfactor_slope_replicate3_X_Slc17a7"         "wfactor_point_replicate4_X_Slc17a7"        
-[133] "wfactor_rate_replicate4_X_Slc17a7"          "wfactor_slope_replicate4_X_Slc17a7"         "wfactor_point_replicate1_X_Tac2"            "wfactor_rate_replicate1_X_Tac2"            
-[137] "wfactor_slope_replicate1_X_Tac2"            "wfactor_point_replicate2_X_Tac2"            "wfactor_rate_replicate2_X_Tac2"             "wfactor_slope_replicate2_X_Tac2"           
-[141] "wfactor_point_replicate3_X_Tac2"            "wfactor_rate_replicate3_X_Tac2"             "wfactor_slope_replicate3_X_Tac2"            "wfactor_point_replicate4_X_Tac2"           
-[145] "wfactor_rate_replicate4_X_Tac2"             "wfactor_slope_replicate4_X_Tac2"            "wfactor_point_replicate1_X_Vip"             "wfactor_rate_replicate1_X_Vip"             
-[149] "wfactor_slope_replicate1_X_Vip"             "wfactor_point_replicate2_X_Vip"             "wfactor_rate_replicate2_X_Vip"              "wfactor_slope_replicate2_X_Vip"            
-[153] "wfactor_point_replicate3_X_Vip"             "wfactor_rate_replicate3_X_Vip"              "wfactor_slope_replicate3_X_Vip"             "wfactor_point_replicate4_X_Vip"            
-[157] "wfactor_rate_replicate4_X_Vip"              "wfactor_slope_replicate4_X_Vip"            
-  Pvalb Slc17a7    Tac2     Vip 
-    NaN     NaN     NaN     NaN 
-[1] 0
-[1] 0
-[1] 0
-[1] 0
-  Pvalb Slc17a7    Tac2     Vip 
-    NaN     NaN     NaN     NaN 
-[1] "Pvalb"
-[1] 0
-[1] "Slc17a7"
-[1] 0
-[1] "Tac2"
-[1] 0
-[1] "Vip"
-[1] 0
-  Pvalb Slc17a7    Tac2     Vip 
-    NaN     NaN     NaN     NaN 
-  [1] "baseline_context_Rt_Pvalb_Tns/Blk1"         "beta_Rt_context_Pvalb_trt_X_Tns/Blk1"       "baseline_context_Rt_Pvalb_Tns/Blk2"         "beta_Rt_context_Pvalb_trt_X_Tns/Blk2"      
-  [5] "baseline_context_Rt_Pvalb_Tns/Blk3"         "beta_Rt_context_Pvalb_trt_X_Tns/Blk3"       "baseline_context_Rt_Pvalb_Tns/Blk4"         "beta_Rt_context_Pvalb_trt_X_Tns/Blk4"      
-  [9] "baseline_context_Rt_Pvalb_Tns/Blk5"         "beta_Rt_context_Pvalb_trt_X_Tns/Blk5"       "baseline_context_Rt_Pvalb_Tns/Blk6"         "beta_Rt_context_Pvalb_trt_X_Tns/Blk6"      
- [13] "baseline_context_Rt_Slc17a7_Tns/Blk1"       "beta_Rt_context_Slc17a7_trt_X_Tns/Blk1"     "baseline_context_Rt_Slc17a7_Tns/Blk2"       "beta_Rt_context_Slc17a7_trt_X_Tns/Blk2"    
- [17] "baseline_context_Rt_Slc17a7_Tns/Blk3"       "beta_Rt_context_Slc17a7_trt_X_Tns/Blk3"     "baseline_context_Rt_Slc17a7_Tns/Blk4"       "beta_Rt_context_Slc17a7_trt_X_Tns/Blk4"    
- [21] "baseline_context_Rt_Slc17a7_Tns/Blk5"       "beta_Rt_context_Slc17a7_trt_X_Tns/Blk5"     "baseline_context_Rt_Slc17a7_Tns/Blk6"       "beta_Rt_context_Slc17a7_trt_X_Tns/Blk6"    
- [25] "baseline_context_Rt_Tac2_Tns/Blk1"          "beta_Rt_context_Tac2_trt_X_Tns/Blk1"        "baseline_context_Rt_Tac2_Tns/Blk2"          "beta_Rt_context_Tac2_trt_X_Tns/Blk2"       
- [29] "baseline_context_Rt_Tac2_Tns/Blk3"          "beta_Rt_context_Tac2_trt_X_Tns/Blk3"        "baseline_context_Rt_Tac2_Tns/Blk4"          "beta_Rt_context_Tac2_trt_X_Tns/Blk4"       
- [33] "baseline_context_Rt_Tac2_Tns/Blk5"          "beta_Rt_context_Tac2_trt_X_Tns/Blk5"        "baseline_context_Rt_Tac2_Tns/Blk6"          "beta_Rt_context_Tac2_trt_X_Tns/Blk6"       
- [37] "baseline_context_Rt_Vip_Tns/Blk1"           "beta_Rt_context_Vip_trt_X_Tns/Blk1"         "baseline_context_Rt_Vip_Tns/Blk2"           "beta_Rt_context_Vip_trt_X_Tns/Blk2"        
- [41] "baseline_context_Rt_Vip_Tns/Blk3"           "beta_Rt_context_Vip_trt_X_Tns/Blk3"         "baseline_context_tslope_Pvalb_Tns/Blk1"     "beta_tslope_context_Pvalb_trt_X_Tns/Blk1"  
- [45] "baseline_context_tslope_Pvalb_Tns/Blk2"     "beta_tslope_context_Pvalb_trt_X_Tns/Blk2"   "baseline_context_tslope_Pvalb_Tns/Blk3"     "beta_tslope_context_Pvalb_trt_X_Tns/Blk3"  
- [49] "baseline_context_tslope_Pvalb_Tns/Blk4"     "beta_tslope_context_Pvalb_trt_X_Tns/Blk4"   "baseline_context_tslope_Pvalb_Tns/Blk5"     "beta_tslope_context_Pvalb_trt_X_Tns/Blk5"  
- [53] "baseline_context_tslope_Slc17a7_Tns/Blk1"   "beta_tslope_context_Slc17a7_trt_X_Tns/Blk1" "baseline_context_tslope_Slc17a7_Tns/Blk2"   "beta_tslope_context_Slc17a7_trt_X_Tns/Blk2"
- [57] "baseline_context_tslope_Slc17a7_Tns/Blk3"   "beta_tslope_context_Slc17a7_trt_X_Tns/Blk3" "baseline_context_tslope_Slc17a7_Tns/Blk4"   "beta_tslope_context_Slc17a7_trt_X_Tns/Blk4"
- [61] "baseline_context_tslope_Slc17a7_Tns/Blk5"   "beta_tslope_context_Slc17a7_trt_X_Tns/Blk5" "baseline_context_tslope_Tac2_Tns/Blk1"      "beta_tslope_context_Tac2_trt_X_Tns/Blk1"   
- [65] "baseline_context_tslope_Tac2_Tns/Blk2"      "beta_tslope_context_Tac2_trt_X_Tns/Blk2"    "baseline_context_tslope_Tac2_Tns/Blk3"      "beta_tslope_context_Tac2_trt_X_Tns/Blk3"   
- [69] "baseline_context_tslope_Tac2_Tns/Blk4"      "beta_tslope_context_Tac2_trt_X_Tns/Blk4"    "baseline_context_tslope_Tac2_Tns/Blk5"      "beta_tslope_context_Tac2_trt_X_Tns/Blk5"   
- [73] "baseline_context_tslope_Vip_Tns/Blk1"       "beta_tslope_context_Vip_trt_X_Tns/Blk1"     "baseline_context_tslope_Vip_Tns/Blk2"       "beta_tslope_context_Vip_trt_X_Tns/Blk2"    
- [77] "baseline_context_tpoint_Pvalb_Tns/Blk1"     "beta_tpoint_context_Pvalb_trt_X_Tns/Blk1"   "baseline_context_tpoint_Pvalb_Tns/Blk2"     "beta_tpoint_context_Pvalb_trt_X_Tns/Blk2"  
- [81] "baseline_context_tpoint_Pvalb_Tns/Blk3"     "beta_tpoint_context_Pvalb_trt_X_Tns/Blk3"   "baseline_context_tpoint_Pvalb_Tns/Blk4"     "beta_tpoint_context_Pvalb_trt_X_Tns/Blk4"  
- [85] "baseline_context_tpoint_Pvalb_Tns/Blk5"     "beta_tpoint_context_Pvalb_trt_X_Tns/Blk5"   "baseline_context_tpoint_Slc17a7_Tns/Blk1"   "beta_tpoint_context_Slc17a7_trt_X_Tns/Blk1"
- [89] "baseline_context_tpoint_Slc17a7_Tns/Blk2"   "beta_tpoint_context_Slc17a7_trt_X_Tns/Blk2" "baseline_context_tpoint_Slc17a7_Tns/Blk3"   "beta_tpoint_context_Slc17a7_trt_X_Tns/Blk3"
- [93] "baseline_context_tpoint_Slc17a7_Tns/Blk4"   "beta_tpoint_context_Slc17a7_trt_X_Tns/Blk4" "baseline_context_tpoint_Slc17a7_Tns/Blk5"   "beta_tpoint_context_Slc17a7_trt_X_Tns/Blk5"
- [97] "baseline_context_tpoint_Tac2_Tns/Blk1"      "beta_tpoint_context_Tac2_trt_X_Tns/Blk1"    "baseline_context_tpoint_Tac2_Tns/Blk2"      "beta_tpoint_context_Tac2_trt_X_Tns/Blk2"   
-[101] "baseline_context_tpoint_Tac2_Tns/Blk3"      "beta_tpoint_context_Tac2_trt_X_Tns/Blk3"    "baseline_context_tpoint_Tac2_Tns/Blk4"      "beta_tpoint_context_Tac2_trt_X_Tns/Blk4"   
-[105] "baseline_context_tpoint_Tac2_Tns/Blk5"      "beta_tpoint_context_Tac2_trt_X_Tns/Blk5"    "baseline_context_tpoint_Vip_Tns/Blk1"       "beta_tpoint_context_Vip_trt_X_Tns/Blk1"    
-[109] "baseline_context_tpoint_Vip_Tns/Blk2"       "beta_tpoint_context_Vip_trt_X_Tns/Blk2"     "wfactor_point_replicate1_X_Pvalb"           "wfactor_rate_replicate1_X_Pvalb"           
-[113] "wfactor_slope_replicate1_X_Pvalb"           "wfactor_point_replicate2_X_Pvalb"           "wfactor_rate_replicate2_X_Pvalb"            "wfactor_slope_replicate2_X_Pvalb"          
-[117] "wfactor_point_replicate3_X_Pvalb"           "wfactor_rate_replicate3_X_Pvalb"            "wfactor_slope_replicate3_X_Pvalb"           "wfactor_point_replicate4_X_Pvalb"          
-[121] "wfactor_rate_replicate4_X_Pvalb"            "wfactor_slope_replicate4_X_Pvalb"           "wfactor_point_replicate1_X_Slc17a7"         "wfactor_rate_replicate1_X_Slc17a7"         
-[125] "wfactor_slope_replicate1_X_Slc17a7"         "wfactor_point_replicate2_X_Slc17a7"         "wfactor_rate_replicate2_X_Slc17a7"          "wfactor_slope_replicate2_X_Slc17a7"        
-[129] "wfactor_point_replicate3_X_Slc17a7"         "wfactor_rate_replicate3_X_Slc17a7"          "wfactor_slope_replicate3_X_Slc17a7"         "wfactor_point_replicate4_X_Slc17a7"        
-[133] "wfactor_rate_replicate4_X_Slc17a7"          "wfactor_slope_replicate4_X_Slc17a7"         "wfactor_point_replicate1_X_Tac2"            "wfactor_rate_replicate1_X_Tac2"            
-[137] "wfactor_slope_replicate1_X_Tac2"            "wfactor_point_replicate2_X_Tac2"            "wfactor_rate_replicate2_X_Tac2"             "wfactor_slope_replicate2_X_Tac2"           
-[141] "wfactor_point_replicate3_X_Tac2"            "wfactor_rate_replicate3_X_Tac2"             "wfactor_slope_replicate3_X_Tac2"            "wfactor_point_replicate4_X_Tac2"           
-[145] "wfactor_rate_replicate4_X_Tac2"             "wfactor_slope_replicate4_X_Tac2"            "wfactor_point_replicate1_X_Vip"             "wfactor_rate_replicate1_X_Vip"             
-[149] "wfactor_slope_replicate1_X_Vip"             "wfactor_point_replicate2_X_Vip"             "wfactor_rate_replicate2_X_Vip"              "wfactor_slope_replicate2_X_Vip"            
-[153] "wfactor_point_replicate3_X_Vip"             "wfactor_rate_replicate3_X_Vip"              "wfactor_slope_replicate3_X_Vip"             "wfactor_point_replicate4_X_Vip"            
-[157] "wfactor_rate_replicate4_X_Vip"              "wfactor_slope_replicate4_X_Vip"            
-[1] "Vip"
-  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
- [33] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
- [65] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
- [97] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-[129] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-[1] 0
-[1] "baseline_context_Rt_Tac2_Tns/Blk6"   "beta_Rt_context_Tac2_trt_X_Tns/Blk6" "baseline_context_Rt_Vip_Tns/Blk1"    "beta_Rt_context_Vip_trt_X_Tns/Blk1"  "baseline_context_Rt_Vip_Tns/Blk2"   
-[6] "beta_Rt_context_Vip_trt_X_Tns/Blk2" 
-[1] "beta_RT_context_Vip_trt_X"
-[1] "Pvalb"
-[1] 6
-[1] "Slc17a7"
-[1] 6
-[1] "Tac2"
-[1] 6
-[1] "Vip"
-[1] 3
-       Pvalb      Slc17a7         Tac2          Vip 
- 0.162487683 -0.008574665 -0.692559040  0.780043340 
-       none  replicate1  replicate2  replicate3  replicate4 
-        NaN  0.25068967  0.21617259 -0.31404598 -0.08466589 
- replicate1  replicate2  replicate3  replicate4 
- 0.25068967  0.21617259 -0.31404598 -0.08466589 
-Time difference of 0.510535 secs
-Time difference of 0.09662485 secs
-
-Enter a frame number, or 0 to exit   
-
-1: simulate_data(count_data_neurons_patch)
-2: #106: `[<-`(`*tmp*`, idx, , value = list(count = c(12, 0, 1, 61, 47, 0, 9, 0, 20, 2, 0, 1, 9, 5, 7, 0, 3, 0, 0, 17, 0, 0, 0, 13, 2, 8, 8, 89, 10, 14, 0, 11, 17, 34, 0, 0, 14, 2, 12, 0, 15, 0, 16,
-3: #106: `[<-.data.frame`(`*tmp*`, idx, , value = list(count = c(12, 0, 1, 61, 47, 0, 9, 0, 20, 2, 0, 1, 9, 5, 7, 0, 3, 0, 0, 17, 0, 0, 0, 13, 2, 8, 8, 89, 10, 14, 0, 11, 17, 34, 0, 0, 14, 2, 12, 0,
-4: warning(sprintf(ngettext(ncolv, "provided %d variable to replace %d variables", "provided %d variables to replace %d variables"), ncolv, p), domain = NA)
-5: .signalSimpleWarning("provided 7 variables to replace 5 variables", base::quote(`[<-.data.frame`(`*tmp*`, idx, , value = list(count = c(12, 0, 1, 61, 47, 0, 9, 0, 20, 2, 0, 1, 9, 5, 7, 0, 3, 0, 0
-6: withRestarts({
-    .Internal(.signalCondition(simpleWarning(msg, call), msg, call))
-    .Internal(.dfltWarn(msg, call))
-}, muffleWarning = function() NULL)
-7: withOneRestart(expr, restarts[[1]])
-8: doWithOneRestart(return(expr), restart)
-
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Called from: .signalSimpleWarning("provided 7 variables to replace 5 variables", 
-    base::quote(`[<-.data.frame`(`*tmp*`, idx, , value = list(
-        count = c(12L, 0L, 1L, 61L, 47L, 0L, 9L, 0L, 20L, 2L, 
-        0L, 1L, 9L, 5L, 7L, 0L, 3L, 0L, 0L, 17L, 0L, 0L, 0L, 
-        13L, 2L, 8L, 8L, 89L, 10L, 14L, 0L, 11L, 17L, 34L, 0L, 
-        0L, 14L, 2L, 12L, 0L, 15L, 0L, 16L, 11L, 1L, 34L, 0L, 
-        0L, 13L, 19L, 26L, 2L, 0L, 1L, 2L, 37L, 1L, 22L, 0L, 
-        12L, 3L, 1L, 0L, 3L, 0L, 16L, 1L, 0L, 1L, 3L, 0L, 21L, 
-        6L, 0L, 27L, 7L, 4L, 1L, 20L, 12L, 3L, 2L, 1L, 1L, 22L, 
-        1L, 0L, 0L, 0L, 0L, 14L, 19L, 1L, 1L, 1L, 17L, 2L, 1L, 
-        0L, 4L, 1L, 0L, 8L, 0L, 0L, 12L, 0L, 24L, 12L, 1L, 47L, 
-        22L, 0L, 0L, 8L, 2L, 2L, 1L, 2L, 0L, 22L, 1L, 11L, 0L, 
-        28L, 9L, 2L, 26L, 1L, 0L, 0L, 0L, 0L, 3L, 0L, 13L, 0L, 
-        25L, 8L, 4L, 0L, 20L, 0L, 5L, 5L, 6L, 1L, 0L, 3L, 0L, 
-        9L, 0L, 13L, 31L, 0L, 7L, 6L, 1L, 1L, 27L, 1L, 3L, 0L, 
-        5L, 0L, 0L, 12L, 6L, 15L, 3L, 11L, 0L, 27L, 0L, 23L, 
-        12L, 0L, 0L, 1L, 29L, 1L, 0L, 0L, 0L, 0L, 3L, 0L, 0L, 
-        3L, 28L, 0L, 6L, 8L, 0L, 4L, 41L, 7L, 22L, 4L, 0L, 1L, 
-        28L, 0L, 8L, 0L, 3L, 35L, 0L, 8L, 6L, 6L, 2L, 24L, 3L, 
-        0L, 0L, 3L, 8L, 0L, 43L, 2L, 13L, 1L, 1L, 1L, 8L, 4L, 
-  ...
-Time difference of 0.08770514 secs
-Time difference of 0.08519316 secs
-
-Enter a frame number, or 0 to exit   
-
- 1: print(plt)
- 2: `print.ggplot2::ggplot`(plt)
- 3: ggplot_build(x)
- 4: `ggplot_build.ggplot2::ggplot`(x)
- 5: by_layer(function(l, d) l$compute_aesthetics(d, plot), layers, data, "computing aesthetics")
- 6: try_fetch(for (i in seq_along(data)) {
-    out[[i]] <- f(l = layers[[i]], d = data[[i]])
-}, error = function(cnd) {
-    cli::cli_abort(c("Problem while {step}.", i = "Error occurred in the {ordinal(
- 7: tryCatch(withCallingHandlers(expr, condition = function(cnd) {
-    {
-        .__handler_frame__. <- TRUE
-        .__setup_frame__. <- frame
-        if (inherits(cnd, "message")) {
-            except <
- 8: tryCatchList(expr, classes, parentenv, handlers)
- 9: tryCatchOne(expr, names, parentenv, handlers[[1]])
-10: doTryCatch(return(expr), name, parentenv, handler)
-11: withCallingHandlers(expr, condition = function(cnd) {
-    {
-        .__handler_frame__. <- TRUE
-        .__setup_frame__. <- frame
-        if (inherits(cnd, "message")) {
-            except <- c("warn
-12: f(l = layers[[i]], d = data[[i]])
-13: l$compute_aesthetics(d, plot)
-14: compute_aesthetics(..., self = self)
-15: eval_aesthetics(aesthetics, data)
-16: lapply(aesthetics, eval_tidy, data = data, env = env)
-17: FUN(X[[i]], ...)
-18: .handleSimpleError(function (cnd) 
-{
-    {
-        .__handler_frame__. <- TRUE
-        .__setup_frame__. <- frame
-        if (inherits(cnd, "message")) {
-            except <- c("warning", "error")
-    
-19: h(simpleError(msg, call))
-20: handlers[[1]](cnd)
-21: cli::cli_abort(c("Problem while {step}.", i = "Error occurred in the {ordinal(i)} layer."), call = layers[[i]]$constructor, parent = cnd)
-22: rlang::abort(message, ..., call = call, use_cli_format = TRUE, .frame = .frame)
-23: signal_abort(cnd, .file)
-
-
-
-Parsing data and settings for wisp model
-----------------------------------------
-
-Model settings:
-	buffer_factor: 0.05
-	ctol: 1e-06
-	max_penalty_at_distance_factor: 0.01
-	LROcutoff: 2
-	LROwindow_factor: 1.25
-	rise_threshold_factor: 0.8
-	max_evals: 1000
-	rng_seed: 42
-	warp_precision: 1e-07
-	round_none: TRUE
-	inf_warp: 450359962.73705
-
-Plot settings:
-	print.plots: TRUE
-	dim.bounds: 
-	pred.type: pred
-	count.type: count
-	splitting_factor: 
-	CI_style: TRUE
-	label_size: 5.5
-	title_size: 20
-	axis_size: 12
-	legend_size: 10
-	count_size: 1.5
-	count_jitter: 0.5
-	count.alpha.ran: 0.25
-	count.alpha.none: 0.25
-	pred.alpha.ran: 0.9
-	pred.alpha.none: 1
-
-MCMC settings:
-	MCMC.burnin: 100
-	MCMC.steps: 0
-	MCMC.step.size: 0.5
-	MCMC.prior: 1
-	MCMC.neighbor.filter: 1
-
-Variable dictionary:
-	count: count
-	bin: bin_x
-	context: context
-	species: gene
-	ran: replicate
-	timeseries: timeseries
-	fixedeffects: fixedeffect
-
-Parsed data (head only):
-------------------------------
-  count bin context species        ran fixedeffect
-1    15  54 context Slc17a7 replicate1         ref
-2     1  43 context   Pvalb replicate1         ref
-3     1  28 context   Pvalb replicate1         ref
-4    73  75 context Slc17a7 replicate1         ref
-5    81  39 context   Pvalb replicate1         ref
-6     0  25 context    Tac2 replicate1         ref
-----
-
-Initializing Cpp (wspc) model
-----------------------------------------
-
-Infinity handling:
-machine epsilon: (eps_): 2.22045e-16
-pseudo-infinity (inf_): 1e+100
-warp_precision: 1e-07
-implied pseudo-infinity for unbounded warp (inf_warp): 4.5036e+08
-
-Extracting variables and data information:
-Found max bin: 100.000000
-Fixed effects:
-"fixedeffect"
-Ref levels:
-"ref"
-No time series detected.
-Created treatment levels:
-"ref" "trt"
-Context grouping levels:
-"context"
-Species grouping levels:
-"Pvalb" "Slc17a7" "Tac2" "Vip"
-Random-effect grouping levels:
-"none" "replicate1" "replicate2" "replicate3" "replicate4"
-Total rows in summed count data table: 4000
-Number of rows with unique model components: 40
-
-Creating summed-count data columns and weight matrix:
-Random level 0, 1/5 complete
-Random level 1, 2/5 complete
-Random level 2, 3/5 complete
-Random level 3, 4/5 complete
-Random level 4, 5/5 complete
-
-Making extrapolation pool:
-row: 160/800
-row: 320/800
-row: 480/800
-row: 640/800
-row: 800/800
-
-Making initial parameter estimates:
-Extrapolated 'none' rows
-Took log of observed counts
-Estimated gamma dispersion of raw counts
-Estimated change points
-Found average log counts for each context-species combination
-Estimated initial parameters for fixed-effect treatments
-Built initial beta (ref and fixed-effects) matrices
-Initialized random-effect warping factors
-Made and mapped parameter vector
-Number of parameters: 164
-Constructed grouping variable IDs
-Size of boundary vector: 620
-
-Estimating model parameters
-----------------------------------------
-
-Running bootstrap fits
-
-Enter a frame number, or 0 to exit   
-
-1: wisp(count.data = sim_count, variables = data.variables, MCMC.settings = list(MCMC.steps = 0), bootstraps.num = 1000, max.fork = bs_chunksize * 2, verbose = TRUE)
-2: cpp_model$bs_batch(bootstraps.num, max.fork, verbose)
-
-Enter an item from the menu, or 0 to exit
-
-
-Parsing data and settings for wisp model
-----------------------------------------
-
-Model settings:
-	buffer_factor: 0.05
-	ctol: 1e-06
-	max_penalty_at_distance_factor: 0.01
-	LROcutoff: 2
-	LROwindow_factor: 1.25
-	rise_threshold_factor: 0.8
-	max_evals: 1000
-	rng_seed: 42
-	warp_precision: 1e-07
-	round_none: TRUE
-	inf_warp: 450359962.73705
-
-Plot settings:
-	print.plots: TRUE
-	dim.bounds: 
-	pred.type: pred
-	count.type: count
-	splitting_factor: 
-	CI_style: TRUE
-	label_size: 5.5
-	title_size: 20
-	axis_size: 12
-	legend_size: 10
-	count_size: 1.5
-	count_jitter: 0.5
-	count.alpha.ran: 0.25
-	count.alpha.none: 0.25
-	pred.alpha.ran: 0.9
-	pred.alpha.none: 1
-
-MCMC settings:
-	MCMC.burnin: 100
-	MCMC.steps: 0
-	MCMC.step.size: 0.5
-	MCMC.prior: 1
-	MCMC.neighbor.filter: 1
-
-Variable dictionary:
-	count: count
-	bin: bin_x
-	context: context
-	species: gene
-	ran: replicate
-	timeseries: timeseries
-	fixedeffects: fixedeffect
-
-Parsed data (head only):
-------------------------------
-  count bin context species        ran fixedeffect
-1    15  54 context Slc17a7 replicate1         ref
-2     1  43 context   Pvalb replicate1         ref
-3     1  28 context   Pvalb replicate1         ref
-4    73  75 context Slc17a7 replicate1         ref
-5    81  39 context   Pvalb replicate1         ref
-6     0  25 context    Tac2 replicate1         ref
-----
-
-Initializing Cpp (wspc) model
-----------------------------------------
-
-Infinity handling:
-machine epsilon: (eps_): 2.22045e-16
-pseudo-infinity (inf_): 1e+100
-warp_precision: 1e-07
-implied pseudo-infinity for unbounded warp (inf_warp): 4.5036e+08
-
-Extracting variables and data information:
-Found max bin: 100.000000
-Fixed effects:
-"fixedeffect"
-Ref levels:
-"ref"
-No time series detected.
-Created treatment levels:
-"ref" "trt"
-Context grouping levels:
-"context"
-Species grouping levels:
-"Pvalb" "Slc17a7" "Tac2" "Vip"
-Random-effect grouping levels:
-"none" "replicate1" "replicate2" "replicate3" "replicate4"
-Total rows in summed count data table: 4000
-Number of rows with unique model components: 40
-
-Creating summed-count data columns and weight matrix:
-Random level 0, 1/5 complete
-Random level 1, 2/5 complete
-Random level 2, 3/5 complete
-Random level 3, 4/5 complete
-Random level 4, 5/5 complete
-
-Making extrapolation pool:
-row: 160/800
-row: 320/800
-row: 480/800
-row: 640/800
-row: 800/800
-
-Making initial parameter estimates:
-Extrapolated 'none' rows
-Took log of observed counts
-Estimated gamma dispersion of raw counts
-Estimated change points
-Found average log counts for each context-species combination
-Estimated initial parameters for fixed-effect treatments
-Built initial beta (ref and fixed-effects) matrices
-Initialized random-effect warping factors
-Made and mapped parameter vector
-Number of parameters: 164
-Constructed grouping variable IDs
-Size of boundary vector: 620
-
-Estimating model parameters
-----------------------------------------
-
-Running bootstrap fits
-Checking feasibility of provided parameters
-... no tpoints below buffer
-... no NAN rates predicted
-... no negative rates predicted
-Provided parameters are feasible
-Initial boundary distance (want > 0): 0.248799
-Performing initial fit of full data
-Penalized neg_loglik: 7571.09
-Batch: 1/50, 0.203122 sec/bs
-Batch: 5/50, 0.185265 sec/bs
-Batch: 10/50, 0.173768 sec/bs
-Batch: 15/50, 0.174391 sec/bs
-Batch: 20/50, 0.180563 sec/bs
-Batch: 25/50, 0.17272 sec/bs
-Batch: 30/50, 0.176412 sec/bs
-Batch: 35/50, 0.170865 sec/bs
-Batch: 40/50, 0.167803 sec/bs
-Batch: 45/50, 0.190745 sec/bs
-All complete!
-
-Bootstrap simulation complete... 
-Bootstrap run time (total), minutes: 3.125
-Bootstrap run time (per sample), seconds: 0.188
-Bootstrap run time (per sample, per thread), seconds: 3.751
-
-Setting full-data fit as parameters... 
-Checking feasibility of provided parameters
-... no tpoints below buffer
-... no NAN rates predicted
-... no negative rates predicted
-Provided parameters are feasible
-Initial boundary distance (want > 0): 0.172685
-
-Running stats on simulation results
-----------------------------------------
-
-Grabbing sample results, only resamples with converged fit... 
-Grabbing parameter values... 
-Computing 95% confidence intervals... 
-Estimating p-values from resampled parameters... 
-
-Recommended resample size for alpha = 0.05, 58 tests
-with bootstrapping/MCMC: 1160
-Actual resample size: 1000
-
-Stat summary (head only):
-------------------------------
-                             parameter   estimate     CI.low   CI.high p.value p.value.adj   alpha.adj significance
-1   baseline_context_Rt_Pvalb_Tns/Blk1  3.2183600  2.9910770 3.4738475      NA          NA          NA             
-2 beta_Rt_context_Pvalb_trt_X_Tns/Blk1 -0.1103918 -0.5822200 0.3301951   0.549       3.843 0.007142857           ns
-3   baseline_context_Rt_Pvalb_Tns/Blk2  6.6770407  6.2464385 6.9204409      NA          NA          NA             
-4 beta_Rt_context_Pvalb_trt_X_Tns/Blk2  0.2977301 -0.5347994 1.1684937   0.325       4.225 0.003846154           ns
-5   baseline_context_Rt_Pvalb_Tns/Blk3  5.3323935  4.9834124 5.5805388      NA          NA          NA             
-6 beta_Rt_context_Pvalb_trt_X_Tns/Blk3 -0.1687819 -0.5845291 0.2697022   0.219       3.942 0.002777778           ns
-----
-
-Computing 95% CI for predicated values by bin
-----------------------------------------
-
-Grabbing sample results, only resamples with converged fit... 
-Computing predicted values for each sampled parameter set... 
-Computing 95% CIs... 
-Analyzing residuals
-----------------------------------------
-
-Computing residuals... 
-Making masks... 
-Making plots and saving stats... 
-
-Log-residual summary by grouping variables (head only):
-------------------------------
-               group      mean        sd  variance
-1                all 0.7357224 0.8451558 0.7142884
-2       ran_lvl_none 0.7280841 0.5695216 0.3243549
-3 ran_lvl_replicate1 0.6528632 0.8973870 0.8053035
-4 ran_lvl_replicate2 0.6426853 0.9504578 0.9033700
-5 ran_lvl_replicate3 0.9701845 0.7683849 0.5904154
-6 ran_lvl_replicate4 0.6840716 0.9397216 0.8830768
-----
-
-Making effect parameter distribution plots... 
-Making rate-count plots... 
-Making parameter plots... 
-Making parameter plots... 
-Making parameter plots... 
-Making parameter plots... 
-
-Printing species summary plots for context: Pvalb, Slc17a7, Tac2, Vip
-Making rate-count plots... $plot_pred.log_context_context
-
-$plot_pred.log_context_context_fixEff_Pvalb
-
-$plot_pred.log_context_context_fixEff_Slc17a7
-
-$plot_pred.log_context_context_fixEff_Tac2
-
-$plot_pred.log_context_context_fixEff_Vip
-
-      Pvalb     Slc17a7        Tac2         Vip 
--0.03019583  0.04483816  0.03249541  0.17662724 
- replicate1  replicate2  replicate3  replicate4 
- 0.01665650  0.11056037 -0.47183567 -0.02684675 
-
-
-Parsing data and settings for wisp model
-----------------------------------------
-
-Model settings:
-	buffer_factor: 0.05
-	ctol: 1e-06
-	max_penalty_at_distance_factor: 0.01
-	LROcutoff: 2
-	LROwindow_factor: 1.25
-	rise_threshold_factor: 0.8
-	max_evals: 1000
-	rng_seed: 42
-	warp_precision: 1e-07
-	round_none: TRUE
-	inf_warp: 450359962.73705
-
-Plot settings:
-	print.plots: TRUE
-	dim.bounds: 
-	pred.type: pred
-	count.type: count
-	splitting_factor: 
-	CI_style: TRUE
-	label_size: 5.5
-	title_size: 20
-	axis_size: 12
-	legend_size: 10
-	count_size: 1.5
-	count_jitter: 0.5
-	count.alpha.ran: 0.25
-	count.alpha.none: 0.25
-	pred.alpha.ran: 0.9
-	pred.alpha.none: 1
-
-MCMC settings:
-	MCMC.burnin: 100
-	MCMC.steps: 0
-	MCMC.step.size: 0.5
-	MCMC.prior: 1
-	MCMC.neighbor.filter: 1
-
-Variable dictionary:
-	count: count
-	bin: bin_x
-	context: context
-	species: gene
-	ran: replicate
-	timeseries: timeseries
-	fixedeffects: fixedeffect
-
-Parsed data (head only):
-------------------------------
-  count bin context species        ran fixedeffect
-1    20  67 context Slc17a7 replicate1         ref
-2     0  59 context   Pvalb replicate1         ref
-3     3  42 context   Pvalb replicate1         ref
-4   128  68 context Slc17a7 replicate1         ref
-5    87  48 context   Pvalb replicate1         ref
-6     4  18 context    Tac2 replicate1         ref
-----
-
-Initializing Cpp (wspc) model
-----------------------------------------
-
-Infinity handling:
-machine epsilon: (eps_): 2.22045e-16
-pseudo-infinity (inf_): 1e+100
-warp_precision: 1e-07
-implied pseudo-infinity for unbounded warp (inf_warp): 4.5036e+08
-
-Extracting variables and data information:
-Found max bin: 100.000000
-Fixed effects:
-"fixedeffect"
-Ref levels:
-"ref"
-No time series detected.
-Created treatment levels:
-"ref" "trt"
-Context grouping levels:
-"context"
-Species grouping levels:
-"Pvalb" "Slc17a7" "Tac2" "Vip"
-Random-effect grouping levels:
-"none" "replicate1" "replicate2" "replicate3" "replicate4"
-Total rows in summed count data table: 4000
-Number of rows with unique model components: 40
-
-Creating summed-count data columns and weight matrix:
-Random level 0, 1/5 complete
-Random level 1, 2/5 complete
-Random level 2, 3/5 complete
-Random level 3, 4/5 complete
-Random level 4, 5/5 complete
-
-Making extrapolation pool:
-row: 160/800
-row: 320/800
-row: 480/800
-row: 640/800
-row: 800/800
-
-Making initial parameter estimates:
-Extrapolated 'none' rows
-Took log of observed counts
-Estimated gamma dispersion of raw counts
-Estimated change points
-Found average log counts for each context-species combination
-Estimated initial parameters for fixed-effect treatments
-Built initial beta (ref and fixed-effects) matrices
-Initialized random-effect warping factors
-Made and mapped parameter vector
-Number of parameters: 146
-Constructed grouping variable IDs
-Size of boundary vector: 530
-
-Estimating model parameters
-----------------------------------------
-
-Running bootstrap fits
-Checking feasibility of provided parameters
-... no tpoints below buffer
-... no NAN rates predicted
-... no negative rates predicted
-Provided parameters are feasible
-Initial boundary distance (want > 0): 0.248799
-Performing initial fit of full data
-Penalized neg_loglik: 7826.58
-Batch: 1/100, 0.356758 sec/bs
-Batch: 10/100, 0.359738 sec/bs
-Batch: 20/100, 0.365739 sec/bs
-Batch: 30/100, 0.363486 sec/bs
-Batch: 40/100, 0.352767 sec/bs
-Batch: 50/100, 0.389391 sec/bs
-Batch: 60/100, 0.394091 sec/bs
-Batch: 70/100, 0.368428 sec/bs
-Batch: 80/100, 0.365338 sec/bs
-Batch: 90/100, 0.374178 sec/bs
-All complete!
-
-Bootstrap simulation complete... 
-Bootstrap run time (total), minutes: 6.378
-Bootstrap run time (per sample), seconds: 0.383
-Bootstrap run time (per sample, per thread), seconds: 3.827
-
-Setting full-data fit as parameters... 
-Checking feasibility of provided parameters
-... no tpoints below buffer
-... no NAN rates predicted
-... no negative rates predicted
-Provided parameters are feasible
-Initial boundary distance (want > 0): 0.341816
-
-Running stats on simulation results
-----------------------------------------
-
-Grabbing sample results, only resamples with converged fit... 
-Grabbing parameter values... 
-Computing 95% confidence intervals... 
-Estimating p-values from resampled parameters... 
-
-Recommended resample size for alpha = 0.05, 49 tests
-with bootstrapping/MCMC: 980
-Actual resample size: 1000
-
-Stat summary (head only):
-------------------------------
-                               parameter   estimate      CI.low   CI.high p.value p.value.adj   alpha.adj significance
-1     baseline_context_Rt_Pvalb_Tns/Blk1 5.03531244  4.90190641 5.0349608      NA          NA          NA             
-2   beta_Rt_context_Pvalb_trt_X_Tns/Blk1 0.03089484 -0.08304175 0.1264828   0.392       5.488 0.003571429           ns
-3     baseline_context_Rt_Pvalb_Tns/Blk2 4.00053235  3.63686480 4.1412607      NA          NA          NA             
-4   beta_Rt_context_Pvalb_trt_X_Tns/Blk2 0.18748299 -0.35838109 0.6810007   0.355       5.325 0.003333333           ns
-5   baseline_context_Rt_Slc17a7_Tns/Blk1 6.77311252  6.05304982 6.7644433      NA          NA          NA             
-6 beta_Rt_context_Slc17a7_trt_X_Tns/Blk1 0.01724492 -0.58303876 0.7501888   0.953       3.812 0.012500000           ns
-----
-
-Computing 95% CI for predicated values by bin
-----------------------------------------
-
-Grabbing sample results, only resamples with converged fit... 
-Computing predicted values for each sampled parameter set... 
-Computing 95% CIs... 
-Analyzing residuals
-----------------------------------------
-
-Computing residuals... 
-Making masks... 
-Making plots and saving stats... 
-
-Log-residual summary by grouping variables (head only):
-------------------------------
-               group      mean        sd  variance
-1                all 0.5289826 0.9283912 0.8619102
-2       ran_lvl_none 0.5506009 0.6367871 0.4054978
-3 ran_lvl_replicate1 0.5154188 1.0181485 1.0366264
-4 ran_lvl_replicate2 0.5524701 1.0130295 1.0262288
-5 ran_lvl_replicate3 0.5050280 1.0094852 1.0190604
-6 ran_lvl_replicate4 0.5211657 0.9108706 0.8296853
-----
-
-Making effect parameter distribution plots... 
-Making rate-count plots... 
-Making parameter plots... 
-Making parameter plots... 
-Making parameter plots... 
-Making parameter plots... 
-
-Printing species summary plots for context: Pvalb, Slc17a7, Tac2, Vip
+Running simulation  1 / 100 (data sim time: 0.882 s, wisp time: 336.979 s)
+Running simulation  2 / 100 (data sim time: 0.036 s, wisp time: 308.133 s)
+Running simulation  3 / 100 (data sim time: 0.026 s, wisp time: 308.596 s)
+Running simulation  4 / 100 (data sim time: 0.026 s, wisp time: 310.341 s)
+Running simulation  5 / 100 (data sim time: 0.03 s, wisp time: 309.848 s)
+Running simulation  6 / 100 (data sim time: 1.414 s, wisp time: 306.978 s)
+Running simulation  7 / 100 (data sim time: 0.025 s, wisp time: 308.467 s)
+Running simulation  8 / 100 (data sim time: 0.028 s, wisp time: 309.865 s)
+Running simulation  9 / 100 (data sim time: 0.033 s, wisp time: 309.179 s)
+Running simulation  10 / 100 (data sim time: 0.026 s, wisp time: 308.691 s)
+Running simulation  11 / 100 (data sim time: 0.028 s, wisp time: 308.735 s)
+Running simulation  12 / 100 (data sim time: 0.026 s, wisp time: 309.487 s)
+Running simulation  13 / 100 (data sim time: 0.026 s, wisp time: 308.186 s)
+Running simulation  14 / 100 (data sim time: 1.414 s, wisp time: 307.678 s)
+Running simulation  15 / 100 (data sim time: 0.027 s, wisp time: 308.958 s)
+Running simulation  16 / 100 (data sim time: 0.027 s, wisp time: 310.417 s)
+Running simulation  17 / 100 (data sim time: 0.028 s, wisp time: 309.779 s)
+Running simulation  18 / 100 (data sim time: 0.026 s, wisp time: 309.214 s)
+Running simulation  19 / 100 (data sim time: 0.027 s, wisp time: 310.958 s)
+Running simulation  20 / 100 (data sim time: 0.027 s, wisp time: 311.349 s)
+Running simulation  21 / 100 (data sim time: 0.026 s, wisp time: 310.475 s)
+Running simulation  22 / 100 (data sim time: 0.027 s, wisp time: 309.284 s)
+Running simulation  23 / 100 (data sim time: 0.027 s, wisp time: 308.72 s)
+Running simulation  24 / 100 (data sim time: 0.027 s, wisp time: 309.618 s)
+Running simulation  25 / 100 (data sim time: 0.028 s, wisp time: 308.815 s)
+Running simulation  26 / 100 (data sim time: 0.028 s, wisp time: 308.34 s)
+Running simulation  27 / 100 (data sim time: 0.025 s, wisp time: 308.619 s)
+Running simulation  28 / 100 (data sim time: 0.026 s, wisp time: 308.796 s)
+Running simulation  29 / 100 (data sim time: 0.027 s, wisp time: 310.878 s)
+Running simulation  30 / 100 (data sim time: 0.028 s, wisp time: 310.497 s)
+Running simulation  31 / 100 (data sim time: 0.027 s, wisp time: 308.891 s)
+Running simulation  32 / 100 (data sim time: 0.027 s, wisp time: 310.573 s)
+Running simulation  33 / 100 (data sim time: 0.028 s, wisp time: 309.631 s)
+Running simulation  34 / 100 (data sim time: 0.027 s, wisp time: 308.706 s)
+Running simulation  35 / 100 (data sim time: 0.028 s, wisp time: 310.723 s)
+Running simulation  36 / 100 (data sim time: 0.027 s, wisp time: 310.132 s)
+Running simulation  37 / 100 (data sim time: 0.027 s, wisp time: 308.756 s)
+Running simulation  38 / 100 (data sim time: 0.027 s, wisp time: 309.499 s)
+Running simulation  39 / 100 (data sim time: 0.03 s, wisp time: 309.09 s)
+Running simulation  40 / 100 (data sim time: 0.032 s, wisp time: 309.232 s)
+Running simulation  41 / 100 (data sim time: 0.029 s, wisp time: 309.207 s)
+Running simulation  42 / 100 (data sim time: 1.42 s, wisp time: 307.471 s)
+Running simulation  43 / 100 (data sim time: 0.026 s, wisp time: 310.236 s)
+Running simulation  44 / 100 (data sim time: 0.027 s, wisp time: 309.046 s)
+Running simulation  45 / 100 (data sim time: 0.029 s, wisp time: 308.198 s)
+Running simulation  46 / 100 (data sim time: 0.027 s, wisp time: 309.465 s)
+Running simulation  47 / 100 (data sim time: 0.03 s, wisp time: 310.613 s)
+Running simulation  48 / 100 (data sim time: 0.027 s, wisp time: 310.326 s)
+Running simulation  49 / 100 (data sim time: 0.026 s, wisp time: 311.498 s)
+Running simulation  50 / 100 (data sim time: 0.024 s, wisp time: 312.617 s)
+Running simulation  51 / 100 (data sim time: 0.024 s, wisp time: 310.134 s)
+Running simulation  52 / 100 (data sim time: 0.028 s, wisp time: 311.268 s)
+Running simulation  53 / 100 (data sim time: 0.027 s, wisp time: 311.466 s)
+Running simulation  54 / 100 (data sim time: 0.025 s, wisp time: 310.569 s)
+Running simulation  55 / 100 (data sim time: 0.028 s, wisp time: 312.372 s)
+Running simulation  56 / 100 (data sim time: 0.027 s, wisp time: 311.497 s)
+Running simulation  57 / 100 (data sim time: 1.47 s, wisp time: 309.809 s)
+Running simulation  58 / 100 (data sim time: 0.026 s, wisp time: 312.524 s)
+Running simulation  59 / 100 (data sim time: 0.027 s, wisp time: 311.478 s)
+Running simulation  60 / 100 (data sim time: 0.029 s, wisp time: 329.565 s)
+Running simulation  61 / 100 (data sim time: 0.025 s, wisp time: 310.986 s)
+Running simulation  62 / 100 (data sim time: 0.026 s, wisp time: 311.089 s)
+Running simulation  63 / 100 (data sim time: 0.021 s, wisp time: 311.433 s)
+Running simulation  64 / 100 (data sim time: 0.028 s, wisp time: 311.596 s)
+Running simulation  65 / 100 (data sim time: 0.03 s, wisp time: 311.382 s)
+Running simulation  66 / 100 (data sim time: 0.027 s, wisp time: 311.582 s)
+Running simulation  67 / 100 (data sim time: 0.027 s, wisp time: 312.98 s)
+Running simulation  68 / 100 (data sim time: 0.023 s, wisp time: 309.828 s)
+Running simulation  69 / 100 (data sim time: 1.448 s, wisp time: 309.717 s)
+Running simulation  70 / 100 (data sim time: 0.024 s, wisp time: 310.434 s)
+Running simulation  71 / 100 (data sim time: 0.026 s, wisp time: 310.092 s)
+Running simulation  72 / 100 (data sim time: 0.026 s, wisp time: 310.248 s)
+Running simulation  73 / 100 (data sim time: 0.033 s, wisp time: 310.717 s)
+Running simulation  74 / 100 (data sim time: 0.025 s, wisp time: 312.336 s)
+Running simulation  75 / 100 (data sim time: 0.027 s, wisp time: 311.096 s)
+Running simulation  76 / 100 (data sim time: 0.026 s, wisp time: 312.221 s)
+Running simulation  77 / 100 (data sim time: 0.028 s, wisp time: 311.552 s)
+Running simulation  78 / 100 (data sim time: 0.029 s, wisp time: 311.588 s)
+Running simulation  79 / 100 (data sim time: 0.025 s, wisp time: 311.326 s)
+Running simulation  80 / 100 (data sim time: 0.027 s, wisp time: 310.878 s)
+Running simulation  81 / 100 (data sim time: 0.029 s, wisp time: 329.032 s)
+Running simulation  82 / 100 (data sim time: 0.025 s, wisp time: 311.303 s)
+Running simulation  83 / 100 (data sim time: 0.027 s, wisp time: 311.332 s)
+Running simulation  84 / 100 (data sim time: 0.027 s, wisp time: 311.755 s)
+Running simulation  85 / 100 (data sim time: 0.027 s, wisp time: 311.422 s)
+Running simulation  86 / 100 (data sim time: 0.027 s, wisp time: 310.973 s)
+Running simulation  87 / 100 (data sim time: 0.025 s, wisp time: 311.265 s)
+Running simulation  88 / 100 (data sim time: 0.025 s, wisp time: 311.487 s)
+Running simulation  89 / 100 (data sim time: 0.025 s, wisp time: 310.342 s)
+Running simulation  90 / 100 (data sim time: 0.024 s, wisp time: 311.583 s)
+Running simulation  91 / 100 (data sim time: 0.033 s, wisp time: 310.211 s)
+Running simulation  92 / 100 (data sim time: 0.024 s, wisp time: 311.361 s)
+Running simulation  93 / 100 (data sim time: 0.028 s, wisp time: 312.217 s)
+Running simulation  94 / 100 (data sim time: 0.021 s, wisp time: 309.923 s)
+Running simulation  95 / 100 (data sim time: 0.029 s, wisp time: 310.99 s)
+Running simulation  96 / 100 (data sim time: 0.024 s, wisp time: 312.129 s)
+Running simulation  97 / 100 (data sim time: 0.023 s, wisp time: 312.164 s)
+Running simulation  98 / 100 (data sim time: 0.025 s, wisp time: 311.967 s)
+Running simulation  99 / 100 (data sim time: 0.026 s, wisp time: 311.642 s)
+Running simulation  100 / 100 (data sim time: 0.026 s, wisp time: 312.051 s)Warning messages:
+1: In prune_samples_by_convergence(wisp.results, verbose = verbose) :
+  Warning: Only 0 out of 1001 resamples converged to fit. Results may be unreliable. Using all resamples.
+2: In prune_samples_by_convergence(wisp.results = results,  ... :
+  Warning: Only 0 out of 1001 resamples converged to fit. Results may be unreliable. Using all resamples.
+3: In prune_samples_by_convergence(wisp.results, verbose = verbose) :
+  Warning: Only 0 out of 1001 resamples converged to fit. Results may be unreliable. Using all resamples.
+4: In prune_samples_by_convergence(wisp.results = results,  ... :
+  Warning: Only 0 out of 1001 resamples converged to fit. Results may be unreliable. Using all resamples.
+5: In prune_samples_by_convergence(wisp.results, verbose = verbose) :
+  Warning: Only 0 out of 1001 resamples converged to fit. Results may be unreliable. Using all resamples.
+6: In prune_samples_by_convergence(wisp.results = results,  ... :
+  Warning: Only 0 out of 1001 resamples converged to fit. Results may be unreliable. Using all resamples.
+7: In prune_samples_by_convergence(wisp.results, verbose = verbose) :
+  Warning: Only 0 out of 1001 resamples converged to fit. Results may be unreliable. Using all resamples.
+8: In prune_samples_by_convergence(wisp.results = results,  ... :
+  Warning: Only 0 out of 1001 resamples converged to fit. Results may be unreliable. Using all resamples.
+9: In prune_samples_by_convergence(wisp.results, verbose = verbose) :
+  Warning: Only 0 out of 1001 resamples converged to fit. Results may be unreliable. Using all resamples.
+10: In prune_samples_by_convergence(wisp.results = results,  ... :
+  Warning: Only 0 out of 1001 resamples converged to fit. Results may be unreliable. Using all resamples.
+11: In prune_samples_by_convergence(wisp.results, verbose = verbose) :
+  Warning: Only 0 out of 1001 resamples converged to fit. Results may be unreliable. Using all resamples.
+12: In prune_samples_by_convergence(wisp.results = results,  ... :
+  Warning: Only 0 out of 1001 resamples converged to fit. Results may be unreliable. Using all resamples.
+13: In prune_samples_by_convergence(wisp.results, verbose = verbose) :
+  Warning: Only 0 out of 1001 resamples converged to fit. Results may be unreliable. Using all resamples.
+14: In prune_samples_by_convergence(wisp.results = results,  ... :
+  Warning: Only 0 out of 1001 resamples converged to fit. Results may be unreliable. Using all resamples.
+15: In prune_samples_by_convergence(wisp.results, verbose = verbose) :
+  Warning: Only 0 out of 1001 resamples converged to fit. Results may be unreliable. Using all resamples.
+16: In prune_samples_by_convergence(wisp.results = results,  ... :
+  Warning: Only 0 out of 1001 resamples converged to fit. Results may be unreliable. Using all resamples.
+17: In prune_samples_by_convergence(wisp.results, verbose = verbose) :
+  Warning: Only 0 out of 1001 resamples converged to fit. Results may be unreliable. Using all resamples.
+18: In prune_samples_by_convergence(wisp.results = results,  ... :
+  Warning: Only 0 out of 1001 resamples converged to fit. Results may be unreliable. Using all resamples.
+19: In prune_samples_by_convergence(wisp.results, verbose = verbose) :
+  Warning: Only 0 out of 1001 resamples converged to fit. Results may be unreliable. Using all resamples.
+20: In prune_samples_by_convergence(wisp.results = results,  ... :
+  Warning: Only 0 out of 1001 resamples converged to fit. Results may be unreliable. Using all resamples.
+21: In prune_samples_by_convergence(wisp.results, verbose = verbose) :
+  Warning: Only 0 out of 1001 resamples converged to fit. Results may be unreliable. Using all resamples.
+22: In prune_samples_by_convergence(wisp.results = results,  ... :
+  Warning: Only 0 out of 1001 resamples converged to fit. Results may be unreliable. Using all resamples.
+23: In prune_samples_by_convergence(wisp.results, verbose = verbose) :
+  Warning: Only 0 out of 1001 resamples converged to fit. Results may be unreliable. Using all resamples.
+24: In prune_samples_by_convergence(wisp.results = results,  ... :
+  Warning: Only 0 out of 1001 resamples converged to fit. Results may be unreliable. Using all resamples.
+25: In prune_samples_by_convergence(wisp.results, verbose = verbose) :
+  Warning: Only 0 out of 1001 resamples converged to fit. Results may be unreliable. Using all resamples.
+26: In prune_samples_by_convergence(wisp.results = results,  ... :
+  Warning: Only 0 out of 1001 resamples converged to fit. Results may be unreliable. Using all resamples.
+27: In prune_samples_by_convergence(wisp.results, verbose = verbose) :
+  Warning: Only 0 out of 1001 resamples converged to fit. Results may be unreliable. Using all resamples.
+28: In prune_samples_by_convergence(wisp.results = results,  ... :
+  Warning: Only 0 out of 1001 resamples converged to fit. Results may be unreliable. Using all resamples.
+29: In prune_samples_by_convergence(wisp.results, verbose = verbose) :
+  Warning: Only 0 out of 1001 resamples converged to fit. Results may be unreliable. Using all resamples.
+30: In prune_samples_by_convergence(wisp.results = results,  ... :
+  Warning: Only 0 out of 1001 resamples converged to fit. Results may be unreliable. Using all resamples.
+31: In prune_samples_by_convergence(wisp.results, verbose = verbose) :
+  Warning: Only 0 out of 1001 resamples converged to fit. Results may be unreliable. Using all resamples.
+32: In prune_samples_by_convergence(wisp.results = results,  ... :
+  Warning: Only 0 out of 1001 resamples converged to fit. Results may be unreliable. Using all resamples.
+33: In prune_samples_by_convergence(wisp.results, verbose = verbose) :
+  Warning: Only 0 out of 1001 resamples converged to fit. Results may be unreliable. Using all resamples.
+34: In prune_samples_by_convergence(wisp.results = results,  ... :
+  Warning: Only 0 out of 1001 resamples converged to fit. Results may be unreliable. Using all resamples.
+35: In prune_samples_by_convergence(wisp.results, verbose = verbose) :
+  Warning: Only 0 out of 1001 resamples converged to fit. Results may be unreliable. Using all resamples.
+36: In prune_samples_by_convergence(wisp.results = results,  ... :
+  Warning: Only 0 out of 1001 resamples converged to fit. Results may be unreliable. Using all resamples.
+37: In prune_samples_by_convergence(wisp.results, verbose = verbose) :
+  Warning: Only 0 out of 1001 resamples converged to fit. Results may be unreliable. Using all resamples.
+38: In prune_samples_by_convergence(wisp.results = results,  ... :
+  Warning: Only 0 out of 1001 resamples converged to fit. Results may be unreliable. Using all resamples.
+39: In prune_samples_by_convergence(wisp.results, verbose = verbose) :
+  Warning: Only 0 out of 1001 resamples converged to fit. Results may be unreliable. Using all resamples.
+40: In prune_samples_by_convergence(wisp.results = results,  ... :
+  Warning: Only 0 out of 1001 resamples converged to fit. Results may be unreliable. Using all resamples.
+41: In prune_samples_by_convergence(wisp.results, verbose = verbose) :
+  Warning: Only 0 out of 1001 resamples converged to fit. Results may be unreliable. Using all resamples.
+42: In prune_samples_by_convergence(wisp.results = results,  ... :
+  Warning: Only 0 out of 1001 resamples converged to fit. Results may be unreliable. Using all resamples.
+43: In prune_samples_by_convergence(wisp.results, verbose = verbose) :
+  Warning: Only 0 out of 1001 resamples converged to fit. Results may be unreliable. Using all resamples.
+44: In prune_samples_by_convergence(wisp.results = results,  ... :
+  Warning: Only 0 out of 1001 resamples converged to fit. Results may be unreliable. Using all resamples.
+45: In prune_samples_by_convergence(wisp.results, verbose = verbose) :
+  Warning: Only 0 out of 1001 resamples converged to fit. Results may be unreliable. Using all resamples.
+46: In prune_samples_by_convergence(wisp.results = results,  ... :
+  Warning: Only 0 out of 1001 resamples converged to fit. Results may be unreliable. Using all resamples.
+47: In prune_samples_by_convergence(wisp.results, verbose = verbose) :
+  Warning: Only 0 out of 1001 resamples converged to fit. Results may be unreliable. Using all resamples.
+48: In prune_samples_by_convergence(wisp.results = results,  ... :
+  Warning: Only 0 out of 1001 resamples converged to fit. Results may be unreliable. Using all resamples.
+49: In prune_samples_by_convergence(wisp.results, verbose = verbose) :
+  Warning: Only 0 out of 1001 resamples converged to fit. Results may be unreliable. Using all resamples.
+50: In prune_samples_by_convergence(wisp.results = results,  ... :
+  Warning: Only 0 out of 1001 resamples converged to fit. Results may be unreliable. Using all resamples.

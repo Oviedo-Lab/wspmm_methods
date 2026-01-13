@@ -24,7 +24,7 @@ snk.report("Analysis of MERFISH data by Warped Sigmoid, Poisson-Process Mixed-Ef
 
 # Set file path, and bootstrap chunk size
 data_path <- paste0(projects_folder, "_molecular_mechanisms_of_ACx_lateralization/data_SSp/")
-bs_chunksize <- 10
+bs_chunksize <- 25
 
 # Preprocessing MERFISH data ###########################################################################################
 
@@ -1268,11 +1268,11 @@ for (s in c(1:n_sims)) {
   
   results <- rbind(results, wisp_results)
   
-  cat(" (data sim time:", round(d_sim,2), "s, wisp time:", round(d_wisp,2), "s)")
+  cat(" (data sim time:", round(d_sim,3), "s, wisp time:", round(d_wisp,3), "s)")
   
 }
 
-
+write.csv(results, "benchmark_results.csv", row.names = FALSE)
 
 
 
