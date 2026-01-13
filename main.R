@@ -1185,7 +1185,7 @@ extract_mean_random_effect <- function(model) {
 } 
 
 # Function to model simulation with wisp
-model_sim_wisp <- function(sim) {
+model_sim_wisp <- function(sim, seed, fit_only = TRUE) {
     
     # Transform data into count frame for wisp
     keep_cols <- !(colnames(sim$data) %in% c("slice_num", "coord_x", "coord_y", "bin_y"))
@@ -1203,17 +1203,18 @@ model_sim_wisp <- function(sim) {
     model <- wisp(
       count.data = sim_count,
       variables = data.variables,
+      fit_only = fit_only,
       MCMC.settings = list(MCMC.steps = 0),
       bootstraps.num = 1e3,
       max.fork = bs_chunksize,
       plot.settings = list(print.plots = FALSE),
-      verbose = FALSE
+      verbose = FALSE,
+      ran.seed = seed
     )
     
-    # Extract effect estimates and effect p-values for comparing to ground truth
+    # Extract effect estimates for comparing to ground truth
     rate_effects_est <- extract_mean_rate_effect(model)
     random_effects_est <- extract_mean_random_effect(model)
-    rate_effects_pvalues <- extract_mean_pvalue(model)
     
     # Extract ground-truth
     rate_effects_true <- sim$effect
@@ -1224,6 +1225,13 @@ model_sim_wisp <- function(sim) {
     FSEs <- rep(FALSE, length(sim$genes))
     names(FSEs) <- sim$genes
     FSEs[sim$FSEs] <- TRUE
+    
+    # Extract p-values for comparing to ground truth
+    rate_effects_pvalues <- rep(NA, length(rate_effects_est))
+    names(rate_effects_pvalues) <- names(rate_effects_est)
+    if (!fit_only) {
+      rate_effects_pvalues <- extract_mean_pvalue(model)
+    }
     
     # Compile results in named vector 
     results <- data.frame(
@@ -1250,17 +1258,17 @@ model_sim_wisp <- function(sim) {
 n_sims <- 100
 results <- data.frame()
 for (s in c(1:n_sims)) {
-  
+
   cat("\nRunning simulation ", s, "/", n_sims)
   
   # Simulate data and extract count data for modeling
   t_stim_start <- Sys.time()
-  sim <- simulate_data(count_data_neurons_patch)
+  sim_data <- simulate_data(count_data_neurons_patch)
   d_sim <- Sys.time() - t_stim_start
   units(d_sim) <- "secs"
   
   t_wisp_start <- Sys.time()
-  wisp_results <- model_sim_wisp(sim)
+  wisp_results <- model_sim_wisp(sim_data, seed = s)
   d_wisp <- Sys.time() - t_wisp_start
   units(d_wisp) <- "secs"
   wisp_results$method <- "wisp"
@@ -1277,8 +1285,25 @@ write.csv(results, "benchmark_results.csv", row.names = FALSE)
 
 results <- read.csv("benchmark_results.csv")
 
+results_rr <- results[results$param == "random_effect" | results$param == "rate_effect",]
+ggplot(results_rr, aes(x = true, y = est, color = param)) +
+  geom_point(alpha = 0.5) +
+  geom_abline(slope = 1, intercept = 0, linetype = "dashed") +
+  theme_minimal() +
+  labs(
+    title = "WSPmm parameter estimation on simulated data",
+    x = "Ground truth",
+    y = "Estimated"
+  ) +
+  scale_color_manual(
+    values = c("rate_effect" = "blue", "random_effect" = "red"),
+    name = "Parameter"
+  )
 
-
+results_rr <- results[results$param == "random_effect" ,]
+length(unique(results_rr$true))
+results_rr <- results[results$param == "rate_effect",]
+length(unique(results_rr$true))
 
 # end sink
 sink(file = NULL)
