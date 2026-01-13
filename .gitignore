@@ -6,6 +6,7 @@ src/*.so
 src/*.dll
 *.csv
 !Allen_data.csv
+!benchmark_results.csv
 Read-and-delete-me
 .Rproj.user
 Droin_data/

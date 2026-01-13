@@ -1275,7 +1275,7 @@ for (s in c(1:n_sims)) {
 write.csv(results, "benchmark_results.csv", row.names = FALSE)
 
 
-
+results <- read.csv("benchmark_results.csv")
 
 
 
