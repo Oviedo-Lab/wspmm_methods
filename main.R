@@ -1280,12 +1280,18 @@ for (s in c(1:n_sims)) {
   
 }
 
+# Save results
 write.csv(results, "benchmark_results.csv", row.names = FALSE)
 
-
+# Load results 
 results <- read.csv("benchmark_results.csv")
 
+# Analyze results
 results_rr <- results[results$param == "random_effect" | results$param == "rate_effect",]
+results_rr[results_rr$param == "random_effect", "est"] <- (results_rr$est[results_rr$param == "random_effect"]^2 + 1)/2
+#results_rr[results_rr$param == "random_effect", "est"] <- (sqrt(results_rr$est[results_rr$param == "random_effect"]) - 1)/2
+results_rr[results_rr$param == "rate_effect", "est"] <- exp(results_rr$est[results_rr$param == "rate_effect"])
+results_rr[results_rr$param == "rate_effect", "est"] <- (sqrt(results_rr$est[results_rr$param == "rate_effect"]) - 1)/2
 ggplot(results_rr, aes(x = true, y = est, color = param)) +
   geom_point(alpha = 0.5) +
   geom_abline(slope = 1, intercept = 0, linetype = "dashed") +
@@ -1299,11 +1305,13 @@ ggplot(results_rr, aes(x = true, y = est, color = param)) +
     values = c("rate_effect" = "blue", "random_effect" = "red"),
     name = "Parameter"
   )
+residuals <- results_rr$est - results_rr$true
+residuals_rate <- residuals[results_rr$param == "rate_effect"]
+residuals_ran <- residuals[results_rr$param == "random_effect"]
+hist(residuals_rate, breaks = 30, main = "Residuals for Rate Effect", xlab = "Residual")
+hist(residuals_ran, breaks = 30, main = "Residuals for Random Effect", xlab = "Residual")
+plot(density(residuals_rate))
 
-results_rr <- results[results$param == "random_effect" ,]
-length(unique(results_rr$true))
-results_rr <- results[results$param == "rate_effect",]
-length(unique(results_rr$true))
 
 # end sink
 sink(file = NULL)
