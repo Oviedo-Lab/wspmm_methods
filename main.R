@@ -1147,6 +1147,8 @@ simulate_data <- function(
     
   }
 
+# wisp benchmarking ####################################################################################################
+
 # Rate effect is consistent across all of space, so, average over all blocks for each gene
 extract_mean_rate_effect <- function(model) {
   genes <- model[["grouping.variables"]][["species.lvls"]]
@@ -1326,28 +1328,45 @@ cor_ran
 # count becomes "umi". Compute sc_total. Throw out slice_num, coord_x, and coord_y.
 # ... could keep "trt", but renumber replicates so none fit in both "ref" and "trt"? 
 
+# ELLA benchmarking ####################################################################################################
+
 library(reticulate)
-use_python("/Users/michaelbarkasi/ELLA/.venv/bin/python3", required = TRUE)
-py_config()
 
-ella_mod <- import("ELLA.ELLA")
+# Install ELLA:
+# git clone --branch ella1 https://github.com/jadexq/ELLA.git
+# /Users/michaelbarkasi/.virtualenvs/r-reticulate/bin/python -m pip install --upgrade pip
+# cd /Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/_molecular_mechanisms_of_ACx_lateralization/paper_WSPmm_method/wspmm_methods/ELLA
+# /Users/michaelbarkasi/.virtualenvs/r-reticulate/bin/python -m pip install .
+# /Users/michaelbarkasi/.virtualenvs/r-reticulate/bin/python -m pip install rpy2
+# /Users/michaelbarkasi/.virtualenvs/r-reticulate/bin/python -m pip install ipdb
+# /Users/michaelbarkasi/.virtualenvs/r-reticulate/bin/python -m pip install tqdm
 
-model_beta <- ella_mod$model_beta
-model_null <- ella_mod$model_null
-loss_ll   <- ella_mod$loss_ll
-ELLA      <- ella_mod$ELLA
+# import module
+ELLA_mod <- import_from_path("ELLA.ELLA", path = "ELLA/ELLA/ELLA.py")
 
-ella_demo <- ELLA(
+
+# construct object
+ella_demo <- ELLA_mod$ELLA(
   dataset = "demo1",
   adam_learning_rate_min = 1e-2,
-  max_iter = 1000
+  max_iter = 1000L
 )
 
-ella_demo$load_data(data_path = "input/mini_demo_data.pkl")
-ella_demo$register_cells()
-ella_demo$nhpp_prepare()
+# load data
+ella_demo$load_data(data_path = "ELLA/scripts/demo/mini_demo/input/mini_demo_data.pkl")
 
-class(ella_demo)
+# register cells
+ella_demo$register_cells()
+
+# prepare data
+ella_demo$nhpp_prepare()
+# fit nhpp model
+ella_demo$nhpp_fit()
+
+# expression intensity estimation
+ella_demo$weighted_density_est()
+# likelihood ratio test
+ella_demo$compute_pv()
 
 
 
