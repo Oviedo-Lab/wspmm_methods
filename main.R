@@ -1288,10 +1288,6 @@ results <- read.csv("benchmark_results.csv")
 
 # Analyze results
 results_rr <- results[results$param == "random_effect" | results$param == "rate_effect",]
-results_rr[results_rr$param == "random_effect", "est"] <- (results_rr$est[results_rr$param == "random_effect"]^2 + 1)/2
-#results_rr[results_rr$param == "random_effect", "est"] <- (sqrt(results_rr$est[results_rr$param == "random_effect"]) - 1)/2
-results_rr[results_rr$param == "rate_effect", "est"] <- exp(results_rr$est[results_rr$param == "rate_effect"])
-results_rr[results_rr$param == "rate_effect", "est"] <- (sqrt(results_rr$est[results_rr$param == "rate_effect"]) - 1)/2
 ggplot(results_rr, aes(x = true, y = est, color = param)) +
   geom_point(alpha = 0.5) +
   geom_abline(slope = 1, intercept = 0, linetype = "dashed") +
@@ -1305,12 +1301,56 @@ ggplot(results_rr, aes(x = true, y = est, color = param)) +
     values = c("rate_effect" = "blue", "random_effect" = "red"),
     name = "Parameter"
   )
-residuals <- results_rr$est - results_rr$true
-residuals_rate <- residuals[results_rr$param == "rate_effect"]
-residuals_ran <- residuals[results_rr$param == "random_effect"]
-hist(residuals_rate, breaks = 30, main = "Residuals for Rate Effect", xlab = "Residual")
-hist(residuals_ran, breaks = 30, main = "Residuals for Random Effect", xlab = "Residual")
-plot(density(residuals_rate))
+
+results_rr_ran <- results_rr[results_rr$param == "random_effect",]
+results_rr_rate <- results_rr[results_rr$param == "rate_effect",]
+cor_rate <- cor(results_rr_rate$true, results_rr_rate$est, method = "pearson")
+cor_ran <- cor(results_rr_ran$true, results_rr_ran$est, method = "pearson")
+cor_rate
+cor_ran
+
+# type I errors: FPR (FP / (FP + TN)) and FDR (FP / (FP + TP)) ... prob of false positive (i.e., of incorrectly rejecting null h, conditional on the null (FPR) or on a positive results (FDR)
+# type II errors: power (TP / (TP + FN)) ... prob of detecting thing (i.e., of correctly rejecting null h), conditional on the alternative h
+# 
+# Metrics: cor_rate, cor_ran, FPR_svg, FDR_svg, power_svg, FPR_fse, FDR_fse, power_fse
+
+# wisp: cor_rate, cor_ran, FPR_fse, FDR_fse, power_fse
+# ELLA: 
+# C-SIDE
+# SpaNorm
+# Spark
+# DESeq2
+# 
+# ELLA: limit to "ref" fixedeffect, throw out "trt". replicate column becomes "cell". fixedeffect column becomes "type". 
+# bin_x and bin_y become x and y. centerX and centerY are the mean of bin_x and bin_y, for all rows. 
+# count becomes "umi". Compute sc_total. Throw out slice_num, coord_x, and coord_y.
+# ... could keep "trt", but renumber replicates so none fit in both "ref" and "trt"? 
+
+library(reticulate)
+use_python("/Users/michaelbarkasi/ELLA/.venv/bin/python3", required = TRUE)
+py_config()
+
+ella_mod <- import("ELLA.ELLA")
+
+model_beta <- ella_mod$model_beta
+model_null <- ella_mod$model_null
+loss_ll   <- ella_mod$loss_ll
+ELLA      <- ella_mod$ELLA
+
+ella_demo <- ELLA(
+  dataset = "demo1",
+  adam_learning_rate_min = 1e-2,
+  max_iter = 1000
+)
+
+ella_demo$load_data(data_path = "input/mini_demo_data.pkl")
+ella_demo$register_cells()
+ella_demo$nhpp_prepare()
+
+class(ella_demo)
+
+
+
 
 
 # end sink
