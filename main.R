@@ -1330,23 +1330,38 @@ cor_ran
 
 # ELLA benchmarking ####################################################################################################
 
+# Set up virtual python environment for reticulate: 
+#   python3 -m venv ~/.virtualenvs/r-reticulate
+#   source ~/.virtualenvs/r-reticulate/bin/activate
+#   pip install --upgrade pip
+
 library(reticulate)
+use_virtualenv("/Users/michaelbarkasi/.virtualenvs/r-reticulate", required = TRUE)
+
+py_install(c(
+  "numpy",
+  "pandas",
+  "matplotlib",
+  "scipy",
+  "scikit-learn",
+  "torch",
+  "tqdm",
+  "ipdb",
+  "rpy2"
+), pip = TRUE)
 
 # Install ELLA:
 # git clone --branch ella1 https://github.com/jadexq/ELLA.git
 # /Users/michaelbarkasi/.virtualenvs/r-reticulate/bin/python -m pip install --upgrade pip
 # cd /Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/_molecular_mechanisms_of_ACx_lateralization/paper_WSPmm_method/wspmm_methods/ELLA
 # /Users/michaelbarkasi/.virtualenvs/r-reticulate/bin/python -m pip install .
-# /Users/michaelbarkasi/.virtualenvs/r-reticulate/bin/python -m pip install rpy2
-# /Users/michaelbarkasi/.virtualenvs/r-reticulate/bin/python -m pip install ipdb
-# /Users/michaelbarkasi/.virtualenvs/r-reticulate/bin/python -m pip install tqdm
 
 # import module
-ELLA_mod <- import_from_path("ELLA.ELLA", path = "ELLA/ELLA/ELLA.py")
-
+ELLA_mod <- import_from_path("ELLA", path = "./ELLA/ELLA")
 
 # construct object
-ella_demo <- ELLA_mod$ELLA(
+ELLA_class <- ELLA_mod$ELLA
+ella_demo <- ELLA_class(
   dataset = "demo1",
   adam_learning_rate_min = 1e-2,
   max_iter = 1000L
