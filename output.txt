@@ -1,200 +1,84 @@
 
 
 Analysis of MERFISH data by Warped Sigmoid, Poisson-Process Mixed-Effects Model (WSPmm)
-              x       y
-Pvalb    139.41  139.41
-Slc17a7 3908.11 3908.11
-Tac2      49.82   49.82
-Vip       65.89   65.89
-  Pvalb Slc17a7    Tac2     Vip 
- 139.41 3908.11   49.82   65.89 
+[1] 99
 
 Enter a frame number, or 0 to exit   
 
-1: `[<-`(`*tmp*`, pos_mask & gene_mask, "est", value = c(2.04040551101227e+66, 1.14777031288505e+64, 5.6666689491566e+62, 1.18
-2: `[<-.data.frame`(`*tmp*`, pos_mask & gene_mask, "est", value = c(2.04040551101227e+66, 1.14777031288505e+64, 5.666668949156
+1: data.frame(x = c(rep(x_range[1], y_range[2] - y_range[1] + 1), rep(x_range[2], y_range[2] - y_range[1] + 1), seq(x_range[1], x_range[2]), seq(x_range[
 
 Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-
-Gene: Pvalbnumeric(0)
-numeric(0)
-numeric(0)
-numeric(0)
-
-Gene: Slc17a7numeric(0)
-numeric(0)
-numeric(0)
-numeric(0)
-
-Gene: Tac2numeric(0)
-numeric(0)
-numeric(0)
-numeric(0)
-
-Gene: Vipnumeric(0)
-numeric(0)
-numeric(0)
-numeric(0)
-
-Gene: Pvalb[1] NA NA NA NA NA NA
+[1] 400   2
+[1] 398
+[1] 400
+integer(0)
+ [1] 1 2 3 4 1 2 3 4 1 2 3 4
+[1] 33
+[1] 100
+[1] 51
+[1] 50
+Using virtual environment '/Users/michaelbarkasi/.virtualenvs/r-reticulate' ...
 
 Enter a frame number, or 0 to exit   
 
-1: `[<-`(`*tmp*`, pos_mask & gene_mask, "est", value = c(NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, N
-2: `[<-.data.frame`(`*tmp*`, pos_mask & gene_mask, "est", value = c(NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA
+1: ella_demo$load_data(data_dict = ella_data)
+2: py_call_impl(callable, call_args$unnamed, call_args$named)
 
 Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-[1] "character"
-[1] "character"
-[1] "Pvalb"   "Slc17a7" "Tac2"    "Vip"    
-[1] "Pvalb"      "Slc17a7"    "Tac2"       "Vip"        "replicate1" "replicate2" "replicate3" "replicate4"
-
-Gene: Pvalbnumeric(0)
-numeric(0)
-numeric(0)
-numeric(0)
-
-Gene: Slc17a7numeric(0)
-numeric(0)
-numeric(0)
-numeric(0)
-
-Gene: Tac2numeric(0)
-numeric(0)
-numeric(0)
-numeric(0)
-
-Gene: Vipnumeric(0)
-numeric(0)
-numeric(0)
-numeric(0)
-[1] 1040.807
-[1] -0.4502152        Inf
-[1] Inf Inf
-[1] 0.004044473 0.637046474
-[1] -0.8869801288 -0.0005512755
-[1] 1040.807
-[1] 230
-[1] 170
-  [1] 0.405970434 0.368242317 0.280305570 0.313755074 0.028880362 0.248073359 0.135022941 0.164762158 0.252787119 0.252393025
- [11] 0.277241420 0.180585684 0.142666612 0.257724228 0.450420476 0.476497653 0.358024906 0.327900495 0.520110307 0.303668485
- [21] 0.258890034 0.176499129 0.241689323 0.230817445 0.100228565 0.199744621 0.118179619 0.085792536 0.235888482 0.207657663
- [31] 0.093881810 0.174998694 0.451793855 0.234981518 0.097126956 0.280912372 0.142161127 0.379449984 0.444947407 0.412493618
- [41] 0.356826948 0.012306126 0.153596555 0.326383310 0.421203114 0.296276967 0.371039118 0.507144559 0.371209490 0.377742142
- [51] 0.034488287 0.446352474 0.275437017 0.344730346 0.139003079 0.234447461 0.199010074 0.428074834 0.409261246 0.184152311
- [61] 0.069182553 0.045633202 0.373653210 0.288067010 0.443837876 0.099077207 0.078016246 0.168901027 0.170769467 0.453788329
- [71] 0.444580639 0.193624918 0.054089285 0.154572694 0.442971715 0.167088813 0.258723837 0.146642845 0.155735080 0.197665671
- [81] 0.151205798 0.290769731 0.226376084 0.334154871 0.404880517 0.181603382 0.372898757 0.583795803 0.637046474 0.287400804
- [91] 0.561175736 0.081012246 0.166606885 0.301379939 0.329700376 0.114394627 0.078623665 0.074423865 0.197727685 0.259236191
-[101] 0.442661279 0.339589836 0.339120514 0.071923322 0.447673600 0.038052892 0.036222377 0.007581220 0.353954630 0.333312445
-[111] 0.236036991 0.399878552 0.553547386 0.497031994 0.350949396 0.352295250 0.193542118 0.473663394 0.157244784 0.171431917
-[121] 0.359776872 0.252898471 0.540623464 0.520804555 0.017602747 0.015122042 0.359869082 0.364347321 0.379800429 0.220998149
-[131] 0.294016167 0.387192375 0.463288607 0.103242105 0.379909904 0.451349427 0.149974909 0.085334674 0.173119285 0.546064349
-[141] 0.255603253 0.249991954 0.563210076 0.029759194 0.489199762 0.330180092 0.036329443 0.231180873 0.371523204 0.502538632
-[151] 0.488193834 0.008872981 0.233649061 0.225457998 0.281814587 0.416547997 0.300717772 0.271845121 0.307958983 0.272804062
-[161] 0.021995166 0.150395903 0.278087070 0.142407149 0.332648259 0.219482460 0.080758431 0.230628934 0.361961556 0.273387442
-[171] 0.302409480 0.302326116 0.182726121 0.174881569 0.298386235 0.139618578 0.016602870 0.255574419 0.192215237 0.345057300
-[181] 0.571026612 0.311886399 0.279725790 0.282683327 0.312778596 0.194439188 0.475493639 0.140078720 0.261866295 0.197091123
-[191] 0.499671923 0.188390404 0.235342927 0.253821297 0.095846718 0.266971662 0.223975655 0.115871367 0.251946704 0.037655727
-[201] 0.004826341 0.036500144 0.314677910 0.284256648 0.067863146 0.318692181 0.238272988 0.373269871 0.494392594 0.160720706
-[211] 0.295409788 0.247421775 0.301599302 0.150027919 0.149257999 0.547587374 0.256128391 0.074212042 0.012841735 0.220374398
-[221] 0.113975737 0.270151254 0.385834567 0.272445904 0.252869576 0.140460856 0.378185105 0.063629467 0.004044473 0.104340457
-  [1] 0.5824060 0.5678012 0.5392856 0.5492211 0.5004170 0.5307702 0.5091156 0.5135733 0.5319507 0.5318511 0.5384314 0.5163056
- [13] 0.5101769 0.5332109 0.6014393 0.6135250 0.5640909 0.5537594 0.6352574 0.5461073 0.5335120 0.5155760 0.5292069 0.5266383
- [25] 0.5050229 0.5199490 0.5069832 0.5036802 0.5278217 0.5215609 0.5044069 0.5153123 0.6020588 0.5276082 0.5047168 0.5394559
- [37] 0.5101049 0.5719911 0.5989891 0.5850755 0.5636627 0.5000757 0.5117960 0.5532630 0.5887060 0.5438900 0.5688350 0.6285978
- [49] 0.5688982 0.5713446 0.5005947 0.5996153 0.5379328 0.5594195 0.5096609 0.5274828 0.5198025 0.5916240 0.5837474 0.5169560
- [61] 0.5023931 0.5010412 0.5698084 0.5414913 0.5984960 0.5049081 0.5030433 0.5142638 0.5145811 0.6029619 0.5988260 0.5187453
- [73] 0.5014628 0.5119464 0.5981120 0.5139593 0.5334690 0.5107521 0.5121267 0.5195359 0.5114316 0.5422735 0.5256231 0.5558297
- [85] 0.5819641 0.5164899 0.5695267 0.6704088 0.7029141 0.5412996 0.6574591 0.5032815 0.5138789 0.5454149 0.5543512 0.5065431
- [97] 0.5030908 0.5027695 0.5195481 0.5336017 0.5979745 0.5576606 0.5575014 0.5025865 0.6002058 0.5007240 0.5006560 0.5000287
-[109] 0.5626419 0.5555486 0.5278567 0.5799514 0.6532074 0.6235204 0.5615827 0.5620560 0.5187293 0.6121785 0.5123630 0.5146945
-[121] 0.5647197 0.5319788 0.6461369 0.6356187 0.5001549 0.5001143 0.5647529 0.5663745 0.5721242 0.5244201 0.5432228 0.5749590
-[133] 0.6073182 0.5053295 0.5721658 0.6018582 0.5112462 0.5036410 0.5149851 0.6490931 0.5326665 0.5312480 0.6586028 0.5004428
-[145] 0.6196582 0.5545094 0.5006599 0.5267223 0.5690147 0.6262725 0.6191666 0.5000394 0.5272959 0.5254157 0.5397097 0.5867561
-[157] 0.5452156 0.5369499 0.5474194 0.5372110 0.5002419 0.5113095 0.5386662 0.5101399 0.5553274 0.5240863 0.5032610 0.5265949
-[169] 0.5655081 0.5373703 0.5457257 0.5457005 0.5166944 0.5152918 0.5445172 0.5097467 0.5001378 0.5326591 0.5184733 0.5595323
-[181] 0.6630357 0.5486366 0.5391233 0.5399549 0.5489152 0.5189033 0.6130471 0.5098110 0.5342870 0.5194225 0.6248360 0.5177455
-[193] 0.5276931 0.5322126 0.5045933 0.5356369 0.5250825 0.5067131 0.5317386 0.5007090 0.5000116 0.5006661 0.5495111 0.5404009
-[205] 0.5023027 0.5507824 0.5283870 0.5696652 0.6222120 0.5129156 0.5436335 0.5306088 0.5454811 0.5112542 0.5111390 0.6499260
-[217] 0.5328009 0.5027537 0.5000825 0.5242824 0.5064952 0.5364908 0.5744342 0.5371134 0.5319715 0.5098646 0.5715120 0.5020244
-[229] 0.5000082 0.5054435
-[1] 0.5000082 0.7029141
-[1] 0.004044473 0.637046474
-[1] 0
-[1] 1
-No documentation for ‘corr’ in specified packages and libraries:
-you could try ‘??corr’
-[1] 0.8818089
-[1] 0.7336344
-[1] 0.6208825
-[1] 0.5211278
-[1] 0.7327847
-[1] 0.70009
-[1] 0.8818089
-[1] 0.7336344
-No suitable frames for recover()
-[1] "ref" "trt"
+Traceback (most recent call last):
+  File "/Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/_molecular_mechanisms_of_ACx_lateralization/paper_WSPmm_method/wspmm_methods/ELLA/ELLA/ELLA.py", line 236, in load_data
+    self.ng_dict[t] = len(self.gene_list_dict[t])
+                          ~~~~~~~~~~~~~~~~~~~^^^
+KeyError: 'r'
+    ▆
+ 1. └─ella_demo$load_data(data_dict = ella_data)
+ 2.   └─reticulate:::py_call_impl(callable, call_args$unnamed, call_args$named)
+See `reticulate::py_last_error()$r_trace$full_call` for more details.
 
 Enter a frame number, or 0 to exit   
 
-1: use_virtualenv("ELLA/.venv", required = TRUE)
+1: ella_data_py$gene_list_dict$keys
+2: `$.python.builtin.object`(ella_data_py$gene_list_dict, keys)
+3: py_get_attr_or_item(x, name, TRUE)
+4: py_get_attr(x, name)
 
 Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-python:         /Users/michaelbarkasi/ELLA/.venv/bin/python3
-libpython:      /opt/homebrew/opt/python@3.9/Frameworks/Python.framework/Versions/3.9/lib/python3.9/config-3.9-darwin/libpython3.9.dylib
-pythonhome:     /Users/michaelbarkasi/ELLA/.venv:/Users/michaelbarkasi/ELLA/.venv
-version:        3.9.25 (main, Oct 31 2025, 18:40:52)  [Clang 17.0.0 (clang-1700.4.4.1)]
-numpy:          /Users/michaelbarkasi/ELLA/.venv/lib/python3.9/site-packages/numpy
-numpy_version:  1.26.4
-
-NOTE: Python version was forced by use_python() function
 
 Enter a frame number, or 0 to exit   
 
-1: import("ELLA.ELLA")
-2: py_module_import(module, convert = convert)
+1: ella_data_py$gene_list_dict$keys
+2: `$.python.builtin.object`(ella_data_py$gene_list_dict, keys)
+3: py_get_attr_or_item(x, name, TRUE)
+4: py_get_attr(x, name)
 
 Enter an item from the menu, or 0 to exit
+
+Enter a frame number, or 0 to exit   
+
+1: ella_demo$load_data(data_dict = ella_data_py)
+2: py_call_impl(callable, call_args$unnamed, call_args$named)
+
 Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
-Enter an item from the menu, or 0 to exit
+'ref'
+{'ref': ['Pvalb', 'Slc17a7', 'Tac2', 'Vip']}
+
+Enter a frame number, or 0 to exit   
+
+1: ella_demo$load_data(data_dict = ella_data_py)
+2: py_call_impl(callable, call_args$unnamed, call_args$named)
+
+
+Enter a frame number, or 0 to exit   
+
+1: ella_demo$load_data(data_dict = ella_data_py)
+2: py_call_impl(callable, call_args$unnamed, call_args$named)
+
+
+Enter a frame number, or 0 to exit   
+
+1: ella_demo$load_data(data_dict = ella_data)
+2: py_call_impl(callable, call_args$unnamed, call_args$named)
+
 Enter an item from the menu, or 0 to exit
 Enter an item from the menu, or 0 to exit
 Enter an item from the menu, or 0 to exit
@@ -208,6 +92,64 @@ Enter an item from the menu, or 0 to exit
 
 Enter a frame number, or 0 to exit   
 
-1: import("ELLA.ella")
-2: py_module_import(module, convert = convert)
+1: ella_demo$load_data(data_dict = ella_data)
+2: py_call_impl(callable, call_args$unnamed, call_args$named)
 
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+
+Enter a frame number, or 0 to exit   
+
+1: ella_demo$load_data(data_dict = ella_data)
+2: py_call_impl(callable, call_args$unnamed, call_args$named)
+
+Called from: ella_demo$load_data(data_dict = ella_data)
+
+Enter a frame number, or 0 to exit   
+
+1: ella_demo$load_data(data_dict = ella_data)
+2: py_call_impl(callable, call_args$unnamed, call_args$named)
+
+Using virtual environment '/Users/michaelbarkasi/.virtualenvs/r-reticulate' ...
+
+Enter a frame number, or 0 to exit   
+
+1: ella_demo$load_data(data_dict = ella_data)
+2: py_call_impl(callable, call_args$unnamed, call_args$named)
+
+
+Enter a frame number, or 0 to exit   
+
+1: ella_sim$nhpp_prepare()
+2: py_call_impl(callable, call_args$unnamed, call_args$named)
+
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+
+Enter a frame number, or 0 to exit   
+
+1: ella_sim$nhpp_prepare()
+2: py_call_impl(callable, call_args$unnamed, call_args$named)
+
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit

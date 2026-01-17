@@ -1323,10 +1323,7 @@ cor_ran
 # Spark
 # DESeq2
 # 
-# ELLA: limit to "ref" fixedeffect, throw out "trt". replicate column becomes "cell". fixedeffect column becomes "type". 
-# bin_x and bin_y become x and y. centerX and centerY are the mean of bin_x and bin_y, for all rows. 
-# count becomes "umi". Compute sc_total. Throw out slice_num, coord_x, and coord_y.
-# ... could keep "trt", but renumber replicates so none fit in both "ref" and "trt"? 
+
 
 # ELLA benchmarking ####################################################################################################
 
@@ -1359,51 +1356,186 @@ py_install(c(
 # import module
 ELLA_mod <- import_from_path("ELLA", path = "./ELLA/ELLA")
 
-# construct object
+# construct ELLA object
 ELLA_class <- ELLA_mod$ELLA
-ella_demo <- ELLA_class(
+ella_sim <- ELLA_class(
   dataset = "demo1",
   adam_learning_rate_min = 1e-2,
   max_iter = 1000L
 )
 
-# open file in Python
-file_path <- "ELLA/scripts/demo/mini_demo/input/mini_demo_data.pkl"
-pd <- import("pandas")
-pickle_data <- pd$read_pickle(file_path)
+# Make function to convert simulation data into ELLA format
+convert_sim_data_to_ELLA <- function(
+    sim_data,
+    radial_dim = "bin_x",
+    theta = "bin_y"
+  ) {
+    
+    # ELLA: limit to "ref" fixedeffect, throw out "trt". replicate column becomes "cell". fixedeffect column becomes "type". 
+    # bin_x and bin_y become x and y. centerX and centerY are the mean of bin_x and bin_y, for all rows. 
+    # count becomes "umi". Compute sc_total. Throw out slice_num, coord_x, and coord_y.
+    
+    # Initialize top-level list structure
+    ella_data <- list()
+    length(ella_data) <- 7
+    names(ella_data) <- c(
+      "types",        # character vector of cell types
+      "cells",        # named list, each element is a character vector of cell IDs for each type (with the type as the list element name)
+      "cells_all",    # character vector of all cell IDsh
+      "genes",        # named list, each element is a character vector of gene names for each type (with the type as the list element name)
+      "cell_seg",     # data frame with columns x, y, and cell with points giving the cell boundary segmentation
+      "nucleus_seg",  # data frame with columns x, y, and cell with points giving the nucleus boundary segmentation
+      "expr"          # data frome with columns "type", "cell", "gene", "x", "y", "umi", "centerX", "centerY"  "sc_total"
+    )
+    
+    # Set types
+    # ... use "ref" from fixedeffect as the cell type, throw out "trt" (because no ground truth about SVG for trt)
+    ella_data$types <- list("ref")
+    
+    # Throw out trt data
+    sim_data <- sim_data[sim_data$fixedeffect == "ref",]
+    
+    # Set cells and cells_all
+    cell_names <- sort(unique(sim_data$replicate))
+    ella_data$cells <- list(ref = cell_names)
+    ella_data$cells_all <- cell_names
+    
+    # Set genes
+    ella_data$genes <- list(ref = sort(unique(sim_data$gene)))
+    
+    # Make cell segmentation data 
+    x_range <- range(sim_data$bin_x)
+    y_range <- range(sim_data$bin_y)
+    n_segs <- 2 * (x_range[2] - x_range[1] + 1) + 2 * (y_range[2] - y_range[1] + 1)
+    n_cells <- length(cell_names)
+    ella_data$cell_seg <- data.frame(
+      x = rep(c(
+        rep(x_range[1], y_range[2] - y_range[1] + 1),
+        rep(x_range[2], y_range[2] - y_range[1] + 1),
+        seq(x_range[1], x_range[2]),
+        seq(x_range[1], x_range[2])
+      ), n_cells),
+      y = rep(c(
+        seq(y_range[1], y_range[2]),
+        seq(y_range[1], y_range[2]),
+        rep(y_range[1], x_range[2] - x_range[1] + 1),
+        rep(y_range[2], x_range[2] - x_range[1] + 1)
+      ), n_cells),
+      cell = rep(cell_names, each = n_segs)
+    )
+    
+    # wrap patch around nuclear center 
+    r <- sim_data[,radial_dim]
+    theta <- sim_data[,theta]
+    r <- r - min(r) + 1
+    theta <- theta - min(theta) + 1
+    X <- r * cos((theta/max(theta)) * 2 * pi)
+    Y <- r * sin((theta/max(theta)) * 2 * pi)
+    
+    # Compensate for radial dilution
+    max_count <- max(sim_data$count)
+    count <- sim_data$count * r
+    count <- (count / max(count)) * max_count
+    count <- as.integer(round(count, 0))
+    
+    # Get library counts 
+    sc_total <- rep(0, nrow(sim_data))
+    for (c in cell_names) {
+      mask <- sim_data$replicate == c
+      sc_total[mask] <- sum(sim_data$count[mask])
+    }
+    
+    # Make expr data 
+    ella_data$expr <- data.frame(
+      type = sim_data$fixedeffect,
+      cell = sim_data$replicate,
+      gene = sim_data$gene,
+      x = X,
+      y = Y,
+      umi = count,
+      centerX = 0,
+      centerY = 0,
+      sc_total = sc_total
+    )
+    
+    return(ella_data)
+    
+  }
 
-ella_data <- list()
-length(ella_data) <- 7
-names(ella_data) <- c(
-  "types",        # character vector of cell types
-  "cells",        # named list, each element is a character vector of cell IDs for each type (with the type as the list element name)
-  "cells_all",    # character vector of all cell IDsh
-  "genes",        # named list, each element is a character vector of gene names for each type (with the type as the list element name)
-  "cell_seg",     # data frame with columns x, y, and cell with points giving the cell boundary segmentation
-  "nucleus_seg",  # data frame with columns x, y, and cell with points giving the nucleus boundary segmentation
-  "expr"          # data frome with columns "type", "cell", "gene", "x", "y", "umi", "centerX", "centerY"  "sc_total"
-  )
-
-# load data
-ella_demo$load_data(data_path = file_path)
-ella_demo$load_data(data_dict = pickle_data)
-
+# convert simulated data to ELLA format
+ella_data <- r_to_py(convert_sim_data_to_ELLA(sim_data$data))
+# load data into ELLA object
+ella_sim$load_data(data_dict = ella_data)
 # register cells
-ella_demo$register_cells()
-
+ella_sim$register_cells()
 # prepare data
-ella_demo$nhpp_prepare()
+ella_sim$nhpp_prepare()
 # fit nhpp model
-ella_demo$nhpp_fit()
-
+ella_sim$nhpp_fit()
 # expression intensity estimation
-ella_demo$weighted_density_est()
+ella_sim$weighted_density_est()
 # likelihood ratio test
-ella_demo$compute_pv()
+ella_sim$compute_pv()
 
 
+ggplot(ella_sim$data_df[ella_sim$data_df$cell == "replicate1",], aes(x = x, y = y, color = gene, size = umi)) +
+  geom_point() +
+  theme_minimal() 
+ggplot(sim_data$data[sim_data$data$replicate == "replicate1",], aes(x = bin_x, y = bin_y, color = gene, size = count)) +
+  geom_point() +
+  theme_minimal() 
 
-
+# Compare spatial distribution of gene along original x axis and transformed radial axis
+# Pvalb, Tac2, Vip, Slc17a7
+this_g <- "Slc17a7"
+test_rad <- ella_sim$data_df[ella_sim$data_df$cell == "replicate1" & ella_sim$data_df$gene == this_g,]
+test_rad$count <- test_rad$umi
+plot_count_density <- function(df_rad, df_car, nbins = 25) {
+  stopifnot(all(c("count", "x", "y") %in% names(df_rad)))
+  stopifnot(all(c("count", "x", "y") %in% names(df_car)))
+  
+  r <- sqrt(df_rad$x^2 + df_rad$y^2)
+  
+  op <- par(mfrow = c(1, 2), mar = c(4, 4, 2, 1))
+  
+  ## density vs x
+  xbreaks <- seq(min(df_car$x), max(df_car$x), length.out = nbins + 1)
+  xmid <- 0.5 * (xbreaks[-1] + xbreaks[-length(xbreaks)])
+  xbin <- cut(df_car$x, breaks = xbreaks, include.lowest = TRUE)
+  
+  xcount <- tapply(df_car$count, xbin, sum)
+  xwidth <- diff(xbreaks)
+  
+  plot(
+    xmid,
+    xcount / xwidth,
+    type = "l",
+    xlab = "x",
+    ylab = "count density"
+  )
+  
+  ## density vs radius
+  rbreaks <- seq(min(r), max(r), length.out = nbins + 1)
+  rmid <- 0.5 * (rbreaks[-1] + rbreaks[-length(rbreaks)])
+  rbin <- cut(r, breaks = rbreaks, include.lowest = TRUE)
+  
+  rcount <- tapply(df_rad$count, rbin, sum)
+  rwidth <- diff(rbreaks)
+  
+  plot(
+    rmid,
+    rcount / (2 * pi * rmid * rwidth),
+    type = "l",
+    xlab = "radius",
+    ylab = "areal density"
+  )
+  
+  par(op)
+}
+test_car <- sim_data$data[sim_data$data$replicate == "replicate1" & sim_data$data$gene == this_g,]
+test_car$x <- test_car$bin_x
+test_car$y <- test_car$bin_y
+plot_count_density(test_rad, test_car)
 
 # end sink
 sink(file = NULL)
