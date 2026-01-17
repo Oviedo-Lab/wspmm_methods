@@ -1487,7 +1487,7 @@ ggplot(sim_data$data[sim_data$data$replicate == "replicate1",], aes(x = bin_x, y
 
 # Compare spatial distribution of gene along original x axis and transformed radial axis
 # Pvalb, Tac2, Vip, Slc17a7
-this_g <- "Slc17a7"
+this_g <- "Pvalb"
 test_rad <- ella_sim$data_df[ella_sim$data_df$cell == "replicate1" & ella_sim$data_df$gene == this_g,]
 test_rad$count <- test_rad$umi
 plot_count_density <- function(df_rad, df_car, nbins = 25) {
@@ -1539,4 +1539,51 @@ plot_count_density(test_rad, test_car)
 
 # end sink
 sink(file = NULL)
+
+
+
+
+
+
+## convert to R list
+beta_kernel_param_list <- list(
+  c(1,     2.71),
+  c(1.26,  3.34),
+  c(2.05,  5.19),
+  c(6.99,  14.98),
+  c(19.41, 28.62),
+  c(28.5,  28.5),
+  c(28.62, 19.41),
+  c(14.98, 6.99),
+  c(5.19,  2.05),
+  c(3.34,  1.26),
+  c(2.71,  1),
+  c(1,     2),
+  c(1.13,  2.19),
+  c(1.38,  2.52),
+  c(1.88,  3.06),
+  c(2.73,  3.60),
+  c(3.5,   3.5),
+  c(3.60,  2.73),
+  c(3.06,  1.88),
+  c(2.52,  1.38),
+  c(2.19,  1.13),
+  c(2,     1)
+)
+
+## plot beta densities
+x <- seq(0, 1, length.out = 1000)
+
+for (i in 1:length(beta_kernel_param_list)) {
+  plot(
+    x, dbeta(x, beta_kernel_param_list[[i]][1], beta_kernel_param_list[[i]][2]),
+    type = "l",
+    xlab = "x",
+    ylab = "density",
+    main = paste0("Beta density ", i,": (", beta_kernel_param_list[[i]][1], ", ", beta_kernel_param_list[[i]][2], ")")
+  )
+}
+
+
+
 
