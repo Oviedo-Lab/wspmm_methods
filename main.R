@@ -1367,8 +1367,26 @@ ella_demo <- ELLA_class(
   max_iter = 1000L
 )
 
+# open file in Python
+file_path <- "ELLA/scripts/demo/mini_demo/input/mini_demo_data.pkl"
+pd <- import("pandas")
+pickle_data <- pd$read_pickle(file_path)
+
+ella_data <- list()
+length(ella_data) <- 7
+names(ella_data) <- c(
+  "types",        # character vector of cell types
+  "cells",        # named list, each element is a character vector of cell IDs for each type (with the type as the list element name)
+  "cells_all",    # character vector of all cell IDsh
+  "genes",        # named list, each element is a character vector of gene names for each type (with the type as the list element name)
+  "cell_seg",     # data frame with columns x, y, and cell with points giving the cell boundary segmentation
+  "nucleus_seg",  # data frame with columns x, y, and cell with points giving the nucleus boundary segmentation
+  "expr"          # data frome with columns "type", "cell", "gene", "x", "y", "umi", "centerX", "centerY"  "sc_total"
+  )
+
 # load data
-ella_demo$load_data(data_path = "ELLA/scripts/demo/mini_demo/input/mini_demo_data.pkl")
+ella_demo$load_data(data_path = file_path)
+ella_demo$load_data(data_dict = pickle_data)
 
 # register cells
 ella_demo$register_cells()
