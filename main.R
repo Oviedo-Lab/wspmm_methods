@@ -24,7 +24,7 @@ snk.report("Analysis of MERFISH data by Warped Sigmoid, Poisson-Process Mixed-Ef
 
 # Set file path, and bootstrap chunk size
 data_path <- paste0(projects_folder, "_molecular_mechanisms_of_ACx_lateralization/data_SSp/")
-bs_chunksize <- 25
+bs_chunksize <- 5
 
 # Preprocessing MERFISH data ###########################################################################################
 
@@ -1147,10 +1147,30 @@ simulate_data <- function(
     
   }
 
-# wisp benchmarking ####################################################################################################
+# Function to extract ground-truth from sim data 
+ground_truth <- function(sim) {
+    rate_effects_true <- sim$effect
+    random_effects_true <- sim$replicate_rate_scalars
+    SVGs <- rep(FALSE, length(sim$genes))
+    names(SVGs) <- sim$genes
+    SVGs[sim$SVGs] <- TRUE
+    FSEs <- rep(FALSE, length(sim$genes))
+    names(FSEs) <- sim$genes
+    FSEs[sim$FSEs] <- TRUE 
+    return(
+      list(
+        rate_effects_true = rate_effects_true,
+        random_effects_true = random_effects_true,
+        SVGs = SVGs,
+        FSEs = FSEs
+      )
+    )
+  }
+
+# wisp benchmarking functions ##########################################################################################
 
 # Rate effect is consistent across all of space, so, average over all blocks for each gene
-extract_mean_rate_effect <- function(model) {
+extract_rate_effect_wisp <- function(model) {
   genes <- model[["grouping.variables"]][["species.lvls"]]
   rate_effect <- rep(NA, length(genes))
   names(rate_effect) <- genes
@@ -1162,7 +1182,7 @@ extract_mean_rate_effect <- function(model) {
 }
 
 # Function to extract mean p-value across blocks for each gene 
-extract_mean_pvalue <- function(model) {
+extract_pvalue_wisp <- function(model) {
   genes <- model[["grouping.variables"]][["species.lvls"]]
   p_values <- rep(NA, length(genes))
   names(p_values) <- genes
@@ -1174,7 +1194,7 @@ extract_mean_pvalue <- function(model) {
 }
 
 # Replicate random noise is consistent across genes, so, average over all genes for each replicate
-extract_mean_random_effect <- function(model) {
+extract_random_effect_wisp <- function(model) {
   replicates <- model[["grouping.variables"]][["ran.lvls"]]
   random_effect <- rep(NA, length(replicates))
   names(random_effect) <- replicates
@@ -1187,7 +1207,11 @@ extract_mean_random_effect <- function(model) {
 } 
 
 # Function to model simulation with wisp
-model_sim_wisp <- function(sim, seed, fit_only = TRUE) {
+model_sim_wisp <- function(
+    sim, 
+    sim_num, 
+    fit_only = FALSE
+  ) {
     
     # Transform data into count frame for wisp
     keep_cols <- !(colnames(sim$data) %in% c("slice_num", "coord_x", "coord_y", "bin_y"))
@@ -1211,121 +1235,49 @@ model_sim_wisp <- function(sim, seed, fit_only = TRUE) {
       max.fork = bs_chunksize,
       plot.settings = list(print.plots = FALSE),
       verbose = FALSE,
-      ran.seed = seed
+      ran.seed = sim_num
     )
     
-    # Extract effect estimates for comparing to ground truth
-    rate_effects_est <- extract_mean_rate_effect(model)
-    random_effects_est <- extract_mean_random_effect(model)
-    
-    # Extract ground-truth
-    rate_effects_true <- sim$effect
-    random_effects_true <- sim$replicate_rate_scalars
-    SVGs <- rep(FALSE, length(sim$genes))
-    names(SVGs) <- sim$genes
-    SVGs[sim$SVGs] <- TRUE
-    FSEs <- rep(FALSE, length(sim$genes))
-    names(FSEs) <- sim$genes
-    FSEs[sim$FSEs] <- TRUE
-    
-    # Extract p-values for comparing to ground truth
+    # Extract model results for comparing to ground truth
+    rate_effects_est <- extract_rate_effect_wisp(model)
+    random_effects_est <- extract_random_effect_wisp(model)
     rate_effects_pvalues <- rep(NA, length(rate_effects_est))
     names(rate_effects_pvalues) <- names(rate_effects_est)
     if (!fit_only) {
-      rate_effects_pvalues <- extract_mean_pvalue(model)
+      rate_effects_pvalues <- extract_pvalue_wisp(model)
     }
+    
+    # Extract ground-truth
+    GT <- ground_truth(sim)
+    rate_effects_true <- GT$rate_effects_true
+    random_effects_true <- GT$random_effects_true
+    FSEs <- GT$FSEs
     
     # Compile results in named vector 
     results <- data.frame(
-      est = c(rate_effects_est, random_effects_est, rate_effects_pvalues, rep(NA, length(SVGs))),
-      true = c(rate_effects_true, random_effects_true, FSEs, SVGs),
+      est = c(rate_effects_est, random_effects_est, rate_effects_pvalues),
+      true = c(rate_effects_true, random_effects_true, FSEs),
       param = c(
         rep("rate_effect", length(rate_effects_est)), 
         rep("random_effect", length(random_effects_est)), 
-        rep("FSE", length(rate_effects_pvalues)), 
-        rep("SVG", length(SVGs))
+        rep("FSE", length(rate_effects_pvalues))
       ),
       id = c(
         names(rate_effects_est), 
         names(random_effects_est), 
-        names(rate_effects_pvalues), 
-        names(SVGs)
+        names(rate_effects_pvalues)
       )
     )
+    
+    # Add method and sim number
+    results$method <- "wisp"
+    results$sim <- sim_num
     
     return(results)
     
   }
 
-n_sims <- 100
-results <- data.frame()
-for (s in c(1:n_sims)) {
-
-  cat("\nRunning simulation ", s, "/", n_sims)
-  
-  # Simulate data and extract count data for modeling
-  t_stim_start <- Sys.time()
-  sim_data <- simulate_data(count_data_neurons_patch)
-  d_sim <- Sys.time() - t_stim_start
-  units(d_sim) <- "secs"
-  
-  t_wisp_start <- Sys.time()
-  wisp_results <- model_sim_wisp(sim_data, seed = s)
-  d_wisp <- Sys.time() - t_wisp_start
-  units(d_wisp) <- "secs"
-  wisp_results$method <- "wisp"
-  wisp_results$sim <- s
-  
-  results <- rbind(results, wisp_results)
-  
-  cat(" (data sim time:", round(d_sim,3), "s, wisp time:", round(d_wisp,3), "s)")
-  
-}
-
-# Save results
-write.csv(results, "benchmark_results.csv", row.names = FALSE)
-
-# Load results 
-results <- read.csv("benchmark_results.csv")
-
-# Analyze results
-results_rr <- results[results$param == "random_effect" | results$param == "rate_effect",]
-ggplot(results_rr, aes(x = true, y = est, color = param)) +
-  geom_point(alpha = 0.5) +
-  geom_abline(slope = 1, intercept = 0, linetype = "dashed") +
-  theme_minimal() +
-  labs(
-    title = "WSPmm parameter estimation on simulated data",
-    x = "Ground truth",
-    y = "Estimated"
-  ) +
-  scale_color_manual(
-    values = c("rate_effect" = "blue", "random_effect" = "red"),
-    name = "Parameter"
-  )
-
-results_rr_ran <- results_rr[results_rr$param == "random_effect",]
-results_rr_rate <- results_rr[results_rr$param == "rate_effect",]
-cor_rate <- cor(results_rr_rate$true, results_rr_rate$est, method = "pearson")
-cor_ran <- cor(results_rr_ran$true, results_rr_ran$est, method = "pearson")
-cor_rate
-cor_ran
-
-# type I errors: FPR (FP / (FP + TN)) and FDR (FP / (FP + TP)) ... prob of false positive (i.e., of incorrectly rejecting null h, conditional on the null (FPR) or on a positive results (FDR)
-# type II errors: power (TP / (TP + FN)) ... prob of detecting thing (i.e., of correctly rejecting null h), conditional on the alternative h
-# 
-# Metrics: cor_rate, cor_ran, FPR_svg, FDR_svg, power_svg, FPR_fse, FDR_fse, power_fse
-
-# wisp: cor_rate, cor_ran, FPR_fse, FDR_fse, power_fse
-# ELLA: 
-# C-SIDE
-# SpaNorm
-# Spark
-# DESeq2
-# 
-
-
-# ELLA benchmarking ####################################################################################################
+# ELLA benchmarking functions ##########################################################################################
 
 # Set up virtual python environment for reticulate: 
 #   python3 -m venv ~/.virtualenvs/r-reticulate
@@ -1353,16 +1305,12 @@ py_install(c(
 # cd /Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/_molecular_mechanisms_of_ACx_lateralization/paper_WSPmm_method/wspmm_methods/ELLA
 # /Users/michaelbarkasi/.virtualenvs/r-reticulate/bin/python -m pip install .
 
+# For debugging
+#options(reticulate.python.stdout = TRUE)
+#options(reticulate.python.stderr = TRUE)
+
 # import module
 ELLA_mod <- import_from_path("ELLA", path = "./ELLA/ELLA")
-
-# construct ELLA object
-ELLA_class <- ELLA_mod$ELLA
-ella_sim <- ELLA_class(
-  dataset = "demo1",
-  adam_learning_rate_min = 1e-2,
-  max_iter = 1000L
-)
 
 # Make function to convert simulation data into ELLA format
 convert_sim_data_to_ELLA <- function(
@@ -1432,6 +1380,17 @@ convert_sim_data_to_ELLA <- function(
     X <- r * cos((theta/max(theta)) * 2 * pi)
     Y <- r * sin((theta/max(theta)) * 2 * pi)
     
+    # wrap cell segmentation around nuclear center
+    r_seg_dim <- substr(radial_dim, nchar(radial_dim), nchar(radial_dim))
+    theta_seg_dim <- "y"
+    if (r_seg_dim == "y") theta_seg_dim <- "x"
+    theta_seg <- ella_data$cell_seg[,theta_seg_dim]
+    theta_seg <- theta_seg - min(theta_seg) + 1
+    r_seg <- ella_data$cell_seg[,r_seg_dim]
+    r_seg <- r_seg - min(r_seg) + 1
+    ella_data$cell_seg[,r_seg_dim] <- r_seg * cos((theta_seg/max(theta_seg)) * 2 * pi)
+    ella_data$cell_seg[,theta_seg_dim] <- r_seg * sin((theta_seg/max(theta_seg)) * 2 * pi)
+    
     # Compensate for radial dilution
     max_count <- max(sim_data$count)
     count <- sim_data$count * r
@@ -1462,80 +1421,357 @@ convert_sim_data_to_ELLA <- function(
     
   }
 
-# convert simulated data to ELLA format
-ella_data <- r_to_py(convert_sim_data_to_ELLA(sim_data$data))
-# load data into ELLA object
-ella_sim$load_data(data_dict = ella_data)
-# register cells
-ella_sim$register_cells()
-# prepare data
-ella_sim$nhpp_prepare()
-# fit nhpp model
-ella_sim$nhpp_fit()
-# expression intensity estimation
-ella_sim$weighted_density_est()
-# likelihood ratio test
-ella_sim$compute_pv()
+# Function to run ELLA on simulated data
+run_ELLA <- function(
+    sim_data
+  ) { 
+    
+    # construct ELLA object
+    ELLA_class <- ELLA_mod$ELLA
+    ella_sim <- ELLA_class(
+      dataset = "sim_benchmark",
+      adam_learning_rate_min = 1e-2,
+      max_iter = 1000L
+    )
+    
+    # convert simulated data to ELLA format
+    ella_data <- r_to_py(convert_sim_data_to_ELLA(sim_data))
+    # load data into ELLA object
+    ella_sim$load_data(data_dict = ella_data)
+    # register cells
+    ella_sim$register_cells()
+    # prepare data
+    ella_sim$nhpp_prepare()
+    # fit nhpp model
+    ella_sim$nhpp_fit()
+    # expression intensity estimation
+    ella_sim$weighted_density_est()
+    # likelihood ratio test
+    ella_sim$compute_pv()
+    
+    return(ella_sim)
+    
+  }
+#ella_sim <- run_ELLA(sim_data$data)
 
+# Extract SVG p-values from ELLA results
+extract_svg <- function(ella_sim) {
+  pv_svg <- unlist(ella_sim$pv_cauchy_tl[["ref"]])
+  names(pv_svg) <- ella_sim$gene_list_dict[["ref"]]
+  pv_svg
+}
+#extract_svg(ella_sim)
 
-ggplot(ella_sim$data_df[ella_sim$data_df$cell == "replicate1",], aes(x = x, y = y, color = gene, size = umi)) +
-  geom_point() +
-  theme_minimal() 
-ggplot(sim_data$data[sim_data$data$replicate == "replicate1",], aes(x = bin_x, y = bin_y, color = gene, size = count)) +
-  geom_point() +
-  theme_minimal() 
+# Full model pipeline 
+model_sim_ELLA <- function(
+    sim,
+    sim_num 
+  ) {
+    
+    # Run ELLA without messages 
+    suppressMessages(
+      model <- run_ELLA(sim$data)
+    )
+    
+    # Extract model results for comparing to ground truth
+    svg_pvalues <- unlist(model$pv_cauchy_tl[["ref"]])
+    names(svg_pvalues) <- model$gene_list_dict[["ref"]]
+    svg_pvalues
+    
+    # Extract ground-truth
+    GT <- ground_truth(sim)
+    SVGs <- GT$SVGs
+    
+    # Compile results in named vector 
+    results <- data.frame(
+      est = c(svg_pvalues),
+      true = c(SVGs),
+      param = c(
+        rep("SVG", length(svg_pvalues))
+      ),
+      id = c(
+        names(svg_pvalues)
+      )
+    )
+    
+    # Add method and sim number
+    results$method <- "ELLA"
+    results$sim <- sim_num
+    
+    return(results)
+    
+  }
 
 # Compare spatial distribution of gene along original x axis and transformed radial axis
-# Pvalb, Tac2, Vip, Slc17a7
-this_g <- "Pvalb"
-test_rad <- ella_sim$data_df[ella_sim$data_df$cell == "replicate1" & ella_sim$data_df$gene == this_g,]
-test_rad$count <- test_rad$umi
-plot_count_density <- function(df_rad, df_car, nbins = 25) {
-  stopifnot(all(c("count", "x", "y") %in% names(df_rad)))
-  stopifnot(all(c("count", "x", "y") %in% names(df_car)))
+plot_count_density <- function(
+    df_rad, 
+    df_car, 
+    nbins = 25, 
+    replicate = "replicate1"
+  ) {
+    
+    ## ---------- filter ----------
+    df_rad <- df_rad[df_rad$cell == replicate,]
+    df_rad$count <- df_rad$umi
+    df_car <- df_car[df_car$replicate == replicate,]
+    df_car$x <- df_car$bin_x
+    df_car$y <- df_car$bin_y
+    
+    ## ---------- scatter plots ----------
+    p1 <- ggplot(df_car, aes(x = bin_x, y = bin_y, color = gene, size = count)) +
+      geom_point() +
+      ylab("y") +
+      xlab("x") +
+      theme_minimal()
+    p2 <- ggplot(df_rad, aes(x = x, y = y, color = gene, size = count)) +
+      geom_point() +
+      theme_minimal() 
+    
+   
+    ## ---------- density plots ----------
+    eps <- 4e-3 # For matching the log-scale transforms
+    
+    ## ---------- density vs x ----------
+    xbreaks <- seq(min(df_car$x), max(df_car$x), length.out = nbins + 1)
+    xmid    <- 0.5 * (xbreaks[-1] + xbreaks[-length(xbreaks)])
+    xwidth  <- diff(xbreaks)
+    
+    df_car$xbin <- cut(df_car$x, breaks = xbreaks, include.lowest = TRUE)
+    
+    xcount <- tapply(
+      df_car$count,
+      list(df_car$gene, df_car$xbin),
+      sum
+    )
+    
+    df_x <- data.frame(
+      gene    = rep(rownames(xcount), times = ncol(xcount)),
+      xmid    = rep(xmid, each = nrow(xcount)),
+      density = as.vector(xcount) / rep(xwidth, each = nrow(xcount))
+    )
+    
+    p_x <- ggplot(df_x, aes(x = xmid, y = density + eps, color = gene)) +
+      geom_line() +
+      scale_y_log10() +
+      labs(x = "x", y = "count density (log10)") +
+      theme_minimal()
+    
+    ## ---------- density vs radius ----------
+    r <- sqrt(df_rad$x^2 + df_rad$y^2)
+    
+    rbreaks <- seq(min(r), max(r), length.out = nbins + 1)
+    rmid    <- 0.5 * (rbreaks[-1] + rbreaks[-length(rbreaks)])
+    rwidth  <- diff(rbreaks)
+    
+    df_rad$rbin <- cut(r, breaks = rbreaks, include.lowest = TRUE)
+    
+    rcount <- tapply(
+      df_rad$count,
+      list(df_rad$gene, df_rad$rbin),
+      sum
+    )
+    
+    df_r <- data.frame(
+      gene = rep(rownames(rcount), times = ncol(rcount)),
+      rmid = rep(rmid, each = nrow(rcount)),
+      areal_density =
+        as.vector(rcount) /
+        (2 * pi * rep(rmid, each = nrow(rcount)) * rep(rwidth, each = nrow(rcount)))
+    )
+    
+    p_r <- ggplot(df_r, aes(x = rmid, y = areal_density + eps, color = gene)) +
+      geom_line() +
+      scale_y_log10() +
+      labs(x = "radius", y = "areal density (log10)") +
+      theme_minimal()
+    
+    ## ---------- arrange ----------
+    
+    title <- textGrob(
+      paste0("Density comparison of radial transform, ", replicate),
+      gp = gpar(fontsize = 14, fontface = "bold")
+    )
+    
+    title_scatter <- textGrob(
+      paste0("Scatter plot comparison of radial transform, ", replicate),
+      gp = gpar(fontsize = 14, fontface = "bold")
+    )
+    
+    panels <- arrangeGrob(
+      p_x,
+      p_r,
+      ncol = 2
+    )
+    
+    panels_scatter <- arrangeGrob(
+      p1,
+      p2,
+      ncol = 2
+    )
+    
+    grid.arrange(
+      title_scatter,
+      panels_scatter,
+      title,
+      panels,
+      ncol = 1,
+      heights = c(0.1, 1, 0.1, 1)
+    )
+    
+  }
+#plot_count_density(ella_sim$data_df, sim_data$data)
+
+# Show how ELLA fits the simulated data
+plot_ella_fit <- function(
+    ella_sim,
+    sim_data,
+    scalar = 10 # ad hoc, is an approximate guess
+  ) {
+    
+    # Convert spatial coordinate to radial distance
+    rad <- round(ella_sim$df_registered$d_c_s,2)*100
+    rads <- sort(unique(rad))
+    
+    # Initialize data frame to hold results 
+    n_rows <- length(rads) * length(ella_sim$gene_list_dict[["ref"]])
+    counts <- data.frame(gene = character(n_rows), rad = numeric(n_rows), count = integer(n_rows), countc = integer(n_rows))
+    
+    # Grab simulation data with original Cartesian coordinates
+    datac <- sim_data[sim_data$fixedeffect == "ref",]
+    
+    # Compute counts per radial bin for each gene
+    i <- 0
+    for (r in rads) {
+      print(r)
+      mask_r <- rad == r
+      mask_rc <- datac$bin_x == r
+      for (g in ella_sim$gene_list_dict[["ref"]]) {
+        mask <- ella_sim$df_registered$gene == g & mask_r
+        maskc <- datac$gene == g & mask_rc
+        i <- i + 1
+        counts$gene[i] <- g
+        counts$rad[i] <- r
+        n <- length(unique(ella_sim$df_registered$cell[mask]))
+        # ... count after the radial transform
+        counts$count[i] <- sum(ella_sim$df_registered$umi[mask])/n
+        # ... count before the radial transform 
+        counts$countc[i] <- sum(datac$count[maskc])/n
+      }
+    }
+    
+    # Grab ELLA predictions
+    predictions <- ella_sim$weighted_lam_est[["ref"]]
+    names(predictions) <- ella_sim$gene_list_dict[["ref"]]
+    pred_wide <- as.data.frame(predictions)
+    r <- c(1:nrow(pred_wide))
+    pred_wide$r <- r
+    pred <- data.frame()
+    for (g in names(predictions)) {
+      df_g <- data.frame(
+        gene = g,
+        r = r,
+        lam = predictions[[g]]
+      )
+      pred <- rbind(pred, df_g)
+    }
+    
+    # plot 
+    # ... As the ELLA fit accounts for radial dilution, we need to use the undiluted counts pre-transform for comparison
+    ggplot(pred, aes(x = r, y = log(lam+1), color = gene)) +
+      geom_line() +
+      labs(
+        title = "ELLA fit vs. counts pre-radial transform",
+        x = "radius",
+        y = "expression level (log scale)"
+      ) +
+      geom_point(data = counts, aes(x = rad, y = log(countc/scaler+1), color = gene), alpha = 0.5) +
+      theme_minimal()
+    
+  }
+#plot_ella_fit(ella_sim, sim_data$data, scalar = 10)
+
+# Run benchmarking #####################################################################################################
+
+n_sims <- 10
+results <- data.frame()
+for (s in c(1:n_sims)) {
   
-  r <- sqrt(df_rad$x^2 + df_rad$y^2)
+  d_sim <- rep(NA, n_sims)
+  d_wisp <- rep(NA, n_sims)
+  d_ella <- rep(NA, n_sims)
   
-  op <- par(mfrow = c(1, 2), mar = c(4, 4, 2, 1))
+  cat("\n\n----------------------")
+  cat("\nRunning simulation ", s, "/", n_sims)
   
-  ## density vs x
-  xbreaks <- seq(min(df_car$x), max(df_car$x), length.out = nbins + 1)
-  xmid <- 0.5 * (xbreaks[-1] + xbreaks[-length(xbreaks)])
-  xbin <- cut(df_car$x, breaks = xbreaks, include.lowest = TRUE)
+  # Simulate data and extract count data for modeling
+  t_stim_start <- Sys.time()
+  sim_data <- simulate_data(count_data_neurons_patch)
+  dsim <- Sys.time() - t_stim_start
+  units(dsim) <- "secs"
+  d_sim[s] <- dsim
+  cat("\n\tdata sim time:", round(d_sim[s],3), "s") 
   
-  xcount <- tapply(df_car$count, xbin, sum)
-  xwidth <- diff(xbreaks)
+  # Model simulated data with wisp
+  t_wisp_start <- Sys.time()
+  wisp_results <- model_sim_wisp(sim_data, sim_num = s)
+  dwisp <- Sys.time() - t_wisp_start
+  units(dwisp) <- "secs"
+  d_wisp[s] <- dwisp
+  results <- rbind(results, wisp_results)
+  cat("\n\twisp time:", round(d_wisp[s],3), "s") 
   
-  plot(
-    xmid,
-    xcount / xwidth,
-    type = "l",
-    xlab = "x",
-    ylab = "count density"
-  )
+  # Model simulated data with ELLA
+  cat("\n") # ... skip line for readability
+  t_ella_start <- Sys.time()
+  ella_results <- model_sim_ELLA(sim_data, sim_num = s)
+  della <- Sys.time() - t_ella_start
+  units(della) <- "secs"
+  d_ella[s] <- della
+  results <- rbind(results, ella_results)
+  cat("\n\tELLA time:", round(d_ella[s],3), "s")
   
-  ## density vs radius
-  rbreaks <- seq(min(r), max(r), length.out = nbins + 1)
-  rmid <- 0.5 * (rbreaks[-1] + rbreaks[-length(rbreaks)])
-  rbin <- cut(r, breaks = rbreaks, include.lowest = TRUE)
-  
-  rcount <- tapply(df_rad$count, rbin, sum)
-  rwidth <- diff(rbreaks)
-  
-  plot(
-    rmid,
-    rcount / (2 * pi * rmid * rwidth),
-    type = "l",
-    xlab = "radius",
-    ylab = "areal density"
-  )
-  
-  par(op)
 }
-test_car <- sim_data$data[sim_data$data$replicate == "replicate1" & sim_data$data$gene == this_g,]
-test_car$x <- test_car$bin_x
-test_car$y <- test_car$bin_y
-plot_count_density(test_rad, test_car)
+
+# Save results
+write.csv(results, "benchmark_results.csv", row.names = FALSE)
+
+# Load results 
+results <- read.csv("benchmark_results.csv")
+
+# Analyze results
+results_rr <- results[results$param == "random_effect" | results$param == "rate_effect",]
+ggplot(results_rr, aes(x = true, y = est, color = param)) +
+  geom_point(alpha = 0.5) +
+  geom_abline(slope = 1, intercept = 0, linetype = "dashed") +
+  theme_minimal() +
+  labs(
+    title = "WSPmm parameter estimation on simulated data",
+    x = "Ground truth",
+    y = "Estimated"
+  ) +
+  scale_color_manual(
+    values = c("rate_effect" = "blue", "random_effect" = "red"),
+    name = "Parameter"
+  )
+
+results_rr_ran <- results_rr[results_rr$param == "random_effect",]
+results_rr_rate <- results_rr[results_rr$param == "rate_effect",]
+cor_rate <- cor(results_rr_rate$true, results_rr_rate$est, method = "pearson")
+cor_ran <- cor(results_rr_ran$true, results_rr_ran$est, method = "pearson")
+cor_rate
+cor_ran
+
+# type I errors: FPR (FP / (FP + TN)) and FDR (FP / (FP + TP)) ... prob of false positive (i.e., of incorrectly rejecting null h, conditional on the null (FPR) or on a positive results (FDR)
+# type II errors: power (TP / (TP + FN)) ... prob of detecting thing (i.e., of correctly rejecting null h), conditional on the alternative h
+# 
+# Metrics: cor_rate, cor_ran, FPR_svg, FDR_svg, power_svg, FPR_fse, FDR_fse, power_fse
+
+# wisp: cor_rate, cor_ran, FPR_fse, FDR_fse, power_fse
+# ELLA: FPR_svg, FDR_svg, power_svg
+# C-SIDE
+# SpaNorm
+# Spark
+# DESeq2
 
 # end sink
 sink(file = NULL)
@@ -1545,44 +1781,6 @@ sink(file = NULL)
 
 
 
-## convert to R list
-beta_kernel_param_list <- list(
-  c(1,     2.71),
-  c(1.26,  3.34),
-  c(2.05,  5.19),
-  c(6.99,  14.98),
-  c(19.41, 28.62),
-  c(28.5,  28.5),
-  c(28.62, 19.41),
-  c(14.98, 6.99),
-  c(5.19,  2.05),
-  c(3.34,  1.26),
-  c(2.71,  1),
-  c(1,     2),
-  c(1.13,  2.19),
-  c(1.38,  2.52),
-  c(1.88,  3.06),
-  c(2.73,  3.60),
-  c(3.5,   3.5),
-  c(3.60,  2.73),
-  c(3.06,  1.88),
-  c(2.52,  1.38),
-  c(2.19,  1.13),
-  c(2,     1)
-)
-
-## plot beta densities
-x <- seq(0, 1, length.out = 1000)
-
-for (i in 1:length(beta_kernel_param_list)) {
-  plot(
-    x, dbeta(x, beta_kernel_param_list[[i]][1], beta_kernel_param_list[[i]][2]),
-    type = "l",
-    xlab = "x",
-    ylab = "density",
-    main = paste0("Beta density ", i,": (", beta_kernel_param_list[[i]][1], ", ", beta_kernel_param_list[[i]][2], ")")
-  )
-}
 
 
 
