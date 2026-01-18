@@ -1,0 +1,4 @@
+[submodule "ELLA"]
+	path = ELLA
+	url = https://github.com/jadexq/ELLA.git
+	branch = ella1

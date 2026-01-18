@@ -24,7 +24,7 @@ snk.report("Analysis of MERFISH data by Warped Sigmoid, Poisson-Process Mixed-Ef
 
 # Set file path, and bootstrap chunk size
 data_path <- paste0(projects_folder, "_molecular_mechanisms_of_ACx_lateralization/data_SSp/")
-bs_chunksize <- 5
+bs_chunksize <- 50
 
 # Preprocessing MERFISH data ###########################################################################################
 
@@ -1285,7 +1285,11 @@ model_sim_wisp <- function(
 #   pip install --upgrade pip
 
 library(reticulate)
-use_virtualenv("/Users/michaelbarkasi/.virtualenvs/r-reticulate", required = TRUE)
+if (Sys.info()["sysname"] == "Linux") {
+  use_virtualenv("/home/oviedoworkstation/.virtualenvs/r-reticulate", required = TRUE)
+} else {
+  use_virtualenv("/Users/michaelbarkasi/.virtualenvs/r-reticulate", required = TRUE)
+}
 
 py_install(c(
   "numpy",
@@ -1469,9 +1473,7 @@ model_sim_ELLA <- function(
   ) {
     
     # Run ELLA without messages 
-    suppressMessages(
-      model <- run_ELLA(sim$data)
-    )
+    model <- run_ELLA(sim$data)
     
     # Extract model results for comparing to ground truth
     svg_pvalues <- unlist(model$pv_cauchy_tl[["ref"]])
@@ -1721,7 +1723,7 @@ for (s in c(1:n_sims)) {
   cat("\n\twisp time:", round(d_wisp[s],3), "s") 
   
   # Model simulated data with ELLA
-  cat("\n") # ... skip line for readability
+  cat("\n\n") # ... skip line for readability
   t_ella_start <- Sys.time()
   ella_results <- model_sim_ELLA(sim_data, sim_num = s)
   della <- Sys.time() - t_ella_start
