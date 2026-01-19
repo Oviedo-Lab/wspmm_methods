@@ -1694,7 +1694,7 @@ plot_ella_fit <- function(
 
 # Run benchmarking #####################################################################################################
 
-n_sims <- 10
+n_sims <- 100
 results <- data.frame()
 for (s in c(1:n_sims)) {
   

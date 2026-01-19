@@ -5,71 +5,801 @@ Using virtual environment '/home/oviedoworkstation/.virtualenvs/r-reticulate' ..
 
 
 ----------------------
-Running simulation  1 / 10
-	data sim time: 0.184 s
-	wisp time: 284.667 s
+Running simulation  1 / 100
+	data sim time: 0.14 s
+	wisp time: 286.467 s
 
-	ELLA time: 41.828 s
 
-----------------------
-Running simulation  2 / 10
-	data sim time: 0.029 s
-	wisp time: 454.447 s
-
-	ELLA time: 41.422 s
+	ELLA time: 44.061 s
 
 ----------------------
-Running simulation  3 / 10
-	data sim time: 0.772 s
-	wisp time: 477.812 s
+Running simulation  2 / 100
+	data sim time: 0.068 s
+	wisp time: 455.959 s
 
-	ELLA time: 33.329 s
 
-----------------------
-Running simulation  4 / 10
-	data sim time: 0.055 s
-	wisp time: 439.23 s
-
-	ELLA time: 26.637 s
+	ELLA time: 44.625 s
 
 ----------------------
-Running simulation  5 / 10
-	data sim time: 0.034 s
-	wisp time: 421.434 s
+Running simulation  3 / 100
+	data sim time: 0.033 s
+	wisp time: 477.499 s
 
-	ELLA time: 38.783 s
 
-----------------------
-Running simulation  6 / 10
-	data sim time: 1.032 s
-	wisp time: 460.652 s
-
-	ELLA time: 33.62 s
+	ELLA time: 34.846 s
 
 ----------------------
-Running simulation  7 / 10
+Running simulation  4 / 100
+	data sim time: 0.027 s
+	wisp time: 437.913 s
+
+
+	ELLA time: 26.856 s
+
+----------------------
+Running simulation  5 / 100
 	data sim time: 0.026 s
-	wisp time: 470.219 s
+	wisp time: 422.929 s
 
-	ELLA time: 42.28 s
 
-----------------------
-Running simulation  8 / 10
-	data sim time: 0.057 s
-	wisp time: 431.081 s
-
-	ELLA time: 31.326 s
+	ELLA time: 37.576 s
 
 ----------------------
-Running simulation  9 / 10
-	data sim time: 0.055 s
-	wisp time: 411.82 s
+Running simulation  6 / 100
+	data sim time: 0.027 s
+	wisp time: 465.701 s
 
-	ELLA time: 31.2 s
+
+	ELLA time: 35.054 s
 
 ----------------------
-Running simulation  10 / 10
-	data sim time: 0.781 s
-	wisp time: 439.439 s
+Running simulation  7 / 100
+	data sim time: 0.028 s
+	wisp time: 470.282 s
 
-	ELLA time: 39.085 s
+
+	ELLA time: 40.938 s
+
+----------------------
+Running simulation  8 / 100
+	data sim time: 0.024 s
+	wisp time: 426.859 s
+
+
+	ELLA time: 31.665 s
+
+----------------------
+Running simulation  9 / 100
+	data sim time: 0.024 s
+	wisp time: 405.509 s
+
+
+	ELLA time: 30.594 s
+
+----------------------
+Running simulation  10 / 100
+	data sim time: 0.027 s
+	wisp time: 436.512 s
+
+
+	ELLA time: 40.155 s
+
+----------------------
+Running simulation  11 / 100
+	data sim time: 0.025 s
+	wisp time: 445.673 s
+
+
+	ELLA time: 28.025 s
+
+----------------------
+Running simulation  12 / 100
+	data sim time: 0.027 s
+	wisp time: 427.974 s
+
+
+	ELLA time: 27.836 s
+
+----------------------
+Running simulation  13 / 100
+	data sim time: 0.03 s
+	wisp time: 452.852 s
+
+
+	ELLA time: 35.084 s
+
+----------------------
+Running simulation  14 / 100
+	data sim time: 0.026 s
+	wisp time: 420.09 s
+
+
+	ELLA time: 35.598 s
+
+----------------------
+Running simulation  15 / 100
+	data sim time: 0.028 s
+	wisp time: 433.974 s
+
+
+	ELLA time: 27.592 s
+
+----------------------
+Running simulation  16 / 100
+	data sim time: 0.03 s
+	wisp time: 453.903 s
+
+
+	ELLA time: 46.431 s
+
+----------------------
+Running simulation  17 / 100
+	data sim time: 0.028 s
+	wisp time: 434.402 s
+
+
+	ELLA time: 31.914 s
+
+----------------------
+Running simulation  18 / 100
+	data sim time: 0.031 s
+	wisp time: 472.122 s
+
+
+	ELLA time: 39.089 s
+
+----------------------
+Running simulation  19 / 100
+	data sim time: 0.027 s
+	wisp time: 430.671 s
+
+
+	ELLA time: 28.888 s
+
+----------------------
+Running simulation  20 / 100
+	data sim time: 0.026 s
+	wisp time: 437.135 s
+
+
+	ELLA time: 28.435 s
+
+----------------------
+Running simulation  21 / 100
+	data sim time: 0.028 s
+	wisp time: 424.608 s
+
+
+	ELLA time: 38.213 s
+
+----------------------
+Running simulation  22 / 100
+	data sim time: 0.046 s
+	wisp time: 463.408 s
+
+
+	ELLA time: 32.773 s
+
+----------------------
+Running simulation  23 / 100
+	data sim time: 0.029 s
+	wisp time: 471.719 s
+
+
+	ELLA time: 26.04 s
+
+----------------------
+Running simulation  24 / 100
+	data sim time: 0.031 s
+	wisp time: 472.368 s
+
+
+	ELLA time: 33.382 s
+
+----------------------
+Running simulation  25 / 100
+	data sim time: 0.029 s
+	wisp time: 435.599 s
+
+
+	ELLA time: 35.241 s
+
+----------------------
+Running simulation  26 / 100
+	data sim time: 0.068 s
+	wisp time: 474.278 s
+
+
+	ELLA time: 50.219 s
+
+----------------------
+Running simulation  27 / 100
+	data sim time: 0.027 s
+	wisp time: 480.267 s
+
+
+	ELLA time: 29.231 s
+
+----------------------
+Running simulation  28 / 100
+	data sim time: 0.026 s
+	wisp time: 444.306 s
+
+
+	ELLA time: 28.322 s
+
+----------------------
+Running simulation  29 / 100
+	data sim time: 0.026 s
+	wisp time: 443.79 s
+
+
+	ELLA time: 29.284 s
+
+----------------------
+Running simulation  30 / 100
+	data sim time: 0.064 s
+	wisp time: 447.107 s
+
+
+	ELLA time: 25.676 s
+
+----------------------
+Running simulation  31 / 100
+	data sim time: 0.033 s
+	wisp time: 454.841 s
+
+
+	ELLA time: 34.475 s
+
+----------------------
+Running simulation  32 / 100
+	data sim time: 0.029 s
+	wisp time: 426.209 s
+
+
+	ELLA time: 29.484 s
+
+----------------------
+Running simulation  33 / 100
+	data sim time: 0.029 s
+	wisp time: 445.066 s
+
+
+	ELLA time: 45.405 s
+
+----------------------
+Running simulation  34 / 100
+	data sim time: 0.027 s
+	wisp time: 484.038 s
+
+
+	ELLA time: 27.083 s
+
+----------------------
+Running simulation  35 / 100
+	data sim time: 0.028 s
+	wisp time: 439.387 s
+
+
+	ELLA time: 35.02 s
+
+----------------------
+Running simulation  36 / 100
+	data sim time: 0.107 s
+	wisp time: 414.642 s
+
+
+	ELLA time: 44.336 s
+
+----------------------
+Running simulation  37 / 100
+	data sim time: 0.026 s
+	wisp time: 416.075 s
+
+
+	ELLA time: 42.284 s
+
+----------------------
+Running simulation  38 / 100
+	data sim time: 0.869 s
+	wisp time: 471.508 s
+
+
+	ELLA time: 46.488 s
+
+----------------------
+Running simulation  39 / 100
+	data sim time: 0.03 s
+	wisp time: 457.857 s
+
+
+	ELLA time: 48.098 s
+
+----------------------
+Running simulation  40 / 100
+	data sim time: 0.03 s
+	wisp time: 463.863 s
+
+
+	ELLA time: 28.933 s
+
+----------------------
+Running simulation  41 / 100
+	data sim time: 0.028 s
+	wisp time: 453.307 s
+
+
+	ELLA time: 31.092 s
+
+----------------------
+Running simulation  42 / 100
+	data sim time: 0.03 s
+	wisp time: 440.576 s
+
+
+	ELLA time: 34.589 s
+
+----------------------
+Running simulation  43 / 100
+	data sim time: 0.044 s
+	wisp time: 433.358 s
+
+
+	ELLA time: 42.703 s
+
+----------------------
+Running simulation  44 / 100
+	data sim time: 0.03 s
+	wisp time: 434.212 s
+
+
+	ELLA time: 31.393 s
+
+----------------------
+Running simulation  45 / 100
+	data sim time: 0.026 s
+	wisp time: 433.614 s
+
+
+	ELLA time: 25.454 s
+
+----------------------
+Running simulation  46 / 100
+	data sim time: 0.03 s
+	wisp time: 431.295 s
+
+
+	ELLA time: 35.586 s
+
+----------------------
+Running simulation  47 / 100
+	data sim time: 0.03 s
+	wisp time: 452.838 s
+
+
+	ELLA time: 38.849 s
+
+----------------------
+Running simulation  48 / 100
+	data sim time: 0.044 s
+	wisp time: 437.679 s
+
+
+	ELLA time: 35.153 s
+
+----------------------
+Running simulation  49 / 100
+	data sim time: 0.033 s
+	wisp time: 435.579 s
+
+
+	ELLA time: 30.062 s
+
+----------------------
+Running simulation  50 / 100
+	data sim time: 0.027 s
+	wisp time: 430.613 s
+
+
+	ELLA time: 28.107 s
+
+----------------------
+Running simulation  51 / 100
+	data sim time: 0.042 s
+	wisp time: 479.669 s
+
+
+	ELLA time: 45.458 s
+
+----------------------
+Running simulation  52 / 100
+	data sim time: 0.027 s
+	wisp time: 456.107 s
+
+
+	ELLA time: 22.686 s
+
+----------------------
+Running simulation  53 / 100
+	data sim time: 0.114 s
+	wisp time: 453.881 s
+
+
+	ELLA time: 28.518 s
+
+----------------------
+Running simulation  54 / 100
+	data sim time: 0.031 s
+	wisp time: 439.841 s
+
+
+	ELLA time: 33.454 s
+
+----------------------
+Running simulation  55 / 100
+	data sim time: 0.027 s
+	wisp time: 431.189 s
+
+
+	ELLA time: 33.96 s
+
+----------------------
+Running simulation  56 / 100
+	data sim time: 0.763 s
+	wisp time: 430.851 s
+
+
+	ELLA time: 36.683 s
+
+----------------------
+Running simulation  57 / 100
+	data sim time: 0.028 s
+	wisp time: 411.383 s
+
+
+	ELLA time: 32.38 s
+
+----------------------
+Running simulation  58 / 100
+	data sim time: 0.029 s
+	wisp time: 435.044 s
+
+
+	ELLA time: 44.313 s
+
+----------------------
+Running simulation  59 / 100
+	data sim time: 0.028 s
+	wisp time: 434.485 s
+
+
+	ELLA time: 32.391 s
+
+----------------------
+Running simulation  60 / 100
+	data sim time: 0.036 s
+	wisp time: 440.364 s
+
+
+	ELLA time: 35.751 s
+
+----------------------
+Running simulation  61 / 100
+	data sim time: 0.026 s
+	wisp time: 442.217 s
+
+
+	ELLA time: 38.573 s
+
+----------------------
+Running simulation  62 / 100
+	data sim time: 0.029 s
+	wisp time: 451.021 s
+
+
+	ELLA time: 48.279 s
+
+----------------------
+Running simulation  63 / 100
+	data sim time: 0.027 s
+	wisp time: 423.207 s
+
+
+	ELLA time: 40.512 s
+
+----------------------
+Running simulation  64 / 100
+	data sim time: 0.03 s
+	wisp time: 450.56 s
+
+
+	ELLA time: 49.516 s
+
+----------------------
+Running simulation  65 / 100
+	data sim time: 0.03 s
+	wisp time: 451.139 s
+
+
+	ELLA time: 34.758 s
+
+----------------------
+Running simulation  66 / 100
+	data sim time: 0.029 s
+	wisp time: 463.66 s
+
+
+	ELLA time: 45.334 s
+
+----------------------
+Running simulation  67 / 100
+	data sim time: 0.031 s
+	wisp time: 450.785 s
+
+
+	ELLA time: 44.311 s
+
+----------------------
+Running simulation  68 / 100
+	data sim time: 0.028 s
+	wisp time: 453.313 s
+
+
+	ELLA time: 37.174 s
+
+----------------------
+Running simulation  69 / 100
+	data sim time: 0.028 s
+	wisp time: 432.269 s
+
+
+	ELLA time: 37.086 s
+
+----------------------
+Running simulation  70 / 100
+	data sim time: 0.029 s
+	wisp time: 450 s
+
+
+	ELLA time: 31.714 s
+
+----------------------
+Running simulation  71 / 100
+	data sim time: 0.07 s
+	wisp time: 441.812 s
+
+
+	ELLA time: 32.101 s
+
+----------------------
+Running simulation  72 / 100
+	data sim time: 0.045 s
+	wisp time: 431.712 s
+
+
+	ELLA time: 36.81 s
+
+----------------------
+Running simulation  73 / 100
+	data sim time: 0.029 s
+	wisp time: 441.625 s
+
+
+	ELLA time: 31.829 s
+
+----------------------
+Running simulation  74 / 100
+	data sim time: 0.032 s
+	wisp time: 452.789 s
+
+
+	ELLA time: 37.577 s
+
+----------------------
+Running simulation  75 / 100
+	data sim time: 0.029 s
+	wisp time: 465.033 s
+
+
+	ELLA time: 23.698 s
+
+----------------------
+Running simulation  76 / 100
+	data sim time: 0.068 s
+	wisp time: 480.659 s
+
+
+	ELLA time: 33.911 s
+
+----------------------
+Running simulation  77 / 100
+	data sim time: 0.031 s
+	wisp time: 436.315 s
+
+
+	ELLA time: 31.415 s
+
+----------------------
+Running simulation  78 / 100
+	data sim time: 0.029 s
+	wisp time: 438.015 s
+
+
+	ELLA time: 25.897 s
+
+----------------------
+Running simulation  79 / 100
+	data sim time: 0.027 s
+	wisp time: 453.163 s
+
+
+	ELLA time: 33.356 s
+
+----------------------
+Running simulation  80 / 100
+	data sim time: 0.032 s
+	wisp time: 314.707 s
+
+
+	ELLA time: 44.935 s
+
+----------------------
+Running simulation  81 / 100
+	data sim time: 0.029 s
+	wisp time: 425.76 s
+
+
+	ELLA time: 32.856 s
+
+----------------------
+Running simulation  82 / 100
+	data sim time: 0.035 s
+	wisp time: 450.523 s
+
+
+	ELLA time: 50.6 s
+
+----------------------
+Running simulation  83 / 100
+	data sim time: 0.026 s
+	wisp time: 424.088 s
+
+
+	ELLA time: 39.701 s
+
+----------------------
+Running simulation  84 / 100
+	data sim time: 0.032 s
+	wisp time: 449.471 s
+
+
+	ELLA time: 34.764 s
+
+----------------------
+Running simulation  85 / 100
+	data sim time: 0.03 s
+	wisp time: 432.993 s
+
+
+	ELLA time: 42.731 s
+
+----------------------
+Running simulation  86 / 100
+	data sim time: 0.035 s
+	wisp time: 462.464 s
+
+
+	ELLA time: 39.447 s
+
+----------------------
+Running simulation  87 / 100
+	data sim time: 0.03 s
+	wisp time: 425.18 s
+
+
+	ELLA time: 37.192 s
+
+----------------------
+Running simulation  88 / 100
+	data sim time: 0.765 s
+	wisp time: 442.73 s
+
+
+	ELLA time: 27.577 s
+
+----------------------
+Running simulation  89 / 100
+	data sim time: 0.028 s
+	wisp time: 443.285 s
+
+
+	ELLA time: 34.449 s
+
+----------------------
+Running simulation  90 / 100
+	data sim time: 0.032 s
+	wisp time: 438.28 s
+
+
+	ELLA time: 30.912 s
+
+----------------------
+Running simulation  91 / 100
+	data sim time: 0.03 s
+	wisp time: 459.621 s
+
+
+	ELLA time: 38.39 s
+
+----------------------
+Running simulation  92 / 100
+	data sim time: 0.03 s
+	wisp time: 446.579 s
+
+
+	ELLA time: 32.146 s
+
+----------------------
+Running simulation  93 / 100
+	data sim time: 0.03 s
+	wisp time: 418.917 s
+
+
+	ELLA time: 47.347 s
+
+----------------------
+Running simulation  94 / 100
+	data sim time: 0.03 s
+	wisp time: 461.171 s
+
+
+	ELLA time: 47.711 s
+
+----------------------
+Running simulation  95 / 100
+	data sim time: 0.072 s
+	wisp time: 444.743 s
+
+
+	ELLA time: 27.659 s
+
+----------------------
+Running simulation  96 / 100
+	data sim time: 0.029 s
+	wisp time: 426.528 s
+
+
+	ELLA time: 35.745 s
+
+----------------------
+Running simulation  97 / 100
+	data sim time: 0.027 s
+	wisp time: 525.205 s
+
+
+	ELLA time: 39.214 s
+
+----------------------
+Running simulation  98 / 100
+	data sim time: 0.031 s
+	wisp time: 454.32 s
+
+
+	ELLA time: 49.842 s
+
+----------------------
+Running simulation  99 / 100
+	data sim time: 0.032 s
+	wisp time: 432.208 s
+
+
+	ELLA time: 27.644 s
+
+----------------------
+Running simulation  100 / 100
+	data sim time: 0.766 s
+	wisp time: 419.83 s
+
+
+	ELLA time: 32.306 s
