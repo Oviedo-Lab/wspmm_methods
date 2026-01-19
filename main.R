@@ -24,7 +24,7 @@ snk.report("Analysis of MERFISH data by Warped Sigmoid, Poisson-Process Mixed-Ef
 
 # Set file path, and bootstrap chunk size
 data_path <- paste0(projects_folder, "_molecular_mechanisms_of_ACx_lateralization/data_SSp/")
-bs_chunksize <- 50
+bs_chunksize <- 20
 
 # Preprocessing MERFISH data ###########################################################################################
 
@@ -1716,7 +1716,11 @@ plot_ella_fit <- function(
 
 # CSIDE benchmarking functions #########################################################################################
 
-convert_sim_data_to_CSIDE <- function(
+# Load library 
+library(spacexr)
+
+# Function to convert data to CSIDE format and to run CSIDE
+run_CSIDE <- function(
     sim_data,
     ref_counts,
     max_cores = 2
@@ -1733,14 +1737,13 @@ convert_sim_data_to_CSIDE <- function(
     #   nUMI vector: total counts per cell in ref_counts
     
     # Grab data and split replicates by fixed effect
-    data <- sim_data$data
-    data$replicate <- paste(data$replicate, data$fixedeffect, sep = "_")
-    replicates <- sort(unique(data$replicate))
+    sim_data$replicate <- paste(sim_data$replicate, sim_data$fixedeffect, sep = "_")
+    replicates <- sort(unique(sim_data$replicate))
     grounp_ids <- as.integer(grepl("_trt", replicates)) + 1 # 1 for ref, 2 for trt
     
     # full grid of pixels
-    rx <- range(data$bin_x)
-    ry <- range(data$bin_y)
+    rx <- range(sim_data$bin_x)
+    ry <- range(sim_data$bin_y)
     pixels <- CJ(
       bin_x = rx[1]:rx[2],
       bin_y = ry[1]:ry[2]
@@ -1756,13 +1759,13 @@ convert_sim_data_to_CSIDE <- function(
     # Create cell types for REFERENCE
     cell_types <- data.frame(
       cell = colnames(ref_counts),
-      type = rep("celltype1", ncol(ref_counts))
+      type = sample(c("celltype1", "celltype2"), ncol(ref_counts), replace = TRUE)
     )
     cell_types <- setNames(cell_types[[2]], cell_types[[1]])
     cell_types <- as.factor(cell_types) # convert to factor data type
     
     # Make reference library counts 
-    nUMI_ref <- colSums(ref_counts) + as.integer(rpois(ncol(ref_counts), lambda = mean(ref_counts))) + 1 
+    nUMI_ref <- colSums(ref_counts) #+ as.integer(rpois(ncol(ref_counts), lambda = mean(ref_counts))) + 1e2 
     names(nUMI_ref) <- colnames(ref_counts)
     
     # Make reference
@@ -1779,8 +1782,8 @@ convert_sim_data_to_CSIDE <- function(
     for (r in replicates) {
       
       # Prune down data to just this replicate and necessary columns
-      mask_r <- data$replicate == r
-      data_thin <- data[mask_r,c("gene", "count", "bin_x", "bin_y")]
+      mask_r <- sim_data$replicate == r
+      data_thin <- sim_data[mask_r,c("gene", "count", "bin_x", "bin_y")]
       # Count matrix 
       dt <- as.data.table(data_thin)
       # aggregate counts
@@ -1826,7 +1829,7 @@ convert_sim_data_to_CSIDE <- function(
     
     myRCTD.reps <- run.CSIDE.replicates(
       RCTD.replicates = myRCTD.reps,
-      cell_types = c("celltype1"),
+      cell_types = c("celltype1", "celltype2"),
       fdr = 0.05,
       population_de = TRUE,
       de_mode = "nonparam",
@@ -1837,9 +1840,55 @@ convert_sim_data_to_CSIDE <- function(
     
   }
 
+test <- run_CSIDE(
+  sim_data = sim_data$data,
+  ref_counts = ref_counts,
+  max_cores = sim_data
+)
 
-mask <- data$gene == "Tac2" & data$bin_x == 100 & data$bin_y == 10
-sum(data$count[mask])
+# Full model pipeline
+model_sim_CSIDE <- function(
+    sim,
+    sim_num,
+    ref_counts,
+    max_cores
+  ) {
+    
+    # Run CSIDE
+    cside_model <- run_CSIDE(
+      sim_data = sim$data,
+      ref_counts = ref_counts,
+      max_cores = max_cores
+    )
+    
+    # Extract model results for comparing to ground truth
+    de_results <- cside_model@de_results_replicates[["replicate1_ref"]]
+    p_values <- de_results$p_value_adj
+    names(p_values) <- de_results$gene
+    
+    # Extract ground-truth
+    GT <- ground_truth(sim)
+    FSEs <- GT$FSEs
+    
+    # Compile results in named vector 
+    results <- data.frame(
+      est = c(p_values),
+      true = c(FSEs[names(p_values)]),
+      param = c(
+        rep("FSE", length(p_values))
+      ),
+      id = c(
+        names(p_values)
+      )
+    )
+    
+    # Add method and sim number
+    results$method <- "CSIDE"
+    results$sim <- sim_num
+    
+    return(results)
+  
+  }
 
 
 
