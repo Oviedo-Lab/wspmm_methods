@@ -1740,8 +1740,72 @@ write.csv(results, "benchmark_results.csv", row.names = FALSE)
 # Load results 
 results <- read.csv("benchmark_results.csv")
 
+analyze_results <- function(
+    results
+  ) {
+    
+    methods <- sort(unique(results$method))
+    metrics <- c(
+      "cor_rate", 
+      "cor_ran", 
+      "FPR_svg", 
+      "FDR_svg", 
+      "power_svg", 
+      "FPR_fse", 
+      "FDR_fse", 
+      "power_fse"
+    )
+    
+    summary <- as.data.frame(matrix(NA, nrow = length(metrics), ncol = length(methods)))
+    colnames(summary) <- methods
+    rownames(summary) <- metrics
+    
+    for (m in methods) {
+      
+      m_mask <- results$method == m
+      
+      # Compute correlation for rate effect parameter, true vs est
+      if (any("rate_effect" == results$param[m_mask])) {
+        r_m_mask <- m_mask & results$param == "rate_effect"
+        summary["cor_rate", m] <- cor(results[r_m_mask,"true"], results[r_m_mask,"est"], method = "pearson")
+      }
+      # Compute correlation for random effect parameter, true vs est
+      if (any("random_effect" == results$param[m_mask])) {
+        r_m_mask <- m_mask & results$param == "random_effect"
+        summary["cor_ran", m] <- cor(results[r_m_mask,"true"], results[r_m_mask,"est"], method = "pearson")
+      }
+      # Compute FPR, FDR, power for SVG parameter
+      if (any("SVG" == results$param[m_mask])) {
+        r_m_mask <- m_mask & results$param == "SVG"
+        FP <- sum(results[r_m_mask & results$true == FALSE, "est"] < 0.05)
+        TN <- sum(results[r_m_mask & results$true == FALSE, "est"] >= 0.05)
+        TP <- sum(results[r_m_mask & results$true == TRUE, "est"] < 0.05)
+        FN <- sum(results[r_m_mask & results$true == TRUE, "est"] >= 0.05)
+        summary["FPR_svg", m] <- FP / (FP + TN)
+        summary["FDR_svg", m] <- FP / (FP + TP)
+        summary["power_svg", m] <- TP / (TP + FN)
+      }
+      # Compute FPR, FDR, power for FSE parameter
+      if (any("FSE" == results$param[m_mask])) {
+        r_m_mask <- m_mask & results$param == "FSE"
+        FP <- sum(results[r_m_mask & results$true == FALSE, "est"] < 0.05)
+        TN <- sum(results[r_m_mask & results$true == FALSE, "est"] >= 0.05)
+        TP <- sum(results[r_m_mask & results$true == TRUE, "est"] < 0.05)
+        FN <- sum(results[r_m_mask & results$true == TRUE, "est"] >= 0.05)
+        summary["FPR_fse", m] <- FP / (FP + TN)
+        summary["FDR_fse", m] <- FP / (FP + TP)
+        summary["power_fse", m] <- TP / (TP + FN)
+      }
+      
+    }
+    return(summary)
+  }
+results_summary <- analyze_results(results)
+View(results_summary)
+
+
 # Analyze results
-results_rr <- results[results$param == "random_effect" | results$param == "rate_effect",]
+results_rr <- results[grepl("_effect", results$param),]
 ggplot(results_rr, aes(x = true, y = est, color = param)) +
   geom_point(alpha = 0.5) +
   geom_abline(slope = 1, intercept = 0, linetype = "dashed") +
@@ -1756,12 +1820,7 @@ ggplot(results_rr, aes(x = true, y = est, color = param)) +
     name = "Parameter"
   )
 
-results_rr_ran <- results_rr[results_rr$param == "random_effect",]
-results_rr_rate <- results_rr[results_rr$param == "rate_effect",]
-cor_rate <- cor(results_rr_rate$true, results_rr_rate$est, method = "pearson")
-cor_ran <- cor(results_rr_ran$true, results_rr_ran$est, method = "pearson")
-cor_rate
-cor_ran
+
 
 # type I errors: FPR (FP / (FP + TN)) and FDR (FP / (FP + TP)) ... prob of false positive (i.e., of incorrectly rejecting null h, conditional on the null (FPR) or on a positive results (FDR)
 # type II errors: power (TP / (TP + FN)) ... prob of detecting thing (i.e., of correctly rejecting null h), conditional on the alternative h
