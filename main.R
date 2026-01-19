@@ -1460,7 +1460,7 @@ run_ELLA <- function(
 
 # Extract SVG p-values from ELLA results
 extract_svg <- function(ella_sim) {
-  pv_svg <- unlist(ella_sim$pv_cauchy_tl[["ref"]])
+  pv_svg <- unlist(ella_sim$pv_fdr_tl[["ref"]])
   names(pv_svg) <- ella_sim$gene_list_dict[["ref"]]
   pv_svg
 }
