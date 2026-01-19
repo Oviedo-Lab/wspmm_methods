@@ -810,10 +810,10 @@ if (preprocess_Allen) {
   count_data_neurons <- big_data_frame[neuron.mask,]
   
   # Drop unneeded columns 
-  count_data_neurons <- count_data_neurons[,c(1,3,6,8,9)]
+  count_data_neurons <- count_data_neurons[,c(1,2,3,6,8,9)]
   
   # Rename columns 
-  colnames(count_data_neurons) <- c("count", "slice_num", "gene", "coord_x", "coord_y")
+  colnames(count_data_neurons) <- c("count", "cell_id", "slice_num", "gene", "coord_x", "coord_y")
   
   # Identify which vglut marker to keep
   for (g in neuron.gene.list) {
@@ -858,6 +858,28 @@ if (preprocess_Allen) {
   # Import
   count_data_neurons <- read.csv("Allen_data.csv")
 }
+
+# Extract the reference count matrix 
+library(data.table)
+dt <- as.data.table(count_data_neurons)
+# ... sum counts per gene × cell_id
+dt <- dt[, .(count = sum(count)), by = .(gene, cell_id)]
+# pivot to wide format
+ref_counts <- dcast(
+  dt,
+  gene ~ cell_id,
+  value.var = "count",
+  fill = 0
+)
+# Subset to 10k random columns (cells) 
+set.seed(42123)
+ref_counts <- ref_counts[, c(1, sample(2:ncol(ref_counts), 10000)), with = FALSE]
+# convert to matrix with rownames as genes
+ref_counts <- as.matrix(ref_counts[, -1, with = FALSE])
+rownames(ref_counts) <- dt[, sort(unique(gene))]
+
+# Remove cell_id column from count_data_neurons 
+count_data_neurons <- count_data_neurons[,c("count", "slice_num", "gene", "coord_x", "coord_y")]
 
 # Cut down to just a single 2x2 patch from one slice
 count_data_neurons_patch <- count_data_neurons[
@@ -1691,6 +1713,135 @@ plot_ella_fit <- function(
     
   }
 #plot_ella_fit(ella_sim, sim_data$data, scalar = 10)
+
+# CSIDE benchmarking functions #########################################################################################
+
+convert_sim_data_to_CSIDE <- function(
+    sim_data,
+    ref_counts,
+    max_cores = 2
+  ) {
+   
+    # Need:
+    #  DATA:
+    #   count matrix (one per "puck"): rows as genes, columns as spots (i.e., spatial locations, or "pixels")
+    #   coords matrix: rows as spots, columns as x and y coordinates
+    #   nUMI vector: total counts per spot
+    #  REFERENCE:
+    #   ref_counts: matrix with rows as genes, columns as cells, pseudo-bulk library
+    #   cell_types: named vector with cell type for each cell in ref_counts
+    #   nUMI vector: total counts per cell in ref_counts
+    
+    # Grab data and split replicates by fixed effect
+    data <- sim_data$data
+    data$replicate <- paste(data$replicate, data$fixedeffect, sep = "_")
+    replicates <- sort(unique(data$replicate))
+    grounp_ids <- as.integer(grepl("_trt", replicates)) + 1 # 1 for ref, 2 for trt
+    
+    # full grid of pixels
+    rx <- range(data$bin_x)
+    ry <- range(data$bin_y)
+    pixels <- CJ(
+      bin_x = rx[1]:rx[2],
+      bin_y = ry[1]:ry[2]
+    )
+    pixels[, pixel := paste(bin_x, bin_y, sep = "_")]
+    
+    # Convert pixel matrix into coords matrix 
+    coords <- pixels 
+    rownames(coords) <- coords$pixel
+    coords$pixel <- NULL
+    colnames(coords) <- c("x", "y")
+    
+    # Create cell types for REFERENCE
+    cell_types <- data.frame(
+      cell = colnames(ref_counts),
+      type = rep("celltype1", ncol(ref_counts))
+    )
+    cell_types <- setNames(cell_types[[2]], cell_types[[1]])
+    cell_types <- as.factor(cell_types) # convert to factor data type
+    
+    # Make reference library counts 
+    nUMI_ref <- colSums(ref_counts) + as.integer(rpois(ncol(ref_counts), lambda = mean(ref_counts))) + 1 
+    names(nUMI_ref) <- colnames(ref_counts)
+    
+    # Make reference
+    reference <- Reference(ref_counts, cell_types, nUMI_ref)
+    
+    # Make data for each replicate
+    n_replicates <- length(replicates)
+    pucks <- list()
+    length(pucks) <- n_replicates
+    names(pucks) <- replicates
+    barcodes <- list()
+    length(barcodes) <- n_replicates
+    names(barcodes) <- replicates
+    for (r in replicates) {
+      
+      # Prune down data to just this replicate and necessary columns
+      mask_r <- data$replicate == r
+      data_thin <- data[mask_r,c("gene", "count", "bin_x", "bin_y")]
+      # Count matrix 
+      dt <- as.data.table(data_thin)
+      # aggregate counts
+      dt[, pixel := paste(bin_x, bin_y, sep = "_")]
+      dt <- dt[, .(count = sum(count)), by = .(gene, pixel)]
+      # ensure all gene–pixel combinations exist
+      dt_full <- merge(
+        CJ(gene = unique(dt$gene), pixel = pixels$pixel),
+        dt,
+        by = c("gene", "pixel"),
+        all.x = TRUE
+      )
+      dt_full[is.na(count), count := 0]
+      # cast to matrix
+      pixel_mat <- dcast(
+        dt_full,
+        gene ~ pixel,
+        value.var = "count",
+        fill = 0
+      )
+      pixel_mat <- as.matrix(pixel_mat[, -1, with = FALSE])
+      rownames(pixel_mat) <- dt_full[, unique(gene)]
+      # Get library counts 
+      nUMI_spatial <- colSums(pixel_mat)
+      
+      # Make and save puck
+      pucks[[r]] <- SpatialRNA(coords, pixel_mat, nUMI_spatial)
+      barcodes[[r]] <- colnames(pucks[[r]]@counts)
+      
+    }
+    
+    barcodes <- sort(unique(unlist(barcodes)))
+    
+    # Create RCTD object
+    myRCTD.reps <- create.RCTD.replicates(
+      spatialRNA.replicates = pucks,
+      reference = reference,
+      replicate_names = replicates,
+      group_ids = grounp_ids,
+      max_cores = max_cores
+    )
+    myRCTD.reps <- run.RCTD.replicates(myRCTD.reps)
+    
+    myRCTD.reps <- run.CSIDE.replicates(
+      RCTD.replicates = myRCTD.reps,
+      cell_types = c("celltype1"),
+      fdr = 0.05,
+      population_de = TRUE,
+      de_mode = "nonparam",
+      barcodes = barcodes
+    )
+    
+    return(myRCTD.reps)
+    
+  }
+
+
+mask <- data$gene == "Tac2" & data$bin_x == 100 & data$bin_y == 10
+sum(data$count[mask])
+
+
 
 # Run benchmarking #####################################################################################################
 
