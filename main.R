@@ -780,11 +780,12 @@ do.call(grid.arrange, c(all_plots, ncol = 2))
 
 # Simulated data #######################################################################################################
 
+library(data.table)
+
 preprocess_Allen <- FALSE 
 if (preprocess_Allen) {
   # Get complete Allen mouse brain data
   data_path <- "/Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/_molecular_mechanisms_of_ACx_lateralization/development_work/data/Allen_data/Allen_data.csv"
-  library(data.table)
   start_time <- Sys.time()
   big_data_frame <- fread(data_path,
                           nrows = 1e6 )
@@ -809,11 +810,25 @@ if (preprocess_Allen) {
   print(sum(neuron.mask))
   count_data_neurons <- big_data_frame[neuron.mask,]
   
+  # Collect more genes for enriched simulated reference atlas 
+  set.seed(999) # ... all 20 remain with this seed
+  enriched.gene.list <- sample(unique(big_data_frame$trscrpt_gene_symb), 20)
+  enriched.gene.list <- enriched.gene.list[!enriched.gene.list %in% neuron.gene.list]
+  
+  # Make enriched data frame
+  for (g in enriched.gene.list) {
+    neuron.mask <- neuron.mask | big_data_frame$trscrpt_gene_symb == g
+  }
+  print(sum(neuron.mask))
+  count_data_neurons_enriched <- big_data_frame[neuron.mask,]
+  
   # Drop unneeded columns 
   count_data_neurons <- count_data_neurons[,c(1,2,3,6,8,9)]
+  count_data_neurons_enriched <- count_data_neurons_enriched[,c(1,2,3,6,8,9)]
   
   # Rename columns 
   colnames(count_data_neurons) <- c("count", "cell_id", "slice_num", "gene", "coord_x", "coord_y")
+  colnames(count_data_neurons_enriched) <- colnames(count_data_neurons)
   
   # Identify which vglut marker to keep
   for (g in neuron.gene.list) {
@@ -823,9 +838,9 @@ if (preprocess_Allen) {
   
   # Keep only Slc17a7
   count_data_neurons <- count_data_neurons[!c(count_data_neurons$gene == "Slc17a6" | count_data_neurons$gene == "Slc17a8"),]
+  count_data_neurons_enriched <- count_data_neurons_enriched[!c(count_data_neurons_enriched$gene == "Slc17a6" | count_data_neurons_enriched$gene == "Slc17a8"),]
   
   # Identify slices to form the basis of the simulation
-  library(ggplot2)
   start <- 40
   stop <- 50
   for (s in c(start:stop)) {
@@ -840,10 +855,13 @@ if (preprocess_Allen) {
   # Keep only these slices
   mask <- count_data_neurons$slice_num == 29 | count_data_neurons$slice_num == 33 | count_data_neurons$slice_num == 42
   count_data_neurons <- count_data_neurons[mask,]
+  mask <- count_data_neurons_enriched$slice_num == 29 | count_data_neurons_enriched$slice_num == 33 | count_data_neurons_enriched$slice_num == 42
+  count_data_neurons_enriched <- count_data_neurons_enriched[mask,]
   
   # Flip y-axis
   y_med <- median(count_data_neurons$coord_y)
   count_data_neurons$coord_y <- (count_data_neurons$coord_y - y_med) * -1 + y_med
+  count_data_neurons_enriched$coord_y <- (count_data_neurons_enriched$coord_y - y_med) * -1 + y_med
   
   # Inspect data
   plt <- ggplot(count_data_neurons, aes(x = coord_x, y = coord_y, color = gene)) +
@@ -852,31 +870,39 @@ if (preprocess_Allen) {
     theme_minimal()
   print(plt)
   
-  # Save 
+  # Save count data
   write.csv(count_data_neurons, "Allen_data.csv", row.names = FALSE)
+  
+  # Create the reference count matrix 
+  dt <- as.data.table(count_data_neurons_enriched)
+  # ... sum counts per gene × cell_id
+  dt <- dt[, .(count = sum(count)), by = .(gene, cell_id)]
+  # pivot to wide format
+  ref_counts <- dcast(
+    dt,
+    gene ~ cell_id,
+    value.var = "count",
+    fill = 0
+  )
+  # Subset to 10k random columns (cells) 
+  count_idx <- which(colSums(ref_counts[,-1, with = FALSE]) >= 100) + 1
+  set.seed(42123)
+  ref_counts <- ref_counts[, c(1, sample(count_idx, 1e4, replace = FALSE)), with = FALSE]
+  # convert to matrix with rownames as genes
+  ref_counts <- as.matrix(ref_counts[, -1, with = FALSE])
+  rownames(ref_counts) <- dt[, sort(unique(gene))]
+  
+  # Save 
+  write.csv(ref_counts, "Allen_reference_counts_enriched_10kcells.csv", row.names = TRUE)
 } else {
   # Import
   count_data_neurons <- read.csv("Allen_data.csv")
+  ref_counts <- read.csv("Allen_reference_counts_enriched_10kcells.csv", row.names = 1, stringsAsFactors = FALSE, check.names = FALSE)
+  ref_counts <- data.table::fread("Allen_reference_counts_enriched_10kcells.csv", data.table = FALSE)
+  row_names <- ref_counts[,1]
+  ref_counts <- as.matrix(ref_counts[,-1])
+  rownames(ref_counts) <- row_names
 }
-
-# Extract the reference count matrix 
-library(data.table)
-dt <- as.data.table(count_data_neurons)
-# ... sum counts per gene × cell_id
-dt <- dt[, .(count = sum(count)), by = .(gene, cell_id)]
-# pivot to wide format
-ref_counts <- dcast(
-  dt,
-  gene ~ cell_id,
-  value.var = "count",
-  fill = 0
-)
-# Subset to 10k random columns (cells) 
-set.seed(42123)
-ref_counts <- ref_counts[, c(1, sample(2:ncol(ref_counts), 10000)), with = FALSE]
-# convert to matrix with rownames as genes
-ref_counts <- as.matrix(ref_counts[, -1, with = FALSE])
-rownames(ref_counts) <- dt[, sort(unique(gene))]
 
 # Remove cell_id column from count_data_neurons 
 count_data_neurons <- count_data_neurons[,c("count", "slice_num", "gene", "coord_x", "coord_y")]
@@ -1748,12 +1774,13 @@ run_CSIDE <- function(
       bin_x = rx[1]:rx[2],
       bin_y = ry[1]:ry[2]
     )
-    pixels[, pixel := paste(bin_x, bin_y, sep = "_")]
+    pixels <- pixels[, pixel := paste(bin_x, bin_y, sep = "_")]
+    pixels <- as.matrix(pixels)
     
     # Convert pixel matrix into coords matrix 
     coords <- pixels 
-    rownames(coords) <- coords$pixel
-    coords$pixel <- NULL
+    rownames(coords) <- coords[, "pixel"]
+    coords <- coords[, c("bin_x", "bin_y")]
     colnames(coords) <- c("x", "y")
     
     # Create cell types for REFERENCE
@@ -1764,8 +1791,51 @@ run_CSIDE <- function(
     cell_types <- setNames(cell_types[[2]], cell_types[[1]])
     cell_types <- as.factor(cell_types) # convert to factor data type
     
+    # Randomly create ten filler genes that are differentially expressed between cell types
+    n_filler_genes <- 10
+    n_original_genes <- length(unique(sim_data$gene))
+    ct_mask <- cell_types == "celltype1"
+    n_ct1_ref <- sum(ct_mask)
+    n_ct2_ref <- sum(!ct_mask)
+    this_slice_num <- sim_data$slice_num[1]
+    filler_df <- data.frame()
+    for (fg in c(1:n_filler_genes)) {
+      
+      # Select a gene from ref_counts
+      fg_name <- sample(rownames(ref_counts), 1)
+      ct1_counts <- ref_counts[fg_name, ct_mask]
+      de_mult <- (runif(1) * 2)^2 # up to 4-fold change
+      if (de_mult <= 1 & de_mult > 0.5) de_mult <- 0.5 
+      if (de_mult > 1 & de_mult < 1.5) de_mult <- 1.5
+      ct2_counts <- ct1_counts * de_mult 
+      fg_name <- paste0(fg_name, "_filler_", fg)
+      
+      # Update ref_counts with filler gene
+      new_row <- rep(0, ncol(ref_counts))
+      new_row[ct_mask] <- rpois(n_ct1_ref, ct1_counts)
+      new_row[!ct_mask] <- rpois(n_ct2_ref, ct2_counts)
+      ref_counts <- rbind(ref_counts, new_row)
+      rownames(ref_counts)[nrow(ref_counts)] <- fg_name
+      
+      for (r in replicates) {
+        r_mask <- sim_data$replicate == r
+        n_spots <- sum(r_mask)/n_original_genes
+        r_idx <- sample(which(r_mask), n_spots, replace = TRUE) 
+        r_df <- sim_data[r_idx,]
+        ct_mask_r_df <- r_df$bin_x >= max(r_df$bin_x)/2 # arbitrarily assign left half to celltype1, right half to celltype2
+        n_ct1 <- sum(ct_mask_r_df)
+        n_ct2 <- n_spots - n_ct1
+        r_df$count[ct_mask_r_df] <- rpois(n_ct1, sample(ct1_counts, n_ct1, replace = TRUE))
+        r_df$count[!ct_mask_r_df] <- rpois(n_ct2, sample(ct2_counts, n_ct2, replace = TRUE))
+        r_df$gene <- fg_name
+        filler_df <- rbind(filler_df, r_df)
+      }
+      
+    }
+    sim_data <- rbind(sim_data, filler_df)
+    
     # Make reference library counts 
-    nUMI_ref <- colSums(ref_counts) #+ as.integer(rpois(ncol(ref_counts), lambda = mean(ref_counts))) + 1e2 
+    nUMI_ref <- colSums(ref_counts) 
     names(nUMI_ref) <- colnames(ref_counts)
     
     # Make reference
@@ -1818,15 +1888,24 @@ run_CSIDE <- function(
     barcodes <- sort(unique(unlist(barcodes)))
     
     # Create RCTD object
+    low_panel_cutoff <- 0 # ... set to zero to account for small panel
     myRCTD.reps <- create.RCTD.replicates(
       spatialRNA.replicates = pucks,
       reference = reference,
       replicate_names = replicates,
       group_ids = grounp_ids,
-      max_cores = max_cores
+      max_cores = max_cores,
+      # gene_cutoff = low_panel_cutoff, 
+      fc_cutoff = low_panel_cutoff,
+      # gene_cutoff_reg = low_panel_cutoff, 
+      fc_cutoff_reg = low_panel_cutoff #,
+      # UMI_min = low_panel_cutoff,
+      # UMI_min_sigma = low_panel_cutoff,
+      # CELL_MIN_INSTANCE = 1,
+      # CONFIDENCE_THRESHOLD = 1
     )
     myRCTD.reps <- run.RCTD.replicates(myRCTD.reps)
-    
+    #return(myRCTD.reps)
     myRCTD.reps <- run.CSIDE.replicates(
       RCTD.replicates = myRCTD.reps,
       cell_types = c("celltype1", "celltype2"),
@@ -1843,7 +1922,7 @@ run_CSIDE <- function(
 test <- run_CSIDE(
   sim_data = sim_data$data,
   ref_counts = ref_counts,
-  max_cores = sim_data
+  max_cores = bs_chunksize
 )
 
 # Full model pipeline

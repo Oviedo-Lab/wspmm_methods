@@ -6,6 +6,7 @@ src/*.so
 src/*.dll
 *.csv
 !Allen_data.csv
+!Allen_reference_counts_enriched_10kcells.csv
 !benchmark_results.csv
 Read-and-delete-me
 .Rproj.user

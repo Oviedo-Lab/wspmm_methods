@@ -1,805 +1,236 @@
 
 
 Analysis of MERFISH data by Warped Sigmoid, Poisson-Process Mixed-Effects Model (WSPmm)
-Using virtual environment '/home/oviedoworkstation/.virtualenvs/r-reticulate' ...
-
-
-----------------------
-Running simulation  1 / 100
-	data sim time: 0.14 s
-	wisp time: 286.467 s
-
-
-	ELLA time: 44.061 s
-
-----------------------
-Running simulation  2 / 100
-	data sim time: 0.068 s
-	wisp time: 455.959 s
-
-
-	ELLA time: 44.625 s
-
-----------------------
-Running simulation  3 / 100
-	data sim time: 0.033 s
-	wisp time: 477.499 s
-
-
-	ELLA time: 34.846 s
-
-----------------------
-Running simulation  4 / 100
-	data sim time: 0.027 s
-	wisp time: 437.913 s
-
-
-	ELLA time: 26.856 s
-
-----------------------
-Running simulation  5 / 100
-	data sim time: 0.026 s
-	wisp time: 422.929 s
-
-
-	ELLA time: 37.576 s
-
-----------------------
-Running simulation  6 / 100
-	data sim time: 0.027 s
-	wisp time: 465.701 s
-
-
-	ELLA time: 35.054 s
-
-----------------------
-Running simulation  7 / 100
-	data sim time: 0.028 s
-	wisp time: 470.282 s
-
-
-	ELLA time: 40.938 s
-
-----------------------
-Running simulation  8 / 100
-	data sim time: 0.024 s
-	wisp time: 426.859 s
-
-
-	ELLA time: 31.665 s
-
-----------------------
-Running simulation  9 / 100
-	data sim time: 0.024 s
-	wisp time: 405.509 s
-
-
-	ELLA time: 30.594 s
-
-----------------------
-Running simulation  10 / 100
-	data sim time: 0.027 s
-	wisp time: 436.512 s
-
-
-	ELLA time: 40.155 s
-
-----------------------
-Running simulation  11 / 100
-	data sim time: 0.025 s
-	wisp time: 445.673 s
-
-
-	ELLA time: 28.025 s
-
-----------------------
-Running simulation  12 / 100
-	data sim time: 0.027 s
-	wisp time: 427.974 s
-
-
-	ELLA time: 27.836 s
-
-----------------------
-Running simulation  13 / 100
-	data sim time: 0.03 s
-	wisp time: 452.852 s
-
-
-	ELLA time: 35.084 s
-
-----------------------
-Running simulation  14 / 100
-	data sim time: 0.026 s
-	wisp time: 420.09 s
-
-
-	ELLA time: 35.598 s
-
-----------------------
-Running simulation  15 / 100
-	data sim time: 0.028 s
-	wisp time: 433.974 s
-
-
-	ELLA time: 27.592 s
-
-----------------------
-Running simulation  16 / 100
-	data sim time: 0.03 s
-	wisp time: 453.903 s
-
-
-	ELLA time: 46.431 s
-
-----------------------
-Running simulation  17 / 100
-	data sim time: 0.028 s
-	wisp time: 434.402 s
-
-
-	ELLA time: 31.914 s
-
-----------------------
-Running simulation  18 / 100
-	data sim time: 0.031 s
-	wisp time: 472.122 s
-
-
-	ELLA time: 39.089 s
-
-----------------------
-Running simulation  19 / 100
-	data sim time: 0.027 s
-	wisp time: 430.671 s
-
-
-	ELLA time: 28.888 s
-
-----------------------
-Running simulation  20 / 100
-	data sim time: 0.026 s
-	wisp time: 437.135 s
-
-
-	ELLA time: 28.435 s
-
-----------------------
-Running simulation  21 / 100
-	data sim time: 0.028 s
-	wisp time: 424.608 s
-
-
-	ELLA time: 38.213 s
-
-----------------------
-Running simulation  22 / 100
-	data sim time: 0.046 s
-	wisp time: 463.408 s
-
-
-	ELLA time: 32.773 s
-
-----------------------
-Running simulation  23 / 100
-	data sim time: 0.029 s
-	wisp time: 471.719 s
-
-
-	ELLA time: 26.04 s
-
-----------------------
-Running simulation  24 / 100
-	data sim time: 0.031 s
-	wisp time: 472.368 s
-
-
-	ELLA time: 33.382 s
-
-----------------------
-Running simulation  25 / 100
-	data sim time: 0.029 s
-	wisp time: 435.599 s
-
-
-	ELLA time: 35.241 s
-
-----------------------
-Running simulation  26 / 100
-	data sim time: 0.068 s
-	wisp time: 474.278 s
-
-
-	ELLA time: 50.219 s
-
-----------------------
-Running simulation  27 / 100
-	data sim time: 0.027 s
-	wisp time: 480.267 s
-
-
-	ELLA time: 29.231 s
-
-----------------------
-Running simulation  28 / 100
-	data sim time: 0.026 s
-	wisp time: 444.306 s
-
-
-	ELLA time: 28.322 s
-
-----------------------
-Running simulation  29 / 100
-	data sim time: 0.026 s
-	wisp time: 443.79 s
-
-
-	ELLA time: 29.284 s
-
-----------------------
-Running simulation  30 / 100
-	data sim time: 0.064 s
-	wisp time: 447.107 s
-
-
-	ELLA time: 25.676 s
-
-----------------------
-Running simulation  31 / 100
-	data sim time: 0.033 s
-	wisp time: 454.841 s
-
-
-	ELLA time: 34.475 s
-
-----------------------
-Running simulation  32 / 100
-	data sim time: 0.029 s
-	wisp time: 426.209 s
-
-
-	ELLA time: 29.484 s
-
-----------------------
-Running simulation  33 / 100
-	data sim time: 0.029 s
-	wisp time: 445.066 s
-
-
-	ELLA time: 45.405 s
-
-----------------------
-Running simulation  34 / 100
-	data sim time: 0.027 s
-	wisp time: 484.038 s
-
-
-	ELLA time: 27.083 s
-
-----------------------
-Running simulation  35 / 100
-	data sim time: 0.028 s
-	wisp time: 439.387 s
-
-
-	ELLA time: 35.02 s
-
-----------------------
-Running simulation  36 / 100
-	data sim time: 0.107 s
-	wisp time: 414.642 s
-
-
-	ELLA time: 44.336 s
-
-----------------------
-Running simulation  37 / 100
-	data sim time: 0.026 s
-	wisp time: 416.075 s
-
-
-	ELLA time: 42.284 s
-
-----------------------
-Running simulation  38 / 100
-	data sim time: 0.869 s
-	wisp time: 471.508 s
-
-
-	ELLA time: 46.488 s
-
-----------------------
-Running simulation  39 / 100
-	data sim time: 0.03 s
-	wisp time: 457.857 s
-
-
-	ELLA time: 48.098 s
-
-----------------------
-Running simulation  40 / 100
-	data sim time: 0.03 s
-	wisp time: 463.863 s
-
-
-	ELLA time: 28.933 s
-
-----------------------
-Running simulation  41 / 100
-	data sim time: 0.028 s
-	wisp time: 453.307 s
-
-
-	ELLA time: 31.092 s
-
-----------------------
-Running simulation  42 / 100
-	data sim time: 0.03 s
-	wisp time: 440.576 s
-
-
-	ELLA time: 34.589 s
-
-----------------------
-Running simulation  43 / 100
-	data sim time: 0.044 s
-	wisp time: 433.358 s
-
-
-	ELLA time: 42.703 s
-
-----------------------
-Running simulation  44 / 100
-	data sim time: 0.03 s
-	wisp time: 434.212 s
-
-
-	ELLA time: 31.393 s
-
-----------------------
-Running simulation  45 / 100
-	data sim time: 0.026 s
-	wisp time: 433.614 s
-
-
-	ELLA time: 25.454 s
-
-----------------------
-Running simulation  46 / 100
-	data sim time: 0.03 s
-	wisp time: 431.295 s
-
-
-	ELLA time: 35.586 s
-
-----------------------
-Running simulation  47 / 100
-	data sim time: 0.03 s
-	wisp time: 452.838 s
-
-
-	ELLA time: 38.849 s
-
-----------------------
-Running simulation  48 / 100
-	data sim time: 0.044 s
-	wisp time: 437.679 s
-
-
-	ELLA time: 35.153 s
-
-----------------------
-Running simulation  49 / 100
-	data sim time: 0.033 s
-	wisp time: 435.579 s
-
-
-	ELLA time: 30.062 s
-
-----------------------
-Running simulation  50 / 100
-	data sim time: 0.027 s
-	wisp time: 430.613 s
-
-
-	ELLA time: 28.107 s
-
-----------------------
-Running simulation  51 / 100
-	data sim time: 0.042 s
-	wisp time: 479.669 s
-
-
-	ELLA time: 45.458 s
-
-----------------------
-Running simulation  52 / 100
-	data sim time: 0.027 s
-	wisp time: 456.107 s
-
-
-	ELLA time: 22.686 s
-
-----------------------
-Running simulation  53 / 100
-	data sim time: 0.114 s
-	wisp time: 453.881 s
-
-
-	ELLA time: 28.518 s
-
-----------------------
-Running simulation  54 / 100
-	data sim time: 0.031 s
-	wisp time: 439.841 s
-
-
-	ELLA time: 33.454 s
-
-----------------------
-Running simulation  55 / 100
-	data sim time: 0.027 s
-	wisp time: 431.189 s
-
-
-	ELLA time: 33.96 s
-
-----------------------
-Running simulation  56 / 100
-	data sim time: 0.763 s
-	wisp time: 430.851 s
-
-
-	ELLA time: 36.683 s
-
-----------------------
-Running simulation  57 / 100
-	data sim time: 0.028 s
-	wisp time: 411.383 s
-
-
-	ELLA time: 32.38 s
-
-----------------------
-Running simulation  58 / 100
-	data sim time: 0.029 s
-	wisp time: 435.044 s
-
-
-	ELLA time: 44.313 s
-
-----------------------
-Running simulation  59 / 100
-	data sim time: 0.028 s
-	wisp time: 434.485 s
-
-
-	ELLA time: 32.391 s
-
-----------------------
-Running simulation  60 / 100
-	data sim time: 0.036 s
-	wisp time: 440.364 s
-
-
-	ELLA time: 35.751 s
-
-----------------------
-Running simulation  61 / 100
-	data sim time: 0.026 s
-	wisp time: 442.217 s
-
-
-	ELLA time: 38.573 s
-
-----------------------
-Running simulation  62 / 100
-	data sim time: 0.029 s
-	wisp time: 451.021 s
-
-
-	ELLA time: 48.279 s
-
-----------------------
-Running simulation  63 / 100
-	data sim time: 0.027 s
-	wisp time: 423.207 s
-
-
-	ELLA time: 40.512 s
-
-----------------------
-Running simulation  64 / 100
-	data sim time: 0.03 s
-	wisp time: 450.56 s
-
-
-	ELLA time: 49.516 s
-
-----------------------
-Running simulation  65 / 100
-	data sim time: 0.03 s
-	wisp time: 451.139 s
-
-
-	ELLA time: 34.758 s
-
-----------------------
-Running simulation  66 / 100
-	data sim time: 0.029 s
-	wisp time: 463.66 s
-
-
-	ELLA time: 45.334 s
-
-----------------------
-Running simulation  67 / 100
-	data sim time: 0.031 s
-	wisp time: 450.785 s
-
-
-	ELLA time: 44.311 s
-
-----------------------
-Running simulation  68 / 100
-	data sim time: 0.028 s
-	wisp time: 453.313 s
-
-
-	ELLA time: 37.174 s
-
-----------------------
-Running simulation  69 / 100
-	data sim time: 0.028 s
-	wisp time: 432.269 s
-
-
-	ELLA time: 37.086 s
-
-----------------------
-Running simulation  70 / 100
-	data sim time: 0.029 s
-	wisp time: 450 s
-
-
-	ELLA time: 31.714 s
-
-----------------------
-Running simulation  71 / 100
-	data sim time: 0.07 s
-	wisp time: 441.812 s
-
-
-	ELLA time: 32.101 s
-
-----------------------
-Running simulation  72 / 100
-	data sim time: 0.045 s
-	wisp time: 431.712 s
-
-
-	ELLA time: 36.81 s
-
-----------------------
-Running simulation  73 / 100
-	data sim time: 0.029 s
-	wisp time: 441.625 s
-
-
-	ELLA time: 31.829 s
-
-----------------------
-Running simulation  74 / 100
-	data sim time: 0.032 s
-	wisp time: 452.789 s
-
-
-	ELLA time: 37.577 s
-
-----------------------
-Running simulation  75 / 100
-	data sim time: 0.029 s
-	wisp time: 465.033 s
-
-
-	ELLA time: 23.698 s
-
-----------------------
-Running simulation  76 / 100
-	data sim time: 0.068 s
-	wisp time: 480.659 s
-
-
-	ELLA time: 33.911 s
-
-----------------------
-Running simulation  77 / 100
-	data sim time: 0.031 s
-	wisp time: 436.315 s
-
-
-	ELLA time: 31.415 s
-
-----------------------
-Running simulation  78 / 100
-	data sim time: 0.029 s
-	wisp time: 438.015 s
-
-
-	ELLA time: 25.897 s
-
-----------------------
-Running simulation  79 / 100
-	data sim time: 0.027 s
-	wisp time: 453.163 s
-
-
-	ELLA time: 33.356 s
-
-----------------------
-Running simulation  80 / 100
-	data sim time: 0.032 s
-	wisp time: 314.707 s
-
-
-	ELLA time: 44.935 s
-
-----------------------
-Running simulation  81 / 100
-	data sim time: 0.029 s
-	wisp time: 425.76 s
-
-
-	ELLA time: 32.856 s
-
-----------------------
-Running simulation  82 / 100
-	data sim time: 0.035 s
-	wisp time: 450.523 s
-
-
-	ELLA time: 50.6 s
-
-----------------------
-Running simulation  83 / 100
-	data sim time: 0.026 s
-	wisp time: 424.088 s
-
-
-	ELLA time: 39.701 s
-
-----------------------
-Running simulation  84 / 100
-	data sim time: 0.032 s
-	wisp time: 449.471 s
-
-
-	ELLA time: 34.764 s
-
-----------------------
-Running simulation  85 / 100
-	data sim time: 0.03 s
-	wisp time: 432.993 s
-
-
-	ELLA time: 42.731 s
-
-----------------------
-Running simulation  86 / 100
-	data sim time: 0.035 s
-	wisp time: 462.464 s
-
-
-	ELLA time: 39.447 s
-
-----------------------
-Running simulation  87 / 100
-	data sim time: 0.03 s
-	wisp time: 425.18 s
-
-
-	ELLA time: 37.192 s
-
-----------------------
-Running simulation  88 / 100
-	data sim time: 0.765 s
-	wisp time: 442.73 s
-
-
-	ELLA time: 27.577 s
-
-----------------------
-Running simulation  89 / 100
-	data sim time: 0.028 s
-	wisp time: 443.285 s
-
-
-	ELLA time: 34.449 s
-
-----------------------
-Running simulation  90 / 100
-	data sim time: 0.032 s
-	wisp time: 438.28 s
-
-
-	ELLA time: 30.912 s
-
-----------------------
-Running simulation  91 / 100
-	data sim time: 0.03 s
-	wisp time: 459.621 s
-
-
-	ELLA time: 38.39 s
-
-----------------------
-Running simulation  92 / 100
-	data sim time: 0.03 s
-	wisp time: 446.579 s
-
-
-	ELLA time: 32.146 s
-
-----------------------
-Running simulation  93 / 100
-	data sim time: 0.03 s
-	wisp time: 418.917 s
-
-
-	ELLA time: 47.347 s
-
-----------------------
-Running simulation  94 / 100
-	data sim time: 0.03 s
-	wisp time: 461.171 s
-
-
-	ELLA time: 47.711 s
-
-----------------------
-Running simulation  95 / 100
-	data sim time: 0.072 s
-	wisp time: 444.743 s
-
-
-	ELLA time: 27.659 s
-
-----------------------
-Running simulation  96 / 100
-	data sim time: 0.029 s
-	wisp time: 426.528 s
-
-
-	ELLA time: 35.745 s
-
-----------------------
-Running simulation  97 / 100
-	data sim time: 0.027 s
-	wisp time: 525.205 s
-
-
-	ELLA time: 39.214 s
-
-----------------------
-Running simulation  98 / 100
-	data sim time: 0.031 s
-	wisp time: 454.32 s
-
-
-	ELLA time: 49.842 s
-
-----------------------
-Running simulation  99 / 100
-	data sim time: 0.032 s
-	wisp time: 432.208 s
-
-
-	ELLA time: 27.644 s
-
-----------------------
-Running simulation  100 / 100
-	data sim time: 0.766 s
-	wisp time: 419.83 s
-
-
-	ELLA time: 32.306 s
+No documentation for ‘create.RCTD.replicates’ in specified packages and libraries:
+you could try ‘??create.RCTD.replicates’
+
+celltype1 celltype2 
+     4975      5025 
+
+Enter a frame number, or 0 to exit   
+
+1: run_CSIDE(sim_data = sim_data$data, ref_counts = ref_counts, max_cores = bs_chunksize)
+2: #143: create.RCTD.replicates(spatialRNA.replicates = pucks, reference = reference, replicate_names = replicates, group_ids = gro
+3: create.RCTD(spatialRNA.replicates[[i]], reference, max_cores = max_cores, test_mode = test_mode, gene_cutoff = gene_cutoff, fc_c
+
+
+celltype1 celltype2 
+     5012      4988 
+[1] "gather_results: finished 1000"
+[1] "gather_results: finished 1000"
+[1] "gather_results: finished 1000"
+[1] "gather_results: finished 1000"
+[1] "gather_results: finished 1000"
+[1] "gather_results: finished 1000"
+
+Enter a frame number, or 0 to exit   
+
+1: run_CSIDE(sim_data = sim_data$data, ref_counts = ref_counts, max_cores = bs_chunksize)
+2: #160: run.CSIDE.replicates(RCTD.replicates = myRCTD.reps, cell_types = c("celltype1", "celltype2"), fdr = 0.05, population_de = 
+3: run.CSIDE.nonparam(RCTD.replicates@RCTD.reps[[i]], df = df, barcodes = barcodes, cell_types = cell_types, cell_type_threshold = 
+4: build.designmatrix.nonparam(myRCTD, barcodes = barcodes, df = df)
+5: get_spline_matrix(myRCTD@spatialRNA, df = df)
+6: mgcv::smoothCon(mgcv::s(x, y, k = df, fx = T, bs = "tp"), data = center_coords)
+7: smooth.construct3(object, data, knots)
+8: smooth.construct(object, dk$data, dk$knots)
+9: smooth.construct.tp.smooth.spec(object, dk$data, dk$knots)
+
+Enter an item from the menu, or 0 to exit
+Called from: mgcv::smoothCon(mgcv::s(x, y, k = df, fx = T, bs = "tp"), data = center_coords)
+   [1] celltype1 celltype1 celltype1 celltype2 celltype2 celltype1 celltype1 celltype2 celltype2 celltype1 celltype1 celltype2
+  [13] celltype2 celltype1 celltype2 celltype1 celltype1 celltype2 celltype2 celltype2 celltype2 celltype2 celltype1 celltype2
+  [25] celltype2 celltype1 celltype2 celltype1 celltype2 celltype2 celltype2 celltype1 celltype2 celltype2 celltype1 celltype2
+  [37] celltype2 celltype2 celltype1 celltype2 celltype1 celltype1 celltype2 celltype2 celltype2 celltype1 celltype2 celltype2
+  [49] celltype1 celltype1 celltype2 celltype1 celltype1 celltype2 celltype2 celltype1 celltype2 celltype2 celltype2 celltype2
+  [61] celltype2 celltype2 celltype2 celltype1 celltype2 celltype2 celltype2 celltype2 celltype2 celltype2 celltype2 celltype1
+  [73] celltype2 celltype1 celltype2 celltype2 celltype2 celltype2 celltype2 celltype2 celltype1 celltype2 celltype1 celltype1
+  [85] celltype1 celltype2 celltype2 celltype1 celltype2 celltype1 celltype2 celltype2 celltype2 celltype1 celltype1 celltype2
+  [97] celltype2 celltype2 celltype1 celltype2 celltype1 celltype2 celltype2 celltype2 celltype2 celltype2 celltype1 celltype2
+ [109] celltype2 celltype2 celltype1 celltype1 celltype2 celltype2 celltype2 celltype1 celltype1 celltype1 celltype1 celltype2
+ [121] celltype2 celltype2 celltype2 celltype2 celltype1 celltype1 celltype1 celltype2 celltype2 celltype2 celltype1 celltype2
+ [133] celltype1 celltype2 celltype1 celltype2 celltype2 celltype2 celltype1 celltype1 celltype2 celltype2 celltype2 celltype2
+ [145] celltype2 celltype2 celltype2 celltype2 celltype1 celltype2 celltype1 celltype2 celltype2 celltype1 celltype1 celltype2
+ [157] celltype2 celltype2 celltype2 celltype2 celltype2 celltype2 celltype2 celltype2 celltype1 celltype1 celltype2 celltype2
+ [169] celltype2 celltype2 celltype2 celltype2 celltype2 celltype2 celltype2 celltype1 celltype1 celltype2 celltype2 celltype2
+ [181] celltype1 celltype2 celltype2 celltype2 celltype1 celltype1 celltype1 celltype2 celltype2 celltype2 celltype2 celltype2
+ [193] celltype2 celltype1 celltype2 celltype2 celltype2 celltype2 celltype1 celltype2 celltype1 celltype2 celltype1 celltype1
+ [205] celltype2 celltype1 celltype2 celltype2 celltype2 celltype2 celltype2 celltype1 celltype2 celltype2 celltype2 celltype1
+ [217] celltype2 celltype2 celltype2 celltype2 celltype2 celltype2 celltype2 celltype2 celltype2 celltype1 celltype2 celltype2
+ [229] celltype2 celltype1 celltype2 celltype1 celltype1 celltype2 celltype2 celltype2 celltype1 celltype1 celltype2 celltype1
+ [241] celltype2 celltype2 celltype1 celltype1 celltype2 celltype2 celltype2 celltype2 celltype2 celltype2 celltype2 celltype2
+ [253] celltype2 celltype2 celltype1 celltype2 celltype2 celltype2 celltype1 celltype1 celltype2 celltype2 celltype2 celltype1
+ [265] celltype2 celltype2 celltype2 celltype1 celltype2 celltype2 celltype2 celltype2 celltype2 celltype2 celltype1 celltype2
+ [277] celltype2 celltype2 celltype2 celltype1 celltype1 celltype2 celltype2 celltype2 celltype2 celltype1 celltype2 celltype2
+ [289] celltype2 celltype2 celltype2 celltype2 celltype2 celltype1 celltype2 celltype2 celltype1 celltype2 celltype2 celltype2
+ [301] celltype1 celltype2 celltype1 celltype1 celltype1 celltype2 celltype2 celltype2 celltype2 celltype2 celltype2 celltype2
+ [313] celltype1 celltype1 celltype1 celltype2 celltype2 celltype2 celltype2 celltype1 celltype2 celltype1 celltype2 celltype2
+ [325] celltype1 celltype2 celltype2 celltype2 celltype1 celltype2 celltype2 celltype2 celltype2 celltype2 celltype2 celltype2
+ [337] celltype2 celltype2 celltype1 celltype2 celltype1 celltype2 celltype1 celltype2 celltype2 celltype2 celltype1 celltype2
+ [349] celltype2 celltype2 celltype2 celltype2 celltype2 celltype2 celltype1 celltype2 celltype1 celltype2 celltype2 celltype2
+ [361] celltype2 celltype2 celltype2 celltype2 celltype1 celltype1 celltype1 celltype2 celltype2 celltype2 celltype2 celltype1
+ [373] celltype2 celltype2 celltype2 celltype2 celltype2 celltype2 celltype2 celltype1 celltype2 celltype2 celltype2 celltype1
+ [385] celltype2 celltype2 celltype1 celltype2 celltype2 celltype1 celltype2 celltype1 celltype1 celltype2 celltype1 celltype2
+ [397] celltype1 celltype1 celltype2 celltype2 celltype2 celltype1 celltype1 celltype2 celltype2 celltype2 celltype2 celltype1
+ [409] celltype2 celltype2 celltype2 celltype2 celltype1 celltype2 celltype1 celltype2 celltype2 celltype2 celltype2 celltype2
+ [421] celltype1 celltype2 celltype1 celltype1 celltype2 celltype2 celltype2 celltype1 celltype2 celltype2 celltype2 celltype1
+ [433] celltype2 celltype2 celltype1 celltype1 celltype2 celltype2 celltype1 celltype1 celltype1 celltype2 celltype1 celltype2
+ [445] celltype1 celltype1 celltype2 celltype1 celltype1 celltype2 celltype1 celltype1 celltype1 celltype1 celltype2 celltype1
+ [457] celltype1 celltype1 celltype1 celltype2 celltype1 celltype1 celltype2 celltype1 celltype2 celltype2 celltype2 celltype1
+ [469] celltype2 celltype1 celltype1 celltype2 celltype1 celltype1 celltype1 celltype2 celltype2 celltype1 celltype2 celltype1
+ [481] celltype1 celltype1 celltype1 celltype2 celltype1 celltype1 celltype1 celltype2 celltype1 celltype2 celltype1 celltype1
+ [493] celltype2 celltype2 celltype1 celltype1 celltype1 celltype1 celltype2 celltype1 celltype2 celltype2 celltype1 celltype1
+ [505] celltype1 celltype1 celltype1 celltype1 celltype1 celltype1 celltype2 celltype1 celltype1 celltype2 celltype1 celltype2
+ [517] celltype2 celltype1 celltype2 celltype2 celltype1 celltype2 celltype1 celltype1 celltype1 celltype1 celltype1 celltype2
+ [529] celltype1 celltype2 celltype1 celltype2 celltype1 celltype2 celltype2 celltype2 celltype1 celltype1 celltype1 celltype1
+ [541] celltype1 celltype1 celltype1 celltype1 celltype2 celltype1 celltype1 celltype2 celltype1 celltype1 celltype2 celltype1
+ [553] celltype2 celltype1 celltype2 celltype1 celltype2 celltype1 celltype1 celltype2 celltype1 celltype1 celltype2 celltype1
+ [565] celltype1 celltype1 celltype2 celltype1 celltype1 celltype2 celltype2 celltype1 celltype1 celltype1 celltype1 celltype2
+ [577] celltype2 celltype1 celltype2 celltype1 celltype1 celltype2 celltype1 celltype1 celltype1 celltype1 celltype2 celltype1
+ [589] celltype1 celltype2 celltype1 celltype1 celltype1 celltype1 celltype1 celltype1 celltype1 celltype1 celltype2 celltype1
+ [601] celltype1 celltype1 celltype1 celltype2 celltype1 celltype1 celltype1 celltype1 celltype1 celltype2 celltype2 celltype2
+ [613] celltype1 celltype1 celltype1 celltype1 celltype2 celltype1 celltype2 celltype2 celltype2 celltype1 celltype1 celltype2
+ [625] celltype1 celltype2 celltype1 celltype1 celltype1 celltype1 celltype1 celltype1 celltype1 celltype1 celltype1 celltype1
+ [637] celltype2 celltype1 celltype1 celltype1 celltype2 celltype1 celltype2 celltype1 celltype2 celltype2 celltype1 celltype1
+ [649] celltype1 celltype1 celltype1 celltype1 celltype1 celltype2 celltype1 celltype1 celltype2 celltype2 celltype1 celltype1
+ [661] celltype1 celltype1 celltype1 celltype1 celltype1 celltype1 celltype1 celltype1 celltype1 celltype1 celltype1 celltype2
+ [673] celltype1 celltype1 celltype1 celltype1 celltype2 celltype1 celltype1 celltype2 celltype2 celltype1 celltype1 celltype1
+ [685] celltype1 celltype1 celltype1 celltype1 celltype1 celltype1 celltype1 celltype1 celltype1 celltype2 celltype1 celltype2
+ [697] celltype1 celltype1 celltype1 celltype1 celltype2 celltype1 celltype1 celltype1 celltype1 celltype2 celltype1 celltype1
+ [709] celltype1 celltype2 celltype2 celltype1 celltype2 celltype2 celltype2 celltype2 celltype2 celltype1 celltype1 celltype1
+ [721] celltype2 celltype1 celltype1 celltype1 celltype1 celltype2 celltype1 celltype2 celltype1 celltype2 celltype2 celltype2
+ [733] celltype1 celltype1 celltype2 celltype1 celltype1 celltype1 celltype2 celltype1 celltype1 celltype2 celltype1 celltype1
+ [745] celltype1 celltype2 celltype1 celltype1 celltype1 celltype1 celltype2 celltype1 celltype1 celltype2 celltype1 celltype1
+ [757] celltype1 celltype2 celltype1 celltype1 celltype1 celltype1 celltype1 celltype1 celltype2 celltype2 celltype1 celltype1
+ [769] celltype2 celltype1 celltype1 celltype2 celltype1 celltype1 celltype1 celltype1 celltype2 celltype2 celltype1 celltype1
+ [781] celltype1 celltype2 celltype1 celltype1 celltype1 celltype2 celltype2 celltype2 celltype1 celltype1 celltype1 celltype1
+ [793] celltype2 celltype1 celltype1 celltype1 celltype2 celltype1 celltype2 celltype1 celltype1 celltype2 celltype1 celltype1
+ [805] celltype1 celltype1 celltype1 celltype2 celltype2 celltype2 celltype1 celltype1 celltype2 celltype2 celltype1 celltype2
+ [817] celltype1 celltype1 celltype2 celltype2 celltype1 celltype1 celltype1 celltype1 celltype2 celltype1 celltype1 celltype1
+ [829] celltype1 celltype2 celltype1 celltype2 celltype2 celltype1 celltype1 celltype1 celltype1 celltype1 celltype2 celltype1
+ [841] celltype2 celltype1 celltype1 celltype1 celltype1 celltype2 celltype2 celltype2 celltype2 celltype1 celltype1 celltype2
+ [853] celltype1 celltype1 celltype2 celltype2 celltype2 celltype1 celltype2 celltype2 celltype2 celltype2 celltype1 celltype1
+ [865] celltype1 celltype1 celltype2 celltype2 celltype2 celltype2 celltype2 celltype2 celltype2 celltype2 celltype2 celltype1
+ [877] celltype2 celltype1 celltype2 celltype2 celltype1 celltype1 celltype1 celltype2 celltype2 celltype2 celltype2 celltype1
+ [889] celltype1 celltype2 celltype1 celltype2 celltype1 celltype2 celltype1 celltype2 celltype1 celltype1 celltype1 celltype1
+ [901] celltype1 celltype1 celltype1 celltype2 celltype1 celltype2 celltype2 celltype2 celltype2 celltype1 celltype1 celltype1
+ [913] celltype2 celltype2 celltype1 celltype2 celltype1 celltype2 celltype2 celltype1 celltype1 celltype1 celltype2 celltype2
+ [925] celltype2 celltype1 celltype1 celltype2 celltype2 celltype1 celltype1 celltype1 celltype1 celltype2 celltype1 celltype2
+ [937] celltype1 celltype1 celltype1 celltype1 celltype1 celltype2 celltype1 celltype1 celltype1 celltype2 celltype2 celltype1
+ [949] celltype2 celltype2 celltype2 celltype1 celltype2 celltype2 celltype2 celltype2 celltype2 celltype2 celltype1 celltype2
+ [961] celltype2 celltype2 celltype2 celltype2 celltype1 celltype1 celltype1 celltype1 celltype2 celltype1 celltype2 celltype2
+ [973] celltype1 celltype1 celltype1 celltype1 celltype1 celltype1 celltype1 celltype1 celltype2 celltype2 celltype1 celltype1
+ [985] celltype1 celltype1 celltype1 celltype2 celltype1 celltype1 celltype1 celltype2 celltype1 celltype2 celltype1 celltype1
+ [997] celltype2 celltype2 celltype2 celltype2
+ [ reached 'max' / getOption("max.print") -- omitted 2 entries ]
+Levels: celltype1 celltype2
+ [1] "Evx2_filler_3"   "Vip_filler_4"    "Sulf2_filler_5"  "Lamp5_filler_8"  "Pvalb"           "Slc17a7"         "Tac2"           
+ [8] "Vip"             "Evx2_filler_1"   "Megf11_filler_2" "Lypd1_filler_6"  "Ccn4_filler_7"   "Fgf10_filler_9"  "Tll1_filler_10" 
+[1] "Evx2_filler_3"
+[1] "Vip_filler_4"
+[1] "Sulf2_filler_5"
+[1] "Lamp5_filler_8"
+[1] "Pvalb"
+[1] "Slc17a7"
+[1] "Tac2"
+[1] "Vip"
+[1] "Evx2_filler_1"
+[1] "Megf11_filler_2"
+[1] "Lypd1_filler_6"
+[1] "Ccn4_filler_7"
+[1] "Fgf10_filler_9"
+[1] "Tll1_filler_10"
+Key: <x, y>
+       x     y
+   <int> <int>
+1:     1     1
+2:     1     2
+3:     1     3
+4:     1     4
+5:     1     5
+6:     1     6
+Key: <bin_x, bin_y>
+   bin_x bin_y  pixel
+   <int> <int> <char>
+1:     1     1    1_1
+2:     1     2    1_2
+3:     1     3    1_3
+4:     1     4    1_4
+5:     1     5    1_5
+6:     1     6    1_6
+Key: <bin_x, bin_y>
+       bin_x bin_y   pixel
+       <int> <int>  <char>
+    1:     1     1     1_1
+    2:     1     2     1_2
+    3:     1     3     1_3
+    4:     1     4     1_4
+    5:     1     5     1_5
+   ---                    
+ 9996:   100    96  100_96
+ 9997:   100    97  100_97
+ 9998:   100    98  100_98
+ 9999:   100    99  100_99
+10000:   100   100 100_100
+Key: <bin_x, bin_y>
+   bin_x bin_y
+   <int> <int>
+1:     1     1
+2:     1     2
+3:     1     3
+4:     1     4
+5:     1     5
+6:     1     6
+Key: <bin_x, bin_y>
+       bin_x bin_y   pixel
+       <int> <int>  <char>
+    1:     1     1     1_1
+    2:     1     2     1_2
+    3:     1     3     1_3
+    4:     1     4     1_4
+    5:     1     5     1_5
+   ---                    
+ 9996:   100    96  100_96
+ 9997:   100    97  100_97
+ 9998:   100    98  100_98
+ 9999:   100    99  100_99
+10000:   100   100 100_100
+Key: <bin_x, bin_y>
+   bin_x bin_y  pixel
+   <int> <int> <char>
+1:     1     1    1_1
+2:     1     2    1_2
+3:     1     3    1_3
+4:     1     4    1_4
+5:     1     5    1_5
+6:     1     6    1_6
+Key: <bin_x, bin_y>
+   bin_x bin_y  pixel
+   <int> <int> <char>
+1:     1     1    1_1
+2:     1     2    1_2
+3:     1     3    1_3
+4:     1     4    1_4
+5:     1     5    1_5
+6:     1     6    1_6
+     bin_x bin_y pixel
+[1,] "  1" "  1" "1_1"
+[2,] "  1" "  2" "1_2"
+[3,] "  1" "  3" "1_3"
+[4,] "  1" "  4" "1_4"
+[5,] "  1" "  5" "1_5"
+[6,] "  1" "  6" "1_6"
+[1] 10000     3
+    bin_x bin_y pixel
+1_1 "  1" "  1" "1_1"
+1_2 "  1" "  2" "1_2"
+1_3 "  1" "  3" "1_3"
+1_4 "  1" "  4" "1_4"
+1_5 "  1" "  5" "1_5"
+1_6 "  1" "  6" "1_6"
+    x     y    
+1_1 "  1" "  1"
+1_2 "  1" "  2"
+1_3 "  1" "  3"
+1_4 "  1" "  4"
+1_5 "  1" "  5"
+1_6 "  1" "  6"
