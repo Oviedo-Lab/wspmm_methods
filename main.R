@@ -24,7 +24,7 @@ snk.report("Analysis of MERFISH data by Warped Sigmoid, Poisson-Process Mixed-Ef
 
 # Set file path, and bootstrap chunk size
 data_path <- paste0(projects_folder, "_molecular_mechanisms_of_ACx_lateralization/data_SSp/")
-bs_chunksize <- 5
+bs_chunksize <- 20
 
 # Preprocessing MERFISH data ###########################################################################################
 
@@ -1749,7 +1749,7 @@ library(spacexr)
 
 # Function to convert data to CSIDE format and run RCTD
 convert_sim_data_to_CSIDE <- function(
-    sim_data,
+    sim,
     ref_counts,
     max_cores = 2
   ) {
@@ -1765,6 +1765,7 @@ convert_sim_data_to_CSIDE <- function(
     #   nUMI vector: total counts per cell in ref_counts
     
     # Grab data and split replicates by fixed effect
+    sim_data <- sim$data
     sim_data$replicate <- paste(sim_data$replicate, sim_data$fixedeffect, sep = "_")
     replicates <- sort(unique(sim_data$replicate))
     grounp_ids <- as.integer(grepl("_trt", replicates)) + 1 # 1 for ref, 2 for trt
@@ -1796,32 +1797,33 @@ convert_sim_data_to_CSIDE <- function(
     cell_types <- as.factor(cell_types) # convert to factor data type
     
     # Randomly create ten filler genes that are differentially expressed between cell types
-    n_filler_genes <- 10
+    n_filler_genes <- 20
     n_original_genes <- length(unique(sim_data$gene))
     ct_mask <- cell_types == "celltype1"
     n_ct1_ref <- sum(ct_mask)
     n_ct2_ref <- sum(!ct_mask)
     this_slice_num <- sim_data$slice_num[1]
     filler_df <- data.frame()
+    original_gene_names <- rownames(ref_counts)
     for (fg in c(1:n_filler_genes)) {
       
       # Select a gene from ref_counts
-      fg_name <- sample(rownames(ref_counts), 1)
+      fg_name <- sample(original_gene_names, 1)
       ct1_counts <- ref_counts[fg_name, ct_mask]
-      de_mult <- (runif(1) * 2)^2 # up to 4-fold change
-      if (de_mult <= 1 & de_mult > 0.5) de_mult <- 0.5 
-      if (de_mult > 1 & de_mult < 1.5) de_mult <- 1.5
-      ct2_counts <- ct1_counts * de_mult 
-      fg_name <- paste0(fg_name, "_filler_", fg)
+      ct1_counts <- ct1_counts * runif(1) * 2
+      ct2_counts <- ct1_counts * (2 * runif(1))^2
+      fg_name <- paste0("_filler_", fg, "_", fg_name)
       
       # Update ref_counts with filler gene
       new_row <- rep(0, ncol(ref_counts))
-      new_row[ct_mask] <- rpois(n_ct1_ref, ct1_counts)
-      new_row[!ct_mask] <- rpois(n_ct2_ref, ct2_counts)
+      new_row[ct_mask] <- rpois(n_ct1_ref, ct1_counts + 1)
+      new_row[!ct_mask] <- rpois(n_ct2_ref, ct2_counts + 1)
       ref_counts <- rbind(ref_counts, new_row)
       rownames(ref_counts)[nrow(ref_counts)] <- fg_name
       
       for (r in replicates) {
+        replicate_num <- as.integer(sub(".*?(\\d+).*", "\\1", r))
+        rep_rate_scalar <- sim$replicate_rate_scalars[replicate_num] + 0.5
         r_mask <- sim_data$replicate == r
         n_spots <- sum(r_mask)/n_original_genes
         r_idx <- sample(which(r_mask), n_spots, replace = TRUE) 
@@ -1829,8 +1831,8 @@ convert_sim_data_to_CSIDE <- function(
         ct_mask_r_df <- r_df$bin_x >= max(r_df$bin_x)/2 # arbitrarily assign left half to celltype1, right half to celltype2
         n_ct1 <- sum(ct_mask_r_df)
         n_ct2 <- n_spots - n_ct1
-        r_df$count[ct_mask_r_df] <- rpois(n_ct1, sample(ct1_counts, n_ct1, replace = TRUE))
-        r_df$count[!ct_mask_r_df] <- rpois(n_ct2, sample(ct2_counts, n_ct2, replace = TRUE))
+        r_df$count[ct_mask_r_df] <- rpois(n_ct1, sample(ct1_counts * 2 * rep_rate_scalar, n_ct1, replace = TRUE) + 1)
+        r_df$count[!ct_mask_r_df] <- rpois(n_ct2, sample(ct2_counts * 2 * rep_rate_scalar, n_ct2, replace = TRUE) + 1)
         r_df$gene <- fg_name
         filler_df <- rbind(filler_df, r_df)
       }
@@ -1880,6 +1882,7 @@ convert_sim_data_to_CSIDE <- function(
       )
       pixel_mat <- as.matrix(pixel_mat[, -1, with = FALSE])
       rownames(pixel_mat) <- dt_full[, unique(gene)]
+      
       # Get library counts 
       nUMI_spatial <- colSums(pixel_mat)
       
@@ -1899,14 +1902,14 @@ convert_sim_data_to_CSIDE <- function(
       replicate_names = replicates,
       group_ids = grounp_ids,
       max_cores = max_cores,
-      # gene_cutoff = low_panel_cutoff, 
+      gene_cutoff = low_panel_cutoff, 
       fc_cutoff = low_panel_cutoff,
-      # gene_cutoff_reg = low_panel_cutoff, 
-      fc_cutoff_reg = low_panel_cutoff #,
+      gene_cutoff_reg = low_panel_cutoff, 
+      fc_cutoff_reg = low_panel_cutoff,
       # UMI_min = low_panel_cutoff,
       # UMI_min_sigma = low_panel_cutoff,
-      # CELL_MIN_INSTANCE = 1,
-      # CONFIDENCE_THRESHOLD = 1
+      CELL_MIN_INSTANCE = 1,
+      CONFIDENCE_THRESHOLD = 1
     )
     myRCTD.reps <- run.RCTD.replicates(myRCTD.reps)
     
@@ -1921,7 +1924,7 @@ convert_sim_data_to_CSIDE <- function(
 
 # Function to run CSIDE
 run_CSIDE <- function(
-    sim_data,
+    sim,
     ref_counts,
     max_cores = 2
   ) {
@@ -1929,16 +1932,16 @@ run_CSIDE <- function(
     # Convert data
     RCTD <- tryCatch(
       convert_sim_data_to_CSIDE(
-        sim_data   = sim_data,
+        sim = sim,
         ref_counts = ref_counts,
-        max_cores  = max_cores
+        max_cores = max_cores
       ),
       error = function(e) {
         cat("\nError occurred with CSIDE data conversion or RCTD. Retrying with different random draws...")
         convert_sim_data_to_CSIDE(
-          sim_data   = sim_data,
+          sim = sim,
           ref_counts = ref_counts,
-          max_cores  = max_cores
+          max_cores = max_cores
         )
       }
     )
@@ -1947,9 +1950,10 @@ run_CSIDE <- function(
     myRCTD.reps <- run.CSIDE.replicates(
       RCTD.replicates = RCTD$RCTD,
       cell_types = c("celltype1", "celltype2"),
+      cell_type_threshold = 5, 
       weight_threshold = 0,
       fdr = 0.05,
-      population_de = FALSE,
+      population_de = TRUE,
       de_mode = "nonparam",
       barcodes = RCTD$barcodes,
       log_fc_thresh = 0
@@ -1960,7 +1964,8 @@ run_CSIDE <- function(
       myRCTD.reps, 
       fdr = 0.05, 
       use.groups = TRUE,
-      MIN.CONV.GROUPS = 0,
+      MIN.CONV.REPLICATES = 1,
+      MIN.CONV.GROUPS = 1,
       CT.PROP = 0,
       log_fc_thresh = 0
       )
@@ -1976,7 +1981,7 @@ run_CSIDE <- function(
   }
 
 test <- run_CSIDE(
-  sim_data = sim_data$data,
+  sim = sim_data,
   ref_counts = ref_counts,
   max_cores = bs_chunksize
 )
@@ -1991,7 +1996,7 @@ model_sim_CSIDE <- function(
     
     # Run CSIDE
     cside_model <- run_CSIDE(
-      sim_data = sim$data,
+      sim = sim,
       ref_counts = ref_counts,
       max_cores = max_cores
     )
