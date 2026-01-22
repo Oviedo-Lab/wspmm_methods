@@ -24,7 +24,7 @@ snk.report("Analysis of MERFISH data by Warped Sigmoid, Poisson-Process Mixed-Ef
 
 # Set file path, and bootstrap chunk size
 data_path <- paste0(projects_folder, "_molecular_mechanisms_of_ACx_lateralization/data_SSp/")
-bs_chunksize <- 20
+bs_chunksize <- 5
 
 # Preprocessing MERFISH data ###########################################################################################
 
@@ -1197,8 +1197,8 @@ simulate_data <- function(
 
 # Function to extract ground-truth from sim data 
 ground_truth <- function(sim) {
-    rate_effects_true <- sim$effect
-    random_effects_true <- sim$replicate_rate_scalars
+    fse_true <- sim$effect
+    ran_true <- sim$replicate_rate_scalars
     SVGs <- rep(FALSE, length(sim$genes))
     names(SVGs) <- sim$genes
     SVGs[sim$SVGs] <- TRUE
@@ -1207,8 +1207,8 @@ ground_truth <- function(sim) {
     FSEs[sim$FSEs] <- TRUE 
     return(
       list(
-        rate_effects_true = rate_effects_true,
-        random_effects_true = random_effects_true,
+        fse_true = fse_true,
+        ran_true = ran_true,
         SVGs = SVGs,
         FSEs = FSEs
       )
@@ -1287,33 +1287,33 @@ model_sim_wisp <- function(
     )
     
     # Extract model results for comparing to ground truth
-    rate_effects_est <- extract_rate_effect_wisp(model)
-    random_effects_est <- extract_random_effect_wisp(model)
-    rate_effects_pvalues <- rep(NA, length(rate_effects_est))
-    names(rate_effects_pvalues) <- names(rate_effects_est)
+    fse_est <- extract_rate_effect_wisp(model)
+    ran_est <- extract_random_effect_wisp(model)
+    fse_pvalues <- rep(NA, length(fse_est))
+    names(fse_pvalues) <- names(fse_est)
     if (!fit_only) {
-      rate_effects_pvalues <- extract_pvalue_wisp(model)
+      fse_pvalues <- extract_pvalue_wisp(model)
     }
     
     # Extract ground-truth
     GT <- ground_truth(sim)
-    rate_effects_true <- GT$rate_effects_true
-    random_effects_true <- GT$random_effects_true
+    fse_true <- GT$fse_true
+    ran_true <- GT$ran_true
     FSEs <- GT$FSEs
     
     # Compile results in named vector 
     results <- data.frame(
-      est = c(rate_effects_est, random_effects_est, rate_effects_pvalues),
-      true = c(rate_effects_true, random_effects_true, FSEs),
+      est = c(fse_est, ran_est, fse_pvalues),
+      true = c(fse_true, ran_true, FSEs),
       param = c(
-        rep("rate_effect", length(rate_effects_est)), 
-        rep("random_effect", length(random_effects_est)), 
-        rep("FSE", length(rate_effects_pvalues))
+        rep("rate_effect", length(fse_est)), 
+        rep("random_effect", length(ran_est)), 
+        rep("FSE", length(fse_pvalues))
       ),
       id = c(
-        names(rate_effects_est), 
-        names(random_effects_est), 
-        names(rate_effects_pvalues)
+        names(fse_est), 
+        names(ran_est), 
+        names(fse_pvalues)
       )
     )
     
@@ -1520,7 +1520,7 @@ model_sim_ELLA <- function(
     sim_num 
   ) {
     
-    # Run ELLA without messages 
+    # Run ELLA
     model <- run_ELLA(sim$data)
     
     # Extract model results for comparing to ground truth
@@ -1743,15 +1743,17 @@ plot_ella_fit <- function(
 # CSIDE benchmarking functions #########################################################################################
 
 # Load library 
+# options(timeout = 600000000) ### set this to avoid timeout error
+# devtools::install_github("dmcable/spacexr", build_vignettes = FALSE)
 library(spacexr)
 
-# Function to convert data to CSIDE format and to run CSIDE
-run_CSIDE <- function(
+# Function to convert data to CSIDE format and run RCTD
+convert_sim_data_to_CSIDE <- function(
     sim_data,
     ref_counts,
     max_cores = 2
   ) {
-   
+    
     # Need:
     #  DATA:
     #   count matrix (one per "puck"): rows as genes, columns as spots (i.e., spatial locations, or "pixels")
@@ -1780,8 +1782,10 @@ run_CSIDE <- function(
     # Convert pixel matrix into coords matrix 
     coords <- pixels 
     rownames(coords) <- coords[, "pixel"]
-    coords <- coords[, c("bin_x", "bin_y")]
+    coords <- as.data.frame(coords[, c("bin_x", "bin_y")])
     colnames(coords) <- c("x", "y")
+    coords$x <- as.numeric(coords$x)
+    coords$y <- as.numeric(coords$y)
     
     # Create cell types for REFERENCE
     cell_types <- data.frame(
@@ -1861,7 +1865,7 @@ run_CSIDE <- function(
       dt <- dt[, .(count = sum(count)), by = .(gene, pixel)]
       # ensure all gene–pixel combinations exist
       dt_full <- merge(
-        CJ(gene = unique(dt$gene), pixel = pixels$pixel),
+        CJ(gene = unique(dt$gene), pixel = pixels[,"pixel"]),
         dt,
         by = c("gene", "pixel"),
         all.x = TRUE
@@ -1885,7 +1889,7 @@ run_CSIDE <- function(
       
     }
     
-    barcodes <- sort(unique(unlist(barcodes)))
+    barcodes <- barcodes[[1]]
     
     # Create RCTD object
     low_panel_cutoff <- 0 # ... set to zero to account for small panel
@@ -1905,17 +1909,69 @@ run_CSIDE <- function(
       # CONFIDENCE_THRESHOLD = 1
     )
     myRCTD.reps <- run.RCTD.replicates(myRCTD.reps)
-    #return(myRCTD.reps)
-    myRCTD.reps <- run.CSIDE.replicates(
-      RCTD.replicates = myRCTD.reps,
-      cell_types = c("celltype1", "celltype2"),
-      fdr = 0.05,
-      population_de = TRUE,
-      de_mode = "nonparam",
-      barcodes = barcodes
+    
+    return(
+      list(
+        RCTD = myRCTD.reps,
+        barcodes = barcodes
+      )
     )
     
-    return(myRCTD.reps)
+  }
+
+# Function to run CSIDE
+run_CSIDE <- function(
+    sim_data,
+    ref_counts,
+    max_cores = 2
+  ) {
+    
+    # Convert data
+    RCTD <- tryCatch(
+      convert_sim_data_to_CSIDE(
+        sim_data   = sim_data,
+        ref_counts = ref_counts,
+        max_cores  = max_cores
+      ),
+      error = function(e) {
+        cat("\nError occurred with CSIDE data conversion or RCTD. Retrying with different random draws...")
+        convert_sim_data_to_CSIDE(
+          sim_data   = sim_data,
+          ref_counts = ref_counts,
+          max_cores  = max_cores
+        )
+      }
+    )
+    
+    # Run CSIDE
+    myRCTD.reps <- run.CSIDE.replicates(
+      RCTD.replicates = RCTD$RCTD,
+      cell_types = c("celltype1", "celltype2"),
+      weight_threshold = 0,
+      fdr = 0.05,
+      population_de = FALSE,
+      de_mode = "nonparam",
+      barcodes = RCTD$barcodes,
+      log_fc_thresh = 0
+    )
+    
+    # Run population inference with groups
+    myRCTD.pop <- CSIDE.population.inference(
+      myRCTD.reps, 
+      fdr = 0.05, 
+      use.groups = TRUE,
+      MIN.CONV.GROUPS = 0,
+      CT.PROP = 0,
+      log_fc_thresh = 0
+      )
+    
+    # Return completed model
+    return(
+      list(
+        myRCTD.reps = myRCTD.reps,
+        myRCTD.pop = myRCTD.pop
+      )
+    )
     
   }
 
@@ -1941,28 +1997,59 @@ model_sim_CSIDE <- function(
     )
     
     # Extract model results for comparing to ground truth
-    de_results <- cside_model@de_results_replicates[["replicate1_ref"]]
-    p_values <- de_results$p_value_adj
-    names(p_values) <- de_results$gene
+    de_results <- cside_model@population_de_results
+    # ... use just celltype1, discard celltype2 results (both cell types were simulated identically)
+    de_results <- de_results$celltype1
+    # ... filter down to just the genes from the simulation (discard filler genes)
+    de_results <- de_results[rownames(de_results) %in% unique(sim$genes), ]
+    # ... extract estimated replicate variance per gene 
+    # ... extract log fold change per gene (FSE)
+    fse_est <- de_results$log_fc_est
+    ran_est
+    fse_pvalues
+    svg_pvalues
+    
+    # Extract and infer estimated random effects
+    n_replicates <- length(cside_model@RCTD.reps)
+    for (r in c(1:n_replicates)) {
+      # Grab estimated expression per gene for this replicate for celltype1
+      gene_exp_r <- cside_model@RCTD.reps[[r]]@de_results[["gene_fits"]][["mean_val"]][,"celltype1"]
+    }
+    
+    
+    # Extract model results for comparing to ground truth
+    #fse_est <- extract_rate_effect_wisp(model)
+    #ran_est <- extract_random_effect_wisp(model)
+    #fse_pvalues <- rep(NA, length(fse_est))
+    #names(fse_pvalues) <- names(fse_est)
+    #if (!fit_only) {
+    #  fse_pvalues <- extract_pvalue_wisp(model)
+    #}
     
     # Extract ground-truth
     GT <- ground_truth(sim)
+    fse_true <- GT$fse_true
+    ran_true <- GT$ran_true
     FSEs <- GT$FSEs
     
     # Compile results in named vector 
     results <- data.frame(
-      est = c(p_values),
-      true = c(FSEs[names(p_values)]),
+      est = c(fse_est, ran_est, fse_pvalues),
+      true = c(fse_true, ran_true, FSEs),
       param = c(
-        rep("FSE", length(p_values))
+        rep("rate_effect", length(fse_est)), 
+        rep("random_effect", length(ran_est)), 
+        rep("FSE", length(fse_pvalues))
       ),
       id = c(
-        names(p_values)
+        names(fse_est), 
+        names(ran_est), 
+        names(fse_pvalues)
       )
     )
     
     # Add method and sim number
-    results$method <- "CSIDE"
+    results$method <- "wisp"
     results$sim <- sim_num
     
     return(results)

@@ -1,21 +1,66 @@
 
 
 Analysis of MERFISH data by Warped Sigmoid, Poisson-Process Mixed-Effects Model (WSPmm)
-No documentation for ‘create.RCTD.replicates’ in specified packages and libraries:
-you could try ‘??create.RCTD.replicates’
+
+The downloaded binary packages are in
+	/var/folders/f3/7pxj2bjn7qz_3k6tvr25qztw0000gn/T//Rtmp0gZHiw/downloaded_packages
+
+The downloaded binary packages are in
+	/var/folders/f3/7pxj2bjn7qz_3k6tvr25qztw0000gn/T//Rtmp0gZHiw/downloaded_packages
+── R CMD build ────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+     checking for file ‘/private/var/folders/f3/7pxj2bjn7qz_3k6tvr25qztw0000gn/T/Rtmp0gZHiw/remotes16df368fa5aae/dmcable-spacexr-698d5b0/DESCRIPTION’ ...  ✔  checking for file ‘/private/var/folders/f3/7pxj2bjn7qz_3k6tvr25qztw0000gn/T/Rtmp0gZHiw/remotes16df368fa5aae/dmcable-spacexr-698d5b0/DESCRIPTION’
+  ─  preparing ‘spacexr’:
+   checking DESCRIPTION meta-information ...  ✔  checking DESCRIPTION meta-information
+  ─  checking for LF line-endings in source and make files and shell scripts
+  ─  checking for empty or unneeded directories
+     Omitted ‘LazyData’ from DESCRIPTION
+  ─  building ‘spacexr_2.2.1.tar.gz’
+     
 
 celltype1 celltype2 
      4975      5025 
-
-Enter a frame number, or 0 to exit   
-
-1: run_CSIDE(sim_data = sim_data$data, ref_counts = ref_counts, max_cores = bs_chunksize)
-2: #143: create.RCTD.replicates(spatialRNA.replicates = pucks, reference = reference, replicate_names = replicates, group_ids = gro
-3: create.RCTD(spatialRNA.replicates[[i]], reference, max_cores = max_cores, test_mode = test_mode, gene_cutoff = gene_cutoff, fc_c
-
+[1] "gather_results: finished 1000"
+[1] "gather_results: finished 1000"
+[1] "gather_results: finished 1000"
+[1] "gather_results: finished 2000"
+[1] "gather_results: finished 1000"
+[1] "gather_results: finished 2000"
+[1] "gather_results: finished 1000"
+[1] "gather_results: finished 1000"
 
 celltype1 celltype2 
-     5012      4988 
+     5063      4937 
+[1] "gather_results: finished 1000"
+[1] "gather_results: finished 2000"
+[1] "gather_results: finished 3000"
+[1] "gather_results: finished 1000"
+[1] "gather_results: finished 2000"
+[1] "gather_results: finished 3000"
+[1] "gather_results: finished 1000"
+[1] "gather_results: finished 2000"
+[1] "gather_results: finished 3000"
+[1] "gather_results: finished 1000"
+[1] "gather_results: finished 2000"
+[1] "gather_results: finished 3000"
+[1] "gather_results: finished 1000"
+[1] "gather_results: finished 2000"
+[1] "gather_results: finished 3000"
+[1] "gather_results: finished 1000"
+[1] "gather_results: finished 2000"
+[1] "gather_results: finished 3000"
+[1] "gather_results: finished 1000"
+[1] "gather_results: finished 2000"
+[1] "gather_results: finished 3000"
+[1] "gather_results: finished 1000"
+[1] "gather_results: finished 2000"
+[1] "gather_results: finished 3000"
+[1] "one_ct_genes: population inference on cell type, celltype1"
+[1] "done"
+[1] "one_ct_genes: population inference on cell type, celltype2"
+[1] "done"
+
+celltype1 celltype2 
+     4936      5064 
 [1] "gather_results: finished 1000"
 [1] "gather_results: finished 1000"
 [1] "gather_results: finished 1000"
@@ -23,214 +68,36 @@ celltype1 celltype2
 [1] "gather_results: finished 1000"
 [1] "gather_results: finished 1000"
 
-Enter a frame number, or 0 to exit   
+celltype1 celltype2 
+     4935      5065 
+[1] "gather_results: finished 1000"
+[1] "gather_results: finished 1000"
+[1] "gather_results: finished 1000"
+[1] "gather_results: finished 1000"
+[1] "gather_results: finished 1000"
+[1] "gather_results: finished 1000"
+[1] "one_ct_genes: population inference on cell type, celltype1"
+[1] "done"
+[1] "one_ct_genes: population inference on cell type, celltype2"
 
-1: run_CSIDE(sim_data = sim_data$data, ref_counts = ref_counts, max_cores = bs_chunksize)
-2: #160: run.CSIDE.replicates(RCTD.replicates = myRCTD.reps, cell_types = c("celltype1", "celltype2"), fdr = 0.05, population_de = 
-3: run.CSIDE.nonparam(RCTD.replicates@RCTD.reps[[i]], df = df, barcodes = barcodes, cell_types = cell_types, cell_type_threshold = 
-4: build.designmatrix.nonparam(myRCTD, barcodes = barcodes, df = df)
-5: get_spline_matrix(myRCTD@spatialRNA, df = df)
-6: mgcv::smoothCon(mgcv::s(x, y, k = df, fx = T, bs = "tp"), data = center_coords)
-7: smooth.construct3(object, data, knots)
-8: smooth.construct(object, dk$data, dk$knots)
-9: smooth.construct.tp.smooth.spec(object, dk$data, dk$knots)
-
-Enter an item from the menu, or 0 to exit
-Called from: mgcv::smoothCon(mgcv::s(x, y, k = df, fx = T, bs = "tp"), data = center_coords)
-   [1] celltype1 celltype1 celltype1 celltype2 celltype2 celltype1 celltype1 celltype2 celltype2 celltype1 celltype1 celltype2
-  [13] celltype2 celltype1 celltype2 celltype1 celltype1 celltype2 celltype2 celltype2 celltype2 celltype2 celltype1 celltype2
-  [25] celltype2 celltype1 celltype2 celltype1 celltype2 celltype2 celltype2 celltype1 celltype2 celltype2 celltype1 celltype2
-  [37] celltype2 celltype2 celltype1 celltype2 celltype1 celltype1 celltype2 celltype2 celltype2 celltype1 celltype2 celltype2
-  [49] celltype1 celltype1 celltype2 celltype1 celltype1 celltype2 celltype2 celltype1 celltype2 celltype2 celltype2 celltype2
-  [61] celltype2 celltype2 celltype2 celltype1 celltype2 celltype2 celltype2 celltype2 celltype2 celltype2 celltype2 celltype1
-  [73] celltype2 celltype1 celltype2 celltype2 celltype2 celltype2 celltype2 celltype2 celltype1 celltype2 celltype1 celltype1
-  [85] celltype1 celltype2 celltype2 celltype1 celltype2 celltype1 celltype2 celltype2 celltype2 celltype1 celltype1 celltype2
-  [97] celltype2 celltype2 celltype1 celltype2 celltype1 celltype2 celltype2 celltype2 celltype2 celltype2 celltype1 celltype2
- [109] celltype2 celltype2 celltype1 celltype1 celltype2 celltype2 celltype2 celltype1 celltype1 celltype1 celltype1 celltype2
- [121] celltype2 celltype2 celltype2 celltype2 celltype1 celltype1 celltype1 celltype2 celltype2 celltype2 celltype1 celltype2
- [133] celltype1 celltype2 celltype1 celltype2 celltype2 celltype2 celltype1 celltype1 celltype2 celltype2 celltype2 celltype2
- [145] celltype2 celltype2 celltype2 celltype2 celltype1 celltype2 celltype1 celltype2 celltype2 celltype1 celltype1 celltype2
- [157] celltype2 celltype2 celltype2 celltype2 celltype2 celltype2 celltype2 celltype2 celltype1 celltype1 celltype2 celltype2
- [169] celltype2 celltype2 celltype2 celltype2 celltype2 celltype2 celltype2 celltype1 celltype1 celltype2 celltype2 celltype2
- [181] celltype1 celltype2 celltype2 celltype2 celltype1 celltype1 celltype1 celltype2 celltype2 celltype2 celltype2 celltype2
- [193] celltype2 celltype1 celltype2 celltype2 celltype2 celltype2 celltype1 celltype2 celltype1 celltype2 celltype1 celltype1
- [205] celltype2 celltype1 celltype2 celltype2 celltype2 celltype2 celltype2 celltype1 celltype2 celltype2 celltype2 celltype1
- [217] celltype2 celltype2 celltype2 celltype2 celltype2 celltype2 celltype2 celltype2 celltype2 celltype1 celltype2 celltype2
- [229] celltype2 celltype1 celltype2 celltype1 celltype1 celltype2 celltype2 celltype2 celltype1 celltype1 celltype2 celltype1
- [241] celltype2 celltype2 celltype1 celltype1 celltype2 celltype2 celltype2 celltype2 celltype2 celltype2 celltype2 celltype2
- [253] celltype2 celltype2 celltype1 celltype2 celltype2 celltype2 celltype1 celltype1 celltype2 celltype2 celltype2 celltype1
- [265] celltype2 celltype2 celltype2 celltype1 celltype2 celltype2 celltype2 celltype2 celltype2 celltype2 celltype1 celltype2
- [277] celltype2 celltype2 celltype2 celltype1 celltype1 celltype2 celltype2 celltype2 celltype2 celltype1 celltype2 celltype2
- [289] celltype2 celltype2 celltype2 celltype2 celltype2 celltype1 celltype2 celltype2 celltype1 celltype2 celltype2 celltype2
- [301] celltype1 celltype2 celltype1 celltype1 celltype1 celltype2 celltype2 celltype2 celltype2 celltype2 celltype2 celltype2
- [313] celltype1 celltype1 celltype1 celltype2 celltype2 celltype2 celltype2 celltype1 celltype2 celltype1 celltype2 celltype2
- [325] celltype1 celltype2 celltype2 celltype2 celltype1 celltype2 celltype2 celltype2 celltype2 celltype2 celltype2 celltype2
- [337] celltype2 celltype2 celltype1 celltype2 celltype1 celltype2 celltype1 celltype2 celltype2 celltype2 celltype1 celltype2
- [349] celltype2 celltype2 celltype2 celltype2 celltype2 celltype2 celltype1 celltype2 celltype1 celltype2 celltype2 celltype2
- [361] celltype2 celltype2 celltype2 celltype2 celltype1 celltype1 celltype1 celltype2 celltype2 celltype2 celltype2 celltype1
- [373] celltype2 celltype2 celltype2 celltype2 celltype2 celltype2 celltype2 celltype1 celltype2 celltype2 celltype2 celltype1
- [385] celltype2 celltype2 celltype1 celltype2 celltype2 celltype1 celltype2 celltype1 celltype1 celltype2 celltype1 celltype2
- [397] celltype1 celltype1 celltype2 celltype2 celltype2 celltype1 celltype1 celltype2 celltype2 celltype2 celltype2 celltype1
- [409] celltype2 celltype2 celltype2 celltype2 celltype1 celltype2 celltype1 celltype2 celltype2 celltype2 celltype2 celltype2
- [421] celltype1 celltype2 celltype1 celltype1 celltype2 celltype2 celltype2 celltype1 celltype2 celltype2 celltype2 celltype1
- [433] celltype2 celltype2 celltype1 celltype1 celltype2 celltype2 celltype1 celltype1 celltype1 celltype2 celltype1 celltype2
- [445] celltype1 celltype1 celltype2 celltype1 celltype1 celltype2 celltype1 celltype1 celltype1 celltype1 celltype2 celltype1
- [457] celltype1 celltype1 celltype1 celltype2 celltype1 celltype1 celltype2 celltype1 celltype2 celltype2 celltype2 celltype1
- [469] celltype2 celltype1 celltype1 celltype2 celltype1 celltype1 celltype1 celltype2 celltype2 celltype1 celltype2 celltype1
- [481] celltype1 celltype1 celltype1 celltype2 celltype1 celltype1 celltype1 celltype2 celltype1 celltype2 celltype1 celltype1
- [493] celltype2 celltype2 celltype1 celltype1 celltype1 celltype1 celltype2 celltype1 celltype2 celltype2 celltype1 celltype1
- [505] celltype1 celltype1 celltype1 celltype1 celltype1 celltype1 celltype2 celltype1 celltype1 celltype2 celltype1 celltype2
- [517] celltype2 celltype1 celltype2 celltype2 celltype1 celltype2 celltype1 celltype1 celltype1 celltype1 celltype1 celltype2
- [529] celltype1 celltype2 celltype1 celltype2 celltype1 celltype2 celltype2 celltype2 celltype1 celltype1 celltype1 celltype1
- [541] celltype1 celltype1 celltype1 celltype1 celltype2 celltype1 celltype1 celltype2 celltype1 celltype1 celltype2 celltype1
- [553] celltype2 celltype1 celltype2 celltype1 celltype2 celltype1 celltype1 celltype2 celltype1 celltype1 celltype2 celltype1
- [565] celltype1 celltype1 celltype2 celltype1 celltype1 celltype2 celltype2 celltype1 celltype1 celltype1 celltype1 celltype2
- [577] celltype2 celltype1 celltype2 celltype1 celltype1 celltype2 celltype1 celltype1 celltype1 celltype1 celltype2 celltype1
- [589] celltype1 celltype2 celltype1 celltype1 celltype1 celltype1 celltype1 celltype1 celltype1 celltype1 celltype2 celltype1
- [601] celltype1 celltype1 celltype1 celltype2 celltype1 celltype1 celltype1 celltype1 celltype1 celltype2 celltype2 celltype2
- [613] celltype1 celltype1 celltype1 celltype1 celltype2 celltype1 celltype2 celltype2 celltype2 celltype1 celltype1 celltype2
- [625] celltype1 celltype2 celltype1 celltype1 celltype1 celltype1 celltype1 celltype1 celltype1 celltype1 celltype1 celltype1
- [637] celltype2 celltype1 celltype1 celltype1 celltype2 celltype1 celltype2 celltype1 celltype2 celltype2 celltype1 celltype1
- [649] celltype1 celltype1 celltype1 celltype1 celltype1 celltype2 celltype1 celltype1 celltype2 celltype2 celltype1 celltype1
- [661] celltype1 celltype1 celltype1 celltype1 celltype1 celltype1 celltype1 celltype1 celltype1 celltype1 celltype1 celltype2
- [673] celltype1 celltype1 celltype1 celltype1 celltype2 celltype1 celltype1 celltype2 celltype2 celltype1 celltype1 celltype1
- [685] celltype1 celltype1 celltype1 celltype1 celltype1 celltype1 celltype1 celltype1 celltype1 celltype2 celltype1 celltype2
- [697] celltype1 celltype1 celltype1 celltype1 celltype2 celltype1 celltype1 celltype1 celltype1 celltype2 celltype1 celltype1
- [709] celltype1 celltype2 celltype2 celltype1 celltype2 celltype2 celltype2 celltype2 celltype2 celltype1 celltype1 celltype1
- [721] celltype2 celltype1 celltype1 celltype1 celltype1 celltype2 celltype1 celltype2 celltype1 celltype2 celltype2 celltype2
- [733] celltype1 celltype1 celltype2 celltype1 celltype1 celltype1 celltype2 celltype1 celltype1 celltype2 celltype1 celltype1
- [745] celltype1 celltype2 celltype1 celltype1 celltype1 celltype1 celltype2 celltype1 celltype1 celltype2 celltype1 celltype1
- [757] celltype1 celltype2 celltype1 celltype1 celltype1 celltype1 celltype1 celltype1 celltype2 celltype2 celltype1 celltype1
- [769] celltype2 celltype1 celltype1 celltype2 celltype1 celltype1 celltype1 celltype1 celltype2 celltype2 celltype1 celltype1
- [781] celltype1 celltype2 celltype1 celltype1 celltype1 celltype2 celltype2 celltype2 celltype1 celltype1 celltype1 celltype1
- [793] celltype2 celltype1 celltype1 celltype1 celltype2 celltype1 celltype2 celltype1 celltype1 celltype2 celltype1 celltype1
- [805] celltype1 celltype1 celltype1 celltype2 celltype2 celltype2 celltype1 celltype1 celltype2 celltype2 celltype1 celltype2
- [817] celltype1 celltype1 celltype2 celltype2 celltype1 celltype1 celltype1 celltype1 celltype2 celltype1 celltype1 celltype1
- [829] celltype1 celltype2 celltype1 celltype2 celltype2 celltype1 celltype1 celltype1 celltype1 celltype1 celltype2 celltype1
- [841] celltype2 celltype1 celltype1 celltype1 celltype1 celltype2 celltype2 celltype2 celltype2 celltype1 celltype1 celltype2
- [853] celltype1 celltype1 celltype2 celltype2 celltype2 celltype1 celltype2 celltype2 celltype2 celltype2 celltype1 celltype1
- [865] celltype1 celltype1 celltype2 celltype2 celltype2 celltype2 celltype2 celltype2 celltype2 celltype2 celltype2 celltype1
- [877] celltype2 celltype1 celltype2 celltype2 celltype1 celltype1 celltype1 celltype2 celltype2 celltype2 celltype2 celltype1
- [889] celltype1 celltype2 celltype1 celltype2 celltype1 celltype2 celltype1 celltype2 celltype1 celltype1 celltype1 celltype1
- [901] celltype1 celltype1 celltype1 celltype2 celltype1 celltype2 celltype2 celltype2 celltype2 celltype1 celltype1 celltype1
- [913] celltype2 celltype2 celltype1 celltype2 celltype1 celltype2 celltype2 celltype1 celltype1 celltype1 celltype2 celltype2
- [925] celltype2 celltype1 celltype1 celltype2 celltype2 celltype1 celltype1 celltype1 celltype1 celltype2 celltype1 celltype2
- [937] celltype1 celltype1 celltype1 celltype1 celltype1 celltype2 celltype1 celltype1 celltype1 celltype2 celltype2 celltype1
- [949] celltype2 celltype2 celltype2 celltype1 celltype2 celltype2 celltype2 celltype2 celltype2 celltype2 celltype1 celltype2
- [961] celltype2 celltype2 celltype2 celltype2 celltype1 celltype1 celltype1 celltype1 celltype2 celltype1 celltype2 celltype2
- [973] celltype1 celltype1 celltype1 celltype1 celltype1 celltype1 celltype1 celltype1 celltype2 celltype2 celltype1 celltype1
- [985] celltype1 celltype1 celltype1 celltype2 celltype1 celltype1 celltype1 celltype2 celltype1 celltype2 celltype1 celltype1
- [997] celltype2 celltype2 celltype2 celltype2
- [ reached 'max' / getOption("max.print") -- omitted 2 entries ]
-Levels: celltype1 celltype2
- [1] "Evx2_filler_3"   "Vip_filler_4"    "Sulf2_filler_5"  "Lamp5_filler_8"  "Pvalb"           "Slc17a7"         "Tac2"           
- [8] "Vip"             "Evx2_filler_1"   "Megf11_filler_2" "Lypd1_filler_6"  "Ccn4_filler_7"   "Fgf10_filler_9"  "Tll1_filler_10" 
-[1] "Evx2_filler_3"
-[1] "Vip_filler_4"
-[1] "Sulf2_filler_5"
-[1] "Lamp5_filler_8"
-[1] "Pvalb"
-[1] "Slc17a7"
-[1] "Tac2"
-[1] "Vip"
-[1] "Evx2_filler_1"
-[1] "Megf11_filler_2"
-[1] "Lypd1_filler_6"
-[1] "Ccn4_filler_7"
-[1] "Fgf10_filler_9"
-[1] "Tll1_filler_10"
-Key: <x, y>
-       x     y
-   <int> <int>
-1:     1     1
-2:     1     2
-3:     1     3
-4:     1     4
-5:     1     5
-6:     1     6
-Key: <bin_x, bin_y>
-   bin_x bin_y  pixel
-   <int> <int> <char>
-1:     1     1    1_1
-2:     1     2    1_2
-3:     1     3    1_3
-4:     1     4    1_4
-5:     1     5    1_5
-6:     1     6    1_6
-Key: <bin_x, bin_y>
-       bin_x bin_y   pixel
-       <int> <int>  <char>
-    1:     1     1     1_1
-    2:     1     2     1_2
-    3:     1     3     1_3
-    4:     1     4     1_4
-    5:     1     5     1_5
-   ---                    
- 9996:   100    96  100_96
- 9997:   100    97  100_97
- 9998:   100    98  100_98
- 9999:   100    99  100_99
-10000:   100   100 100_100
-Key: <bin_x, bin_y>
-   bin_x bin_y
-   <int> <int>
-1:     1     1
-2:     1     2
-3:     1     3
-4:     1     4
-5:     1     5
-6:     1     6
-Key: <bin_x, bin_y>
-       bin_x bin_y   pixel
-       <int> <int>  <char>
-    1:     1     1     1_1
-    2:     1     2     1_2
-    3:     1     3     1_3
-    4:     1     4     1_4
-    5:     1     5     1_5
-   ---                    
- 9996:   100    96  100_96
- 9997:   100    97  100_97
- 9998:   100    98  100_98
- 9999:   100    99  100_99
-10000:   100   100 100_100
-Key: <bin_x, bin_y>
-   bin_x bin_y  pixel
-   <int> <int> <char>
-1:     1     1    1_1
-2:     1     2    1_2
-3:     1     3    1_3
-4:     1     4    1_4
-5:     1     5    1_5
-6:     1     6    1_6
-Key: <bin_x, bin_y>
-   bin_x bin_y  pixel
-   <int> <int> <char>
-1:     1     1    1_1
-2:     1     2    1_2
-3:     1     3    1_3
-4:     1     4    1_4
-5:     1     5    1_5
-6:     1     6    1_6
-     bin_x bin_y pixel
-[1,] "  1" "  1" "1_1"
-[2,] "  1" "  2" "1_2"
-[3,] "  1" "  3" "1_3"
-[4,] "  1" "  4" "1_4"
-[5,] "  1" "  5" "1_5"
-[6,] "  1" "  6" "1_6"
-[1] 10000     3
-    bin_x bin_y pixel
-1_1 "  1" "  1" "1_1"
-1_2 "  1" "  2" "1_2"
-1_3 "  1" "  3" "1_3"
-1_4 "  1" "  4" "1_4"
-1_5 "  1" "  5" "1_5"
-1_6 "  1" "  6" "1_6"
-    x     y    
-1_1 "  1" "  1"
-1_2 "  1" "  2"
-1_3 "  1" "  3"
-1_4 "  1" "  4"
-1_5 "  1" "  5"
-1_6 "  1" "  6"
+celltype1 celltype2 
+     5001      4999 
+[1] "gather_results: finished 1000"
+[1] "gather_results: finished 2000"
+[1] "gather_results: finished 1000"
+[1] "gather_results: finished 2000"
+[1] "gather_results: finished 1000"
+[1] "gather_results: finished 2000"
+[1] "gather_results: finished 3000"
+[1] "gather_results: finished 1000"
+[1] "gather_results: finished 2000"
+[1] "gather_results: finished 3000"
+[1] "gather_results: finished 1000"
+[1] "gather_results: finished 2000"
+[1] "gather_results: finished 1000"
+[1] "gather_results: finished 2000"
+[1] "gather_results: finished 1000"
+[1] "gather_results: finished 2000"
+[1] "gather_results: finished 1000"
+[1] "gather_results: finished 2000"
+[1] "one_ct_genes: population inference on cell type, celltype1"
