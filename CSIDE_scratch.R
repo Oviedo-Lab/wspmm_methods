@@ -1,4 +1,255 @@
 
+# CSIDE benchmarking functions #########################################################################################
+
+# Load library 
+# options(timeout = 600000000) ### set this to avoid timeout error
+# devtools::install_github("dmcable/spacexr", build_vignettes = FALSE)
+library(spacexr)
+
+# Function to convert data to CSIDE format and run RCTD
+convert_sim_data_to_CSIDE <- function(
+    sim,
+    ref_counts,
+    max_cores = 2
+) {
+  
+  # Need:
+  #  DATA:
+  #   count matrix (one per "puck"): rows as genes, columns as spots (i.e., spatial locations, or "pixels")
+  #   coords matrix: rows as spots, columns as x and y coordinates
+  #   nUMI vector: total counts per spot
+  #  REFERENCE:
+  #   ref_counts: matrix with rows as genes, columns as cells, pseudo-bulk library
+  #   cell_types: named vector with cell type for each cell in ref_counts
+  #   nUMI vector: total counts per cell in ref_counts
+  
+  # Grab data and split replicates by fixed effect
+  sim_data <- sim$data
+  sim_data$replicate <- paste(sim_data$replicate, sim_data$fixedeffect, sep = "_")
+  replicates <- sort(unique(sim_data$replicate))
+  grounp_ids <- as.integer(grepl("_trt", replicates)) + 1 # 1 for ref, 2 for trt
+  
+  # full grid of pixels
+  rx <- range(sim_data$bin_x)
+  ry <- range(sim_data$bin_y)
+  pixels <- CJ(
+    bin_x = rx[1]:rx[2],
+    bin_y = ry[1]:ry[2]
+  )
+  pixels <- pixels[, pixel := paste(bin_x, bin_y, sep = "_")]
+  pixels <- as.matrix(pixels)
+  
+  # Convert pixel matrix into coords matrix 
+  coords <- pixels 
+  rownames(coords) <- coords[, "pixel"]
+  coords <- as.data.frame(coords[, c("bin_x", "bin_y")])
+  colnames(coords) <- c("x", "y")
+  coords$x <- as.numeric(coords$x)
+  coords$y <- as.numeric(coords$y)
+  
+  # Create cell types for REFERENCE
+  cell_types <- data.frame(
+    cell = colnames(ref_counts),
+    type = sample(c("celltype1", "celltype2"), ncol(ref_counts), replace = TRUE)
+  )
+  cell_types <- setNames(cell_types[[2]], cell_types[[1]])
+  cell_types <- as.factor(cell_types) # convert to factor data type
+  
+  # Randomly create ten filler genes that are differentially expressed between cell types
+  n_filler_genes <- 10
+  n_original_genes <- length(unique(sim_data$gene))
+  ct_mask <- cell_types == "celltype1"
+  n_ct1_ref <- sum(ct_mask)
+  n_ct2_ref <- sum(!ct_mask)
+  this_slice_num <- sim_data$slice_num[1]
+  filler_df <- data.frame()
+  original_gene_names <- rownames(ref_counts)
+  for (fg in c(1:n_filler_genes)) {
+    
+    # Select a gene from ref_counts
+    fg_name <- sample(original_gene_names, 1)
+    ct1_counts <- ref_counts[fg_name, ct_mask]
+    ct1_counts <- ct1_counts * runif(1) * 2
+    de_mult <- (2 * runif(1))^2
+    if (de_mult > 0.5 & de_mult <= 1) de_mult <- 0.5
+    if (de_mult > 1 & de_mult <= 1.5) de_mult <- 1.5
+    ct2_counts <- ct1_counts * de_mult
+    fg_name <- paste0("_filler_", fg, "_", fg_name)
+    
+    # Update ref_counts with filler gene
+    new_row <- rep(0, ncol(ref_counts))
+    new_row[ct_mask] <- rpois(n_ct1_ref, ct1_counts + 1)
+    new_row[!ct_mask] <- rpois(n_ct2_ref, ct2_counts + 1)
+    ref_counts <- rbind(ref_counts, new_row)
+    rownames(ref_counts)[nrow(ref_counts)] <- fg_name
+    
+    for (r in replicates) {
+      replicate_num <- as.integer(sub(".*?(\\d+).*", "\\1", r))
+      rep_rate_scalar <- sim$replicate_rate_scalars[replicate_num] + 0.5
+      r_mask <- sim_data$replicate == r
+      n_spots <- sum(r_mask)/n_original_genes
+      r_idx <- sample(which(r_mask), n_spots, replace = TRUE) 
+      r_df <- sim_data[r_idx,]
+      ct_mask_r_df <- r_df$bin_x >= max(r_df$bin_x)/2 # arbitrarily assign left half to celltype1, right half to celltype2
+      n_ct1 <- sum(ct_mask_r_df)
+      n_ct2 <- n_spots - n_ct1
+      r_df$count[ct_mask_r_df] <- rpois(n_ct1, sample(ct1_counts * 2 * rep_rate_scalar, n_ct1, replace = TRUE) + 1)
+      r_df$count[!ct_mask_r_df] <- rpois(n_ct2, sample(ct2_counts * 2 * rep_rate_scalar, n_ct2, replace = TRUE) + 1)
+      r_df$gene <- fg_name
+      filler_df <- rbind(filler_df, r_df)
+    }
+    
+  }
+  sim_data <- rbind(sim_data, filler_df)
+  
+  # Make reference library counts 
+  nUMI_ref <- colSums(ref_counts) 
+  names(nUMI_ref) <- colnames(ref_counts)
+  
+  # Make reference
+  reference <- Reference(ref_counts, cell_types, nUMI_ref)
+  
+  # Make data for each replicate
+  n_replicates <- length(replicates)
+  pucks <- list()
+  length(pucks) <- n_replicates
+  names(pucks) <- replicates
+  barcodes <- list()
+  length(barcodes) <- n_replicates
+  names(barcodes) <- replicates
+  for (r in replicates) {
+    
+    # Prune down data to just this replicate and necessary columns
+    mask_r <- sim_data$replicate == r
+    data_thin <- sim_data[mask_r,c("gene", "count", "bin_x", "bin_y")]
+    # Count matrix 
+    dt <- as.data.table(data_thin)
+    # aggregate counts
+    dt[, pixel := paste(bin_x, bin_y, sep = "_")]
+    dt <- dt[, .(count = sum(count)), by = .(gene, pixel)]
+    # ensure all gene–pixel combinations exist
+    dt_full <- merge(
+      CJ(gene = unique(dt$gene), pixel = pixels[,"pixel"]),
+      dt,
+      by = c("gene", "pixel"),
+      all.x = TRUE
+    )
+    dt_full[is.na(count), count := 0]
+    # cast to matrix
+    pixel_mat <- dcast(
+      dt_full,
+      gene ~ pixel,
+      value.var = "count",
+      fill = 0
+    )
+    pixel_mat <- as.matrix(pixel_mat[, -1, with = FALSE])
+    rownames(pixel_mat) <- dt_full[, unique(gene)]
+    
+    # Get library counts 
+    nUMI_spatial <- colSums(pixel_mat)
+    
+    # Make and save puck
+    pucks[[r]] <- SpatialRNA(coords, pixel_mat, nUMI_spatial)
+    barcodes[[r]] <- colnames(pucks[[r]]@counts)
+    
+  }
+  
+  barcodes <- barcodes[[1]]
+  
+  # Create RCTD object
+  low_panel_cutoff <- 0 # ... set to zero to account for small panel
+  myRCTD.reps <- create.RCTD.replicates(
+    spatialRNA.replicates = pucks,
+    reference = reference,
+    replicate_names = replicates,
+    group_ids = grounp_ids,
+    max_cores = max_cores,
+    gene_cutoff = low_panel_cutoff, 
+    fc_cutoff = low_panel_cutoff,
+    gene_cutoff_reg = low_panel_cutoff, 
+    fc_cutoff_reg = low_panel_cutoff,
+    # UMI_min = low_panel_cutoff,
+    # UMI_min_sigma = low_panel_cutoff,
+    CELL_MIN_INSTANCE = 1,
+    CONFIDENCE_THRESHOLD = 1
+  )
+  myRCTD.reps <- run.RCTD.replicates(myRCTD.reps)
+  
+  return(
+    list(
+      RCTD = myRCTD.reps,
+      barcodes = barcodes
+    )
+  )
+  
+}
+
+# Function to run CSIDE
+run_CSIDE <- function(
+    sim,
+    ref_counts,
+    max_cores = 2
+) {
+  
+  # Convert data
+  RCTD <- tryCatch(
+    convert_sim_data_to_CSIDE(
+      sim = sim,
+      ref_counts = ref_counts,
+      max_cores = max_cores
+    ),
+    error = function(e) {
+      cat("\nError occurred with CSIDE data conversion or RCTD. Retrying with different random draws...")
+      convert_sim_data_to_CSIDE(
+        sim = sim,
+        ref_counts = ref_counts,
+        max_cores = max_cores
+      )
+    }
+  )
+  
+  # Run CSIDE
+  myRCTD.reps <- run.CSIDE.replicates(
+    RCTD.replicates = RCTD$RCTD,
+    cell_types = c("celltype1", "celltype2"),
+    cell_type_threshold = 5, 
+    weight_threshold = 0,
+    fdr = 0.05,
+    population_de = TRUE,
+    de_mode = "nonparam",
+    barcodes = RCTD$barcodes,
+    log_fc_thresh = 0
+  )
+  
+  # Run population inference with groups
+  myRCTD.pop <- CSIDE.population.inference(
+    myRCTD.reps, 
+    fdr = 0.05, 
+    use.groups = TRUE,
+    MIN.CONV.REPLICATES = 1,
+    MIN.CONV.GROUPS = 1,
+    CT.PROP = 0,
+    log_fc_thresh = 0
+  )
+  
+  # Return completed model
+  return(
+    list(
+      myRCTD.reps = myRCTD.reps,
+      myRCTD.pop = myRCTD.pop
+    )
+  )
+  
+}
+
+test <- run_CSIDE(
+  sim = sim_data,
+  ref_counts = ref_counts,
+  max_cores = bs_chunksize
+)
+
+# CSIDE CODE
+
 choose_sigma_gene <- function(sigma_init, Y, X1, X2, my_beta, nUMI,test_mode, verbose = F, n.iter = 100, MIN_CHANGE = 0.001, MAX_ITER_SIGMA = 10, PRECISION.THRESHOLD = .01) {
   sigma_s_best <- sigma_init
   sigma_vals <- names(Q_mat_all)

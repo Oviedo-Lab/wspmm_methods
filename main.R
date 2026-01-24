@@ -24,7 +24,7 @@ snk.report("Analysis of MERFISH data by Warped Sigmoid, Poisson-Process Mixed-Ef
 
 # Set file path, and bootstrap chunk size
 data_path <- paste0(projects_folder, "_molecular_mechanisms_of_ACx_lateralization/data_SSp/")
-bs_chunksize <- 20
+bs_chunksize <- 5
 
 # Preprocessing MERFISH data ###########################################################################################
 
@@ -897,11 +897,6 @@ if (preprocess_Allen) {
 } else {
   # Import
   count_data_neurons <- read.csv("Allen_data.csv")
-  ref_counts <- read.csv("Allen_reference_counts_enriched_10kcells.csv", row.names = 1, stringsAsFactors = FALSE, check.names = FALSE)
-  ref_counts <- data.table::fread("Allen_reference_counts_enriched_10kcells.csv", data.table = FALSE)
-  row_names <- ref_counts[,1]
-  ref_counts <- as.matrix(ref_counts[,-1])
-  rownames(ref_counts) <- row_names
 }
 
 # Remove cell_id column from count_data_neurons 
@@ -910,17 +905,17 @@ count_data_neurons <- count_data_neurons[,c("count", "slice_num", "gene", "coord
 # Cut down to just a single 2x2 patch from one slice
 count_data_neurons_patch <- count_data_neurons[
   count_data_neurons$slice_num == 33 &
-    count_data_neurons$coord_y >= 2 & count_data_neurons$coord_y <=4 &
-    count_data_neurons$coord_x >= 1 & count_data_neurons$coord_x <=3,]
+    count_data_neurons$coord_y >= 2 & count_data_neurons$coord_y <= 4 &
+    count_data_neurons$coord_x >= 1 & count_data_neurons$coord_x <= 3,]
 
 # Helper function to make replicates
 make_replicate <- function(
     data, 
-    rate_scalar = 0.5, # number between 0 and 1 ... should this vary by gene??
+    rate_scalar = 0.5, # number between 0 and 1 
     affine_transform = NULL,
     spatial_scalar = 0.05
   ) {
-    data_shifted <- data
+    data_transformed <- data
     # Make affine transformation to shift cells around
     if (is.null(affine_transform)) {
       Ax <- matrix(c(1,0,rnorm(1,0,spatial_scalar),1),2,2)  # shear x
@@ -938,11 +933,11 @@ make_replicate <- function(
     disty <- (data$coord_y - y_mid)^2
     disty <- disty/max(disty)
     # Applied scaled transformation
-    data_shifted$coord_x = distx*data$coord_x + (1-distx)* (A[1,1]*data$coord_x + A[1,2]*data$coord_y)
-    data_shifted$coord_y = disty*data$coord_y + (1-disty)* (A[2,1]*data$coord_x + A[2,2]*data$coord_y)
+    data_transformed$coord_x = distx*data$coord_x + (1-distx)* (A[1,1]*data$coord_x + A[1,2]*data$coord_y)
+    data_transformed$coord_y = disty*data$coord_y + (1-disty)* (A[2,1]*data$coord_x + A[2,2]*data$coord_y)
     # Poisson resampling of genes
-    data_shifted$count <- rpois(nrow(data), data_shifted$count * (2*rate_scalar))
-    return(data_shifted)
+    data_transformed$count <- rpois(nrow(data), data_transformed$count * (2*rate_scalar))
+    return(data_transformed)
   }
 
 # Helper function to simulate non-SVGs
@@ -1257,8 +1252,7 @@ extract_random_effect_wisp <- function(model) {
 # Function to model simulation with wisp
 model_sim_wisp <- function(
     sim, 
-    sim_num, 
-    fit_only = FALSE
+    sim_num
   ) {
     
     # Transform data into count frame for wisp
@@ -1277,9 +1271,9 @@ model_sim_wisp <- function(
     model <- wisp(
       count.data = sim_count,
       variables = data.variables,
-      fit_only = fit_only,
+      fit_only = FALSE,
       MCMC.settings = list(MCMC.steps = 0),
-      bootstraps.num = 1e3,
+      bootstraps.num = 1e1,
       max.fork = bs_chunksize,
       plot.settings = list(print.plots = FALSE),
       verbose = FALSE,
@@ -1291,9 +1285,7 @@ model_sim_wisp <- function(
     ran_est <- extract_random_effect_wisp(model)
     fse_pvalues <- rep(NA, length(fse_est))
     names(fse_pvalues) <- names(fse_est)
-    if (!fit_only) {
-      fse_pvalues <- extract_pvalue_wisp(model)
-    }
+    fse_pvalues <- extract_pvalue_wisp(model)
     
     # Extract ground-truth
     GT <- ground_truth(sim)
@@ -1361,7 +1353,11 @@ py_install(c(
 #options(reticulate.python.stdout = TRUE)
 #options(reticulate.python.stderr = TRUE)
 
-# import module
+# Import the multiprocessing module and call
+mp <- import("multiprocessing")
+mp$set_start_method("spawn", force = TRUE)
+
+# import ELLA module
 ELLA_mod <- import_from_path("ELLA", path = "./ELLA/ELLA")
 
 # Make function to convert simulation data into ELLA format
@@ -1739,329 +1735,6 @@ plot_ella_fit <- function(
     
   }
 #plot_ella_fit(ella_sim, sim_data$data, scalar = 10)
-
-# CSIDE benchmarking functions #########################################################################################
-
-# Load library 
-# options(timeout = 600000000) ### set this to avoid timeout error
-# devtools::install_github("dmcable/spacexr", build_vignettes = FALSE)
-library(spacexr)
-
-# Function to convert data to CSIDE format and run RCTD
-convert_sim_data_to_CSIDE <- function(
-    sim,
-    ref_counts,
-    max_cores = 2
-  ) {
-    
-    # Need:
-    #  DATA:
-    #   count matrix (one per "puck"): rows as genes, columns as spots (i.e., spatial locations, or "pixels")
-    #   coords matrix: rows as spots, columns as x and y coordinates
-    #   nUMI vector: total counts per spot
-    #  REFERENCE:
-    #   ref_counts: matrix with rows as genes, columns as cells, pseudo-bulk library
-    #   cell_types: named vector with cell type for each cell in ref_counts
-    #   nUMI vector: total counts per cell in ref_counts
-    
-    # Grab data and split replicates by fixed effect
-    sim_data <- sim$data
-    sim_data$replicate <- paste(sim_data$replicate, sim_data$fixedeffect, sep = "_")
-    replicates <- sort(unique(sim_data$replicate))
-    grounp_ids <- as.integer(grepl("_trt", replicates)) + 1 # 1 for ref, 2 for trt
-    
-    # full grid of pixels
-    rx <- range(sim_data$bin_x)
-    ry <- range(sim_data$bin_y)
-    pixels <- CJ(
-      bin_x = rx[1]:rx[2],
-      bin_y = ry[1]:ry[2]
-    )
-    pixels <- pixels[, pixel := paste(bin_x, bin_y, sep = "_")]
-    pixels <- as.matrix(pixels)
-    
-    # Convert pixel matrix into coords matrix 
-    coords <- pixels 
-    rownames(coords) <- coords[, "pixel"]
-    coords <- as.data.frame(coords[, c("bin_x", "bin_y")])
-    colnames(coords) <- c("x", "y")
-    coords$x <- as.numeric(coords$x)
-    coords$y <- as.numeric(coords$y)
-    
-    # Create cell types for REFERENCE
-    cell_types <- data.frame(
-      cell = colnames(ref_counts),
-      type = sample(c("celltype1", "celltype2"), ncol(ref_counts), replace = TRUE)
-    )
-    cell_types <- setNames(cell_types[[2]], cell_types[[1]])
-    cell_types <- as.factor(cell_types) # convert to factor data type
-    
-    # Randomly create ten filler genes that are differentially expressed between cell types
-    n_filler_genes <- 20
-    n_original_genes <- length(unique(sim_data$gene))
-    ct_mask <- cell_types == "celltype1"
-    n_ct1_ref <- sum(ct_mask)
-    n_ct2_ref <- sum(!ct_mask)
-    this_slice_num <- sim_data$slice_num[1]
-    filler_df <- data.frame()
-    original_gene_names <- rownames(ref_counts)
-    for (fg in c(1:n_filler_genes)) {
-      
-      # Select a gene from ref_counts
-      fg_name <- sample(original_gene_names, 1)
-      ct1_counts <- ref_counts[fg_name, ct_mask]
-      ct1_counts <- ct1_counts * runif(1) * 2
-      ct2_counts <- ct1_counts * (2 * runif(1))^2
-      fg_name <- paste0("_filler_", fg, "_", fg_name)
-      
-      # Update ref_counts with filler gene
-      new_row <- rep(0, ncol(ref_counts))
-      new_row[ct_mask] <- rpois(n_ct1_ref, ct1_counts + 1)
-      new_row[!ct_mask] <- rpois(n_ct2_ref, ct2_counts + 1)
-      ref_counts <- rbind(ref_counts, new_row)
-      rownames(ref_counts)[nrow(ref_counts)] <- fg_name
-      
-      for (r in replicates) {
-        replicate_num <- as.integer(sub(".*?(\\d+).*", "\\1", r))
-        rep_rate_scalar <- sim$replicate_rate_scalars[replicate_num] + 0.5
-        r_mask <- sim_data$replicate == r
-        n_spots <- sum(r_mask)/n_original_genes
-        r_idx <- sample(which(r_mask), n_spots, replace = TRUE) 
-        r_df <- sim_data[r_idx,]
-        ct_mask_r_df <- r_df$bin_x >= max(r_df$bin_x)/2 # arbitrarily assign left half to celltype1, right half to celltype2
-        n_ct1 <- sum(ct_mask_r_df)
-        n_ct2 <- n_spots - n_ct1
-        r_df$count[ct_mask_r_df] <- rpois(n_ct1, sample(ct1_counts * 2 * rep_rate_scalar, n_ct1, replace = TRUE) + 1)
-        r_df$count[!ct_mask_r_df] <- rpois(n_ct2, sample(ct2_counts * 2 * rep_rate_scalar, n_ct2, replace = TRUE) + 1)
-        r_df$gene <- fg_name
-        filler_df <- rbind(filler_df, r_df)
-      }
-      
-    }
-    sim_data <- rbind(sim_data, filler_df)
-    
-    # Make reference library counts 
-    nUMI_ref <- colSums(ref_counts) 
-    names(nUMI_ref) <- colnames(ref_counts)
-    
-    # Make reference
-    reference <- Reference(ref_counts, cell_types, nUMI_ref)
-    
-    # Make data for each replicate
-    n_replicates <- length(replicates)
-    pucks <- list()
-    length(pucks) <- n_replicates
-    names(pucks) <- replicates
-    barcodes <- list()
-    length(barcodes) <- n_replicates
-    names(barcodes) <- replicates
-    for (r in replicates) {
-      
-      # Prune down data to just this replicate and necessary columns
-      mask_r <- sim_data$replicate == r
-      data_thin <- sim_data[mask_r,c("gene", "count", "bin_x", "bin_y")]
-      # Count matrix 
-      dt <- as.data.table(data_thin)
-      # aggregate counts
-      dt[, pixel := paste(bin_x, bin_y, sep = "_")]
-      dt <- dt[, .(count = sum(count)), by = .(gene, pixel)]
-      # ensure all gene–pixel combinations exist
-      dt_full <- merge(
-        CJ(gene = unique(dt$gene), pixel = pixels[,"pixel"]),
-        dt,
-        by = c("gene", "pixel"),
-        all.x = TRUE
-      )
-      dt_full[is.na(count), count := 0]
-      # cast to matrix
-      pixel_mat <- dcast(
-        dt_full,
-        gene ~ pixel,
-        value.var = "count",
-        fill = 0
-      )
-      pixel_mat <- as.matrix(pixel_mat[, -1, with = FALSE])
-      rownames(pixel_mat) <- dt_full[, unique(gene)]
-      
-      # Get library counts 
-      nUMI_spatial <- colSums(pixel_mat)
-      
-      # Make and save puck
-      pucks[[r]] <- SpatialRNA(coords, pixel_mat, nUMI_spatial)
-      barcodes[[r]] <- colnames(pucks[[r]]@counts)
-      
-    }
-    
-    barcodes <- barcodes[[1]]
-    
-    # Create RCTD object
-    low_panel_cutoff <- 0 # ... set to zero to account for small panel
-    myRCTD.reps <- create.RCTD.replicates(
-      spatialRNA.replicates = pucks,
-      reference = reference,
-      replicate_names = replicates,
-      group_ids = grounp_ids,
-      max_cores = max_cores,
-      gene_cutoff = low_panel_cutoff, 
-      fc_cutoff = low_panel_cutoff,
-      gene_cutoff_reg = low_panel_cutoff, 
-      fc_cutoff_reg = low_panel_cutoff,
-      # UMI_min = low_panel_cutoff,
-      # UMI_min_sigma = low_panel_cutoff,
-      CELL_MIN_INSTANCE = 1,
-      CONFIDENCE_THRESHOLD = 1
-    )
-    myRCTD.reps <- run.RCTD.replicates(myRCTD.reps)
-    
-    return(
-      list(
-        RCTD = myRCTD.reps,
-        barcodes = barcodes
-      )
-    )
-    
-  }
-
-# Function to run CSIDE
-run_CSIDE <- function(
-    sim,
-    ref_counts,
-    max_cores = 2
-  ) {
-    
-    # Convert data
-    RCTD <- tryCatch(
-      convert_sim_data_to_CSIDE(
-        sim = sim,
-        ref_counts = ref_counts,
-        max_cores = max_cores
-      ),
-      error = function(e) {
-        cat("\nError occurred with CSIDE data conversion or RCTD. Retrying with different random draws...")
-        convert_sim_data_to_CSIDE(
-          sim = sim,
-          ref_counts = ref_counts,
-          max_cores = max_cores
-        )
-      }
-    )
-    
-    # Run CSIDE
-    myRCTD.reps <- run.CSIDE.replicates(
-      RCTD.replicates = RCTD$RCTD,
-      cell_types = c("celltype1", "celltype2"),
-      cell_type_threshold = 5, 
-      weight_threshold = 0,
-      fdr = 0.05,
-      population_de = TRUE,
-      de_mode = "nonparam",
-      barcodes = RCTD$barcodes,
-      log_fc_thresh = 0
-    )
-    
-    # Run population inference with groups
-    myRCTD.pop <- CSIDE.population.inference(
-      myRCTD.reps, 
-      fdr = 0.05, 
-      use.groups = TRUE,
-      MIN.CONV.REPLICATES = 1,
-      MIN.CONV.GROUPS = 1,
-      CT.PROP = 0,
-      log_fc_thresh = 0
-      )
-    
-    # Return completed model
-    return(
-      list(
-        myRCTD.reps = myRCTD.reps,
-        myRCTD.pop = myRCTD.pop
-      )
-    )
-    
-  }
-
-test <- run_CSIDE(
-  sim = sim_data,
-  ref_counts = ref_counts,
-  max_cores = bs_chunksize
-)
-
-# Full model pipeline
-model_sim_CSIDE <- function(
-    sim,
-    sim_num,
-    ref_counts,
-    max_cores
-  ) {
-    
-    # Run CSIDE
-    cside_model <- run_CSIDE(
-      sim = sim,
-      ref_counts = ref_counts,
-      max_cores = max_cores
-    )
-    
-    # Extract model results for comparing to ground truth
-    de_results <- cside_model@population_de_results
-    # ... use just celltype1, discard celltype2 results (both cell types were simulated identically)
-    de_results <- de_results$celltype1
-    # ... filter down to just the genes from the simulation (discard filler genes)
-    de_results <- de_results[rownames(de_results) %in% unique(sim$genes), ]
-    # ... extract estimated replicate variance per gene 
-    # ... extract log fold change per gene (FSE)
-    fse_est <- de_results$log_fc_est
-    ran_est
-    fse_pvalues
-    svg_pvalues
-    
-    # Extract and infer estimated random effects
-    n_replicates <- length(cside_model@RCTD.reps)
-    for (r in c(1:n_replicates)) {
-      # Grab estimated expression per gene for this replicate for celltype1
-      gene_exp_r <- cside_model@RCTD.reps[[r]]@de_results[["gene_fits"]][["mean_val"]][,"celltype1"]
-    }
-    
-    
-    # Extract model results for comparing to ground truth
-    #fse_est <- extract_rate_effect_wisp(model)
-    #ran_est <- extract_random_effect_wisp(model)
-    #fse_pvalues <- rep(NA, length(fse_est))
-    #names(fse_pvalues) <- names(fse_est)
-    #if (!fit_only) {
-    #  fse_pvalues <- extract_pvalue_wisp(model)
-    #}
-    
-    # Extract ground-truth
-    GT <- ground_truth(sim)
-    fse_true <- GT$fse_true
-    ran_true <- GT$ran_true
-    FSEs <- GT$FSEs
-    
-    # Compile results in named vector 
-    results <- data.frame(
-      est = c(fse_est, ran_est, fse_pvalues),
-      true = c(fse_true, ran_true, FSEs),
-      param = c(
-        rep("rate_effect", length(fse_est)), 
-        rep("random_effect", length(ran_est)), 
-        rep("FSE", length(fse_pvalues))
-      ),
-      id = c(
-        names(fse_est), 
-        names(ran_est), 
-        names(fse_pvalues)
-      )
-    )
-    
-    # Add method and sim number
-    results$method <- "wisp"
-    results$sim <- sim_num
-    
-    return(results)
-  
-  }
-
-
 
 # Run benchmarking #####################################################################################################
 

@@ -1,0 +1,6 @@
+README.md
+setup.py
+ELLA.egg-info/PKG-INFO
+ELLA.egg-info/SOURCES.txt
+ELLA.egg-info/dependency_links.txt
+ELLA.egg-info/top_level.txt
