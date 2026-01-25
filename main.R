@@ -135,20 +135,18 @@ MCMC.settings = list(
 
 # Fit model
 laminar.model <- wisp(
-    # Data to model
     count.data = count.data.WSPmm,
-    # Variable labels
     variables = data.variables,
-    # Settings used on R side
     use.median = FALSE,
-    MCMC.settings = MCMC.settings,
     bootstraps.num = 1e3,
     converged.resamples.only = TRUE,
     max.fork = bs_chunksize,
-    dim.bounds = colMeans(layer.boundary.bins),
     verbose = TRUE,
-    print.plots = TRUE,
-    # Setting to pass to C++ model
+    plot.settings = list(
+      print.plots = TRUE, 
+      dim.bounds = colMeans(layer.boundary.bins)
+    ),
+    MCMC.settings = MCMC.settings,
     model.settings = model.settings
   )
 
@@ -908,113 +906,6 @@ count_data_neurons_patch <- count_data_neurons[
     count_data_neurons$coord_y >= 2 & count_data_neurons$coord_y <= 4 &
     count_data_neurons$coord_x >= 1 & count_data_neurons$coord_x <= 3,]
 
-# wisp benchmarking functions ##########################################################################################
-
-# Rate effect is consistent across all of space, so, average over all blocks for each gene
-extract_rate_effect_wisp <- function(model) {
-  genes <- model[["grouping.variables"]][["species.lvls"]]
-  rate_effect <- rep(NA, length(genes))
-  names(rate_effect) <- genes
-  for (g in genes) {
-    mask <- grepl(paste0("beta_Rt_context_", g, "_trt_X"), names(model[["fitted.parameters"]]))
-    rate_effect[g] <- mean(model[["fitted.parameters"]][mask])
-  }
-  return(rate_effect)
-}
-
-# Function to extract mean p-value across blocks for each gene 
-extract_pvalue_wisp <- function(model) {
-  genes <- model[["grouping.variables"]][["species.lvls"]]
-  p_values <- rep(NA, length(genes))
-  names(p_values) <- genes
-  for (g in genes) {
-    mask <- grepl(paste0("beta_Rt_context_", g, "_trt_X"), model[["stats"]][["parameters"]]$parameter)
-    p_values[g] <- mean(model[["stats"]][["parameters"]]$p.value.adj[mask])
-  }
-  return(p_values)
-}
-
-# Replicate random noise is consistent across genes, so, average over all genes for each replicate
-extract_random_effect_wisp <- function(model) {
-  replicates <- model[["grouping.variables"]][["ran.lvls"]]
-  random_effect <- rep(NA, length(replicates))
-  names(random_effect) <- replicates
-  for (r in replicates) {
-    mask <- grepl(paste0("wfactor_rate_", r), names(model[["fitted.parameters"]]))
-    random_effect[r] <- mean(model[["fitted.parameters"]][mask])
-  }
-  random_effect <- random_effect[-c(1)]
-  return(random_effect)
-} 
-
-# Function to model simulation with wisp
-model_sim_wisp <- function(
-    sim, 
-    sim_num
-  ) {
-    
-    # Transform data into count frame for wisp
-    keep_cols <- !(colnames(sim$data) %in% c("slice_num", "coord_x", "coord_y", "bin_y"))
-    sim_count <- sim$data[,keep_cols]
-    
-    # Set data variables
-    data.variables <- list(
-      bin = "bin_x", 
-      count = "count",
-      species = "gene",
-      ran = "replicate"
-    )
-    
-    # Fit model
-    model <- wisp(
-      count.data = sim_count,
-      variables = data.variables,
-      fit_only = FALSE,
-      MCMC.settings = list(MCMC.steps = 1e3, MCMC.burnin = 0),
-      bootstraps.num = 0,
-      max.fork = bs_chunksize,
-      plot.settings = list(print.plots = FALSE),
-      verbose = FALSE,
-      ran.seed = sim_num
-    )
-    
-    # Extract model results for comparing to ground truth
-    fse_est <- extract_rate_effect_wisp(model)
-    ran_est <- extract_random_effect_wisp(model)
-    fse_pvalues <- rep(NA, length(fse_est))
-    names(fse_pvalues) <- names(fse_est)
-    fse_pvalues <- extract_pvalue_wisp(model)
-    
-    # Extract ground-truth
-    GT <- attractor_simulation_ground_truth(sim)
-    fse_true <- GT$fse_true
-    ran_true <- GT$ran_true
-    FSEs <- GT$FSEs
-    
-    # Compile results in named vector 
-    results <- data.frame(
-      est = c(fse_est, ran_est, fse_pvalues),
-      true = c(fse_true, ran_true, FSEs),
-      param = c(
-        rep("rate_effect", length(fse_est)), 
-        rep("random_effect", length(ran_est)), 
-        rep("FSE", length(fse_pvalues))
-      ),
-      id = c(
-        names(fse_est), 
-        names(ran_est), 
-        names(fse_pvalues)
-      )
-    )
-    
-    # Add method and sim number
-    results$method <- "wisp"
-    results$sim <- sim_num
-    
-    return(results)
-    
-  }
-
 # ELLA benchmarking functions ##########################################################################################
 
 # Set up virtual python environment for reticulate: 
@@ -1205,7 +1096,7 @@ extract_svg <- function(ella_sim) {
 #extract_svg(ella_sim)
 
 # Full model pipeline 
-model_sim_ELLA <- function(
+model_attractor_simulation_ELLA <- function(
     sim,
     sim_num 
   ) {
@@ -1231,12 +1122,10 @@ model_sim_ELLA <- function(
       ),
       id = c(
         names(svg_pvalues)
-      )
+      ),
+      method = "ELLA",
+      sim = sim_num
     )
-    
-    # Add method and sim number
-    results$method <- "ELLA"
-    results$sim <- sim_num
     
     return(results)
     
@@ -1432,45 +1321,12 @@ plot_ella_fit <- function(
 
 # Run benchmarking #####################################################################################################
 
-n_sims <- 100
-results <- data.frame()
-for (s in c(1:n_sims)) {
-  
-  d_sim <- rep(NA, n_sims)
-  d_wisp <- rep(NA, n_sims)
-  d_ella <- rep(NA, n_sims)
-  
-  cat("\n\n----------------------")
-  cat("\nRunning simulation ", s, "/", n_sims)
-  
-  # Simulate data and extract count data for modeling
-  t_stim_start <- Sys.time()
-  sim_data <- attractor_simulation(count_data_neurons_patch)
-  dsim <- Sys.time() - t_stim_start
-  units(dsim) <- "secs"
-  d_sim[s] <- dsim
-  cat("\n\tdata sim time:", round(d_sim[s],3), "s") 
-  
-  # Model simulated data with wisp
-  t_wisp_start <- Sys.time()
-  wisp_results <- model_sim_wisp(sim_data, sim_num = s)
-  dwisp <- Sys.time() - t_wisp_start
-  units(dwisp) <- "secs"
-  d_wisp[s] <- dwisp
-  results <- rbind(results, wisp_results)
-  cat("\n\twisp time:", round(d_wisp[s],3), "s") 
-  
-  # Model simulated data with ELLA
-  cat("\n\n") # ... skip line for readability
-  t_ella_start <- Sys.time()
-  ella_results <- model_sim_ELLA(sim_data, sim_num = s)
-  della <- Sys.time() - t_ella_start
-  units(della) <- "secs"
-  d_ella[s] <- della
-  results <- rbind(results, ella_results)
-  cat("\n\tELLA time:", round(d_ella[s],3), "s")
-  
-}
+results <- run_attractor_sim_benchmarks(
+  seed_data = count_data_neurons_patch,
+  n_sims = 100,
+  modeling_functions = list(wisp = model_attractor_simulation_wisp, ELLA = model_attractor_simulation_ELLA),
+  modeling_function_args = list(wisp = list(bs_num = 1e3, max_fork = 1))
+)
 
 # Save results
 write.csv(results, "benchmark_results.csv", row.names = FALSE)
