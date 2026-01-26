@@ -1325,7 +1325,7 @@ results <- run_attractor_sim_benchmarks(
   seed_data = count_data_neurons_patch,
   n_sims = 100,
   modeling_functions = list(wisp = model_attractor_simulation_wisp, ELLA = model_attractor_simulation_ELLA),
-  modeling_function_args = list(wisp = list(bs_num = 1e3, max_fork = 1))
+  modeling_function_args = list(wisp = list(bs_num = 1e3, max_fork = bs_chunksize))
 )
 
 # Save results
