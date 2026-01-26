@@ -906,6 +906,103 @@ count_data_neurons_patch <- count_data_neurons[
     count_data_neurons$coord_y >= 2 & count_data_neurons$coord_y <= 4 &
     count_data_neurons$coord_x >= 1 & count_data_neurons$coord_x <= 3,]
 
+# DESeq2 benchmarking functions ########################################################################################
+
+# Load library 
+if (!require("BiocManager", quietly = TRUE)) {install.packages("BiocManager")}
+if (!require("DESeq2", quietly = TRUE)) {BiocManager::install("DESeq2")}
+if (!require("apeglm", quietly = TRUE)) {BiocManager::install("apeglm")}
+library(DESeq2) 
+
+# Helper function to convert sim data into format expected by DESeq2
+make_SESeq2_data <- function(
+    sim_data
+  ) {
+    # Set reference level
+    sim_data$fixedeffect <- relevel(as.factor(sim_data$fixedeffect), ref = "ref")
+    # Get genes 
+    genes <- unique(sim_data$gene)
+    n_genes <- length(genes)
+    # Grab variable levels
+    fixedeffects <- unique(sim_data$fixedeffect)
+    replicates <- unique(sim_data$replicate)
+    sample_names <- c(
+      paste0(as.character(replicates), "_", as.character(fixedeffects)[1]),
+      paste0(as.character(replicates), "_", as.character(fixedeffects)[2])
+    )
+    # Make coldata
+    coldata <- data.frame(
+      fixedeffect = rep(fixedeffects, each = length(replicates)), 
+      replicate = rep(replicates, length(fixedeffects))
+    )
+    rownames(coldata) <- sample_names
+    # Make count matrix 
+    cts <- array(NA, dim = c(n_genes, nrow(coldata)))
+    rownames(cts) <- genes
+    colnames(cts) <- rownames(coldata)
+    for (i in genes) {
+      for (j in rownames(coldata)) {
+        ct_mask <- sim_data$replicate == coldata[j,"replicate"] & 
+          sim_data$fixedeffect == coldata[j,"fixedeffect"] & 
+          sim_data$gene == i
+        cts[i,j] <- sum(sim_data[ct_mask, "count"])
+      }
+    }
+    return(list(cts = cts, coldata = coldata))
+  }
+
+# Function to model simulation with DESeq2
+model_attractor_simulation_DESeq2 <- function(
+    sim,
+    sim_num
+  ) {
+    
+    # Make data for DESeq2
+    ddata <- make_SESeq2_data(sim$data)
+    cts <- ddata$cts
+    coldata <- ddata$coldata
+    
+    # Construct a DESeqDataSet: 
+    dds <- DESeqDataSetFromMatrix(
+      countData = cts,
+      colData = coldata,
+      design = ~ fixedeffect
+    )
+    
+    # Run differential expression analysis on fixedeffect
+    gene_names <- rownames(cts)
+    dds <- estimateSizeFactors(dds)
+    dds <- DESeq(dds, fitType='local')
+    
+    # Apply shrinkage (ridge regression)
+    resLFC_fixedeffect <- lfcShrink(dds, coef = "fixedeffect_trt_vs_ref", type = "apeglm")
+    
+    # Extract model results for comparing to ground truth
+    MR <- as.data.frame(resLFC_fixedeffect@listData)[,c("log2FoldChange", "padj")]
+    
+    # Extract ground-truth from simulation
+    GT <- attractor_simulation_ground_truth(sim)
+    
+    # Compile results in named vector and return
+    return(
+      data.frame(
+        est = c(MR$log2FoldChange, MR$padj),
+        true = c(GT$fse_true, GT$FSEs),
+        param = c(
+          rep("rate_effect", length(MR$log2FoldChange)), 
+          rep("FSE", length(MR$padj))
+        ),
+        id = c(
+          rownames(MR), 
+          rownames(MR)
+        ),
+        method = "DESeq2",
+        sim = sim_num
+      )
+    )
+   
+  }
+
 # ELLA benchmarking functions ##########################################################################################
 
 # Set up virtual python environment for reticulate: 
@@ -1324,7 +1421,11 @@ plot_ella_fit <- function(
 results <- run_attractor_sim_benchmarks(
   seed_data = count_data_neurons_patch,
   n_sims = 100,
-  modeling_functions = list(wisp = model_attractor_simulation_wisp, ELLA = model_attractor_simulation_ELLA),
+  modeling_functions = list(
+    wisp = model_attractor_simulation_wisp, 
+    ELLA = model_attractor_simulation_ELLA,
+    DESeq2 = model_attractor_simulation_DESeq2
+    ),
   modeling_function_args = list(wisp = list(bs_num = 1e3, max_fork = bs_chunksize))
 )
 
