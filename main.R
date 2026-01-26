@@ -1495,7 +1495,7 @@ analyze_results <- function(
     }
     return(summary)
   }
-results_summary <- analyze_results(results)
+results_summary <- analyze_results(results$results)
 View(results_summary)
 
 
