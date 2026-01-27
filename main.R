@@ -24,7 +24,7 @@ snk.report("Analysis of MERFISH data by Warped Sigmoid, Poisson-Process Mixed-Ef
 
 # Set file path, and bootstrap chunk size
 data_path <- paste0(projects_folder, "_molecular_mechanisms_of_ACx_lateralization/data_SSp/")
-bs_chunksize <- 5
+bs_chunksize <- 100
 
 # Preprocessing MERFISH data ###########################################################################################
 
@@ -1435,8 +1435,19 @@ write.csv(results, "benchmark_results.csv", row.names = FALSE)
 # Load results 
 results <- read.csv("benchmark_results.csv")
 
+res <- results$results
+meths <- unique(res$method)
+param_mask <- res$param == "FSE" | res$param == "SVG"
+for (m in meths) {
+  mask <- res$method == m & param_mask
+  if (m == "wisp") plot(res$est[mask], main = m)
+  else plot(log(-log(res$est[mask])+1), main = m)
+  cat("\n", m, ":", sum(res$est[mask] == 0)/sum(mask))
+}
+
 analyze_results <- function(
-    results
+    results,
+    sig_thresh = list(wisp = 0.125, ELLA = 1.5e-7, DESeq2 = 0.001)
   ) {
     
     methods <- sort(unique(results$method))
@@ -1454,8 +1465,11 @@ analyze_results <- function(
     summary <- as.data.frame(matrix(NA, nrow = length(metrics), ncol = length(methods)))
     colnames(summary) <- methods
     rownames(summary) <- metrics
-    
+   
     for (m in methods) {
+      
+      sigt <- 0.05
+      if (m %in% names(sig_thresh)) sigt <- sig_thresh[[m]]
       
       m_mask <- results$method == m
       
@@ -1472,10 +1486,10 @@ analyze_results <- function(
       # Compute FPR, FDR, power for SVG parameter
       if (any("SVG" == results$param[m_mask])) {
         r_m_mask <- m_mask & results$param == "SVG"
-        FP <- sum(results[r_m_mask & results$true == FALSE, "est"] < 0.05)
-        TN <- sum(results[r_m_mask & results$true == FALSE, "est"] >= 0.05)
-        TP <- sum(results[r_m_mask & results$true == TRUE, "est"] < 0.05)
-        FN <- sum(results[r_m_mask & results$true == TRUE, "est"] >= 0.05)
+        FP <- sum(results[r_m_mask & results$true == FALSE, "est"] < sigt)
+        TN <- sum(results[r_m_mask & results$true == FALSE, "est"] >= sigt)
+        TP <- sum(results[r_m_mask & results$true == TRUE, "est"] < sigt)
+        FN <- sum(results[r_m_mask & results$true == TRUE, "est"] >= sigt)
         summary["FPR_svg", m] <- FP / (FP + TN)
         summary["FDR_svg", m] <- FP / (FP + TP)
         summary["power_svg", m] <- TP / (TP + FN)
@@ -1483,10 +1497,10 @@ analyze_results <- function(
       # Compute FPR, FDR, power for FSE parameter
       if (any("FSE" == results$param[m_mask])) {
         r_m_mask <- m_mask & results$param == "FSE"
-        FP <- sum(results[r_m_mask & results$true == FALSE, "est"] < 0.05)
-        TN <- sum(results[r_m_mask & results$true == FALSE, "est"] >= 0.05)
-        TP <- sum(results[r_m_mask & results$true == TRUE, "est"] < 0.05)
-        FN <- sum(results[r_m_mask & results$true == TRUE, "est"] >= 0.05)
+        FP <- sum(results[r_m_mask & results$true == FALSE, "est"] < sigt)
+        TN <- sum(results[r_m_mask & results$true == FALSE, "est"] >= sigt)
+        TP <- sum(results[r_m_mask & results$true == TRUE, "est"] < sigt)
+        FN <- sum(results[r_m_mask & results$true == TRUE, "est"] >= sigt)
         summary["FPR_fse", m] <- FP / (FP + TN)
         summary["FDR_fse", m] <- FP / (FP + TP)
         summary["power_fse", m] <- TP / (TP + FN)
