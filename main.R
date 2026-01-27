@@ -1154,8 +1154,7 @@ run_ELLA <- function(
     ella_sim <- ELLA_class(
       dataset = "sim_benchmark",
       adam_learning_rate_min = 1e-2,
-      max_iter = 1000L,
-      max_ntanbin = 25, # Default, bins per quadrant, so equivalent to 100 bins in wisp
+      max_iter = 1000L, 
       L1_lam = 0.1
     )
     
@@ -1415,7 +1414,7 @@ plot_ella_fit <- function(
 
 results <- run_attractor_sim_benchmarks(
   seed_data = count_data_neurons_patch,
-  n_sims = 100,
+  n_sims = 250,
   modeling_functions = list(
     wisp = model_attractor_simulation_wisp, 
     ELLA = model_attractor_simulation_ELLA,
@@ -1442,7 +1441,7 @@ for (m in meths) {
 
 analyze_results <- function(
     results,
-    sig_thresh = list(wisp = 0.125, ELLA = 1.5e-7, DESeq2 = 0.001)
+    sig_thresh = list(wisp = 0.125, ELLA = 0.000001, DESeq2 = 0.001)
   ) {
     
     methods <- sort(unique(results$method))

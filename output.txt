@@ -6,1402 +6,3451 @@ Using virtual environment '/home/oviedoworkstation/.virtualenvs/r-reticulate' ..
 
 ----------------------
 Running simulation  1 / 100
-	data sim time: 0.042 s
-
-Modeling with  wisp ...
-	 wisp time: 198.007 s
+	data sim time: 0.69 s
 
 Modeling with  ELLA ...
-	 ELLA time: 30.233 s
+	 ELLA time: 0.087 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.537 s
+	 DESeq2 time: 1.03 s
+
+Error encountered during modeling, number: 1 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.04 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.047 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.927 s
+
+Error encountered during modeling, number: 2 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.035 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.022 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 1.366 s
+
+Error encountered during modeling, number: 3 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.026 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.021 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.865 s
+
+Error encountered during modeling, number: 4 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.033 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.027 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.864 s
+
+Error encountered during modeling, number: 5 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.034 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.037 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.866 s
+
+Error encountered during modeling, number: 6 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.028 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.042 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.864 s
+
+Error encountered during modeling, number: 7 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.029 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.026 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.873 s
+
+Error encountered during modeling, number: 8 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.116 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.042 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.901 s
+
+Error encountered during modeling, number: 9 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.042 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.025 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 1.385 s
+
+Error encountered during modeling, number: 10 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.024 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.112 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.899 s
+
+Error encountered during modeling, number: 11 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.028 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.024 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.871 s
+
+Error encountered during modeling, number: 12 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.034 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.111 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.914 s
+
+Error encountered during modeling, number: 13 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.032 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.034 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.867 s
+
+Error encountered during modeling, number: 14 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.031 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.036 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.998 s
+
+Error encountered during modeling, number: 15 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.038 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.024 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.904 s
+
+Error encountered during modeling, number: 16 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.032 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.117 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.911 s
+
+Error encountered during modeling, number: 17 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.03 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.025 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.883 s
+
+Error encountered during modeling, number: 18 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.033 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.119 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.903 s
+
+Error encountered during modeling, number: 19 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.041 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.023 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.892 s
+
+Error encountered during modeling, number: 20 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.032 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.114 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.905 s
+
+Error encountered during modeling, number: 21 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.033 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.026 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.874 s
+
+Error encountered during modeling, number: 22 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.031 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.034 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.997 s
+
+Error encountered during modeling, number: 23 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.042 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.023 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 1.375 s
+
+Error encountered during modeling, number: 24 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.023 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.113 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.922 s
+
+Error encountered during modeling, number: 25 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.031 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.024 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.881 s
+
+Error encountered during modeling, number: 26 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.031 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.123 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.892 s
+
+Error encountered during modeling, number: 27 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.031 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.025 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.873 s
+
+Error encountered during modeling, number: 28 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.032 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.034 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 1.005 s
+
+Error encountered during modeling, number: 29 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.041 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.023 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.906 s
+
+Error encountered during modeling, number: 30 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.031 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.118 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.902 s
+
+Error encountered during modeling, number: 31 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.031 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.034 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.878 s
+
+Error encountered during modeling, number: 32 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.029 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.126 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.92 s
+
+Error encountered during modeling, number: 33 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.031 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.034 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.879 s
+
+Error encountered during modeling, number: 34 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.125 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.03 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.895 s
+
+Error encountered during modeling, number: 35 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.03 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.614 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.884 s
+
+Error encountered during modeling, number: 36 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.032 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.03 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.874 s
+
+Error encountered during modeling, number: 37 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.03 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.026 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.877 s
+
+Error encountered during modeling, number: 38 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.032 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.126 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.522 s
+
+Error encountered during modeling, number: 39 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.041 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.031 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.894 s
+
+Error encountered during modeling, number: 40 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.031 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.025 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.89 s
+
+Error encountered during modeling, number: 41 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.031 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.025 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.877 s
+
+Error encountered during modeling, number: 42 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.031 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.126 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.895 s
+
+Error encountered during modeling, number: 43 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.031 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.033 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.876 s
+
+Error encountered during modeling, number: 44 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.031 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.116 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.907 s
+
+Error encountered during modeling, number: 45 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.033 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.034 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.889 s
+
+Error encountered during modeling, number: 46 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.03 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.126 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.902 s
+
+Error encountered during modeling, number: 47 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.621 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.025 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.862 s
+
+Error encountered during modeling, number: 48 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.029 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.025 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.855 s
+
+Error encountered during modeling, number: 49 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.028 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.033 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.988 s
+
+Error encountered during modeling, number: 50 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.054 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.022 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.874 s
+
+Error encountered during modeling, number: 51 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.031 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.026 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.997 s
+
+Error encountered during modeling, number: 52 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.032 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.033 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.869 s
+
+Error encountered during modeling, number: 53 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.041 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.022 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 1.449 s
+
+Error encountered during modeling, number: 54 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.026 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.113 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.91 s
+
+Error encountered during modeling, number: 55 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.03 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.024 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.877 s
+
+Error encountered during modeling, number: 56 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.028 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.025 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.872 s
+
+Error encountered during modeling, number: 57 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.029 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.033 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.51 s
+
+Error encountered during modeling, number: 58 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.032 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.032 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 1.008 s
+
+Error encountered during modeling, number: 59 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.031 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.025 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.878 s
+
+Error encountered during modeling, number: 60 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.028 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.025 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 1.001 s
+
+Error encountered during modeling, number: 61 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.033 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.035 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.877 s
+
+Error encountered during modeling, number: 62 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.038 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.023 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 1.008 s
+
+Error encountered during modeling, number: 63 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.042 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.034 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.88 s
+
+Error encountered during modeling, number: 64 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.04 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.116 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 1.42 s
+
+Error encountered during modeling, number: 65 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.032 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.024 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.873 s
+
+Error encountered during modeling, number: 66 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.12 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.027 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.893 s
+
+Error encountered during modeling, number: 67 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.033 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.029 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.883 s
+
+Error encountered during modeling, number: 68 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.031 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.126 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.9 s
+
+Error encountered during modeling, number: 69 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.041 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.022 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.9 s
+
+Error encountered during modeling, number: 70 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.033 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.116 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.903 s
+
+Error encountered during modeling, number: 71 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.033 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.037 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.884 s
+
+Error encountered during modeling, number: 72 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.118 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.04 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.89 s
+
+Error encountered during modeling, number: 73 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.037 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.023 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.894 s
+
+Error encountered during modeling, number: 74 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.033 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.038 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.865 s
+
+Error encountered during modeling, number: 75 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.032 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.034 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 1.009 s
+
+Error encountered during modeling, number: 76 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.047 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.023 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.888 s
+
+Error encountered during modeling, number: 77 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.029 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.133 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 1.428 s
+
+Error encountered during modeling, number: 78 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.026 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.024 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.874 s
+
+Error encountered during modeling, number: 79 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.032 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.12 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.931 s
+
+Error encountered during modeling, number: 80 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.031 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.025 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.869 s
+
+Error encountered during modeling, number: 81 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.031 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.118 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.901 s
+
+Error encountered during modeling, number: 82 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.03 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.033 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.871 s
+
+Error encountered during modeling, number: 83 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.055 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.115 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.931 s
+
+Error encountered during modeling, number: 84 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.031 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.027 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.886 s
+
+Error encountered during modeling, number: 85 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.031 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.033 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.882 s
+
+Error encountered during modeling, number: 86 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.029 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.035 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 1.017 s
+
+Error encountered during modeling, number: 87 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.039 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.023 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.888 s
+
+Error encountered during modeling, number: 88 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.033 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.135 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.538 s
+
+Error encountered during modeling, number: 89 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.03 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.026 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.994 s
+
+Error encountered during modeling, number: 90 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.125 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.042 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.89 s
+
+Error encountered during modeling, number: 91 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.031 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.033 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 1.368 s
+
+Error encountered during modeling, number: 92 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.027 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.029 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.892 s
+
+Error encountered during modeling, number: 93 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.03 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.027 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.883 s
+
+Error encountered during modeling, number: 94 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.03 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.115 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.908 s
+
+Error encountered during modeling, number: 95 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.032 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.025 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.888 s
+
+Error encountered during modeling, number: 96 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.031 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.129 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.899 s
+
+Error encountered during modeling, number: 97 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.03 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.031 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.901 s
+
+Error encountered during modeling, number: 98 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.032 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.126 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.911 s
+
+Error encountered during modeling, number: 99 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.032 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.026 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.885 s
+
+Error encountered during modeling, number: 100 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.041 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.035 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.877 s
+
+Error encountered during modeling, number: 101 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.041 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.023 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 1.009 s
+
+Error encountered during modeling, number: 102 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.031 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.035 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.887 s
+
+Error encountered during modeling, number: 103 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.042 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.114 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 1.429 s
+
+Error encountered during modeling, number: 104 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.03 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.024 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.877 s
+
+Error encountered during modeling, number: 105 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.031 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.119 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.918 s
+
+Error encountered during modeling, number: 106 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.029 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.025 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.899 s
+
+Error encountered during modeling, number: 107 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.032 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.033 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.873 s
+
+Error encountered during modeling, number: 108 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.132 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.028 s
+
+Modeling with  DESeq2 ...
+Enter a frame number, or 0 to exit   
+
+ 1: run_attractor_sim_benchmarks(seed_data = count_data_neurons_patch, n_sims = 100, modeling_functions = list(ELLA = model_attractor_simulation_ELLA, DESeq2 = model_attractor_simulation_DESeq2), modeling_functio
+ 2: tryCatch({
+    if (mf %in% names(modeling_function_args)) {
+        model_args <- modeling_function_args[[mf]]
+        do.call(model_func, c(list(sim = sim, sim_num = s), model_args))
+    }
+    else {
+        model
+ 3: tryCatchList(expr, classes, parentenv, handlers)
+ 4: tryCatchOne(expr, names, parentenv, handlers[[1]])
+ 5: doTryCatch(return(expr), name, parentenv, handler)
+ 6: model_func(sim = sim, sim_num = s)
+ 7: #15: DESeq(dds, fitType = "mean", minReplicatesForReplace = 3)
+ 8: estimateDispersions(object, fitType = fitType, quiet = quiet, modelMatrix = modelMatrix, minmu = minmu)
+ 9: estimateDispersions(object, fitType = fitType, quiet = quiet, modelMatrix = modelMatrix, minmu = minmu)
+10: .local(object, ...)
+11: estimateDispersionsFit(object, fitType = fitType, quiet = quiet)
+12: `dispersionFunction<-`(`*tmp*`, value = dispFunction)
+13: `dispersionFunction<-`(`*tmp*`, value = dispFunction)
+14: .local(object, ..., value)
+15: validObject(object)
+16: anyStrings(validityMethod(as(object, superClass)))
+17: isTRUE(x)
+18: validityMethod(as(object, superClass))
+19: method(object)
+20: as(object, superClass)
+21: asMethod(object)
+22: methods::`slot<-`(`*tmp*`, what, value = new("DFrame", rownames = NULL, nrows = 4, elementType = "ANY", elementMetadata = NULL, metadata = list(), listData = list()))
+23: checkSlotAssignment(object, name, value)
+24: as(value, slotClass, strict = FALSE, ext = ok)
+25: .quickCoerceSelect(thisClass, Class, coerceFun, coerceMethods, where)
+26: .findMethodInTable(c(from, to), methods)
+27: is(fdef, "genericFunction")
+28: stopifnot(length(class2) == 1)
+
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.034 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.167 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.905 s
+
+Error encountered during modeling, number: 1 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.027 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.026 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.877 s
+
+Error encountered during modeling, number: 2 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.028 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.121 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.94 s
+
+Error encountered during modeling, number: 3 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.039 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.021 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.909 s
+
+Error encountered during modeling, number: 4 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.031 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.026 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.911 s
+
+Error encountered during modeling, number: 5 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.028 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.028 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.878 s
+
+Error encountered during modeling, number: 6 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.033 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.034 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 1.009 s
+
+Error encountered during modeling, number: 7 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.042 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.023 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.91 s
+
+Error encountered during modeling, number: 8 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.03 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.134 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.913 s
+
+Error encountered during modeling, number: 9 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.629 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.026 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.867 s
+
+Error encountered during modeling, number: 10 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.029 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.026 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.887 s
+
+Error encountered during modeling, number: 11 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.03 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.034 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.873 s
+
+Error encountered during modeling, number: 12 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.041 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.022 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 1.031 s
+
+Error encountered during modeling, number: 13 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.029 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.032 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.883 s
+
+Error encountered during modeling, number: 14 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.031 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.04 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.854 s
+
+Error encountered during modeling, number: 15 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.029 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.024 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.881 s
+
+Error encountered during modeling, number: 16 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.025 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.035 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.898 s
+
+Error encountered during modeling, number: 17 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.04 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.022 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.913 s
+
+Error encountered during modeling, number: 18 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.033 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.027 s
+
+Modeling with  DESeq2 ...
+Enter a frame number, or 0 to exit   
+
+ 1: run_attractor_sim_benchmarks(seed_data = count_data_neurons_patch, n_sims = 100, modeling_functions = list(ELLA = model_attractor_simulation_ELLA, DESeq2 = model_attractor_simulation_DESeq2), modeling_functio
+ 2: tryCatch({
+    if (mf %in% names(modeling_function_args)) {
+        model_args <- modeling_function_args[[mf]]
+        do.call(model_func, c(list(sim = sim, sim_num = s), model_args))
+    }
+    else {
+        model
+ 3: tryCatchList(expr, classes, parentenv, handlers)
+ 4: tryCatchOne(expr, names, parentenv, handlers[[1]])
+ 5: doTryCatch(return(expr), name, parentenv, handler)
+ 6: model_func(sim = sim, sim_num = s)
+ 7: #15: DESeq(dds, fitType = "mean", minReplicatesForReplace = 3)
+ 8: estimateDispersions(object, fitType = fitType, quiet = quiet, modelMatrix = modelMatrix, minmu = minmu)
+ 9: estimateDispersions(object, fitType = fitType, quiet = quiet, modelMatrix = modelMatrix, minmu = minmu)
+10: .local(object, ...)
+11: estimateDispersionsGeneEst(object, maxit = maxit, useCR = useCR, weightThreshold = weightThreshold, quiet = quiet, modelMatrix = modelMatrix, minmu = minmu, type = dispersionEstimator)
+12: buildDataFrameWithNARows(list(dispGeneEst = dispGeneEst, dispGeneIter = dispIter), mcols(object)$allZero)
+13: mcols(object)
+14: mcols(object)
+15: mcols(rowRanges(x), use.names = use.names, ...)
+16: mcols(rowRanges(x), use.names = use.names, ...)
+17: elementMetadata(x, use.names = use.names, ...)
+18: elementMetadata(x, use.names = use.names, ...)
+19: .local(x, use.names, ...)
+20: names(x)
+21: names(x)
+22: .selectClosestMethod1("names", x)
+23: is(x, "CompressedGenomicRangesList")
+24: stopifnot(length(class2) == 1)
+
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+Enter an item from the menu, or 0 to exit
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.032 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.078 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.965 s
+
+Error encountered during modeling, number: 1 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.031 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.026 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.877 s
+
+Error encountered during modeling, number: 2 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.029 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.025 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.864 s
+
+Error encountered during modeling, number: 3 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.029 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.121 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.918 s
+
+Error encountered during modeling, number: 4 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.043 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.021 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.908 s
+
+Error encountered during modeling, number: 5 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.03 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.025 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 1.367 s
+
+Error encountered during modeling, number: 6 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.035 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.025 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.872 s
+
+Error encountered during modeling, number: 7 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.022 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.021 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.882 s
+
+Error encountered during modeling, number: 8 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.029 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.025 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.88 s
+
+Error encountered during modeling, number: 9 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.029 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.033 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.982 s
+
+Error encountered during modeling, number: 10 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.028 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.031 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.92 s
+
+Error encountered during modeling, number: 11 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.041 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.028 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.888 s
+
+Error encountered during modeling, number: 12 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.029 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.025 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 1.005 s
+
+Error encountered during modeling, number: 13 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.029 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.036 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.888 s
+
+Error encountered during modeling, number: 14 Rerunning simulation 1 
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.031 s
+
+Modeling with  ELLA ...
+	 ELLA time: 0.033 s
+
+Modeling with  DESeq2 ...
+Enter a frame number, or 0 to exit   
+
+ 1: run_attractor_sim_benchmarks(seed_data = count_data_neurons_patch, n_sims = 100, modeling_functions = list(ELLA = model_attractor_simulation_ELLA, DESeq2 = model_attractor_simulation_DESeq2), modeling_functio
+ 2: tryCatch({
+    if (mf %in% names(modeling_function_args)) {
+        model_args <- modeling_function_args[[mf]]
+        do.call(model_func, c(list(sim = sim, sim_num = s), model_args))
+    }
+    else {
+        model
+ 3: tryCatchList(expr, classes, parentenv, handlers)
+ 4: tryCatchOne(expr, names, parentenv, handlers[[1]])
+ 5: doTryCatch(return(expr), name, parentenv, handler)
+ 6: model_func(sim = sim, sim_num = s)
+ 7: #14: estimateSizeFactors(dds)
+ 8: estimateSizeFactors(dds)
+ 9: .local(object, ...)
+10: `sizeFactors<-`(`*tmp*`, value = c(replicate1_ref = 1.08599639750711, replicate2_ref = 2.06932420369599, replicate3_ref = 0.636302158984933, replicate4_ref = 0.720219397869364, replicate1_trt = 1.083397727301
+11: `sizeFactors<-`(`*tmp*`, value = c(replicate1_ref = 1.08599639750711, replicate2_ref = 2.06932420369599, replicate3_ref = 0.636302158984933, replicate4_ref = 0.720219397869364, replicate1_trt = 1.083397727301
+12: .local(object, ..., value)
+13: validObject(object)
+14: anyStrings(validityMethod(object))
+15: isTRUE(x)
+16: validityMethod(object)
+17: counts(object)
+18: counts(object)
+19: .local(object, ...)
+20: assays(object)
+21: assays(object)
+22: endoapply(assays, function(a) {
+    a_dimnames <- dimnames(a)
+    a_dimnames[1:2] <- x_dimnames
+    a_dimnames <- S4Arrays:::simplify_NULL_dimnames(a_dimnames)
+    S4Arrays:::set_dimnames(a, a_dimnames)
+})
+23: .make_endoapply_ans(ans, X)
+24: coerce2(ans, X)
+25: coerce2(ans, X)
+26: try(callNextMethod(), silent = TRUE)
+27: tryCatch(expr, error = function(e) {
+    call <- conditionCall(e)
+    if (!is.null(call)) {
+        if (identical(call[[1]], quote(doTryCatch))) 
+            call <- sys.call(-4)
+        dcall <- deparse(call, nli
+28: tryCatchList(expr, classes, parentenv, handlers)
+29: tryCatchOne(expr, names, parentenv, handlers[[1]])
+30: doTryCatch(return(expr), name, parentenv, handler)
+31: callNextMethod()
+32: .nextMethod(from = from, to = to)
+33: as(from, to_class, strict = FALSE)
+34: asMethod(object, strict = FALSE)
+35: coerceToSimpleList(from)
+36: listClassName("Simple", element.type)
+37: which(sapply(listClass, isClass) & sapply(listClass, extends, paste0(impl, "List")))
+38: sapply(listClass, extends, paste0(impl, "List"))
+39: sapply(listClass, extends, paste0(impl, "List"))
+40: lapply(X = X, FUN = FUN, ...)
+41: FUN(X[[i]], ...)
+42: getClassDef(class1)
+43: isTRUE(nzchar(package))
+
+Enter an item from the menu, or 0 to exit
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.048 s
+
+Modeling with  ELLA ...
+	 ELLA time: 41.763 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.979 s
 
 ----------------------
 Running simulation  2 / 100
-	data sim time: 0.032 s
-
-Modeling with  wisp ...
-	 wisp time: 353.521 s
+	data sim time: 0.028 s
 
 Modeling with  ELLA ...
-	 ELLA time: 47.506 s
+Enter a frame number, or 0 to exit   
+
+1: run_attractor_sim_benchmarks(seed_data = count_data_neurons_patch, n_sims = 100, modeling_functions = list(ELLA = model_attractor_simulation_ELLA, DESeq2 = model_attractor_simulation_DESeq2), modeling_functio
+2: tryCatch({
+    if (mf %in% names(modeling_function_args)) {
+        model_args <- modeling_function_args[[mf]]
+        do.call(model_func, c(list(sim = sim, sim_num = s), model_args))
+    }
+    else {
+        model
+3: tryCatchList(expr, classes, parentenv, handlers)
+4: tryCatchOne(expr, names, parentenv, handlers[[1]])
+5: doTryCatch(return(expr), name, parentenv, handler)
+6: model_func(sim = sim, sim_num = s)
+7: #7: run_ELLA(sim$data)
+8: #24: ella_sim$nhpp_fit()
+9: py_call_impl(callable, call_args$unnamed, call_args$named)
+
+Enter an item from the menu, or 0 to exit
+
+
+----------------------
+Running simulation  1 / 100
+	data sim time: 0.028 s
+
+Modeling with  ELLA ...
+	 ELLA time: 22.122 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.557 s
+	 DESeq2 time: 0.915 s
+
+----------------------
+Running simulation  2 / 100
+	data sim time: 0.039 s
+
+Modeling with  ELLA ...
+	 ELLA time: 25.253 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.968 s
 
 ----------------------
 Running simulation  3 / 100
-	data sim time: 0.029 s
-
-Modeling with  wisp ...
-	 wisp time: 378.242 s
+	data sim time: 0.028 s
 
 Modeling with  ELLA ...
-	 ELLA time: 26.701 s
+	 ELLA time: 35.002 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.467 s
+	 DESeq2 time: 0.939 s
 
 ----------------------
 Running simulation  4 / 100
-	data sim time: 0.024 s
-
-Modeling with  wisp ...
-	 wisp time: 384.5 s
+	data sim time: 0.037 s
 
 Modeling with  ELLA ...
-	 ELLA time: 29.129 s
+	 ELLA time: 28.743 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.511 s
+	 DESeq2 time: 1.515 s
 
 ----------------------
 Running simulation  5 / 100
-	data sim time: 0.03 s
-
-Modeling with  wisp ...
-	 wisp time: 382.61 s
+	data sim time: 0.025 s
 
 Modeling with  ELLA ...
-	 ELLA time: 34.562 s
+	 ELLA time: 28.334 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.52 s
+	 DESeq2 time: 0.93 s
 
 ----------------------
 Running simulation  6 / 100
-	data sim time: 0.032 s
-
-Modeling with  wisp ...
-	 wisp time: 387.344 s
+	data sim time: 0.03 s
 
 Modeling with  ELLA ...
-	 ELLA time: 30.994 s
+	 ELLA time: 34.789 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.457 s
+	 DESeq2 time: 0.946 s
 
 ----------------------
 Running simulation  7 / 100
-	data sim time: 0.029 s
-
-Modeling with  wisp ...
-	 wisp time: 381.417 s
+	data sim time: 0.031 s
 
 Modeling with  ELLA ...
-	 ELLA time: 51.561 s
+	 ELLA time: 29.525 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.508 s
+	 DESeq2 time: 0.962 s
 
 ----------------------
 Running simulation  8 / 100
-	data sim time: 0.027 s
-
-Modeling with  wisp ...
-	 wisp time: 388.185 s
+	data sim time: 0.03 s
 
 Modeling with  ELLA ...
-	 ELLA time: 25.921 s
+	 ELLA time: 26.043 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.519 s
+	 DESeq2 time: 0.919 s
 
 ----------------------
 Running simulation  9 / 100
-	data sim time: 0.028 s
-
-Modeling with  wisp ...
-	 wisp time: 386.628 s
+	data sim time: 0.036 s
 
 Modeling with  ELLA ...
-	 ELLA time: 38.685 s
+	 ELLA time: 40.861 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.573 s
+	 DESeq2 time: 1.018 s
 
 ----------------------
 Running simulation  10 / 100
-	data sim time: 0.031 s
-
-Modeling with  wisp ...
-	 wisp time: 418.022 s
+	data sim time: 0.032 s
 
 Modeling with  ELLA ...
-	 ELLA time: 40.919 s
+	 ELLA time: 24.224 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 2.13 s
+	 DESeq2 time: 0.984 s
 
 ----------------------
 Running simulation  11 / 100
-	data sim time: 0.025 s
-
-Modeling with  wisp ...
-	 wisp time: 404.601 s
+	data sim time: 0.033 s
 
 Modeling with  ELLA ...
-	 ELLA time: 35.305 s
+	 ELLA time: 27.908 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.491 s
+	 DESeq2 time: 0.913 s
 
 ----------------------
 Running simulation  12 / 100
-	data sim time: 0.028 s
-
-Modeling with  wisp ...
-	 wisp time: 428.85 s
+	data sim time: 0.026 s
 
 Modeling with  ELLA ...
-	 ELLA time: 40.635 s
+	 ELLA time: 29.782 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 2.191 s
+	 DESeq2 time: 0.991 s
 
 ----------------------
 Running simulation  13 / 100
-	data sim time: 0.027 s
-
-Modeling with  wisp ...
-	 wisp time: 332.996 s
+	data sim time: 0.026 s
 
 Modeling with  ELLA ...
-	 ELLA time: 35.636 s
+	 ELLA time: 27.018 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.562 s
+	 DESeq2 time: 0.533 s
+
+Error encountered during modeling, number: 1 Rerunning simulation 13 
+
+
+----------------------
+Running simulation  13 / 100
+	data sim time: 0.142 s
+
+Modeling with  ELLA ...
+	 ELLA time: 27.577 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.922 s
 
 ----------------------
 Running simulation  14 / 100
-	data sim time: 0.025 s
-
-Modeling with  wisp ...
-	 wisp time: 411.109 s
+	data sim time: 0.069 s
 
 Modeling with  ELLA ...
-	 ELLA time: 39.553 s
+	 ELLA time: 25.818 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.529 s
+	 DESeq2 time: 0.93 s
 
 ----------------------
 Running simulation  15 / 100
-	data sim time: 0.026 s
-
-Modeling with  wisp ...
-	 wisp time: 381.675 s
+	data sim time: 0.036 s
 
 Modeling with  ELLA ...
-	 ELLA time: 35.261 s
+	 ELLA time: 25.384 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.565 s
+	 DESeq2 time: 1.485 s
 
 ----------------------
 Running simulation  16 / 100
-	data sim time: 0.028 s
-
-Modeling with  wisp ...
-	 wisp time: 408.61 s
+	data sim time: 0.025 s
 
 Modeling with  ELLA ...
-	 ELLA time: 37.066 s
+	 ELLA time: 23.892 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.551 s
+	 DESeq2 time: 0.922 s
 
 ----------------------
 Running simulation  17 / 100
-	data sim time: 0.028 s
-
-Modeling with  wisp ...
-	 wisp time: 387.791 s
+	data sim time: 0.025 s
 
 Modeling with  ELLA ...
-	 ELLA time: 33.742 s
+	 ELLA time: 25.914 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.555 s
+	 DESeq2 time: 0.963 s
 
 ----------------------
 Running simulation  18 / 100
-	data sim time: 0.031 s
-
-Modeling with  wisp ...
-	 wisp time: 404.448 s
+	data sim time: 0.029 s
 
 Modeling with  ELLA ...
-	 ELLA time: 43.892 s
+	 ELLA time: 28.824 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.596 s
+	 DESeq2 time: 0.973 s
 
 ----------------------
 Running simulation  19 / 100
-	data sim time: 0.025 s
-
-Modeling with  wisp ...
-	 wisp time: 398.497 s
+	data sim time: 0.029 s
 
 Modeling with  ELLA ...
-	 ELLA time: 33.322 s
+	 ELLA time: 22.628 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.618 s
+	 DESeq2 time: 0.962 s
 
 ----------------------
 Running simulation  20 / 100
-	data sim time: 0.029 s
-
-Modeling with  wisp ...
-	 wisp time: 395.721 s
+	data sim time: 0.03 s
 
 Modeling with  ELLA ...
-	 ELLA time: 35.213 s
+	 ELLA time: 24.289 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.594 s
+	 DESeq2 time: 0.961 s
 
 ----------------------
 Running simulation  21 / 100
-	data sim time: 0.028 s
-
-Modeling with  wisp ...
-	 wisp time: 403.335 s
+	data sim time: 0.032 s
 
 Modeling with  ELLA ...
-	 ELLA time: 27.266 s
+	 ELLA time: 26.141 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.594 s
+	 DESeq2 time: 0.925 s
 
 ----------------------
 Running simulation  22 / 100
-	data sim time: 0.032 s
-
-Modeling with  wisp ...
-	 wisp time: 405.979 s
+	data sim time: 0.029 s
 
 Modeling with  ELLA ...
-	 ELLA time: 42.904 s
+	 ELLA time: 21.455 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.582 s
+	 DESeq2 time: 1.01 s
 
 ----------------------
 Running simulation  23 / 100
-	data sim time: 0.027 s
-
-Modeling with  wisp ...
-	 wisp time: 419.411 s
+	data sim time: 0.029 s
 
 Modeling with  ELLA ...
-	 ELLA time: 34.073 s
+	 ELLA time: 23.454 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.637 s
+	 DESeq2 time: 0.98 s
 
 ----------------------
 Running simulation  24 / 100
-	data sim time: 0.794 s
-
-Modeling with  wisp ...
-	 wisp time: 451.732 s
+	data sim time: 0.03 s
 
 Modeling with  ELLA ...
-	 ELLA time: 36.62 s
+	 ELLA time: 23.762 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.657 s
+	 DESeq2 time: 0.971 s
 
 ----------------------
 Running simulation  25 / 100
-	data sim time: 0.027 s
-
-Modeling with  wisp ...
-	 wisp time: 425.446 s
+	data sim time: 0.033 s
 
 Modeling with  ELLA ...
-	 ELLA time: 35.348 s
+	 ELLA time: 23.307 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.636 s
+	 DESeq2 time: 0.932 s
 
 ----------------------
 Running simulation  26 / 100
-	data sim time: 0.805 s
-
-Modeling with  wisp ...
-	 wisp time: 453.104 s
+	data sim time: 0.038 s
 
 Modeling with  ELLA ...
-	 ELLA time: 41.209 s
+	 ELLA time: 25.605 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.625 s
+	 DESeq2 time: 0.981 s
 
 ----------------------
 Running simulation  27 / 100
-	data sim time: 0.029 s
-
-Modeling with  wisp ...
-	 wisp time: 427.593 s
+	data sim time: 0.028 s
 
 Modeling with  ELLA ...
-	 ELLA time: 31.484 s
+	 ELLA time: 28.722 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.67 s
+	 DESeq2 time: 0.923 s
 
 ----------------------
 Running simulation  28 / 100
-	data sim time: 0.029 s
-
-Modeling with  wisp ...
-	 wisp time: 438.203 s
+	data sim time: 0.039 s
 
 Modeling with  ELLA ...
-	 ELLA time: 35.726 s
+	 ELLA time: 27.65 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.646 s
+	 DESeq2 time: 1.431 s
 
 ----------------------
 Running simulation  29 / 100
-	data sim time: 0.787 s
-
-Modeling with  wisp ...
-	 wisp time: 430.281 s
+	data sim time: 0.03 s
 
 Modeling with  ELLA ...
-	 ELLA time: 34.775 s
+	 ELLA time: 43.329 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.661 s
+	 DESeq2 time: 0.931 s
 
 ----------------------
 Running simulation  30 / 100
-	data sim time: 0.033 s
-
-Modeling with  wisp ...
-	 wisp time: 428.397 s
+	data sim time: 0.029 s
 
 Modeling with  ELLA ...
-	 ELLA time: 36.821 s
+	 ELLA time: 26.463 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.691 s
+	 DESeq2 time: 0.939 s
 
 ----------------------
 Running simulation  31 / 100
-	data sim time: 0.035 s
-
-Modeling with  wisp ...
-	 wisp time: 434.626 s
+	data sim time: 0.031 s
 
 Modeling with  ELLA ...
-	 ELLA time: 47.935 s
+	 ELLA time: 26.136 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.652 s
+	 DESeq2 time: 0.97 s
 
 ----------------------
 Running simulation  32 / 100
-	data sim time: 0.028 s
-
-Modeling with  wisp ...
-	 wisp time: 442.146 s
+	data sim time: 0.032 s
 
 Modeling with  ELLA ...
-	 ELLA time: 29.948 s
+	 ELLA time: 25.413 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.704 s
+	 DESeq2 time: 0.929 s
 
 ----------------------
 Running simulation  33 / 100
-	data sim time: 0.033 s
-
-Modeling with  wisp ...
-	 wisp time: 433.032 s
+	data sim time: 0.03 s
 
 Modeling with  ELLA ...
-	 ELLA time: 49.684 s
+	 ELLA time: 25.687 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.692 s
+	 DESeq2 time: 0.993 s
 
 ----------------------
 Running simulation  34 / 100
-	data sim time: 0.029 s
-
-Modeling with  wisp ...
-	 wisp time: 451.822 s
+	data sim time: 0.027 s
 
 Modeling with  ELLA ...
-	 ELLA time: 25.16 s
+	 ELLA time: 26.893 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.688 s
+	 DESeq2 time: 0.934 s
 
 ----------------------
 Running simulation  35 / 100
-	data sim time: 0.032 s
-
-Modeling with  wisp ...
-	 wisp time: 426.929 s
+	data sim time: 0.03 s
 
 Modeling with  ELLA ...
-	 ELLA time: 38.85 s
+	 ELLA time: 26.845 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.683 s
+	 DESeq2 time: 0.977 s
 
 ----------------------
 Running simulation  36 / 100
-	data sim time: 0.033 s
-
-Modeling with  wisp ...
-	 wisp time: 434.188 s
+	data sim time: 0.03 s
 
 Modeling with  ELLA ...
-	 ELLA time: 50.277 s
+	 ELLA time: 22.799 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.683 s
+	 DESeq2 time: 0.947 s
 
 ----------------------
 Running simulation  37 / 100
-	data sim time: 0.03 s
-
-Modeling with  wisp ...
-	 wisp time: 416.507 s
+	data sim time: 0.032 s
 
 Modeling with  ELLA ...
-	 ELLA time: 36.889 s
+	 ELLA time: 26.137 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.639 s
+	 DESeq2 time: 0.97 s
 
 ----------------------
 Running simulation  38 / 100
 	data sim time: 0.032 s
 
-Modeling with  wisp ...
-	 wisp time: 439.469 s
-
 Modeling with  ELLA ...
-	 ELLA time: 39.25 s
+	 ELLA time: 28.434 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.654 s
+	 DESeq2 time: 0.953 s
 
 ----------------------
 Running simulation  39 / 100
-	data sim time: 0.815 s
-
-Modeling with  wisp ...
-	 wisp time: 434.033 s
+	data sim time: 0.029 s
 
 Modeling with  ELLA ...
-	 ELLA time: 37.818 s
+	 ELLA time: 25.882 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.661 s
+	 DESeq2 time: 0.942 s
 
 ----------------------
 Running simulation  40 / 100
-	data sim time: 0.029 s
-
-Modeling with  wisp ...
-	 wisp time: 443.151 s
+	data sim time: 0.027 s
 
 Modeling with  ELLA ...
-	 ELLA time: 31.559 s
+	 ELLA time: 21.505 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.676 s
+	 DESeq2 time: 0.92 s
 
 ----------------------
 Running simulation  41 / 100
-	data sim time: 0.032 s
-
-Modeling with  wisp ...
-	 wisp time: 422.31 s
+	data sim time: 0.043 s
 
 Modeling with  ELLA ...
-	 ELLA time: 39.6 s
+	 ELLA time: 35.777 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.688 s
+	 DESeq2 time: 0.974 s
 
 ----------------------
 Running simulation  42 / 100
-	data sim time: 0.029 s
-
-Modeling with  wisp ...
-	 wisp time: 448.646 s
+	data sim time: 0.032 s
 
 Modeling with  ELLA ...
-	 ELLA time: 34.087 s
+	 ELLA time: 29.317 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.673 s
+	 DESeq2 time: 0.921 s
 
 ----------------------
 Running simulation  43 / 100
-	data sim time: 0.032 s
-
-Modeling with  wisp ...
-	 wisp time: 431.088 s
+	data sim time: 0.039 s
 
 Modeling with  ELLA ...
-	 ELLA time: 53.537 s
+	 ELLA time: 24.461 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.647 s
+	 DESeq2 time: 1.501 s
 
 ----------------------
 Running simulation  44 / 100
-	data sim time: 0.03 s
-
-Modeling with  wisp ...
-	 wisp time: 459.744 s
+	data sim time: 0.026 s
 
 Modeling with  ELLA ...
-	 ELLA time: 33.87 s
+	 ELLA time: 24.862 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.679 s
+	 DESeq2 time: 0.993 s
 
 ----------------------
 Running simulation  45 / 100
-	data sim time: 0.029 s
-
-Modeling with  wisp ...
-	 wisp time: 447.521 s
+	data sim time: 0.034 s
 
 Modeling with  ELLA ...
-	 ELLA time: 30.003 s
+	 ELLA time: 28.15 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.635 s
+	 DESeq2 time: 0.934 s
 
 ----------------------
 Running simulation  46 / 100
-	data sim time: 0.028 s
-
-Modeling with  wisp ...
-	 wisp time: 424.589 s
+	data sim time: 0.031 s
 
 Modeling with  ELLA ...
-	 ELLA time: 37.329 s
+	 ELLA time: 22.675 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.691 s
+	 DESeq2 time: 0.968 s
 
 ----------------------
 Running simulation  47 / 100
-	data sim time: 0.029 s
-
-Modeling with  wisp ...
-	 wisp time: 428.909 s
+	data sim time: 0.041 s
 
 Modeling with  ELLA ...
-	 ELLA time: 30.072 s
+	 ELLA time: 34.464 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.683 s
+	 DESeq2 time: 1.012 s
 
 ----------------------
 Running simulation  48 / 100
 	data sim time: 0.03 s
 
-Modeling with  wisp ...
-	 wisp time: 421.406 s
-
 Modeling with  ELLA ...
-	 ELLA time: 36.685 s
+	 ELLA time: 26.606 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.692 s
+	 DESeq2 time: 0.926 s
 
 ----------------------
 Running simulation  49 / 100
-	data sim time: 0.029 s
-
-Modeling with  wisp ...
-	 wisp time: 445.072 s
+	data sim time: 0.032 s
 
 Modeling with  ELLA ...
-	 ELLA time: 35.209 s
+	 ELLA time: 29.777 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.658 s
+	 DESeq2 time: 0.953 s
 
 ----------------------
 Running simulation  50 / 100
-	data sim time: 0.79 s
-
-Modeling with  wisp ...
-	 wisp time: 427.727 s
+	data sim time: 0.032 s
 
 Modeling with  ELLA ...
-	 ELLA time: 29.436 s
+	 ELLA time: 20.566 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.703 s
+	 DESeq2 time: 0.925 s
 
 ----------------------
 Running simulation  51 / 100
-	data sim time: 0.033 s
-
-Modeling with  wisp ...
-	 wisp time: 425.811 s
+	data sim time: 0.043 s
 
 Modeling with  ELLA ...
-	 ELLA time: 36.131 s
+	 ELLA time: 28.129 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.676 s
+	 DESeq2 time: 1.01 s
 
 ----------------------
 Running simulation  52 / 100
-	data sim time: 0.031 s
-
-Modeling with  wisp ...
-	 wisp time: 437.725 s
+	data sim time: 0.033 s
 
 Modeling with  ELLA ...
-	 ELLA time: 31.112 s
+	 ELLA time: 22.68 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.689 s
+	 DESeq2 time: 0.551 s
+
+Error encountered during modeling, number: 2 Rerunning simulation 52 
+
+
+----------------------
+Running simulation  52 / 100
+	data sim time: 0.028 s
+
+Modeling with  ELLA ...
+	 ELLA time: 25.011 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.953 s
 
 ----------------------
 Running simulation  53 / 100
 	data sim time: 0.033 s
 
-Modeling with  wisp ...
-	 wisp time: 435.365 s
-
 Modeling with  ELLA ...
-	 ELLA time: 43.598 s
+	 ELLA time: 29.706 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.665 s
+	 DESeq2 time: 0.957 s
 
 ----------------------
 Running simulation  54 / 100
-	data sim time: 0.031 s
-
-Modeling with  wisp ...
-	 wisp time: 433.406 s
+	data sim time: 0.666 s
 
 Modeling with  ELLA ...
-	 ELLA time: 39.375 s
+	 ELLA time: 21.785 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.697 s
+	 DESeq2 time: 0.941 s
 
 ----------------------
 Running simulation  55 / 100
-	data sim time: 0.03 s
-
-Modeling with  wisp ...
-	 wisp time: 443.601 s
+	data sim time: 0.031 s
 
 Modeling with  ELLA ...
-	 ELLA time: 30.417 s
+	 ELLA time: 21.78 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.672 s
+	 DESeq2 time: 0.952 s
 
 ----------------------
 Running simulation  56 / 100
-	data sim time: 0.034 s
-
-Modeling with  wisp ...
-	 wisp time: 434.499 s
+	data sim time: 0.03 s
 
 Modeling with  ELLA ...
-	 ELLA time: 35.226 s
+	 ELLA time: 21.805 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.852 s
+	 DESeq2 time: 0.923 s
 
 ----------------------
 Running simulation  57 / 100
-	data sim time: 0.028 s
-
-Modeling with  wisp ...
-	 wisp time: 428.546 s
+	data sim time: 0.045 s
 
 Modeling with  ELLA ...
-	 ELLA time: 37.451 s
+	 ELLA time: 23.792 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.666 s
+	 DESeq2 time: 0.937 s
 
 ----------------------
 Running simulation  58 / 100
 	data sim time: 0.031 s
 
-Modeling with  wisp ...
-	 wisp time: 445.878 s
-
 Modeling with  ELLA ...
-	 ELLA time: 47.947 s
+	 ELLA time: 25.074 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.645 s
+	 DESeq2 time: 0.906 s
 
 ----------------------
 Running simulation  59 / 100
-	data sim time: 0.028 s
-
-Modeling with  wisp ...
-	 wisp time: 430.714 s
+	data sim time: 0.032 s
 
 Modeling with  ELLA ...
-	 ELLA time: 25.29 s
+	 ELLA time: 31.638 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.661 s
+	 DESeq2 time: 1.131 s
 
 ----------------------
 Running simulation  60 / 100
-	data sim time: 0.033 s
-
-Modeling with  wisp ...
-	 wisp time: 422.551 s
+	data sim time: 0.03 s
 
 Modeling with  ELLA ...
-	 ELLA time: 40.191 s
+	 ELLA time: 24.548 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.712 s
+	 DESeq2 time: 0.926 s
 
 ----------------------
 Running simulation  61 / 100
-	data sim time: 0.032 s
-
-Modeling with  wisp ...
-	 wisp time: 430.342 s
+	data sim time: 0.027 s
 
 Modeling with  ELLA ...
-	 ELLA time: 42.169 s
+	 ELLA time: 30.511 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.659 s
+	 DESeq2 time: 0.933 s
 
 ----------------------
 Running simulation  62 / 100
-	data sim time: 0.031 s
-
-Modeling with  wisp ...
-	 wisp time: 436.614 s
+	data sim time: 0.03 s
 
 Modeling with  ELLA ...
-	 ELLA time: 42.639 s
+	 ELLA time: 31.428 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.657 s
+	 DESeq2 time: 0.981 s
 
 ----------------------
 Running simulation  63 / 100
-	data sim time: 0.033 s
-
-Modeling with  wisp ...
-	 wisp time: 346.464 s
+	data sim time: 0.03 s
 
 Modeling with  ELLA ...
-	 ELLA time: 41.333 s
+	 ELLA time: 29.578 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.668 s
+	 DESeq2 time: 0.911 s
 
 ----------------------
 Running simulation  64 / 100
-	data sim time: 0.03 s
-
-Modeling with  wisp ...
-	 wisp time: 442.581 s
+	data sim time: 0.042 s
 
 Modeling with  ELLA ...
-	 ELLA time: 35.389 s
+	 ELLA time: 37.048 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.693 s
+	 DESeq2 time: 0.983 s
 
 ----------------------
 Running simulation  65 / 100
-	data sim time: 0.032 s
-
-Modeling with  wisp ...
-	 wisp time: 425.269 s
+	data sim time: 0.031 s
 
 Modeling with  ELLA ...
-	 ELLA time: 39.12 s
+	 ELLA time: 28.355 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.864 s
+	 DESeq2 time: 0.931 s
 
 ----------------------
 Running simulation  66 / 100
-	data sim time: 0.033 s
-
-Modeling with  wisp ...
-	 wisp time: 420.259 s
+	data sim time: 0.041 s
 
 Modeling with  ELLA ...
-	 ELLA time: 40.412 s
+	 ELLA time: 30.113 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.674 s
+	 DESeq2 time: 0.975 s
 
 ----------------------
 Running simulation  67 / 100
-	data sim time: 0.034 s
-
-Modeling with  wisp ...
-	 wisp time: 439.753 s
+	data sim time: 0.041 s
 
 Modeling with  ELLA ...
-	 ELLA time: 47.113 s
+	 ELLA time: 24.266 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.654 s
+	 DESeq2 time: 1.465 s
 
 ----------------------
 Running simulation  68 / 100
-	data sim time: 0.029 s
-
-Modeling with  wisp ...
-	 wisp time: 445.301 s
+	data sim time: 0.025 s
 
 Modeling with  ELLA ...
-	 ELLA time: 32.933 s
+	 ELLA time: 28.8 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.698 s
+	 DESeq2 time: 0.948 s
 
 ----------------------
 Running simulation  69 / 100
-	data sim time: 0.034 s
-
-Modeling with  wisp ...
-	 wisp time: 420.751 s
+	data sim time: 0.031 s
 
 Modeling with  ELLA ...
-	 ELLA time: 46.321 s
+	 ELLA time: 26.791 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 2.243 s
+	 DESeq2 time: 0.942 s
 
 ----------------------
 Running simulation  70 / 100
-	data sim time: 0.028 s
-
-Modeling with  wisp ...
-	 wisp time: 418.132 s
+	data sim time: 0.031 s
 
 Modeling with  ELLA ...
-	 ELLA time: 38.018 s
+	 ELLA time: 28.059 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.665 s
+	 DESeq2 time: 0.564 s
+
+Error encountered during modeling, number: 3 Rerunning simulation 70 
+
+
+----------------------
+Running simulation  70 / 100
+	data sim time: 0.033 s
+
+Modeling with  ELLA ...
+	 ELLA time: 24.547 s
+
+Modeling with  DESeq2 ...
+	 DESeq2 time: 0.98 s
 
 ----------------------
 Running simulation  71 / 100
-	data sim time: 0.033 s
-
-Modeling with  wisp ...
-	 wisp time: 419.371 s
+	data sim time: 0.028 s
 
 Modeling with  ELLA ...
-	 ELLA time: 31.496 s
+	 ELLA time: 26.248 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.638 s
+	 DESeq2 time: 0.999 s
 
 ----------------------
 Running simulation  72 / 100
-	data sim time: 0.033 s
-
-Modeling with  wisp ...
-	 wisp time: 459.967 s
+	data sim time: 0.031 s
 
 Modeling with  ELLA ...
-	 ELLA time: 44.494 s
+	 ELLA time: 33.413 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.726 s
+	 DESeq2 time: 0.934 s
 
 ----------------------
 Running simulation  73 / 100
-	data sim time: 0.028 s
-
-Modeling with  wisp ...
-	 wisp time: 435.106 s
+	data sim time: 0.037 s
 
 Modeling with  ELLA ...
-	 ELLA time: 33.318 s
+	 ELLA time: 30.057 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.643 s
+	 DESeq2 time: 1.023 s
 
 ----------------------
 Running simulation  74 / 100
-	data sim time: 0.033 s
-
-Modeling with  wisp ...
-	 wisp time: 428.382 s
+	data sim time: 0.023 s
 
 Modeling with  ELLA ...
-	 ELLA time: 38.656 s
+	 ELLA time: 26.568 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.653 s
+	 DESeq2 time: 0.982 s
 
 ----------------------
 Running simulation  75 / 100
-	data sim time: 0.03 s
-
-Modeling with  wisp ...
-	 wisp time: 430.463 s
+	data sim time: 0.032 s
 
 Modeling with  ELLA ...
-	 ELLA time: 34.192 s
+	 ELLA time: 27.399 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.678 s
+	 DESeq2 time: 0.946 s
 
 ----------------------
 Running simulation  76 / 100
-	data sim time: 0.033 s
-
-Modeling with  wisp ...
-	 wisp time: 427.392 s
+	data sim time: 0.027 s
 
 Modeling with  ELLA ...
-	 ELLA time: 44.973 s
+	 ELLA time: 30.32 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.652 s
+	 DESeq2 time: 0.962 s
 
 ----------------------
 Running simulation  77 / 100
-	data sim time: 0.029 s
-
-Modeling with  wisp ...
-	 wisp time: 440.177 s
+	data sim time: 0.04 s
 
 Modeling with  ELLA ...
-	 ELLA time: 43.539 s
+	 ELLA time: 23.601 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.659 s
+	 DESeq2 time: 1.013 s
 
 ----------------------
 Running simulation  78 / 100
 	data sim time: 0.031 s
 
-Modeling with  wisp ...
-	 wisp time: 437.123 s
-
 Modeling with  ELLA ...
-	 ELLA time: 38.044 s
+	 ELLA time: 30.232 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.653 s
+	 DESeq2 time: 0.965 s
 
 ----------------------
 Running simulation  79 / 100
-	data sim time: 0.029 s
-
-Modeling with  wisp ...
-	 wisp time: 427.296 s
+	data sim time: 0.04 s
 
 Modeling with  ELLA ...
-	 ELLA time: 39.897 s
+	 ELLA time: 24.448 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.683 s
+	 DESeq2 time: 1.465 s
 
 ----------------------
 Running simulation  80 / 100
-	data sim time: 0.034 s
-
-Modeling with  wisp ...
-	 wisp time: 425.405 s
+	data sim time: 0.032 s
 
 Modeling with  ELLA ...
-	 ELLA time: 41.706 s
+	 ELLA time: 26.602 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.649 s
+	 DESeq2 time: 0.947 s
 
 ----------------------
 Running simulation  81 / 100
-	data sim time: 0.03 s
-
-Modeling with  wisp ...
-	 wisp time: 433.717 s
+	data sim time: 0.031 s
 
 Modeling with  ELLA ...
-	 ELLA time: 35.793 s
+	 ELLA time: 23.466 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.793 s
+	 DESeq2 time: 0.955 s
 
 ----------------------
 Running simulation  82 / 100
-	data sim time: 0.029 s
-
-Modeling with  wisp ...
-	 wisp time: 456.299 s
+	data sim time: 0.03 s
 
 Modeling with  ELLA ...
-	 ELLA time: 39.801 s
+	 ELLA time: 24.989 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.67 s
+	 DESeq2 time: 0.981 s
 
 ----------------------
 Running simulation  83 / 100
-	data sim time: 0.029 s
-
-Modeling with  wisp ...
-	 wisp time: 437.161 s
+	data sim time: 0.031 s
 
 Modeling with  ELLA ...
-	 ELLA time: 40.949 s
+	 ELLA time: 26.843 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.661 s
+	 DESeq2 time: 0.949 s
 
 ----------------------
 Running simulation  84 / 100
-	data sim time: 0.794 s
-
-Modeling with  wisp ...
-	 wisp time: 429.892 s
+	data sim time: 0.04 s
 
 Modeling with  ELLA ...
-	 ELLA time: 36.578 s
+	 ELLA time: 23.289 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.705 s
+	 DESeq2 time: 0.959 s
 
 ----------------------
 Running simulation  85 / 100
-	data sim time: 0.031 s
-
-Modeling with  wisp ...
-	 wisp time: 422.333 s
+	data sim time: 0.03 s
 
 Modeling with  ELLA ...
-	 ELLA time: 41.705 s
+	 ELLA time: 23.234 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.682 s
+	 DESeq2 time: 0.931 s
 
 ----------------------
 Running simulation  86 / 100
-	data sim time: 0.032 s
-
-Modeling with  wisp ...
-	 wisp time: 424.032 s
+	data sim time: 0.031 s
 
 Modeling with  ELLA ...
-	 ELLA time: 38.145 s
+	 ELLA time: 29.162 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.672 s
+	 DESeq2 time: 1.008 s
 
 ----------------------
 Running simulation  87 / 100
 	data sim time: 0.032 s
 
-Modeling with  wisp ...
-	 wisp time: 450.707 s
-
 Modeling with  ELLA ...
-	 ELLA time: 48.819 s
+	 ELLA time: 28.662 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.699 s
+	 DESeq2 time: 1.078 s
 
 ----------------------
 Running simulation  88 / 100
-	data sim time: 0.024 s
-
-Modeling with  wisp ...
-	 wisp time: 459.999 s
+	data sim time: 0.029 s
 
 Modeling with  ELLA ...
-	 ELLA time: 27.603 s
+	 ELLA time: 22.267 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.715 s
+	 DESeq2 time: 0.966 s
 
 ----------------------
 Running simulation  89 / 100
-	data sim time: 0.03 s
-
-Modeling with  wisp ...
-	 wisp time: 434.512 s
+	data sim time: 0.032 s
 
 Modeling with  ELLA ...
-	 ELLA time: 38.894 s
+	 ELLA time: 32.431 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.673 s
+	 DESeq2 time: 0.997 s
 
 ----------------------
 Running simulation  90 / 100
-	data sim time: 0.797 s
-
-Modeling with  wisp ...
-	 wisp time: 433.176 s
+	data sim time: 0.032 s
 
 Modeling with  ELLA ...
-	 ELLA time: 46.946 s
+	 ELLA time: 25.468 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.712 s
+	 DESeq2 time: 0.986 s
 
 ----------------------
 Running simulation  91 / 100
-	data sim time: 0.029 s
-
-Modeling with  wisp ...
-	 wisp time: 400.494 s
+	data sim time: 0.039 s
 
 Modeling with  ELLA ...
-	 ELLA time: 28.604 s
+	 ELLA time: 30.405 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.704 s
+	 DESeq2 time: 1.006 s
 
 ----------------------
 Running simulation  92 / 100
-	data sim time: 0.03 s
-
-Modeling with  wisp ...
-	 wisp time: 444.326 s
+	data sim time: 0.026 s
 
 Modeling with  ELLA ...
-	 ELLA time: 37.118 s
+	 ELLA time: 24.873 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.699 s
+	 DESeq2 time: 0.94 s
 
 ----------------------
 Running simulation  93 / 100
-	data sim time: 0.032 s
-
-Modeling with  wisp ...
-	 wisp time: 430.748 s
+	data sim time: 0.029 s
 
 Modeling with  ELLA ...
-	 ELLA time: 39.161 s
+	 ELLA time: 22.193 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.692 s
+	 DESeq2 time: 1.015 s
 
 ----------------------
 Running simulation  94 / 100
-	data sim time: 0.031 s
-
-Modeling with  wisp ...
-	 wisp time: 415.32 s
+	data sim time: 0.029 s
 
 Modeling with  ELLA ...
-	 ELLA time: 39.78 s
+	 ELLA time: 25.43 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.682 s
+	 DESeq2 time: 0.926 s
 
 ----------------------
 Running simulation  95 / 100
-	data sim time: 0.033 s
-
-Modeling with  wisp ...
-	 wisp time: 426.817 s
+	data sim time: 0.66 s
 
 Modeling with  ELLA ...
-	 ELLA time: 39.268 s
+	 ELLA time: 29.599 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.693 s
+	 DESeq2 time: 0.94 s
 
 ----------------------
 Running simulation  96 / 100
-	data sim time: 0.029 s
-
-Modeling with  wisp ...
-	 wisp time: 428.655 s
+	data sim time: 0.031 s
 
 Modeling with  ELLA ...
-	 ELLA time: 33.795 s
+	 ELLA time: 33.129 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.694 s
+	 DESeq2 time: 0.971 s
 
 ----------------------
 Running simulation  97 / 100
-	data sim time: 0.031 s
-
-Modeling with  wisp ...
-	 wisp time: 427.409 s
+	data sim time: 0.027 s
 
 Modeling with  ELLA ...
-	 ELLA time: 34.994 s
+	 ELLA time: 32.677 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.658 s
+	 DESeq2 time: 0.913 s
 
 ----------------------
 Running simulation  98 / 100
-	data sim time: 1.561 s
-
-Modeling with  wisp ...
-	 wisp time: 438.054 s
+	data sim time: 0.528 s
 
 Modeling with  ELLA ...
-	 ELLA time: 50.492 s
+	 ELLA time: 28.541 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.676 s
+	 DESeq2 time: 0.91 s
 
 ----------------------
 Running simulation  99 / 100
-	data sim time: 0.03 s
-
-Modeling with  wisp ...
-	 wisp time: 431.543 s
+	data sim time: 0.028 s
 
 Modeling with  ELLA ...
-	 ELLA time: 29.552 s
+	 ELLA time: 30.654 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.713 s
+	 DESeq2 time: 0.949 s
 
 ----------------------
 Running simulation  100 / 100
 	data sim time: 0.03 s
 
-Modeling with  wisp ...
-	 wisp time: 421.128 s
-
 Modeling with  ELLA ...
-	 ELLA time: 31.055 s
+	 ELLA time: 25.751 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 1.683 sNo suitable frames for recover()
-
- wisp : 0.0575
- ELLA : 0
- DESeq2 : 0.18
- wisp : 0.0575
- ELLA : 0
- DESeq2 : 0.18
- wisp : 0.0575
- ELLA : 0
- DESeq2 : 0.18
- wisp : 0.0575  [1] 9.636948e-01 3.666667e-07 1.691524e-07 1.692309e-07 1.466667e-07 3.666662e-07 7.333412e-07 1.571430e-07 3.142864e-07 4.400004e-07 2.740205e-07 1.692313e-07 2.000000e-07 7.971016e-01 2.200041e-06 1.692309e-07
- [17] 2.749999e-07 2.750000e-07 9.252820e-01 1.999993e-07 1.984865e-06 1.100005e-06 2.750006e-07 2.000000e-07 2.000001e-07 1.692309e-07 1.999990e-07 1.375001e-07 3.666688e-07 8.992593e-01 4.398392e-07 2.750001e-07
- [33] 3.666669e-07 3.666601e-07 2.151653e-06 1.100005e-06 3.142866e-07 4.400007e-07 2.444447e-07 1.692309e-07 1.100006e-06 6.268825e-01 1.571430e-07 8.514487e-01 1.571429e-07 4.400012e-07 1.375000e-07 2.000001e-07
- [49] 7.333369e-07 2.199898e-06 2.200001e-07 1.466667e-07 2.000001e-07 2.200001e-07 2.200001e-07 5.500046e-07 2.444446e-07 7.333418e-07 2.000001e-07 1.294118e-07 5.500047e-07 3.142873e-07 5.500029e-07 1.375000e-07
- [65] 1.100011e-06 3.142863e-07 3.666670e-07 5.500020e-07 2.000002e-07 4.399896e-07 1.571429e-07 2.000004e-07 1.692309e-07 9.758214e-01 2.200041e-06 2.200136e-07 1.833335e-07 2.444447e-07 2.000002e-07 1.833336e-07
- [81] 9.303083e-01 5.499998e-07 1.100006e-06 8.123097e-01 5.500014e-07 2.750004e-07 2.444447e-07 1.375004e-07 3.142860e-07 5.955139e-01 1.692308e-07 1.100007e-06 2.200002e-07 4.399996e-07 1.692308e-07 2.200050e-06
- [97] 3.666676e-07 2.200041e-06 3.130411e-07 2.444447e-07 2.000002e-07 2.444435e-07 2.442279e-07 5.500012e-07 7.852697e-01 9.280085e-01 1.692308e-07 3.142861e-07 2.750005e-07 1.099992e-06 1.833340e-07 2.200003e-07
-[113] 2.200058e-06 1.100004e-06 2.000001e-07 2.200135e-06 2.200002e-07 3.142857e-07 1.833333e-07 2.749920e-07 1.375000e-07 2.200012e-07 2.200002e-07 1.571429e-07 1.833334e-07 8.343536e-01 3.142860e-07 4.400017e-07
-[129] 4.400001e-07 1.571426e-07 1.833336e-07 2.444441e-07 1.100006e-06 9.713937e-01 2.000001e-07 1.100006e-06 3.142864e-07 3.142844e-07 1.692308e-07 4.400029e-07 1.833340e-07 5.499995e-07 2.750004e-07 1.466667e-07
-[145] 1.833334e-07 2.200001e-07 5.335356e-07 7.333348e-07 2.750004e-07 2.199985e-06 2.000003e-07 1.466667e-07 1.692308e-07 2.000001e-07 1.830764e-07 1.466668e-07 1.100006e-06 1.520816e-01 1.692308e-07 1.692310e-07
-[161] 2.200017e-06 1.999996e-07 1.026665e-06 1.100008e-06 2.750003e-07 2.000001e-07 1.099642e-06 1.571429e-07 1.833334e-07 2.199643e-06 1.833334e-07 1.375000e-07 1.692308e-07 5.500001e-07 2.197835e-07 1.833289e-07
-[177] 2.200010e-06 9.625244e-01 6.496758e-04 2.444445e-07 2.000009e-07 3.666663e-07 1.375000e-07 3.142859e-07 1.833335e-07 7.333366e-07 2.200076e-06 2.200011e-06 2.000011e-07 2.444451e-07 1.833334e-07 1.692309e-07
-[193] 1.692308e-07 4.400016e-07 4.397806e-07 1.692308e-07 2.200136e-06 2.199985e-06 9.680092e-07 2.000000e-07 2.200003e-07 4.400011e-07 1.833339e-07 1.098458e-06 3.142863e-07 2.749999e-07 2.200038e-06 2.444543e-07
-[209] 2.200005e-07 3.044361e-01 2.200001e-07 1.571505e-07 2.000001e-07 2.749995e-07 1.571429e-07 2.200001e-07 2.195945e-06 1.100004e-06 2.750006e-07 4.399409e-07 1.692309e-07 1.100016e-06 2.444446e-07 2.750002e-07
-[225] 3.666669e-07 5.498462e-07 2.192646e-06 2.444445e-07 1.833334e-07 1.833335e-07 2.200011e-07 1.833334e-07 1.100026e-06 7.333349e-07 4.489107e-07 2.200004e-07 3.666669e-07 2.750010e-07 2.200001e-07 4.400011e-07
-[241] 1.466667e-07 1.100011e-06 1.571436e-07 2.199979e-06 1.833336e-07 2.444443e-07 1.692310e-07 1.571430e-07 2.000003e-07 2.000001e-07 1.833335e-07 1.692309e-07 3.142858e-07 2.200000e-07 2.000001e-07 3.142882e-07
-[257] 2.000002e-07 2.444445e-07 1.466667e-07 1.833334e-07 7.333372e-07 2.000001e-07 1.833335e-07 2.750003e-07 2.200006e-07 2.444453e-07 2.750001e-07 2.000002e-07 7.333356e-07 1.548346e-01 4.400004e-07 2.444450e-07
-[273] 2.444446e-07 5.499509e-07 1.100004e-06 2.444451e-07 2.200024e-06 1.099983e-06 2.000002e-07 2.000001e-07 2.444447e-07 2.444445e-07 1.982706e-07 4.400006e-07 1.466673e-07 2.000012e-07 1.833336e-07 1.833334e-07
-[289] 1.833338e-07 2.199977e-06 1.885972e-04 1.375000e-07 3.666671e-07 4.400003e-07 1.571431e-07 3.142860e-07 9.811139e-01 2.199976e-06 1.466667e-07 1.692308e-07 2.000003e-07 5.500007e-07 1.571429e-07 1.833334e-07
-[305] 1.833335e-07 2.750003e-07 1.375000e-07 1.692308e-07 2.200002e-07 2.750003e-07 2.000000e-07 1.833337e-07 2.444447e-07 3.666691e-07 2.199851e-07 2.200051e-06 2.000006e-07 3.666699e-07 2.750003e-07 2.750001e-07
-[321] 3.666675e-07 5.499991e-07 3.141899e-07 3.666671e-07 1.571429e-07 2.750029e-07 2.750005e-07 2.198168e-07 1.833334e-07 9.680745e-01 2.200002e-07 3.666675e-07 2.000002e-07 2.200002e-07 1.833335e-07 2.200001e-07
-[337] 2.000000e-07 2.749997e-07 1.571429e-07 1.692309e-07 2.750001e-07 4.400002e-07 1.571429e-07 4.400004e-07 2.200001e-07 1.999998e-07 1.571429e-07 1.692308e-07 1.571429e-07 1.100021e-06 1.357590e-05 2.444447e-07
-[353] 1.833333e-07 1.100001e-06 1.099999e-06 2.444445e-07 1.375000e-07 2.444447e-07 1.571429e-07 2.200004e-07 1.833334e-07 2.200000e-07 1.833333e-07 1.996579e-07 5.500004e-07 1.100003e-06 1.375000e-07 3.666675e-07
-[369] 2.200012e-06 1.692306e-07 9.515677e-01 1.833334e-07 4.400041e-07 2.444447e-07 7.960500e-01 2.000001e-07 4.400064e-07 5.500011e-07 3.666674e-07 3.666680e-07 6.523946e-07 1.100036e-06 1.692309e-07 9.143414e-01
-[385] 2.750001e-07 2.200025e-06 3.666629e-07 2.000001e-07 1.571429e-07 2.000005e-07 1.692308e-07 1.571429e-07 9.604356e-01 2.200014e-06 2.444449e-07 1.466667e-07 1.100003e-06 2.200320e-06 3.666671e-07 1.692292e-07
-
- ELLA : 0
- DESeq2 : 0.18[1] "wisp"   "ELLA"   "DESeq2"
-
-Enter a frame number, or 0 to exit   
-
-1: analyze_results(results$results)
-2: #25: m %in% names(sig_thres)
-3: #25: .handleSimpleError(function (cond) 
-.Internal(C_tryCatchHelper(addr, 1, cond)), "object 'sig_thres' not found", base::quote(analyze_results(results$results)))
-4: h(simpleError(msg, call))
-
-Enter an item from the menu, or 0 to exit
-
- wisp : 0.0575
- ELLA : 0  [1]  8.852025e-01  8.852025e-01  8.309334e-19 3.803272e-226  1.225465e-01  7.682842e-01  2.375229e-01  0.000000e+00  1.478140e-01  0.000000e+00  9.693241e-01  7.413424e-01  3.603943e-01  5.956742e-40
- [15]  3.603943e-01  1.166408e-01  9.414541e-01  8.871086e-01  8.871086e-01  8.871086e-01  2.617425e-01  2.617425e-01  1.878306e-01  4.165786e-01  2.347525e-01  3.455626e-01  7.541533e-01  7.541533e-01
- [29] 1.079627e-164 1.655075e-101 1.702873e-291 3.648407e-110  2.878883e-01  3.960033e-01  7.502516e-01  3.960033e-01  0.000000e+00  2.990825e-01  8.654862e-02  1.143736e-02  3.944088e-02  6.675237e-01
- [43]  9.267219e-02  5.007303e-01  0.000000e+00  0.000000e+00  6.017730e-02  6.017730e-02  8.137532e-84  0.000000e+00  9.096392e-21  0.000000e+00  4.600712e-01  1.610246e-01  9.012001e-01  4.600712e-01
- [57]  2.355926e-01  5.263268e-01  5.263268e-01  6.483637e-01  4.499863e-01  1.421590e-44  5.305288e-01  5.305288e-01  3.555788e-01  0.000000e+00  4.277817e-01  4.277817e-01  4.923656e-04  3.579001e-01
- [71]  8.860287e-84  6.202418e-01  4.959399e-02  0.000000e+00  4.232926e-01  4.232926e-01  8.634158e-01  8.726959e-01  8.726959e-01  8.726959e-01  9.041071e-01  9.041071e-01  9.324531e-01  9.041071e-01
- [85]  6.441833e-01  4.759908e-01  4.759908e-01  6.441833e-01  1.282860e-01  4.834120e-01  3.531064e-41  4.834120e-01  0.000000e+00 2.076595e-146  5.510808e-72  0.000000e+00  6.245562e-01  7.923030e-01
- [99]  6.245562e-01  6.245562e-01  2.084124e-71  1.396611e-44 5.352930e-222  2.584328e-30  9.137371e-01  9.199059e-01  0.000000e+00 9.989906e-194  2.794748e-02  1.957959e-01  5.532891e-01  1.314398e-01
-[113]  4.991110e-01  4.991110e-01  6.593568e-01  4.991110e-01  4.688810e-01  4.688810e-01  4.688810e-01  0.000000e+00  1.391600e-01  2.660351e-01  0.000000e+00  0.000000e+00  1.590018e-01  7.686585e-01
-[127]  4.322430e-01  0.000000e+00  0.000000e+00  0.000000e+00  0.000000e+00 9.859849e-217  8.811283e-01  8.811283e-01  8.811283e-01  8.811283e-01  0.000000e+00  8.015424e-01  8.015424e-01  0.000000e+00
-[141]  0.000000e+00  0.000000e+00  2.788927e-01  2.788927e-01  4.954999e-01  9.329574e-01  9.255283e-01  9.329574e-01  8.038547e-01  8.038547e-01  8.038547e-01  8.038547e-01  0.000000e+00  2.085683e-10
-[155]  2.058286e-03  7.506326e-03  3.881050e-01  2.275584e-01  0.000000e+00  9.426567e-01  0.000000e+00  3.177917e-01  7.302784e-01  2.103477e-02  2.733935e-02  4.788080e-01  8.079501e-01  0.000000e+00
-[169]  5.941237e-13 1.389101e-102  1.310561e-64  1.797245e-05  7.793005e-01  7.793005e-01  7.793005e-01  7.793005e-01  6.188072e-01  9.762437e-01  9.367635e-01  6.188072e-01  3.588603e-06  0.000000e+00
-[183] 1.978832e-319  3.967690e-04 5.434026e-146  0.000000e+00  9.838103e-01  9.838103e-01  0.000000e+00  0.000000e+00  5.879950e-01  5.879950e-01  3.277753e-01  0.000000e+00  3.277753e-01  8.817477e-01
-[197]  0.000000e+00  0.000000e+00 4.956583e-275  0.000000e+00  7.968836e-01  7.968836e-01  7.968836e-01  7.968836e-01  6.528611e-01  6.528611e-01  6.528611e-01  8.097587e-01  2.580205e-03  8.765028e-03
-[211]  0.000000e+00  7.304765e-01  2.056071e-39  9.835741e-02  8.568138e-01  8.011905e-01  9.664878e-01  9.664878e-01  9.664878e-01  9.664878e-01  3.698935e-22  4.210618e-12  2.792336e-21 9.842513e-248
-[225]  1.209186e-03  6.588323e-01  3.965550e-01  6.588323e-01  1.835211e-02  2.189469e-12  6.998601e-03  5.303064e-02  8.956363e-01  8.956363e-01  8.956363e-01  8.956363e-01  4.824001e-57  7.145791e-01
-[239]  7.145791e-01  0.000000e+00  0.000000e+00 1.792989e-141  0.000000e+00 5.912747e-102  7.077409e-01  8.907400e-01  3.697333e-01  7.077409e-01  0.000000e+00 3.991723e-197 4.750349e-134  0.000000e+00
-[253]  0.000000e+00  9.839918e-01  9.839918e-01 9.930559e-282  2.417500e-03  5.234859e-01  0.000000e+00  7.570726e-01  7.341395e-01  1.102808e-01  7.341395e-01  1.701666e-03  9.247053e-03  0.000000e+00
-[267]  4.928072e-01  9.247053e-03  6.642632e-01  6.642632e-01  5.946806e-01  6.537446e-02  0.000000e+00  0.000000e+00  0.000000e+00  0.000000e+00  7.883274e-03  8.040224e-01  0.000000e+00  2.371062e-02
-[281]  0.000000e+00 1.054929e-121  0.000000e+00  0.000000e+00  0.000000e+00  3.108024e-01  4.583700e-01  7.658073e-01  2.394223e-01  8.043379e-01  8.037460e-01  1.796488e-03  1.037027e-01  1.037027e-01
-[295]  8.602007e-01  1.410321e-01  9.497191e-01  9.497191e-01  2.695580e-01  1.110631e-01  0.000000e+00  0.000000e+00  0.000000e+00  0.000000e+00  9.909443e-01  1.971253e-90 2.071852e-245  9.909443e-01
-[309] 5.808699e-209  0.000000e+00  1.398078e-43  6.927114e-54  9.975592e-02  3.876503e-01  3.876503e-01  9.291243e-01 1.761918e-232  4.832027e-93  0.000000e+00  0.000000e+00  6.833774e-03  1.879618e-01
-[323]  9.187645e-01  2.708221e-01  0.000000e+00 1.912640e-181  2.289464e-81 9.318288e-114  7.955673e-01  7.913097e-01  7.913097e-01  7.913097e-01  9.305567e-01  9.305567e-01  9.305567e-01  9.305567e-01
-[337]  2.148496e-01  7.335483e-01  0.000000e+00  1.378668e-02  1.188704e-91  0.000000e+00  1.664394e-46 1.044639e-298  0.000000e+00  0.000000e+00  0.000000e+00  0.000000e+00  9.135325e-01  9.135325e-01
-[351]  9.135325e-01  9.135325e-01  9.626455e-02  9.626455e-02  9.619353e-01  9.619353e-01  5.353270e-35  0.000000e+00  1.264309e-11  3.487762e-12  5.229411e-01  2.115802e-04  4.737636e-01  6.648860e-01
-[365]  7.973231e-04  5.426981e-02  5.576985e-01  0.000000e+00  5.466381e-02  5.521799e-01  5.521799e-01  0.000000e+00  7.929274e-01  7.929274e-01  4.360111e-01  7.929274e-01  3.696583e-01  1.806848e-01
-[379]  0.000000e+00  9.299267e-01  4.171387e-01  4.171387e-01  4.171387e-01  4.171387e-01  3.244572e-07  0.000000e+00  9.748166e-02  7.427049e-01  3.144198e-02  2.337147e-01  7.487374e-01  7.369811e-03
-[393]  6.881264e-01  6.881264e-01  6.881264e-01  6.881264e-01  3.015978e-01  9.247583e-01  6.654815e-01  3.015978e-01
-
- DESeq2 : 0.18
- wisp : 0.0575
- ELLA : 0
- DESeq2 : 0.18
- wisp : 0.0575
- ELLA : 0
- DESeq2 : 0.18
- wisp : 0.0575
- ELLA : 0
- DESeq2 : 0.18[1] TRUE
-
- wisp : 0.0575[1] FALSE
-
- ELLA : 0[1] FALSE
-
- DESeq2 : 0.18
- wisp : 0.0575
- ELLA : 0
- DESeq2 : 0.18
- wisp : 0.0575
- ELLA : 0
- DESeq2 : 0.18
+	 DESeq2 time: 0.962 s
