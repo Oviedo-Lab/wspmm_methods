@@ -778,7 +778,7 @@ do.call(grid.arrange, c(all_plots, ncol = 2))
 
 # Simulated data #######################################################################################################
 
-library(data.table)
+#library(data.table)
 
 preprocess_Allen <- FALSE 
 if (preprocess_Allen) {
@@ -972,7 +972,7 @@ model_attractor_simulation_DESeq2 <- function(
     # Run differential expression analysis on fixedeffect
     gene_names <- rownames(cts)
     dds <- estimateSizeFactors(dds)
-    dds <- DESeq(dds, fitType='local')
+    dds <- DESeq(dds, fitType="mean", minReplicatesForReplace = 3)
     
     # Apply shrinkage (ridge regression)
     resLFC_fixedeffect <- lfcShrink(dds, coef = "fixedeffect_trt_vs_ref", type = "apeglm")
