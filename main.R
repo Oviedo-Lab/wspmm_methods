@@ -778,10 +778,9 @@ do.call(grid.arrange, c(all_plots, ncol = 2))
 
 # Simulated data #######################################################################################################
 
-#library(data.table)
-
 preprocess_Allen <- FALSE 
 if (preprocess_Allen) {
+  library(data.table)
   # Get complete Allen mouse brain data
   data_path <- "/Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/_molecular_mechanisms_of_ACx_lateralization/development_work/data/Allen_data/Allen_data.csv"
   start_time <- Sys.time()
