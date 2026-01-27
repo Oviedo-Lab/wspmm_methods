@@ -961,20 +961,13 @@ model_attractor_simulation_DESeq2 <- function(
     ddata <- make_SESeq2_data(sim$data)
     cts <- ddata$cts
     coldata <- ddata$coldata
+    dds <- DESeqDataSetFromMatrix(countData = cts, colData = coldata, design = ~ fixedeffect)
     
-    # Construct a DESeqDataSet: 
-    dds <- DESeqDataSetFromMatrix(
-      countData = cts,
-      colData = coldata,
-      design = ~ fixedeffect
-    )
-    
-    # Run differential expression analysis on fixedeffect
-    gene_names <- rownames(cts)
+    # Fit model
+    # ... run differential expression analysis on fixedeffect
     dds <- estimateSizeFactors(dds)
     dds <- DESeq(dds, fitType="mean", minReplicatesForReplace = 3)
-    
-    # Apply shrinkage (ridge regression)
+    # ... apply shrinkage (ridge regression)
     resLFC_fixedeffect <- lfcShrink(dds, coef = "fixedeffect_trt_vs_ref", type = "apeglm")
     
     # Extract model results for comparing to ground truth
@@ -1161,7 +1154,9 @@ run_ELLA <- function(
     ella_sim <- ELLA_class(
       dataset = "sim_benchmark",
       adam_learning_rate_min = 1e-2,
-      max_iter = 1000L
+      max_iter = 1000L,
+      max_ntanbin = 25, # Default, bins per quadrant, so equivalent to 100 bins in wisp
+      L1_lam = 0.1
     )
     
     # convert simulated data to ELLA format
