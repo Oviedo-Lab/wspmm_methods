@@ -778,6 +778,9 @@ do.call(grid.arrange, c(all_plots, ncol = 2))
 
 # Simulated data #######################################################################################################
 
+# For the 250-sim benchmarking run, just run setup, come down to here, and run all lines to the bottom of the 250-sim loop.
+set.seed(9999)
+
 preprocess_Allen <- FALSE 
 if (preprocess_Allen) {
   library(data.table)
@@ -965,7 +968,7 @@ model_attractor_simulation_DESeq2 <- function(
     # Fit model
     # ... run differential expression analysis on fixedeffect
     dds <- estimateSizeFactors(dds)
-    dds <- DESeq(dds, fitType="mean", minReplicatesForReplace = 3)
+    dds <- DESeq(dds, fitType = "mean", minReplicatesForReplace = 3)
     # ... apply shrinkage (ridge regression)
     resLFC_fixedeffect <- lfcShrink(dds, coef = "fixedeffect_trt_vs_ref", type = "apeglm")
     
@@ -1154,7 +1157,7 @@ run_ELLA <- function(
       dataset = "sim_benchmark",
       adam_learning_rate_min = 1e-2,
       max_iter = 1000L, 
-      L1_lam = 0.1
+      L1_lam = 0.2
     )
     
     # convert simulated data to ELLA format
@@ -1440,7 +1443,7 @@ for (m in meths) {
 
 analyze_results <- function(
     results,
-    sig_thresh = list(wisp = 0.125, ELLA = 0.000001, DESeq2 = 0.001)
+    sig_thresh = list(wisp = 0.05, ELLA = 0.05, DESeq2 = 0.001)
   ) {
     
     methods <- sort(unique(results$method))
