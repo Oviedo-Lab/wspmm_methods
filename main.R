@@ -917,7 +917,7 @@ if (!require("apeglm", quietly = TRUE)) {BiocManager::install("apeglm")}
 library(DESeq2) 
 
 # Helper function to convert sim data into format expected by DESeq2
-make_SESeq2_data <- function(
+make_DESeq2_data <- function(
     sim_data
   ) {
     # Set reference level
@@ -960,15 +960,12 @@ model_attractor_simulation_DESeq2 <- function(
   ) {
     
     # Make data for DESeq2
-    ddata <- make_SESeq2_data(sim$data)
-    cts <- ddata$cts
-    coldata <- ddata$coldata
-    dds <- DESeqDataSetFromMatrix(countData = cts, colData = coldata, design = ~ fixedeffect)
+    ddata <- make_DESeq2_data(sim$data)
+    dds <- DESeqDataSetFromMatrix(countData = ddata$cts, colData = ddata$coldata, design = ~ fixedeffect)
     
     # Fit model
     # ... run differential expression analysis on fixedeffect
-    dds <- estimateSizeFactors(dds)
-    dds <- DESeq(dds, fitType = "mean", minReplicatesForReplace = 3)
+    dds <- DESeq(estimateSizeFactors(dds), fitType = "mean", minReplicatesForReplace = 3)
     # ... apply shrinkage (ridge regression)
     resLFC_fixedeffect <- lfcShrink(dds, coef = "fixedeffect_trt_vs_ref", type = "apeglm")
     
@@ -1026,9 +1023,8 @@ py_install(c(
 
 # Install ELLA:
 # git clone --branch ella1 https://github.com/jadexq/ELLA.git
-# /Users/michaelbarkasi/.virtualenvs/r-reticulate/bin/python -m pip install --upgrade pip
-# cd /Users/michaelbarkasi/Library/CloudStorage/OneDrive-WashingtonUniversityinSt.Louis/projects_Oviedo_lab/_molecular_mechanisms_of_ACx_lateralization/paper_WSPmm_method/wspmm_methods/ELLA
-# /Users/michaelbarkasi/.virtualenvs/r-reticulate/bin/python -m pip install .
+# cd ELLA
+# pip install .
 
 # For debugging
 #options(reticulate.python.stdout = TRUE)
@@ -1044,21 +1040,17 @@ convert_sim_data_to_ELLA <- function(
     theta = "bin_y"
   ) {
     
-    # ELLA: limit to "ref" fixedeffect, throw out "trt". replicate column becomes "cell". fixedeffect column becomes "type". 
-    # bin_x and bin_y become x and y. centerX and centerY are the mean of bin_x and bin_y, for all rows. 
-    # count becomes "umi". Compute sc_total. Throw out slice_num, coord_x, and coord_y.
-    
     # Initialize top-level list structure
     ella_data <- list()
     length(ella_data) <- 7
     names(ella_data) <- c(
       "types",        # character vector of cell types
       "cells",        # named list, each element is a character vector of cell IDs for each type (with the type as the list element name)
-      "cells_all",    # character vector of all cell IDsh
+      "cells_all",    # character vector of all cell IDs
       "genes",        # named list, each element is a character vector of gene names for each type (with the type as the list element name)
       "cell_seg",     # data frame with columns x, y, and cell with points giving the cell boundary segmentation
       "nucleus_seg",  # data frame with columns x, y, and cell with points giving the nucleus boundary segmentation
-      "expr"          # data frome with columns "type", "cell", "gene", "x", "y", "umi", "centerX", "centerY"  "sc_total"
+      "expr"          # data frame with columns "type", "cell", "gene", "x", "y", "umi", "centerX", "centerY", "sc_total"
     )
     
     # Set types
