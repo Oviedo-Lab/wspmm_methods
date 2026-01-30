@@ -1423,85 +1423,12 @@ write.csv(results, "benchmark_results.csv", row.names = FALSE)
 # Load results 
 results <- read.csv("benchmark_results.csv")
 
-res <- results$results
-meths <- unique(res$method)
-param_mask <- res$param == "FSE" | res$param == "SVG"
-for (m in meths) {
-  mask <- res$method == m & param_mask
-  if (m == "wisp") plot(res$est[mask], main = m)
-  else plot(log(-log(res$est[mask])+1), main = m)
-  cat("\n", m, ":", sum(res$est[mask] == 0)/sum(mask))
-}
-
-analyze_results <- function(
-    results,
-    sig_thresh = list(wisp = 0.05, ELLA = 0.05, DESeq2 = 0.001)
-  ) {
-    
-    methods <- sort(unique(results$method))
-    metrics <- c(
-      "cor_rate", 
-      "cor_ran", 
-      "FPR_svg", 
-      "FDR_svg", 
-      "power_svg", 
-      "FPR_fse", 
-      "FDR_fse", 
-      "power_fse"
-    )
-    
-    summary <- as.data.frame(matrix(NA, nrow = length(metrics), ncol = length(methods)))
-    colnames(summary) <- methods
-    rownames(summary) <- metrics
-   
-    for (m in methods) {
-      
-      sigt <- 0.05
-      if (m %in% names(sig_thresh)) sigt <- sig_thresh[[m]]
-      
-      m_mask <- results$method == m
-      
-      # Compute correlation for rate effect parameter, true vs est
-      if (any("rate_effect" == results$param[m_mask])) {
-        r_m_mask <- m_mask & results$param == "rate_effect"
-        summary["cor_rate", m] <- cor(results[r_m_mask,"true"], results[r_m_mask,"est"], method = "pearson")
-      }
-      # Compute correlation for random effect parameter, true vs est
-      if (any("random_effect" == results$param[m_mask])) {
-        r_m_mask <- m_mask & results$param == "random_effect"
-        summary["cor_ran", m] <- cor(results[r_m_mask,"true"], results[r_m_mask,"est"], method = "pearson")
-      }
-      # Compute FPR, FDR, power for SVG parameter
-      if (any("SVG" == results$param[m_mask])) {
-        r_m_mask <- m_mask & results$param == "SVG"
-        FP <- sum(results[r_m_mask & results$true == FALSE, "est"] < sigt)
-        TN <- sum(results[r_m_mask & results$true == FALSE, "est"] >= sigt)
-        TP <- sum(results[r_m_mask & results$true == TRUE, "est"] < sigt)
-        FN <- sum(results[r_m_mask & results$true == TRUE, "est"] >= sigt)
-        summary["FPR_svg", m] <- FP / (FP + TN)
-        summary["FDR_svg", m] <- FP / (FP + TP)
-        summary["power_svg", m] <- TP / (TP + FN)
-      }
-      # Compute FPR, FDR, power for FSE parameter
-      if (any("FSE" == results$param[m_mask])) {
-        r_m_mask <- m_mask & results$param == "FSE"
-        FP <- sum(results[r_m_mask & results$true == FALSE, "est"] < sigt)
-        TN <- sum(results[r_m_mask & results$true == FALSE, "est"] >= sigt)
-        TP <- sum(results[r_m_mask & results$true == TRUE, "est"] < sigt)
-        FN <- sum(results[r_m_mask & results$true == TRUE, "est"] >= sigt)
-        summary["FPR_fse", m] <- FP / (FP + TN)
-        summary["FDR_fse", m] <- FP / (FP + TP)
-        summary["power_fse", m] <- TP / (TP + FN)
-      }
-      
-    }
-    return(summary)
-  }
-results_summary <- analyze_results(results$results)
+# Analyze results
+results_summary <- analyze_attractor_sim_benchmarks(results$results)
 View(results_summary)
 
 
-# Analyze results
+
 results_rr <- results[grepl("_effect", results$param),]
 ggplot(results_rr, aes(x = true, y = est, color = param)) +
   geom_point(alpha = 0.5) +
@@ -1516,20 +1443,6 @@ ggplot(results_rr, aes(x = true, y = est, color = param)) +
     values = c("rate_effect" = "blue", "random_effect" = "red"),
     name = "Parameter"
   )
-
-
-
-# type I errors: FPR (FP / (FP + TN)) and FDR (FP / (FP + TP)) ... prob of false positive (i.e., of incorrectly rejecting null h, conditional on the null (FPR) or on a positive results (FDR)
-# type II errors: power (TP / (TP + FN)) ... prob of detecting thing (i.e., of correctly rejecting null h), conditional on the alternative h
-# 
-# Metrics: cor_rate, cor_ran, FPR_svg, FDR_svg, power_svg, FPR_fse, FDR_fse, power_fse
-
-# wisp: cor_rate, cor_ran, FPR_fse, FDR_fse, power_fse
-# ELLA: FPR_svg, FDR_svg, power_svg
-# C-SIDE
-# SpaNorm
-# Spark
-# DESeq2
 
 # end sink
 sink(file = NULL)
