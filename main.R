@@ -24,7 +24,7 @@ snk.report("Analysis of MERFISH data by Warped Sigmoid, Poisson-Process Mixed-Ef
 
 # Set file path, and bootstrap chunk size
 data_path <- paste0(projects_folder, "_molecular_mechanisms_of_ACx_lateralization/data_SSp/")
-bs_chunksize <- 100
+bs_chunksize <- 5
 
 # Preprocessing MERFISH data ###########################################################################################
 
@@ -692,7 +692,7 @@ if (preprocess_Droin) {
   write.csv(count_data, file = "Droin_radial_count_data_sim.csv", row.names = FALSE)
 } else {
   # Import
-  count_data <- read.csv("Droin_radial_count_data.csv")
+  count_data <- read.csv("Droin_radial_count_data_sim.csv")
 }
 
 # Define fixed effects to test
@@ -746,12 +746,10 @@ plot.settings <- list(
 )
 
 # Fit model
-# ... all settings shown here are defaults
 radial.model <- wisp(
   count.data = count_data,
   variables = data.variables,
-  bootstraps.num = 1e3,
-  #fit_only = TRUE,
+  bootstraps.num = 1e4,
   max.fork = bs_chunksize,
   model.settings = model.settings,
   MCMC.settings = list(MCMC.steps = 0),
