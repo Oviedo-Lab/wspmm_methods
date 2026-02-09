@@ -954,7 +954,11 @@ make_DESeq2_data <- function(
 # Function to model simulation with DESeq2
 model_attractor_simulation_DESeq2 <- function(
     sim,
-    sim_num
+    sim_num,
+    use.adaptive.shrinkage = TRUE,
+    multiplier = 1,     # multiplier for adaptive shrinkage; default = 1
+    prior.scale = 1,    # analog of a ridge/lasso penalty magnitude; default = 1
+    prior.df = 1        # smaller = strong strinkage of small effects, weak of large ones; default = 1
   ) {
     
     # Make data for DESeq2
@@ -965,7 +969,33 @@ model_attractor_simulation_DESeq2 <- function(
     # ... run differential expression analysis on fixedeffect
     dds <- DESeq(estimateSizeFactors(dds), fitType = "mean", minReplicatesForReplace = 3)
     # ... apply shrinkage (ridge regression)
-    resLFC_fixedeffect <- lfcShrink(dds, coef = "fixedeffect_trt_vs_ref", type = "apeglm")
+    if (use.adaptive.shrinkage) {
+      resLFC_fixedeffect <- lfcShrink(
+        dds, 
+        coef = "fixedeffect_trt_vs_ref", 
+        type = "apeglm",
+        apeAdapt = use.adaptive.shrinkage,
+        multiplier = multiplier
+      )
+    } else {
+      resLFC_fixedeffect <- lfcShrink(
+        dds, 
+        coef = "fixedeffect_trt_vs_ref", 
+        type = "apeglm", 
+        apeAdapt = use.adaptive.shrinkage,
+        prior.control = list(
+          no.shrink = 1,
+          prior.mean = 0,
+          prior.scale = prior.scale,    
+          prior.df = prior.df,       
+          prior.no.shrink.mean = 0,
+          prior.no.shrink.scale = 15
+        )
+      )
+    }
+    
+    # For debugging
+    # print(resLFC_fixedeffect@priorInfo)
     
     # Extract model results for comparing to ground truth
     MR <- as.data.frame(resLFC_fixedeffect@listData)[,c("log2FoldChange", "padj")]
@@ -1138,7 +1168,8 @@ convert_sim_data_to_ELLA <- function(
 
 # Function to run ELLA on simulated data
 run_ELLA <- function(
-    sim_data
+    sim_data,
+    L1.lam = 0.0
   ) { 
     
     # construct ELLA object
@@ -1147,7 +1178,7 @@ run_ELLA <- function(
       dataset = "sim_benchmark",
       adam_learning_rate_min = 1e-2,
       max_iter = 1000L, 
-      L1_lam = 0.2
+      L1_lam = L1.lam
     )
     
     # convert simulated data to ELLA format
@@ -1181,11 +1212,12 @@ extract_svg <- function(ella_sim) {
 # Full model pipeline 
 model_attractor_simulation_ELLA <- function(
     sim,
-    sim_num 
+    sim_num,
+    L1.lam = 0.0
   ) {
     
     # Run ELLA
-    model <- run_ELLA(sim$data)
+    model <- run_ELLA(sim$data, L1.lam)
     
     # Extract model results for comparing to ground truth
     svg_pvalues <- unlist(model$pv_cauchy_tl[["ref"]])
@@ -1406,23 +1438,27 @@ plot_ella_fit <- function(
 
 results <- run_attractor_sim_benchmarks(
   seed_data = count_data_neurons_patch,
-  n_sims = 250,
+  n_sims = 100,
   modeling_functions = list(
     wisp = model_attractor_simulation_wisp, 
     ELLA = model_attractor_simulation_ELLA,
     DESeq2 = model_attractor_simulation_DESeq2
     ),
-  modeling_function_args = list(wisp = list(bs_num = 1e3, max_fork = bs_chunksize))
+  modeling_function_args = list(
+    wisp = list(bs_num = 1e3, max_fork = bs_chunksize),
+    ELLA = list(L1.lam = 0.2),
+    DESeq2 = list(use.adaptive.shrinkage = TRUE, multiplier = 1, prior.scale = 1, prior.df = 1)
+  )
 )
 
 # Save results
-write.csv(results, "benchmark_results.csv", row.names = FALSE)
+write.csv(results, "benchmark_results_temp.csv", row.names = FALSE)
 
 # Load results 
-results <- read.csv("benchmark_results.csv")
+#results <- read.csv("benchmark_results.csv")
 
 # Analyze results
-results_summary <- analyze_attractor_sim_benchmarks(results$results)
+results_summary <- analyze_attractor_sim_benchmarks(results)
 View(results_summary)
 
 
