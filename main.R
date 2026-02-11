@@ -27,6 +27,9 @@ snk.report("Code for the paper 'Logistic regression for estimating functional ef
 
 # Set file path, and bootstrap chunk size
 data_path <- paste0(projects_folder, "_molecular_mechanisms_of_ACx_lateralization/data_SSp/")
+if (Sys.info()[["sysname"]] == "Linux") { # ... for workstation: 
+  data_path <- "/home/oviedoworkstation/Desktop/SharedStorageMount/SSD_Main/MERFISH/Mike/data_SSp/"
+} 
 bs_chunksize <- 20
 
 # Preprocessing MERFISH data ###########################################################################################
