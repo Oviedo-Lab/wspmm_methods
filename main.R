@@ -23,13 +23,15 @@ options(error = recover)
 
 # Report what's happening and send all output to both the console and text file
 sink("output.txt", split = TRUE, append = FALSE, type = "output")
-snk.report("ode for the paper 'Logistic regression for estimating functional effects with spatial transcriptomics'", end_breaks = 1)
+snk.report("Code for the paper 'Logistic regression for estimating functional effects with spatial transcriptomics'", end_breaks = 1)
 
 # Set file path, and bootstrap chunk size
 data_path <- paste0(projects_folder, "_molecular_mechanisms_of_ACx_lateralization/data_SSp/")
-bs_chunksize <- 5
+bs_chunksize <- 20
 
 # Preprocessing MERFISH data ###########################################################################################
+snk.horizontal_rule(initial_breaks = 2, end_breaks = 0)
+snk.report("Preprocessing MERFISH data for RORB analysis", end_breaks = 1)
 
 # Define list of genes to analyze
 laminar.gene.list <- c("Bcl11b", "Fezf2", "Satb2", "Nxph3", "Cux2", "Rorb")  
@@ -64,6 +66,7 @@ layer_boundaries <- colMeans(layer.boundary.bins)[-c(1, ncol(layer.boundary.bins
 names(layer_boundaries) <- c("L2/3", "L4", "L5", "L6")
 
 # Simplify cell types and limit to just neurons 
+snk.report("Simplifying to just Glut and GABA cells", end_breaks = 1)
 # ... Note: types come from naive application of MapMyCells to counts from full gene panel
 count_data$celltype_MMC <- as.character(count_data$celltype_MMC)
 # ... Make masks
@@ -100,6 +103,8 @@ write.csv(
   )
 
 # Fit WSPmm model to MERFISH data ######################################################################################
+snk.horizontal_rule(initial_breaks = 2, end_breaks = 0)
+snk.report("Running wisp analysis of RORB MERFISH data", end_breaks = 1)
 
 # Define fixed effects to test
 fixed.effect.names <- c("hemisphere", "age")
@@ -131,6 +136,7 @@ data.variables = list(
     context = "celltype", 
     species = "gene",
     ran = "mouse",
+    timeseries = "age",
     fixedeffects = fixed.effect.names
   )
 
@@ -174,87 +180,22 @@ laminar.model <- wisp(
     model.settings = model.settings
   )
 
-
-laminar.model$plots$ratecount <- plot.ratecount(laminar.model, dim.boundaries = layer_boundaries)
-
-laminar.model$plots$ratecount[["plot_all"]] + ggtitle("All genes")
-
-
 # Save
 # ... load with: laminar.model <- readRDS("saved_laminar_model.rds")
 saveRDS(laminar.model, file = "saved_laminar_model.rds")
 
-# Make and export figures #####
-# ... These functions are a mess, but they're one-offs for this data set and this paper
+# Make and export figures for MERFISH data #############################################################################
+snk.horizontal_rule(initial_breaks = 2, end_breaks = 0)
+snk.report("Making and exporting figures for MERFISH data", end_breaks = 2)
 
-make_fig_results_ratecount <- function() {
-    
-    # Make list to hold outputs
-    n_plots <- length(laminar.model[["plots"]][["ratecount"]])
-    p_names <- names(laminar.model[["plots"]][["ratecount"]])
-    p_names <- p_names[grepl("fixEff", p_names)]
-    ratecount_plots <- list()
-    length(ratecount_plots) <- length(p_names)
-    names(ratecount_plots) <- p_names
-    
-    # Set sizes
-    title_size <- 30 
-    axis_size <- 24 
-    legend_size <- 20
-    
-    # Set legend position 
-    leg_pos <- "none"
-    
-    for (ct in c("Glut", "GABA")) {
-      
-      p_names_ct <- p_names[grepl(ct, p_names)]
-      prefix <- paste0("plot_pred_context_", ct, "_fixEff_")
-      
-      for (p in p_names_ct) {
-        
-        # Get and reformat gene name
-        gene_name <- gsub(prefix, "", p)
-        if (gene_name == "Rorb") {
-          gene_name <- expression("ROR" * beta)
-        } else {
-          gene_name <- toupper(gene_name)
-        }
-        
-        # Recolor plot
-        ratecount_plots[[p]] <- laminar.model[["plots"]][["ratecount"]][[p]] 
-        
-        # Retitle and resize plot
-        ratecount_plots[[p]] <- ratecount_plots[[p]] +
-          labs(title = gene_name, x = NULL, y = NULL) + 
-          theme(
-            plot.title = element_text(hjust = 0.5, size = title_size),
-            axis.title = element_text(size = axis_size),
-            axis.text = element_text(size = axis_size),
-            legend.title = element_text(size = legend_size),
-            legend.text = element_text(size = legend_size),
-            legend.position = leg_pos
-          ) 
-      }
-      
-    }
-    
-    # Figure, cortex results
-    other_gene_col <- arrangeGrob(
-      grobs = ratecount_plots, #[[2]], # Cux2
-      #ratecount_plots[[6]], # Satb2
-      #ratecount_plots[[3]], # Fezf2
-      #ratecount_plots[[5]], # Rorb
-      #ratecount_plots[[4]], # Nxph3
-      #ratecount_plots[[1]], # Bcl11b
-      ncol = 3
-    )
-    
-    png("fig_results_ratecount.png", width = 1800, height = 2200)
-    grid.arrange(other_gene_col, ncol = 1)
-    dev.off()
-  }
-make_fig_results_ratecount()
+# Export rate-count plot
+ggsave(
+  "fig_laminar_ratecount.png", 
+  plot = laminar.model$plots$ratecount[["plot_all"]], 
+  width = 11, height = 8, dpi = 900
+  )
 
+# Make and export residuals figure (histogram and qq plot)
 make_fig_residuals <- function() {
     
     # Grab plots 
@@ -279,6 +220,7 @@ make_fig_residuals <- function() {
   }
 make_fig_residuals()
 
+# Make and export MCMC vs. bootstrap comparison figure (walks, autocorrelation, normality)
 make_MCMCbs_comparison <- function() {
     
     # Grab plots 
@@ -318,137 +260,20 @@ make_MCMCbs_comparison <- function() {
   }
 make_MCMCbs_comparison()
 
-# Make results table for stats #####
-# ... This function is a mess, but it's a one-off for this data set and this paper
+# Make results table for stats 
+snk.report("Making stat results table for MERFISH data", end_breaks = 2)
 
-library(dplyr)
-library(knitr)
-library(kableExtra)
+kableExtra::kbl(
+  laminar.model[["stats"]][["parameters"]], 
+  format = "latex", 
+  booktabs = TRUE, 
+  escape = FALSE, 
+  caption = "Parameter estimates for MERFISH cortex model.\\label{table:FEestimatesCortex}", 
+  linesep = "")
 
-make_stat_table <- function() {
-    
-    param_stats <- laminar.model[["stats"]][["parameters"]][,-c(5,7)]
-    param_stats[,2:5] <- round(param_stats[,2:5], 4)
-    param_stats <- param_stats[!grepl("wfactor", param_stats$parameter) & !grepl("baseline", param_stats$parameter),]
-    param_stats_list <- list() 
-    for (g in laminar.gene.list) {
-      # Grab gene mask
-      gene_mask <- grepl(g, param_stats$parameter)
-      # Split into lists by gene 
-      param_stats_g <- param_stats[gene_mask,]
-      # Split parameter names into columns to reorganize data
-      split_cols_fix <- do.call(rbind, strsplit(param_stats_g$parameter, "_")) # want cols 2,5,7 (spatial param, treatment, block)
-      # Reorganize data
-      results_cols <- c(2:6)
-      col_names <- c("est", "CI.low", "CI.high", "p.adj", "sig")
-      param_stats_list_g <- list()
-      for (trt in unique(split_cols_fix[,5])) {
-        treatment_mask <- split_cols_fix[,5] == trt
-        results <- param_stats_g[treatment_mask, results_cols]
-        results[,1:4] <- round(results[,1:4], 3)
-        param_type <- split_cols_fix[treatment_mask,2]
-        param_type[param_type == "Rt"] <- "r"
-        param_type[param_type == "tpoint"] <- "p"
-        param_type[param_type == "tslope"] <- "s"
-        block <- split_cols_fix[treatment_mask,7]
-        block <- gsub("Tns/Blk", "", block)
-        if (g == "Rorb") {
-          # extend param_type and block by 1
-          old_mask <- c()
-          param_type_new <- c() 
-          block_new <- c()
-          last_param_type <- "z"
-          last_block <- 0
-          for (ti in seq_along(param_type)) {
-            t <- param_type[ti]
-            b <- as.integer(block[ti])
-            if (t == last_param_type || length(block_new) == 0) {
-              param_type_new <- c(param_type_new, t)
-              block_new <- c(block_new, as.character(b))
-              old_mask <- c(old_mask, TRUE)
-            } else {
-              param_type_new <- c(param_type_new, last_param_type, t)
-              block_new <- c(block_new, as.character(last_block+1), as.character(b))
-              old_mask <- c(old_mask, FALSE, TRUE)
-            }
-            if (ti == length(param_type)) {
-              param_type_new <- c(param_type_new, t)
-              block_new <- c(block_new, as.character(b+1))
-              old_mask <- c(old_mask, FALSE)
-            }
-            last_param_type <- t
-            last_block <- b
-          }
-          param_type <- param_type_new
-          block <- block_new
-          new_results <- as.data.frame(array(NA, dim = c(length(block), ncol(results))))
-          new_results[old_mask,] <- as.data.frame(results[,])
-          results <- new_results
-        }
-        block <- paste0("$", param_type, "_", block, "$")
-        treatment <- rep(trt, length(results[,1]))
-        param_stats_list_g[[trt]] <- as.data.frame(cbind(treatment, block, results))
-        colnames(param_stats_list_g[[trt]]) <- c("effect", "$z$", col_names)
-      }
-      param_stats_list[[g]] <- as.data.frame(do.call(rbind, param_stats_list_g))
-      rownames(param_stats_list[[g]]) <- NULL
-      # For each gene and parameter type (ran, fix, baseline), will have five numeric value columns: est, low, high, p-adj, significance
-    }
-    
-    # Sample data
-    df <- param_stats_list[["Rorb"]]
-    
-    effect_lengths <- c()
-    for (e in unique(df$effect)) {
-      effect_lengths <- c(effect_lengths, sum(df$effect == e))
-    }
-    names(effect_lengths) <- c(
-      "Fixed Effects: Hemisphere (right)", 
-      "Fixed Effect: Age (P18)", 
-      "Fixed Effect: Hemisphere-Age Interaction"
-    )
-    df <- df[,-which(colnames(df) == "effect")]
-    df$p.adj[df$p.adj > 1] <- "1.000"
-    df$p.adj[df$p.adj <= 0] <- "$<0.001$"
-    
-    for (g in laminar.gene.list) {
-      if (g == "Rorb") next
-      df2 <- param_stats_list[[g]]
-      df2 <- df2[,-which(colnames(df2) == "effect")]
-      df2$p.adj[df2$p.adj > 1] <- "1.000"
-      df2$p.adj[df2$p.adj <= 0] <- "$<0.001$"
-      df <- cbind(
-        df,
-        rep(" ", nrow(df)),
-        rep(" ", nrow(df))
-      )
-      colnames(df) <- c(colnames(df)[1:(ncol(df)-2)], paste0("est.",g), paste("p.adj.",g))
-      for (p in 1:effect_lengths[1]) {
-        mask <- df[p,1] == df2[,1]
-        if (any(mask)) {
-          df[df[p,1] == df[,1],c(ncol(df)-1, ncol(df))] <- df2[mask,c("est", "p.adj")]
-        }
-      }
-    }
-    
-    # Create the table with row grouping
-    kbl(df, format = "latex", 
-        booktabs = TRUE, escape = FALSE, 
-        caption = "Fixed effect estimates.\\label{table:FEestimates}", 
-        linesep = "") %>%
-      add_header_above(
-        c(
-          " ", 
-          "RORB" = 5,
-          "Bcl11b" = 2, "Fezf2" = 2,  "Satb2" = 2,  "Nxph3" = 2,  "Cux2" = 2
-        )) %>%
-      group_rows(index = effect_lengths) %>%
-      kable_styling(latex_options = c("scale_down"), font_size = 8)
-    
-  }
-make_stat_table()
-
-# Radial data ##########################################################################################################
+# Fit WSPmm model to radial data #######################################################################################
+snk.horizontal_rule(initial_breaks = 2, end_breaks = 0)
+snk.report("Running wisp analysis of radial liver data", end_breaks = 1)
 
 preprocess_Droin <- FALSE
 if (preprocess_Droin) {
@@ -523,6 +348,7 @@ if (preprocess_Droin) {
   # Export
   write.csv(count_data, file = "Droin_radial_count_data_sim.csv", row.names = FALSE)
 } else {
+  snk.report("Importing pre-preprocessed Droin MatLab data", end_breaks = 1)
   # Import
   count_data <- read.csv("Droin_radial_count_data_sim.csv")
 }
@@ -545,9 +371,7 @@ data.variables <- list(
 )
 
 # Model settings 
-# ... all settings shown here are defaults
 model.settings <- list(
-  # ... these are global options needed to set up model
   buffer_factor = 0.05,                                 # buffer factor for penalizing distance from structural parameter values
   ctol = 1e-6,                                          # convergence tolerance
   max_penalty_at_distance_factor = 0.01,                # maximum penalty at distance from structural parameter values
@@ -558,15 +382,6 @@ model.settings <- list(
   rng_seed = 42,                                        # random seed for optimization (controls bootstrap resamples only)
   warp_precision = 1e-7,                                # decimal precision to retain when selecting really big number as pseudo infinity for unbound warping
   round_none = FALSE
-)
-
-# Settings for MCMC walk
-MCMC.settings <- list(
-  MCMC.burnin = 1e2,
-  MCMC.steps = 1e2,
-  MCMC.step.size = 0.5,
-  MCMC.prior = 1.0, 
-  MCMC.neighbor.filter = 2
 )
 
 # Settings for plotting
@@ -584,34 +399,41 @@ plot.settings <- list(
 radial.model <- wisp(
   count.data = count_data,
   variables = data.variables,
-  bootstraps.num = 1e2,
+  bootstraps.num = 1e4,
   max.fork = bs_chunksize,
   model.settings = model.settings,
   MCMC.settings = list(MCMC.steps = 0),
   plot.settings = plot.settings
 )
 
-plot.timeseries(radial.model)
+# Export figures for liver data
+snk.report("Exporting figures for liver data", end_breaks = 2)
 
-v1 <- c("#ADD8E6", "#FF7F50", "#9ACD31", "#FFC1CB")
-v2 <- c("#ED6986", "#9CA620", "#2AA9A3", "#A28EC2")
-new_ratecount <- list()
-for (p in seq_along(radial.model[["plots"]][["ratecount"]])) {
-  if (p == 1) next
-  plt <- radial.model[["plots"]][["ratecount"]][[p]]
-  plt <- plt + scale_color_manual(
-    values = v2
-  ) 
-  print(plt)
-  new_ratecount[[p - 1]] <- plt
-  print(p)
-}
+ggsave(
+  "fig_radial_ratecount.png", 
+  plot = radial.model$plots$ratecount[["plot_all"]], 
+  width = 8, height = 6, dpi = 900
+  )
+ggsave(
+  "fig_radial_timeseries.png", 
+  plot = radial.model$plots$timeseries[["plot_all"]], 
+  width = 8, height = 6, dpi = 900
+  )
 
-all_plots <- c(new_ratecount, radial.model[["plots"]][["timeseries"]])
-all_plots <- as.vector(rbind(new_ratecount, radial.model[["plots"]][["timeseries"]]))
-do.call(grid.arrange, c(all_plots, ncol = 2))
+# Make results table for stats 
+snk.report("Making stat results table for MERFISH data", end_breaks = 2)
+
+kableExtra::kbl(
+  radial.model[["stats"]][["parameters"]], 
+  format = "latex", 
+  booktabs = TRUE, 
+  escape = FALSE, 
+  caption = "Parameter estimates for radial liver model.\\label{table:FEestimatesLiver}", 
+  linesep = "")
 
 # Simulated data #######################################################################################################
+snk.horizontal_rule(initial_breaks = 2, end_breaks = 0)
+snk.report("Making seed data for benchmark simulations", end_breaks = 1)
 
 # For the 250-sim benchmarking run, just run setup, come down to here, and run all lines to the bottom of the 250-sim loop.
 set.seed(9999)
@@ -730,12 +552,14 @@ if (preprocess_Allen) {
   # Save 
   write.csv(ref_counts, "Allen_reference_counts_enriched_10kcells.csv", row.names = TRUE)
 } else {
+  snk.report("Importing pre-preprocessed Allen data", end_breaks = 1)
   # Import
   count_data_neurons <- read.csv("Allen_data.csv")
 }
 
 # Remove cell_id column from count_data_neurons 
 count_data_neurons <- count_data_neurons[,c("count", "slice_num", "gene", "coord_x", "coord_y")]
+count_data_neurons$gene <- toupper(count_data_neurons$gene)
 
 # Cut down to just a single 2x2 patch from one slice
 count_data_neurons_patch <- count_data_neurons[
@@ -743,7 +567,12 @@ count_data_neurons_patch <- count_data_neurons[
     count_data_neurons$coord_y >= 2 & count_data_neurons$coord_y <= 4 &
     count_data_neurons$coord_x >= 1 & count_data_neurons$coord_x <= 3,]
 
+# Print demo data 
+snk.print_table("Benchmark simulation seed patch data", count_data_neurons_patch)
+
 # DESeq2 benchmarking functions ########################################################################################
+snk.horizontal_rule(initial_breaks = 2, end_breaks = 0)
+snk.report("Defining DESeq2 benchmarking functions", end_breaks = 1)
 
 # Load library 
 if (!require("BiocManager", quietly = TRUE)) {install.packages("BiocManager")}
@@ -861,6 +690,8 @@ model_attractor_simulation_DESeq2 <- function(
   }
 
 # ELLA benchmarking functions ##########################################################################################
+snk.horizontal_rule(initial_breaks = 2, end_breaks = 0)
+snk.report("Defining ELLA benchmarking functions", end_breaks = 1)
 
 # Set up virtual python environment for reticulate: 
 #   python3 -m venv ~/.virtualenvs/r-reticulate
@@ -899,7 +730,7 @@ py_install(c(
 ELLA_mod <- import_from_path("ELLA", path = "./ELLA/ELLA")
 
 # Make function to convert simulation data into ELLA format
-convert_sim_data_to_ELLA <- function(
+make_ELLA_data <- function(
     sim_data,
     radial_dim = "bin_x",
     theta = "bin_y"
@@ -1019,7 +850,7 @@ run_ELLA <- function(
     )
     
     # convert simulated data to ELLA format
-    ella_data <- r_to_py(convert_sim_data_to_ELLA(sim_data))
+    ella_data <- r_to_py(make_ELLA_data(sim_data))
     # load data into ELLA object
     ella_sim$load_data(data_dict = ella_data)
     # register cells
@@ -1036,7 +867,6 @@ run_ELLA <- function(
     return(ella_sim)
     
   }
-#ella_sim <- run_ELLA(sim_data$data)
 
 # Extract SVG p-values from ELLA results
 extract_svg <- function(ella_sim) {
@@ -1044,7 +874,6 @@ extract_svg <- function(ella_sim) {
   names(pv_svg) <- ella_sim$gene_list_dict[["ref"]]
   pv_svg
 }
-#extract_svg(ella_sim)
 
 # Full model pipeline 
 model_attractor_simulation_ELLA <- function(
@@ -1099,16 +928,27 @@ plot_count_density <- function(
     df_car$y <- df_car$bin_y
     
     ## ---------- scatter plots ----------
-    p1 <- ggplot(df_car, aes(x = bin_x, y = bin_y, color = gene, size = count)) +
-      geom_point() +
-      ylab("y") +
-      xlab("x") +
-      theme_minimal()
-    p2 <- ggplot(df_rad, aes(x = x, y = y, color = gene, size = count)) +
-      geom_point() +
-      theme_minimal() 
+    p1 <- ggplot(test_sim$data[test_sim$data$replicate == "replicate1" & test_sim$data$fixedeffect == "ref",], aes(x = bin_x, y = bin_y, color = gene, size = count)) +
+      geom_point(alpha = 0.5) +
+      ggtitle("Original Cartesian coordinates") +
+      theme_minimal() +
+      theme(
+        panel.background = element_rect(fill = "white", colour = NA),
+        plot.background  = element_rect(fill = "white", colour = NA),
+        legend.position = "bottom"
+      ) +
+      guides(size = "none")
+    p2 <- ggplot(ella_sim$expr[ella_sim$expr$cell == "replicate1",], aes(x = x, y = y, color = gene, size = umi)) +
+      geom_point(alpha = 0.5) +
+      ggtitle("Transformed radial coordinates") +
+      theme_minimal() +
+      theme(
+        panel.background = element_rect(fill = "white", colour = NA),
+        plot.background  = element_rect(fill = "white", colour = NA),
+        legend.position = "bottom"
+      ) +
+      guides(size = "none")
     
-   
     ## ---------- density plots ----------
     eps <- 4e-3 # For matching the log-scale transforms
     
@@ -1116,66 +956,77 @@ plot_count_density <- function(
     xbreaks <- seq(min(df_car$x), max(df_car$x), length.out = nbins + 1)
     xmid    <- 0.5 * (xbreaks[-1] + xbreaks[-length(xbreaks)])
     xwidth  <- diff(xbreaks)
-    
     df_car$xbin <- cut(df_car$x, breaks = xbreaks, include.lowest = TRUE)
-    
     xcount <- tapply(
       df_car$count,
       list(df_car$gene, df_car$xbin),
       sum
     )
-    
     df_x <- data.frame(
       gene    = rep(rownames(xcount), times = ncol(xcount)),
       xmid    = rep(xmid, each = nrow(xcount)),
       density = as.vector(xcount) / rep(xwidth, each = nrow(xcount))
     )
-    
     p_x <- ggplot(df_x, aes(x = xmid, y = density + eps, color = gene)) +
       geom_line() +
       scale_y_log10() +
       labs(x = "x", y = "count density (log10)") +
-      theme_minimal()
+      theme_minimal() +
+      theme(
+        panel.background = element_rect(fill = "white", colour = NA),
+        plot.background  = element_rect(fill = "white", colour = NA),
+        legend.position = "bottom"
+      )
     
     ## ---------- density vs radius ----------
     r <- sqrt(df_rad$x^2 + df_rad$y^2)
-    
     rbreaks <- seq(min(r), max(r), length.out = nbins + 1)
     rmid    <- 0.5 * (rbreaks[-1] + rbreaks[-length(rbreaks)])
     rwidth  <- diff(rbreaks)
-    
     df_rad$rbin <- cut(r, breaks = rbreaks, include.lowest = TRUE)
-    
     rcount <- tapply(
       df_rad$count,
       list(df_rad$gene, df_rad$rbin),
       sum
     )
-    
     df_r <- data.frame(
       gene = rep(rownames(rcount), times = ncol(rcount)),
       rmid = rep(rmid, each = nrow(rcount)),
-      areal_density =
+      radial_density =
         as.vector(rcount) /
         (2 * pi * rep(rmid, each = nrow(rcount)) * rep(rwidth, each = nrow(rcount)))
     )
-    
-    p_r <- ggplot(df_r, aes(x = rmid, y = areal_density + eps, color = gene)) +
+    p_r <- ggplot(df_r, aes(x = rmid, y = radial_density + eps, color = gene)) +
       geom_line() +
       scale_y_log10() +
-      labs(x = "radius", y = "areal density (log10)") +
-      theme_minimal()
+      labs(x = "radius", y = "radial density (log10)") +
+      theme_minimal() +
+      theme(
+        panel.background = element_rect(fill = "white", colour = NA),
+        plot.background  = element_rect(fill = "white", colour = NA),
+        legend.position = "bottom"
+      )
     
     ## ---------- arrange ----------
     
-    title <- textGrob(
-      paste0("Density comparison of radial transform, ", replicate),
-      gp = gpar(fontsize = 14, fontface = "bold")
+    title <- grobTree(
+      rectGrob(
+        gp = gpar(fill = "white", col = NA)
+      ),
+      textGrob(
+        paste0("Density comparison of radial transform, ", replicate),
+        gp = gpar(fontsize = 14, fontface = "bold")
+      )
     )
     
-    title_scatter <- textGrob(
-      paste0("Scatter plot comparison of radial transform, ", replicate),
-      gp = gpar(fontsize = 14, fontface = "bold")
+    title_scatter <- grobTree(
+      rectGrob(
+        gp = gpar(fill = "white", col = NA)
+      ),
+      textGrob(
+        paste0("Scatter plot comparison of radial transform, ", replicate),
+        gp = gpar(fontsize = 14, fontface = "bold")
+      )
     )
     
     panels <- arrangeGrob(
@@ -1190,17 +1041,18 @@ plot_count_density <- function(
       ncol = 2
     )
     
-    grid.arrange(
-      title_scatter,
-      panels_scatter,
-      title,
-      panels,
-      ncol = 1,
-      heights = c(0.1, 1, 0.1, 1)
+    return(
+      grid.arrange(
+        title_scatter,
+        panels_scatter,
+        title,
+        panels,
+        ncol = 1,
+        heights = c(0.1, 1, 0.1, 1)
+      )
     )
     
   }
-#plot_count_density(ella_sim$data_df, sim_data$data)
 
 # Show how ELLA fits the simulated data
 plot_ella_fit <- function(
@@ -1269,13 +1121,98 @@ plot_ella_fit <- function(
       theme_minimal()
     
   }
-#plot_ella_fit(ella_sim, sim_data$data, scalar = 10)
+
+# Make simulation demo plots ###########################################################################################
+snk.horizontal_rule(initial_breaks = 2, end_breaks = 0)
+snk.report("Making and exporting demo plots of attractor simulations", end_breaks = 1)
+
+# Plot seed data
+plt_sim_seed <- ggplot(count_data_neurons[count_data_neurons$slice_num == 33,], aes(x = coord_x, y = coord_y, color = gene)) +
+  geom_point(size = 0.1) + 
+  ggtitle("Seed data: Coronal slice from Allen MERFISH data") +
+  geom_rect(
+    xmin = 1, xmax = 3,
+    ymin = 2, ymax = 4,
+    fill = NA,
+    color = "black",
+    linewidth = 0.5
+  ) +
+  theme_minimal() +
+  theme(
+    panel.background = element_rect(fill = "white", colour = NA),
+    plot.background  = element_rect(fill = "white", colour = NA),
+    legend.position = "bottom"
+  )
+
+ggsave(
+  "fig_sim_demo_seed.png", 
+  plot = plt_sim_seed, 
+  width = 8, height = 8, dpi = 900
+)
+
+# Make sample simulation 
+# ... Ensure reproducibility
+set.seed(12399)
+# ... Run simulation
+test_sim <- attractor_simulation(
+  seed_data = count_data_neurons_patch, 
+  n_bins = 100,
+  n_replicates = 4,
+  replicate_spatial_scalar = 0.05, 
+  min_effect_size = 0.05,
+  print_plots = TRUE
+)
+
+# Plot Tac2 simulation
+recolored_TAC2 <- list()
+for (p in c(1:length(test_sim$plots[["TAC2"]]))) {
+  recolored_TAC2[[p]] <- test_sim$plots[["TAC2"]][[p]] 
+  recolored_TAC2[[p]]$layers[[1]]$aes_params$colour <- scales::hue_pal()(4)[3]
+  }
+plt_TAC2 <- do.call(grid.arrange, c(recolored_TAC2, ncol = 2))
+
+ggsave(
+  "fig_sim_demo_effects.png", 
+  plot = plt_TAC2, 
+  width = 8, height = 8, dpi = 900
+)
+
+# Plot simulated replicates
+mask <- test_sim$data$gene == "TAC2" & test_sim$data$fixedeffect == "ref"
+data <- test_sim$data[mask,]
+plt_TAC2_reps <- ggplot(data, aes(x = coord_x, y = coord_y, size = log(count + 1))) +
+  geom_point(alpha = 0.5, color = scales::hue_pal()(4)[3]) + 
+  facet_wrap(~ replicate) +
+  ggtitle("TAC2 replicates under reference condition") +
+  theme_minimal() +
+  theme(
+    legend.position = "none",
+    panel.background = element_rect(fill = "white", colour = NA),
+    plot.background  = element_rect(fill = "white", colour = NA)
+    )
+
+ggsave(
+  "fig_sim_demo_replicates.png", 
+  plot = plt_TAC2_reps, 
+  width = 8, height = 8, dpi = 900
+)
+
+# Plot transformation for ELLA
+ella_sim <- make_ELLA_data(test_sim$data)
+plt_ELLA_transform <- plot_count_density(ella_sim$expr, test_sim$data)
+ggsave(
+  "fig_sim_demo_ELLA_transform.png", 
+  plot = plt_ELLA_transform, 
+  width = 8, height = 10, dpi = 900
+)
 
 # Run benchmarking #####################################################################################################
+snk.horizontal_rule(initial_breaks = 2, end_breaks = 0)
+snk.report("Running and analyzing benchmarks", end_breaks = 1)
 
 results <- run_attractor_sim_benchmarks(
   seed_data = count_data_neurons_patch,
-  n_sims = 100,
+  n_sims = 250,
   modeling_functions = list(
     wisp = model_attractor_simulation_wisp, 
     ELLA = model_attractor_simulation_ELLA,
@@ -1296,24 +1233,11 @@ write.csv(results, "benchmark_results_temp.csv", row.names = FALSE)
 
 # Analyze results
 results_summary <- analyze_attractor_sim_benchmarks(results)
-View(results_summary)
+snk.print_table("Benchmark Results", results_summary, head = FALSE, initial_breaks = 1)
 
-
-
-results_rr <- results[grepl("_effect", results$param),]
-ggplot(results_rr, aes(x = true, y = est, color = param)) +
-  geom_point(alpha = 0.5) +
-  geom_abline(slope = 1, intercept = 0, linetype = "dashed") +
-  theme_minimal() +
-  labs(
-    title = "WSPmm parameter estimation on simulated data",
-    x = "Ground truth",
-    y = "Estimated"
-  ) +
-  scale_color_manual(
-    values = c("rate_effect" = "blue", "random_effect" = "red"),
-    name = "Parameter"
-  )
+# Print session info
+snk.report("Done! Printing session info", end_breaks = 2)
+devtools::session_info()
 
 # end sink
 sink(file = NULL)
