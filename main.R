@@ -27,7 +27,7 @@ snk.report("ode for the paper 'Logistic regression for estimating functional eff
 
 # Set file path, and bootstrap chunk size
 data_path <- paste0(projects_folder, "_molecular_mechanisms_of_ACx_lateralization/data_SSp/")
-bs_chunksize <- 20
+bs_chunksize <- 5
 
 # Preprocessing MERFISH data ###########################################################################################
 
@@ -58,6 +58,10 @@ count_data <- cortical_coordinate_transform(
 layer.boundary.bins <- count_data$layer.boundary.bins
 coordinate_transform_plots <- count_data$plots
 count_data <- count_data$df
+
+# Label layer boundary bins 
+layer_boundaries <- colMeans(layer.boundary.bins)[-c(1, ncol(layer.boundary.bins))]
+names(layer_boundaries) <- c("L2/3", "L4", "L5", "L6")
 
 # Simplify cell types and limit to just neurons 
 # ... Note: types come from naive application of MapMyCells to counts from full gene panel
@@ -109,6 +113,9 @@ count.data.WSPmm <- create.count.data.WSPmm(
     context = "celltype"
   )
 
+# Make genes upper case 
+count.data.WSPmm$gene <- toupper(count.data.WSPmm$gene)
+
 # Save pre-processed count data
 # ... load with: count.data.WSPmm <- read.csv("S1_laminar_countdata.csv")
 write.csv(
@@ -144,7 +151,7 @@ model.settings = list(
 # Settings for MCMC walk
 MCMC.settings = list(
     MCMC.burnin = 1e2,
-    MCMC.steps = 1e3,
+    MCMC.steps = 1e4,
     MCMC.step.size = 0.1,
     MCMC.prior = 1.0, 
     MCMC.neighbor.filter = 2
@@ -155,20 +162,26 @@ laminar.model <- wisp(
     count.data = count.data.WSPmm,
     variables = data.variables,
     use.median = FALSE,
-    bootstraps.num = 1e3,
+    bootstraps.num = 1e4,
     converged.resamples.only = TRUE,
     max.fork = bs_chunksize,
     verbose = TRUE,
     plot.settings = list(
       print.plots = TRUE, 
-      dim.bounds = colMeans(layer.boundary.bins)
+      dim.bounds = layer_boundaries
     ),
     MCMC.settings = MCMC.settings,
     model.settings = model.settings
   )
 
+
+laminar.model$plots$ratecount <- plot.ratecount(laminar.model, dim.boundaries = layer_boundaries)
+
+laminar.model$plots$ratecount[["plot_all"]] + ggtitle("All genes")
+
+
 # Save
-# ... load with: laminar.model <- readRDS("saved_laminar_model-final-noplots.rds")
+# ... load with: laminar.model <- readRDS("saved_laminar_model.rds")
 saveRDS(laminar.model, file = "saved_laminar_model.rds")
 
 # Make and export figures #####
@@ -514,6 +527,9 @@ if (preprocess_Droin) {
   count_data <- read.csv("Droin_radial_count_data_sim.csv")
 }
 
+# Make gene column uppercase
+count_data$gene <- toupper(count_data$gene)
+
 # Define fixed effects to test
 fixed.effect.names <- c("ZT")
 
@@ -521,7 +537,7 @@ fixed.effect.names <- c("ZT")
 data.variables <- list(
   count = "count",
   bin = "bin", 
-  context = "liver", 
+  context = "hepatocytes", 
   species = "gene",
   ran = "mouse",
   timeseries = "ZT",
@@ -556,7 +572,7 @@ MCMC.settings <- list(
 # Settings for plotting
 plot.settings <- list(
   print.plots = FALSE,
-  title_size = 14,
+  title_size = 20,
   count_size = 2.5,
   count_jitter = 0.0,
   count.alpha.none = 0.8,
@@ -568,12 +584,14 @@ plot.settings <- list(
 radial.model <- wisp(
   count.data = count_data,
   variables = data.variables,
-  bootstraps.num = 1e4,
+  bootstraps.num = 1e2,
   max.fork = bs_chunksize,
   model.settings = model.settings,
   MCMC.settings = list(MCMC.steps = 0),
   plot.settings = plot.settings
 )
+
+plot.timeseries(radial.model)
 
 v1 <- c("#ADD8E6", "#FF7F50", "#9ACD31", "#FFC1CB")
 v2 <- c("#ED6986", "#9CA620", "#2AA9A3", "#A28EC2")
