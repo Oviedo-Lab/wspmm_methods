@@ -8,6 +8,7 @@ src/*.dll
 !Allen_data.csv
 !Allen_reference_counts_enriched_10kcells.csv
 !benchmark_results.csv
+!Droin_radial_count_data_sim.csv
 Read-and-delete-me
 .Rproj.user
 Droin_data/
