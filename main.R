@@ -1255,7 +1255,7 @@ results <- run_attractor_sim_benchmarks(
     DESeq2 = model_attractor_simulation_DESeq2
     ),
   modeling_function_args = list(
-    wisp = list(bs_num = 1e3, max_fork = bs_chunksize),
+    wisp = list(bs_num = 1e3, max_fork = 100),
     ELLA = list(L1.lam = 0.2),
     DESeq2 = list(use.adaptive.shrinkage = TRUE, multiplier = 1, prior.scale = 1, prior.df = 1)
   )
