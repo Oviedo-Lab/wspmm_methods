@@ -191,10 +191,13 @@ saveRDS(laminar.model, file = "saved_laminar_model.rds")
 snk.horizontal_rule(initial_breaks = 2, end_breaks = 0)
 snk.report("Making and exporting figures for MERFISH data", end_breaks = 2)
 
+  ggtitle("Cortical layer model: Rate by time") +
+  labs(x = "Laminar position")
+
 # Export rate-count plot
 ggsave(
   "fig_laminar_ratecount.png", 
-  plot = laminar.model$plots$ratecount[["plot_all"]], 
+  plot = plt_laminar_ratecount, 
   width = 11, height = 8, dpi = 900
   )
 
@@ -409,18 +412,30 @@ radial.model <- wisp(
   plot.settings = plot.settings
 )
 
-# Export figures for liver data
+# Adjust and export figures for liver data
 snk.report("Exporting figures for liver data", end_breaks = 2)
+
+plt_radial_ratecount <- radial.model$plots$ratecount[["plot_all"]] +
+  facet_wrap(~ species + context, scales = "free_y", ncol = 2) + 
+  theme(legend.position = "bottom") + 
+  ggtitle("Radial liver model: Rate by zone") +
+  labs(x = "Lobule zone", fill = "ZT", color = "ZT") 
+plt_radial_timeseries <- radial.model$plots$timeseries[["plot_all"]] + 
+  facet_wrap(~ species + context, scales = "free_y", ncol = 2) +
+  scale_x_continuous(breaks = c(0, 6, 12, 18)) +
+  labs(x = "Zeitgeber Time (ZT)") +
+  theme(legend.position = "bottom") + 
+  ggtitle("Radial liver model: Rate by time")
 
 ggsave(
   "fig_radial_ratecount.png", 
-  plot = radial.model$plots$ratecount[["plot_all"]], 
-  width = 8, height = 6, dpi = 900
+  plot = plt_radial_ratecount, 
+  width = 5.5, height = 8, dpi = 900
   )
 ggsave(
   "fig_radial_timeseries.png", 
-  plot = radial.model$plots$timeseries[["plot_all"]], 
-  width = 8, height = 6, dpi = 900
+  plot = plt_radial_timeseries, 
+  width = 5.5, height = 8, dpi = 900
   )
 
 # Make results table for stats 
@@ -923,19 +938,30 @@ plot_count_density <- function(
     replicate = "replicate1"
   ) {
     
-    ## ---------- filter ----------
+    text_scalar <- 1.25
+    
+    # filter
     df_rad <- df_rad[df_rad$cell == replicate,]
     df_rad$count <- df_rad$umi
     df_car <- df_car[df_car$replicate == replicate,]
     df_car$x <- df_car$bin_x
     df_car$y <- df_car$bin_y
     
-    ## ---------- scatter plots ----------
-    p1 <- ggplot(test_sim$data[test_sim$data$replicate == "replicate1" & test_sim$data$fixedeffect == "ref",], aes(x = bin_x, y = bin_y, color = gene, size = count)) +
-      geom_point(alpha = 0.5) +
-      ggtitle("Original Cartesian coordinates") +
+    # scatter plots 
+    p1 <- ggplot(
+        test_sim$data[test_sim$data$replicate == "replicate1" & test_sim$data$fixedeffect == "ref",], 
+        aes(x = bin_x, y = bin_y, color = gene, size = count)
+      ) +
+      geom_point(alpha = 0.25) +
+      ggtitle("Simulation, native Cartesian coordinates") +
+      labs(x = "x bin", y = "y bin") +
       theme_minimal() +
       theme(
+        plot.title = element_text(hjust = 0.5, size = laminar.model$plot.settings$title_size),
+        axis.title = element_text(size = text_scalar * laminar.model$plot.settings$axis_size),
+        axis.text = element_text(size = text_scalar * laminar.model$plot.settings$axis_size),
+        legend.title = element_text(size = text_scalar * laminar.model$plot.settings$legend_size),
+        legend.text = element_text(size = text_scalar * laminar.model$plot.settings$legend_size),
         panel.background = element_rect(fill = "white", colour = NA),
         plot.background  = element_rect(fill = "white", colour = NA),
         legend.position = "bottom"
@@ -943,19 +969,24 @@ plot_count_density <- function(
       guides(size = "none")
     p2 <- ggplot(ella_sim$expr[ella_sim$expr$cell == "replicate1",], aes(x = x, y = y, color = gene, size = umi)) +
       geom_point(alpha = 0.5) +
-      ggtitle("Transformed radial coordinates") +
+      ggtitle("Simulation, transformed radial coordinates") +
       theme_minimal() +
       theme(
+        plot.title = element_text(hjust = 0.5, size = laminar.model$plot.settings$title_size),
+        axis.title = element_text(size = text_scalar * laminar.model$plot.settings$axis_size),
+        axis.text = element_text(size = text_scalar * laminar.model$plot.settings$axis_size),
+        legend.title = element_text(size = text_scalar * laminar.model$plot.settings$legend_size),
+        legend.text = element_text(size = text_scalar * laminar.model$plot.settings$legend_size),
         panel.background = element_rect(fill = "white", colour = NA),
         plot.background  = element_rect(fill = "white", colour = NA),
         legend.position = "bottom"
       ) +
       guides(size = "none")
     
-    ## ---------- density plots ----------
+    # density plots 
     eps <- 4e-3 # For matching the log-scale transforms
     
-    ## ---------- density vs x ----------
+    # density vs x 
     xbreaks <- seq(min(df_car$x), max(df_car$x), length.out = nbins + 1)
     xmid    <- 0.5 * (xbreaks[-1] + xbreaks[-length(xbreaks)])
     xwidth  <- diff(xbreaks)
@@ -973,15 +1004,20 @@ plot_count_density <- function(
     p_x <- ggplot(df_x, aes(x = xmid, y = density + eps, color = gene)) +
       geom_line() +
       scale_y_log10() +
-      labs(x = "x", y = "count density (log10)") +
+      labs(x = "x bin", y = "count density (log10)") +
       theme_minimal() +
       theme(
+        plot.title = element_text(hjust = 0.5, size = text_scalar * laminar.model$plot.settings$title_size),
+        axis.title = element_text(size = text_scalar * laminar.model$plot.settings$axis_size),
+        axis.text = element_text(size = text_scalar * laminar.model$plot.settings$axis_size),
+        legend.title = element_text(size = text_scalar * laminar.model$plot.settings$legend_size),
+        legend.text = element_text(size = text_scalar * laminar.model$plot.settings$legend_size),
         panel.background = element_rect(fill = "white", colour = NA),
         plot.background  = element_rect(fill = "white", colour = NA),
         legend.position = "bottom"
       )
     
-    ## ---------- density vs radius ----------
+    ## density vs radius
     r <- sqrt(df_rad$x^2 + df_rad$y^2)
     rbreaks <- seq(min(r), max(r), length.out = nbins + 1)
     rmid    <- 0.5 * (rbreaks[-1] + rbreaks[-length(rbreaks)])
@@ -1002,56 +1038,34 @@ plot_count_density <- function(
     p_r <- ggplot(df_r, aes(x = rmid, y = radial_density + eps, color = gene)) +
       geom_line() +
       scale_y_log10() +
-      labs(x = "radius", y = "radial density (log10)") +
+      labs(x = "radius from origin", y = "radial density (log10)") +
       theme_minimal() +
       theme(
+        plot.title = element_text(hjust = 0.5, size = text_scalar * laminar.model$plot.settings$title_size),
+        axis.title = element_text(size = text_scalar * laminar.model$plot.settings$axis_size),
+        axis.text = element_text(size = text_scalar * laminar.model$plot.settings$axis_size),
+        legend.title = element_text(size = text_scalar * laminar.model$plot.settings$legend_size),
+        legend.text = element_text(size = text_scalar * laminar.model$plot.settings$legend_size),
         panel.background = element_rect(fill = "white", colour = NA),
         plot.background  = element_rect(fill = "white", colour = NA),
         legend.position = "bottom"
       )
     
-    ## ---------- arrange ----------
-    
+    # arrange
     title <- grobTree(
-      rectGrob(
-        gp = gpar(fill = "white", col = NA)
-      ),
-      textGrob(
-        paste0("Density comparison of radial transform, ", replicate),
-        gp = gpar(fontsize = 14, fontface = "bold")
-      )
+      rectGrob(gp = gpar(fill = "white", col = NA)),
+      textGrob("Resulting simulation", gp = gpar(fontsize = 1.25 * text_scalar * laminar.model$plot.settings$title_size))
     )
-    
-    title_scatter <- grobTree(
-      rectGrob(
-        gp = gpar(fill = "white", col = NA)
-      ),
-      textGrob(
-        paste0("Scatter plot comparison of radial transform, ", replicate),
-        gp = gpar(fontsize = 14, fontface = "bold")
-      )
-    )
-    
-    panels <- arrangeGrob(
-      p_x,
-      p_r,
-      ncol = 2
-    )
-    
-    panels_scatter <- arrangeGrob(
-      p1,
-      p2,
-      ncol = 2
-    )
+    panels <- arrangeGrob(p_x, p_r, ncol = 2)
+    panels_scatter <- arrangeGrob(p1, p2, ncol = 2)
     
     return(
       grid.arrange(
-        title_scatter,
-        panels_scatter,
         title,
+        panels_scatter,
         panels,
         ncol = 1,
-        heights = c(0.1, 1, 0.1, 1)
+        heights = c(0.1, 1, 1)
       )
     )
     
@@ -1133,15 +1147,21 @@ snk.report("Making and exporting demo plots of attractor simulations", end_break
 plt_sim_seed <- ggplot(count_data_neurons[count_data_neurons$slice_num == 33,], aes(x = coord_x, y = coord_y, color = gene)) +
   geom_point(size = 0.1) + 
   ggtitle("Seed data: Coronal slice from Allen MERFISH data") +
+  labs(x = "x coordinate", y = "y coordinate") +
   geom_rect(
     xmin = 1, xmax = 3,
     ymin = 2, ymax = 4,
     fill = NA,
     color = "black",
-    linewidth = 0.5
+    linewidth = 1
   ) +
   theme_minimal() +
   theme(
+    plot.title = element_text(hjust = 0.5, size = laminar.model$plot.settings$title_size),
+    axis.title = element_text(size = laminar.model$plot.settings$axis_size),
+    axis.text = element_text(size = laminar.model$plot.settings$axis_size),
+    legend.title = element_text(size = laminar.model$plot.settings$legend_size),
+    legend.text = element_text(size = laminar.model$plot.settings$legend_size),
     panel.background = element_rect(fill = "white", colour = NA),
     plot.background  = element_rect(fill = "white", colour = NA),
     legend.position = "bottom"
@@ -1169,9 +1189,13 @@ test_sim <- attractor_simulation(
 # Plot Tac2 simulation
 recolored_TAC2 <- list()
 for (p in c(1:length(test_sim$plots[["TAC2"]]))) {
-  recolored_TAC2[[p]] <- test_sim$plots[["TAC2"]][[p]] 
+  recolored_TAC2[[p]] <- test_sim$plots[["TAC2"]][[p]]  + 
+    labs(
+      x = "x coordinate",
+      y = "y coordinate"
+    ) 
   recolored_TAC2[[p]]$layers[[1]]$aes_params$colour <- scales::hue_pal()(4)[3]
-  }
+}
 plt_TAC2 <- do.call(grid.arrange, c(recolored_TAC2, ncol = 2))
 
 ggsave(
@@ -1187,11 +1211,18 @@ plt_TAC2_reps <- ggplot(data, aes(x = coord_x, y = coord_y, size = log(count + 1
   geom_point(alpha = 0.5, color = scales::hue_pal()(4)[3]) + 
   facet_wrap(~ replicate) +
   ggtitle("TAC2 replicates under reference condition") +
+  labs(x = "x coordinate", y = "y coordinate") +
   theme_minimal() +
   theme(
     legend.position = "none",
+    plot.title = element_text(hjust = 0.5, size = laminar.model$plot.settings$title_size),
+    axis.title = element_text(size = laminar.model$plot.settings$axis_size),
+    axis.text = element_text(size = laminar.model$plot.settings$axis_size),
+    legend.title = element_text(size = laminar.model$plot.settings$legend_size),
+    legend.text = element_text(size = laminar.model$plot.settings$legend_size),
     panel.background = element_rect(fill = "white", colour = NA),
-    plot.background  = element_rect(fill = "white", colour = NA)
+    plot.background  = element_rect(fill = "white", colour = NA),
+    strip.text = element_text(size = laminar.model$plot.settings$title_size/1.5)
     )
 
 ggsave(
@@ -1206,7 +1237,7 @@ plt_ELLA_transform <- plot_count_density(ella_sim$expr, test_sim$data)
 ggsave(
   "fig_sim_demo_ELLA_transform.png", 
   plot = plt_ELLA_transform, 
-  width = 8, height = 10, dpi = 900
+  width = 12, height = 12, dpi = 900
 )
 
 # Run benchmarking #####################################################################################################

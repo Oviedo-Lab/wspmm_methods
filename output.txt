@@ -2,8 +2,8 @@
 
 Code for the paper 'Logistic regression for estimating functional effects with spatial transcriptomics'
 
-------------------------------------------------------------------------------------------------------------------------
 
+------------------------------------------------------------------------------------------------------------------------
 
 Preprocessing MERFISH data for RORB analysis
 
@@ -26,12 +26,16 @@ Standard deviation of means: 0.397
 Total cells by type (Map My Cells):
 ------------------------------
 
-     Astro-Epen         CB GABA         CB Glut    CNU-HYa GABA    CNU-HYa Glut    CNU-LGE GABA    CNU-MGE GABA    CTX-CGE GABA    CTX-MGE GABA     DG-IMN Glut        filtered         HY GABA 
-           3952              82              19              12               2             671              20             552             799              11           18208              37 
-         Immune      IT-ET Glut        LSX GABA         MB GABA         MB Glut      MB-HB Sero      MH-LH Glut         MY GABA         MY Glut  NP-CT-L6b Glut     OB-IMN GABA             OEC 
-            331           16066              29              79               5               1              15             430              21            4922             149              23 
-      OPC-Oligo          P GABA TSCRPT_filtered        Vascular         HY Glut   HY Gnrh1 Glut          P Glut     Pineal Glut         TH Glut         MB Dopa      OB-CR Glut 
-           1499             142              99            5914               1               1               2               5              12               2               3 
+     Astro-Epen         CB GABA         CB Glut    CNU-HYa GABA    CNU-HYa Glut    CNU-LGE GABA    CNU-MGE GABA 
+           3952              82              19              12               2             671              20 
+   CTX-CGE GABA    CTX-MGE GABA     DG-IMN Glut        filtered         HY GABA          Immune      IT-ET Glut 
+            552             799              11           18208              37             331           16066 
+       LSX GABA         MB GABA         MB Glut      MB-HB Sero      MH-LH Glut         MY GABA         MY Glut 
+             29              79               5               1              15             430              21 
+ NP-CT-L6b Glut     OB-IMN GABA             OEC       OPC-Oligo          P GABA TSCRPT_filtered        Vascular 
+           4922             149              23            1499             142              99            5914 
+        HY Glut   HY Gnrh1 Glut          P Glut     Pineal Glut         TH Glut         MB Dopa      OB-CR Glut 
+              1               1               2               5              12               2               3 
 ----
 
 Number of mice: 4
@@ -102,8 +106,8 @@ modeled genes only: 0.948
 mouse: 4
 All genes: 1.689
 modeled genes only: 1.38
-------------------------------------------------------------------------------------------------------------------------
 
+------------------------------------------------------------------------------------------------------------------------
 
 Running wisp analysis of RORB MERFISH data
 
@@ -250,9 +254,9 @@ All complete!
 Acceptance rate (aim for 0.2-0.3): 0.576369
 
 MCMC simulation complete... 
-MCMC run time (total), minutes: 0.477
-MCMC run time (per retained step), seconds: 0.143
-MCMC run time (per step), seconds: 0.072
+MCMC run time (total), minutes: 0.396
+MCMC run time (per retained step), seconds: 0.119
+MCMC run time (per step), seconds: 0.059
 
 Running bootstrap fits
 Checking feasibility of provided parameters
@@ -263,21 +267,22 @@ Provided parameters are feasible
 Initial boundary distance (want > 0): 0.0833607
 Performing initial fit of full data
 Penalized neg_loglik: 17611.9
-Batch: 1/10, 1.51896 sec/bs
-Batch: 2/10, 1.19747 sec/bs
-Batch: 3/10, 1.53447 sec/bs
-Batch: 4/10, 1.26016 sec/bs
-Batch: 5/10, 1.26353 sec/bs
-Batch: 6/10, 1.2125 sec/bs
-Batch: 7/10, 0.994007 sec/bs
-Batch: 8/10, 1.0456 sec/bs
-Batch: 9/10, 1.31654 sec/bs
+Batch: 1/20, 7.93403 sec/bs
+Batch: 2/20, 7.43428 sec/bs
+Batch: 4/20, 7.67411 sec/bs
+Batch: 6/20, 7.19413 sec/bs
+Batch: 8/20, 7.77292 sec/bs
+Batch: 10/20, 8.76872 sec/bs
+Batch: 12/20, 8.23391 sec/bs
+Batch: 14/20, 7.78327 sec/bs
+Batch: 16/20, 7.52731 sec/bs
+Batch: 18/20, 7.59734 sec/bs
 All complete!
 
 Bootstrap simulation complete... 
-Bootstrap run time (total), minutes: 2.336
-Bootstrap run time (per sample), seconds: 1.401
-Bootstrap run time (per sample, per thread), seconds: 14.015
+Bootstrap run time (total), minutes: 13.321
+Bootstrap run time (per sample), seconds: 7.992
+Bootstrap run time (per sample, per thread), seconds: 39.962
 
 Setting full-data fit as parameters... 
 Checking feasibility of provided parameters
@@ -301,13 +306,20 @@ Actual resample size: 101
 
 Stat summary (head only):
 ------------------------------
-                               parameter    estimate      CI.low   CI.high    p.value p.value.adj    alpha.adj significance
-1       baseline_GABA_Rt_BCL11B_Tns/Blk1  2.81676219  2.68994781 3.0759188         NA          NA           NA             
-2   beta_Rt_GABA_BCL11B_right_X_Tns/Blk1  0.52633325 -0.14296271 0.8509880 0.00990099    2.455446 0.0002016129           ns
-3      beta_Rt_GABA_BCL11B_18_X_Tns/Blk1  1.42754951  1.07211093 1.6781754 0.00000000    0.000000 0.0001234568          ***
-4 beta_Rt_GABA_BCL11B_right18_X_Tns/Blk1 -0.21605304 -0.47343856 0.4222322 0.27722772   32.990099 0.0004201681           ns
-5       baseline_GABA_Rt_BCL11B_Tns/Blk2  2.14024570  2.10179970 2.2661237         NA          NA           NA             
-6   beta_Rt_GABA_BCL11B_right_X_Tns/Blk2  0.00455841 -0.08207524 0.1295404 0.89108911   12.475248 0.0035714286           ns
+                               parameter    estimate      CI.low   CI.high    p.value p.value.adj    alpha.adj
+1       baseline_GABA_Rt_BCL11B_Tns/Blk1  2.81676219  2.68994781 3.0759188         NA          NA           NA
+2   beta_Rt_GABA_BCL11B_right_X_Tns/Blk1  0.52633325 -0.14296271 0.8509880 0.00990099    2.455446 0.0002016129
+3      beta_Rt_GABA_BCL11B_18_X_Tns/Blk1  1.42754951  1.07211093 1.6781754 0.00000000    0.000000 0.0001234568
+4 beta_Rt_GABA_BCL11B_right18_X_Tns/Blk1 -0.21605304 -0.47343856 0.4222322 0.27722772   32.990099 0.0004201681
+5       baseline_GABA_Rt_BCL11B_Tns/Blk2  2.14024570  2.10179970 2.2661237         NA          NA           NA
+6   beta_Rt_GABA_BCL11B_right_X_Tns/Blk2  0.00455841 -0.08207524 0.1295404 0.89108911   12.475248 0.0035714286
+  significance
+1             
+2           ns
+3          ***
+4           ns
+5             
+6           ns
 ----
 
 Computing 95% CI for predicated values by bin
@@ -316,7 +328,6 @@ Computing 95% CI for predicated values by bin
 Grabbing sample results, only resamples with converged fit... 
 Computing predicted values for each sampled parameter set... 
 Computing 95% CIs... 
-
 Analyzing residuals
 ----------------------------------------
 
@@ -350,11 +361,12 @@ Making parameter plots...
 Printing species summary plots for GABA: BCL11B, CUX2, FEZF2, NXPH3, RORB, SATB2
 
 Printing species summary plots for Glut: BCL11B, CUX2, FEZF2, NXPH3, RORB, SATB2
-------------------------------------------------------------------------------------------------------------------------
 
+------------------------------------------------------------------------------------------------------------------------
 
 Making and exporting figures for MERFISH data
 
+No suitable frames for recover()
 RStudioGD 
         2 
 RStudioGD 
@@ -987,8 +999,8 @@ wfactor_slope_4_X_SATB2 & 1.8793690 & 0.8331385 & 3.1697698 & NA & NA & NA & \\
 \end{tabular}
 \end{table}
 
-------------------------------------------------------------------------------------------------------------------------
 
+------------------------------------------------------------------------------------------------------------------------
 
 Running wisp analysis of radial liver data
 
@@ -1130,21 +1142,22 @@ Provided parameters are feasible
 Initial boundary distance (want > 0): 0.215133
 Performing initial fit of full data
 Penalized neg_loglik: 1052.51
-Batch: 1/10, 0.190492 sec/bs
-Batch: 2/10, 0.2077 sec/bs
-Batch: 3/10, 0.205351 sec/bs
-Batch: 4/10, 0.203716 sec/bs
-Batch: 5/10, 0.212908 sec/bs
-Batch: 6/10, 0.205228 sec/bs
-Batch: 7/10, 0.208742 sec/bs
-Batch: 8/10, 0.204819 sec/bs
-Batch: 9/10, 0.2088 sec/bs
+Batch: 1/20, 0.280613 sec/bs
+Batch: 2/20, 0.236414 sec/bs
+Batch: 4/20, 0.271573 sec/bs
+Batch: 6/20, 0.254292 sec/bs
+Batch: 8/20, 0.269901 sec/bs
+Batch: 10/20, 0.280721 sec/bs
+Batch: 12/20, 0.247769 sec/bs
+Batch: 14/20, 0.260413 sec/bs
+Batch: 16/20, 0.274183 sec/bs
+Batch: 18/20, 0.253705 sec/bs
 All complete!
 
 Bootstrap simulation complete... 
-Bootstrap run time (total), minutes: 0.364
-Bootstrap run time (per sample), seconds: 0.219
-Bootstrap run time (per sample, per thread), seconds: 2.187
+Bootstrap run time (total), minutes: 0.496
+Bootstrap run time (per sample), seconds: 0.298
+Bootstrap run time (per sample, per thread), seconds: 1.488
 
 Setting full-data fit as parameters... 
 Checking feasibility of provided parameters
@@ -1183,7 +1196,6 @@ Computing 95% CI for predicated values by bin
 Grabbing sample results, only resamples with converged fit... 
 Computing predicted values for each sampled parameter set... 
 Computing 95% CIs... 
-
 Analyzing residuals
 ----------------------------------------
 
@@ -1530,8 +1542,8 @@ wfactor_slope_9_X_PCK1 & 1.3720912 & 0.8153051 & 2.9406392 & NA & NA & NA & \\
 \end{tabular}
 \end{table}
 
-------------------------------------------------------------------------------------------------------------------------
 
+------------------------------------------------------------------------------------------------------------------------
 
 Making seed data for benchmark simulations
 
@@ -1549,174 +1561,111 @@ Benchmark simulation seed patch data (head only):
 161015     1        33    TAC2 2.655738 2.725923
 ----
 
-------------------------------------------------------------------------------------------------------------------------
 
+------------------------------------------------------------------------------------------------------------------------
 
 Defining DESeq2 benchmarking functions
 
-------------------------------------------------------------------------------------------------------------------------
 
+------------------------------------------------------------------------------------------------------------------------
 
 Defining ELLA benchmarking functions
 Using virtual environment '/Users/michaelbarkasi/.virtualenvs/r-reticulate' ...
 
-------------------------------------------------------------------------------------------------------------------------
 
+------------------------------------------------------------------------------------------------------------------------
 
 Making and exporting demo plots of attractor simulations
 
-------------------------------------------------------------------------------------------------------------------------
 
+------------------------------------------------------------------------------------------------------------------------
 
 Running and analyzing benchmarks
 
 
 ----------------------
-Running simulation  1 / 10
-	data sim time: 0.03 s
+Running simulation  1 / 5
+	data sim time: 0.021 s
 
 Modeling with  wisp ...
-	 wisp time: 52.655 s
+	 wisp time: 126.738 s
 
 Modeling with  ELLA ...
-	 ELLA time: 53.009 s
+	 ELLA time: 38.656 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 0.878 s
+	 DESeq2 time: 0.828 s
 
 ----------------------
-Running simulation  2 / 10
-	data sim time: 0.034 s
+Running simulation  2 / 5
+	data sim time: 0.046 s
 
 Modeling with  wisp ...
-	 wisp time: 51.733 s
+	 wisp time: 82.527 s
 
 Modeling with  ELLA ...
-	 ELLA time: 74.27 s
+	 ELLA time: 65.913 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 0.824 s
+	 DESeq2 time: 0.689 s
 
 ----------------------
-Running simulation  3 / 10
-	data sim time: 0.03 s
+Running simulation  3 / 5
+	data sim time: 0.024 s
 
 Modeling with  wisp ...
-	 wisp time: 45.367 s
+	 wisp time: 74.312 s
 
 Modeling with  ELLA ...
-	 ELLA time: 80.492 s
+	 ELLA time: 66.438 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 0.727 s
+	 DESeq2 time: 0.571 s
 
 ----------------------
-Running simulation  4 / 10
-	data sim time: 0.03 s
+Running simulation  4 / 5
+	data sim time: 0.028 s
 
 Modeling with  wisp ...
-	 wisp time: 39.751 s
+	 wisp time: 68.269 s
 
 Modeling with  ELLA ...
-	 ELLA time: 38.576 s
+	 ELLA time: 29.344 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 0.807 s
+	 DESeq2 time: 0.572 s
 
 ----------------------
-Running simulation  5 / 10
-	data sim time: 0.03 s
+Running simulation  5 / 5
+	data sim time: 0.02 s
 
 Modeling with  wisp ...
-	 wisp time: 38.371 s
+	 wisp time: 65.403 s
 
 Modeling with  ELLA ...
-	 ELLA time: 52.847 s
+	 ELLA time: 42.185 s
 
 Modeling with  DESeq2 ...
-	 DESeq2 time: 0.737 s
+	 DESeq2 time: 0.607 s
 
-----------------------
-Running simulation  6 / 10
-	data sim time: 0.033 s
-
-Modeling with  wisp ...
-	 wisp time: 40.602 s
-
-Modeling with  ELLA ...
-	 ELLA time: 97.962 s
-
-Modeling with  DESeq2 ...
-	 DESeq2 time: 0.703 s
-
-----------------------
-Running simulation  7 / 10
-	data sim time: 0.03 s
-
-Modeling with  wisp ...
-	 wisp time: 43.078 s
-
-Modeling with  ELLA ...
-	 ELLA time: 62.929 s
-
-Modeling with  DESeq2 ...
-	 DESeq2 time: 0.737 s
-
-----------------------
-Running simulation  8 / 10
-	data sim time: 0.032 s
-
-Modeling with  wisp ...
-	 wisp time: 54.524 s
-
-Modeling with  ELLA ...
-	 ELLA time: 78.948 s
-
-Modeling with  DESeq2 ...
-	 DESeq2 time: 0.805 s
-
-----------------------
-Running simulation  9 / 10
-	data sim time: 0.029 s
-
-Modeling with  wisp ...
-	 wisp time: 41.538 s
-
-Modeling with  ELLA ...
-	 ELLA time: 42.919 s
-
-Modeling with  DESeq2 ...
-	 DESeq2 time: 0.803 s
-
-----------------------
-Running simulation  10 / 10
-	data sim time: 0.029 s
-
-Modeling with  wisp ...
-	 wisp time: 37.856 s
-
-Modeling with  ELLA ...
-	 ELLA time: 74.522 s
-
-Modeling with  DESeq2 ...
-	 DESeq2 time: 0.718 s
 Benchmark Results:
 ------------------------------
                      DESeq2       ELLA       wisp
-cor_rate          0.1155692         NA  0.9387670
-cor_ran                  NA         NA  0.7782278
+cor_rate          0.4425610         NA  0.9377018
+cor_ran                  NA         NA  0.8742627
 FPR_svg                  NA  0.0000000         NA
 FDR_svg                  NA  0.0000000         NA
-power_svg                NA  0.3076923         NA
-FPR_fse           0.3333333         NA  0.0000000
-FDR_fse           0.4736842         NA  0.0000000
-power_fse         0.7692308         NA  0.4615385
-mean_sec_to_model 0.7739865 65.6473565 44.5474581
+power_svg                NA  0.2307692         NA
+FPR_fse           0.2941176         NA  0.0000000
+FDR_fse           0.8333333         NA  0.0000000
+power_fse         0.3333333         NA  1.0000000
+mean_sec_to_model 0.6534762 48.5070195 83.4498505
 ----
 
 
 Done! Printing session info
-─ Session info ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+─ Session info ──────────────────────────────────────────────────────────────────────────────────────────────────────────
  setting  value
  version  R version 4.5.2 (2025-10-31)
  os       macOS Tahoe 26.2
@@ -1731,16 +1680,16 @@ Done! Printing session info
  pandoc   3.6.3 @ /Applications/RStudio.app/Contents/Resources/app/quarto/bin/tools/aarch64/ (via rmarkdown)
  quarto   1.8.25 @ /Applications/RStudio.app/Contents/Resources/app/quarto/bin/quarto
 
-─ Packages ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+─ Packages ──────────────────────────────────────────────────────────────────────────────────────────────────────────────
  package              * version    date (UTC) lib source
  abind                  1.4-8      2024-09-12 [1] CRAN (R 4.5.0)
- apeglm               * 1.30.0     2025-04-15 [1] Bioconductor 3.21 (R 4.5.0)
+ apeglm               * 1.32.0     2025-10-29 [1] Bioconductor 3.22 (R 4.5.1)
  bbmle                  1.0.25.1   2023-12-09 [1] CRAN (R 4.5.0)
  bdsmatrix              1.3-7      2024-03-02 [1] CRAN (R 4.5.0)
- Biobase              * 2.68.0     2025-04-15 [1] Bioconductor 3.21 (R 4.5.0)
- BiocGenerics         * 0.54.1     2025-10-09 [1] Bioconductor 3.21 (R 4.5.1)
+ Biobase              * 2.70.0     2025-10-29 [1] Bioconductor 3.22 (R 4.5.1)
+ BiocGenerics         * 0.56.0     2025-10-29 [1] Bioconductor 3.22 (R 4.5.1)
  BiocManager          * 1.30.27    2025-11-14 [1] CRAN (R 4.5.2)
- BiocParallel           1.42.2     2025-09-11 [1] Bioconductor 3.21 (R 4.5.1)
+ BiocParallel           1.44.0     2025-10-29 [1] Bioconductor 3.22 (R 4.5.1)
  bit                    4.6.0      2025-03-06 [1] CRAN (R 4.5.0)
  bit64                  4.6.0-1    2025-01-16 [1] CRAN (R 4.5.0)
  cachem                 1.1.0      2024-05-16 [1] CRAN (R 4.5.0)
@@ -1748,9 +1697,8 @@ Done! Printing session info
  coda                   0.19-4.1   2024-01-31 [1] CRAN (R 4.5.0)
  codetools              0.2-20     2024-03-31 [1] CRAN (R 4.5.2)
  colorspace           * 2.1-2      2025-09-22 [1] CRAN (R 4.5.0)
- crayon                 1.5.3      2024-06-20 [1] CRAN (R 4.5.0)
- DelayedArray           0.34.1     2025-04-17 [1] Bioconductor 3.21 (R 4.5.0)
- DESeq2               * 1.48.2     2025-08-25 [1] Bioconductor 3.21 (R 4.5.1)
+ DelayedArray           0.36.0     2025-10-29 [1] Bioconductor 3.22 (R 4.5.1)
+ DESeq2               * 1.50.2     2025-11-17 [1] Bioconductor 3.22 (R 4.5.2)
  devtools               2.4.6      2025-10-03 [1] CRAN (R 4.5.0)
  dichromat              2.0-0.1    2022-05-02 [1] CRAN (R 4.5.0)
  digest                 0.6.39     2025-11-19 [1] CRAN (R 4.5.2)
@@ -1763,28 +1711,25 @@ Done! Printing session info
  fastmap                1.2.0      2024-05-15 [1] CRAN (R 4.5.0)
  fs                     1.6.6      2025-04-12 [1] CRAN (R 4.5.0)
  generics             * 0.1.4      2025-05-09 [1] CRAN (R 4.5.0)
- GenomeInfoDb         * 1.44.3     2025-09-18 [1] Bioconductor 3.21 (R 4.5.1)
- GenomeInfoDbData       1.2.14     2025-06-11 [1] Bioconductor
- GenomicRanges        * 1.60.0     2025-04-15 [1] Bioconductor 3.21 (R 4.5.0)
- ggplot2              * 4.0.1      2025-11-14 [1] CRAN (R 4.5.2)
+ GenomicRanges        * 1.62.1     2025-12-08 [1] Bioconductor 3.22 (R 4.5.2)
+ ggplot2              * 4.0.2      2026-02-03 [1] CRAN (R 4.5.2)
  glue                   1.8.0      2024-09-30 [1] CRAN (R 4.5.0)
- gridExtra            * 2.3        2017-09-09 [1] CRAN (R 4.5.0)
+ gridExtra            * 2.3        2017-09-09 [1] CRAN (R 4.5.2)
  gtable                 0.3.6      2024-10-25 [1] CRAN (R 4.5.0)
  hdf5r                  1.3.12     2025-01-20 [1] CRAN (R 4.5.0)
  htmltools              0.5.9      2025-12-04 [1] CRAN (R 4.5.2)
- httr                   1.4.7      2023-08-15 [1] CRAN (R 4.5.0)
- IRanges              * 2.42.0     2025-04-15 [1] Bioconductor 3.21 (R 4.5.0)
+ IRanges              * 2.44.0     2025-10-29 [1] Bioconductor 3.22 (R 4.5.1)
  jsonlite               2.0.0      2025-03-27 [1] CRAN (R 4.5.0)
  kableExtra             1.4.0      2024-01-24 [1] CRAN (R 4.5.0)
  knitr                  1.51       2025-12-20 [1] CRAN (R 4.5.2)
  labeling               0.4.3      2023-08-29 [1] CRAN (R 4.5.0)
  lattice                0.22-7     2025-04-02 [1] CRAN (R 4.5.2)
- lifecycle              1.0.4      2023-11-07 [1] CRAN (R 4.5.0)
+ lifecycle              1.0.5      2026-01-08 [1] CRAN (R 4.5.2)
  locfit                 1.5-9.12   2025-03-05 [1] CRAN (R 4.5.0)
  magrittr               2.0.4      2025-09-12 [1] CRAN (R 4.5.0)
  MASS                   7.3-65     2025-02-28 [1] CRAN (R 4.5.2)
  Matrix                 1.7-4      2025-08-28 [1] CRAN (R 4.5.2)
- MatrixGenerics       * 1.20.0     2025-04-15 [1] Bioconductor 3.21 (R 4.5.0)
+ MatrixGenerics       * 1.22.0     2025-10-29 [1] Bioconductor 3.22 (R 4.5.1)
  matrixStats          * 1.5.0      2025-01-07 [1] CRAN (R 4.5.0)
  memoise                2.0.1      2021-11-26 [1] CRAN (R 4.5.0)
  mvtnorm                1.3-3      2025-01-10 [1] CRAN (R 4.5.0)
@@ -1796,53 +1741,53 @@ Done! Printing session info
  pkgload                1.4.1      2025-09-23 [1] CRAN (R 4.5.0)
  plyr                   1.8.9      2023-10-02 [1] CRAN (R 4.5.0)
  png                    0.1-8      2022-11-29 [1] CRAN (R 4.5.0)
- proxy                  0.4-28     2025-12-11 [1] CRAN (R 4.5.2)
- purrr                  1.2.0      2025-11-04 [1] CRAN (R 4.5.0)
+ proxy                  0.4-29     2025-12-29 [1] CRAN (R 4.5.2)
+ purrr                  1.2.1      2026-01-09 [1] CRAN (R 4.5.2)
  R6                     2.6.1      2025-02-15 [1] CRAN (R 4.5.0)
  ragg                   1.5.0      2025-09-02 [1] CRAN (R 4.5.0)
  RColorBrewer           1.1-3      2022-04-03 [1] CRAN (R 4.5.0)
- Rcpp                   1.1.0      2025-07-02 [1] CRAN (R 4.5.0)
+ Rcpp                   1.1.1      2026-01-10 [1] CRAN (R 4.5.2)
  remotes                2.5.0      2024-03-17 [1] CRAN (R 4.5.0)
  reticulate           * 1.44.1     2025-11-14 [1] CRAN (R 4.5.2)
- rlang                  1.1.6      2025-04-11 [1] CRAN (R 4.5.0)
+ rlang                  1.1.7      2026-01-09 [1] CRAN (R 4.5.2)
  rmarkdown              2.30       2025-09-28 [1] CRAN (R 4.5.0)
- rstudioapi             0.17.1     2024-10-22 [1] CRAN (R 4.5.0)
- S4Arrays               1.8.1      2025-05-29 [1] Bioconductor 3.21 (R 4.5.0)
- S4Vectors            * 0.46.0     2025-04-15 [1] Bioconductor 3.21 (R 4.5.0)
+ rstudioapi             0.18.0     2026-01-16 [1] CRAN (R 4.5.2)
+ S4Arrays               1.10.1     2025-12-08 [1] Bioconductor 3.22 (R 4.5.2)
+ S4Vectors            * 0.48.0     2025-10-29 [1] Bioconductor 3.22 (R 4.5.1)
  S7                     0.2.1      2025-11-14 [1] CRAN (R 4.5.2)
  scales                 1.4.0      2025-04-24 [1] CRAN (R 4.5.0)
+ Seqinfo              * 1.0.0      2025-10-29 [1] Bioconductor 3.22 (R 4.5.1)
  sessioninfo            1.2.3      2025-02-05 [1] CRAN (R 4.5.0)
- SparseArray            1.8.1      2025-07-21 [1] Bioconductor 3.21 (R 4.5.1)
+ SparseArray            1.10.8     2025-12-18 [1] Bioconductor 3.22 (R 4.5.2)
  stringi                1.8.7      2025-03-27 [1] CRAN (R 4.5.0)
  stringr                1.6.0      2025-11-04 [1] CRAN (R 4.5.0)
- SummarizedExperiment * 1.38.1     2025-04-28 [1] Bioconductor 3.21 (R 4.5.0)
+ SummarizedExperiment * 1.40.0     2025-10-29 [1] Bioconductor 3.22 (R 4.5.1)
  svglite                2.2.2      2025-10-21 [1] CRAN (R 4.5.0)
  systemfonts            1.3.1      2025-10-01 [1] CRAN (R 4.5.0)
  textshaping            1.0.4      2025-10-10 [1] CRAN (R 4.5.0)
- tibble                 3.3.0      2025-06-08 [1] CRAN (R 4.5.0)
+ tibble                 3.3.1      2026-01-11 [1] CRAN (R 4.5.2)
  tidyselect             1.2.1      2024-03-11 [1] CRAN (R 4.5.0)
- UCSC.utils             1.4.0      2025-04-17 [1] Bioconductor 3.21 (R 4.5.0)
  usethis                3.2.1      2025-09-06 [1] CRAN (R 4.5.0)
- vctrs                  0.6.5      2023-12-01 [1] CRAN (R 4.5.0)
+ vctrs                  0.7.1      2026-01-23 [1] CRAN (R 4.5.2)
  viridisLite            0.4.2      2023-05-02 [1] CRAN (R 4.5.0)
  wispack              * 2.0        2026-02-11 [1] local
  withr                  3.0.2      2024-10-28 [1] CRAN (R 4.5.0)
- xfun                   0.55       2025-12-16 [1] CRAN (R 4.5.2)
- xml2                   1.5.1      2025-12-01 [1] CRAN (R 4.5.2)
- XVector                0.48.0     2025-04-15 [1] Bioconductor 3.21 (R 4.5.0)
+ xfun                   0.56       2026-01-18 [1] CRAN (R 4.5.2)
+ xml2                   1.5.2      2026-01-17 [1] CRAN (R 4.5.2)
+ XVector                0.50.0     2025-10-29 [1] Bioconductor 3.22 (R 4.5.1)
 
  [1] /Library/Frameworks/R.framework/Versions/4.5-arm64/Resources/library
  * ── Packages attached to the search path.
 
-─ Python configuration ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+─ Python configuration ──────────────────────────────────────────────────────────────────────────────────────────────────
  python:         /Users/michaelbarkasi/.virtualenvs/r-reticulate/bin/python
- libpython:      /Library/Frameworks/Python.framework/Versions/3.12/lib/python3.12/config-3.12-darwin/libpython3.12.dylib
+ libpython:      /opt/homebrew/opt/python@3.11/Frameworks/Python.framework/Versions/3.11/lib/python3.11/config-3.11-darwin/libpython3.11.dylib
  pythonhome:     /Users/michaelbarkasi/.virtualenvs/r-reticulate:/Users/michaelbarkasi/.virtualenvs/r-reticulate
- version:        3.12.3 (v3.12.3:f6650f9ad7, Apr  9 2024, 08:18:47) [Clang 13.0.0 (clang-1300.0.29.30)]
- numpy:          /Users/michaelbarkasi/.virtualenvs/r-reticulate/lib/python3.12/site-packages/numpy
+ version:        3.11.12 (main, Apr  8 2025, 14:15:29) [Clang 16.0.0 (clang-1600.0.26.6)]
+ numpy:          /Users/michaelbarkasi/.virtualenvs/r-reticulate/lib/python3.11/site-packages/numpy
  numpy_version:  2.4.2
  sys:            [builtin module]
  
  NOTE: Python version was forced by use_python() function
 
-─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+─────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
