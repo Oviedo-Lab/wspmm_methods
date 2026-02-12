@@ -191,6 +191,8 @@ saveRDS(laminar.model, file = "saved_laminar_model.rds")
 snk.horizontal_rule(initial_breaks = 2, end_breaks = 0)
 snk.report("Making and exporting figures for MERFISH data", end_breaks = 2)
 
+plt_laminar_ratecount <- laminar.model$plots$ratecount[["plot_all"]] +
+  theme(legend.position = "bottom") + 
   ggtitle("Cortical layer model: Rate by time") +
   labs(x = "Laminar position")
 
