@@ -194,6 +194,18 @@ saveRDS(laminar.model[(k+1):n], "saved_laminar_model_part2.rds")
 snk.horizontal_rule(initial_breaks = 2, end_breaks = 0)
 snk.report("Making and exporting figures for MERFISH data", end_breaks = 2)
 
+load_saved_laminar_model <- FALSE 
+if (load_saved_laminar_model) {
+  laminar.model1 <- readRDS("saved_laminar_model_NARresub_feb14_part1.rds")
+  laminar.model2 <- readRDS("saved_laminar_model_NARresub_feb14_part2.rds")
+  laminar.model <- c(laminar.model1, laminar.model2)
+  plots <- list(
+    ratecount = plot.ratecount(laminar.model)
+  )
+  laminar.model[["plots"]] <- plots
+}
+
+
 plt_laminar_ratecount <- laminar.model$plots$ratecount[["plot_all"]] +
   theme(legend.position = "bottom") + 
   ggtitle("Cortical layer model: Rate by time") +
