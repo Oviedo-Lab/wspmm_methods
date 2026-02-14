@@ -185,7 +185,10 @@ laminar.model <- wisp(
 
 # Save
 # ... load with: laminar.model <- readRDS("saved_laminar_model.rds")
-saveRDS(laminar.model, file = "saved_laminar_model.rds")
+n <- length(laminar.model)
+k <- 14
+saveRDS(laminar.model[1:k], "saved_laminar_model_part1.rds")
+saveRDS(laminar.model[(k+1):n], "saved_laminar_model_part2.rds")
 
 # Make and export figures for MERFISH data #############################################################################
 snk.horizontal_rule(initial_breaks = 2, end_breaks = 0)
@@ -450,6 +453,11 @@ kableExtra::kbl(
   escape = FALSE, 
   caption = "Parameter estimates for radial liver model.\\label{table:FEestimatesLiver}", 
   linesep = "")
+
+# Save
+radial.model$Cpp_model <- NULL
+radial.model$plots <- NULL
+saveRDS(radial.model, "saved_radial_model.rds")
 
 # Simulated data #######################################################################################################
 snk.horizontal_rule(initial_breaks = 2, end_breaks = 0)
