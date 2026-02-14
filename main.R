@@ -183,28 +183,149 @@ laminar.model <- wisp(
     model.settings = model.settings
   )
 
-# Save
-# ... load with: laminar.model <- readRDS("saved_laminar_model.rds")
-n <- length(laminar.model)
-k <- 14
-saveRDS(laminar.model[1:k], "saved_laminar_model_part1.rds")
-saveRDS(laminar.model[(k+1):n], "saved_laminar_model_part2.rds")
-
 # Make and export figures for MERFISH data #############################################################################
 snk.horizontal_rule(initial_breaks = 2, end_breaks = 0)
 snk.report("Making and exporting figures for MERFISH data", end_breaks = 2)
 
+# Helper function to rebuild plots 
+  plots.remake <- function(
+    wisp.results,
+    all = TRUE,
+    ratecount = FALSE,
+    timeseries = FALSE,
+    residuals = FALSE,
+    parameters = FALSE,
+    MCMC.walks = FALSE,
+    MCMC.bs.comparison = FALSE,
+    effect.dist = FALSE, 
+    verbose = FALSE
+  ) {
+    
+    # Grab plot settings
+    plot.settings.internal <- wisp.results$plot.settings
+    plot.settings.internal$print.plots <- FALSE
+    if (all) {
+      ratecount <- TRUE
+      timeseries <- TRUE
+      residuals <- TRUE
+      parameters <- TRUE
+      MCMC.walks <- TRUE
+      MCMC.bs.comparison <- TRUE
+      effect.dist <- TRUE
+    }
+    
+    # Initiate plots list, if needed
+    if (!("plots" %in% names(wisp.results))) {
+      wisp.results$plots <- list()
+    }
+    
+    # Make effect distribution plots
+    if (effect.dist) {
+      wisp.results$plots[["effect.dist"]] <- plot.effect.dist(
+        wisp.results = wisp.results,
+        print.plots = plot.settings.internal$print.plots,
+        verbose = verbose
+      )
+    }
+    
+    # Make MCMC walks 
+    if (MCMC.walks) {
+      wisp.results$plots[["MCMC"]] <- plot.MCMC.walks(
+        wisp.results = wisp.results,
+        print.plots = plot.settings.internal$print.plots,
+        verbose = verbose
+      )
+    }
+    
+    # Make MCMC vs. bootstrap comparison plot
+    if (MCMC.bs.comparison) {
+      wisp.results$plots[["parameter.normality"]] <- plot.MCMC.bs.comparison(
+        wisp.results = wisp.results,
+        print.plots = plot.settings.internal$print.plots,
+        verbose = verbose
+      )
+    }
+    
+    # Make parameter plots 
+    if (parameters) {
+      wisp.results$plots[["parameters"]] <- do.call(
+        c, 
+        lapply(
+          wisp.results$grouping.variables$species.lvls, 
+          function(sps) {
+            plot.parameters(
+              wisp.results = wisp.results,
+              species = sps,
+              verbose = verbose
+            )
+          }
+        )
+      )
+    }
+    
+    # Make residual plot
+    if (residuals) {
+      residuals <- analyze.residuals(
+        wisp.results = wisp.results,
+        verbose = verbose
+      )
+      wisp.results$stats$residuals <- residuals$stats
+      wisp.results$stats$residuals.log <- residuals$stats.log
+      wisp.results$plots[["residuals"]] <- residuals$plots
+    }
+    
+    # Make ratecount plot
+    if (ratecount) {
+      wisp.results$plots[["ratecount"]] <- plot.ratecount(
+        wisp.results = wisp.results,
+        log.scale = plot.settings.internal$log.scale,
+        print.plots = plot.settings.internal$print.plots,
+        CI_style = plot.settings.internal$CI_style,
+        dim.boundaries = plot.settings.internal$dim.bounds,
+        count.alpha.none = plot.settings.internal$count.alpha.none,
+        count.alpha.ran = plot.settings.internal$count.alpha.ran,
+        pred.alpha.none = plot.settings.internal$pred.alpha.none,
+        pred.alpha.ran = plot.settings.internal$pred.alpha.ran,
+        verbose = verbose
+      )
+    }
+    
+    # Make timeseries plot
+    if (timeseries) {
+      wisp.results$plots[["timeseries"]] <- plot.timeseries(
+        wisp.results = wisp.results,
+        splitting_factor = plot.settings.internal$splitting_factor,
+        log.scale = plot.settings.internal$log.scale,
+        print.plots = plot.settings.internal$print.plots,
+        verbose = verbose
+      )
+    } 
+    
+    return(wisp.results)
+    
+  }
+
 load_saved_laminar_model <- FALSE 
 if (load_saved_laminar_model) {
+  # Load model
   laminar.model1 <- readRDS("saved_laminar_model_NARresub_feb14_part1.rds")
   laminar.model2 <- readRDS("saved_laminar_model_NARresub_feb14_part2.rds")
   laminar.model <- c(laminar.model1, laminar.model2)
-  plots <- list(
-    ratecount = plot.ratecount(laminar.model)
-  )
-  laminar.model[["plots"]] <- plots
+  rm(laminar.model1,laminar.model2)
+  # Remake plots
+  laminar.model <- plots.remake(wisp.results = laminar.model)
+} else {
+  # Clear plots
+  laminar.model.temp <- laminar.model
+  laminar.model.temp$Cpp_model <- NULL
+  laminar.modellaminar.model.temp$plots <- NULL
+  # Save
+  n <- length(laminar.model.temp)
+  k <- 14
+  saveRDS(laminar.model.temp[1:k], "saved_laminar_model_part1.rds")
+  saveRDS(laminar.model.temp[(k+1):n], "saved_laminar_model_part2.rds")
+  rm(n,k,laminar.model.temp)
 }
-
 
 plt_laminar_ratecount <- laminar.model$plots$ratecount[["plot_all"]] +
   theme(legend.position = "bottom") + 
@@ -219,41 +340,69 @@ ggsave(
   )
 
 # Make and export residuals figure (histogram and qq plot)
-make_fig_residuals <- function() {
+make_fig_residuals <- function(wisp.results, suffix = "", ptitle = "") {
     
     # Grab plots 
-    hist_plot <- laminar.model[["plots"]][["residuals"]][["all_hist"]]
-    qq_plot <- laminar.model[["plots"]][["residuals"]][["all_qq"]]
+    text_scalar <- 1.75
+    hist_plot <- wisp.results[["plots"]][["residuals"]][["all_hist"]]
+    qq_plot <- wisp.results[["plots"]][["residuals"]][["all_qq"]]
     
     # Change titles 
     hist_plot <- hist_plot + 
-      labs(title = "") 
+      labs(title = "") +
+      theme(
+        axis.title = element_text(size = text_scalar * wisp.results$plot.settings$axis_size),
+        axis.text = element_text(size = text_scalar * wisp.results$plot.settings$axis_size),
+        legend.title = element_text(size = text_scalar * wisp.results$plot.settings$legend_size),
+        legend.text = element_text(size = text_scalar * wisp.results$plot.settings$legend_size),
+        panel.background = element_rect(fill = "white", colour = NA),
+        plot.background  = element_rect(fill = "white", colour = NA)
+      )
     qq_plot <- qq_plot + 
-      labs(title = "")
+      labs(title = "") +
+      theme(
+        axis.title = element_text(size = text_scalar * wisp.results$plot.settings$axis_size),
+        axis.text = element_text(size = text_scalar * wisp.results$plot.settings$axis_size),
+        legend.title = element_text(size = text_scalar * wisp.results$plot.settings$legend_size),
+        legend.text = element_text(size = text_scalar * wisp.results$plot.settings$legend_size),
+        panel.background = element_rect(fill = "white", colour = NA),
+        plot.background  = element_rect(fill = "white", colour = NA)
+      )
     
-    grid.arrange(hist_plot, qq_plot, ncol = 2, top = textGrob(
-      "Log-Linked Residuals", 
-      gp = gpar(fontsize = 30) 
-    ))
+    # arrange
     
-    # export
-    dev.copy(png, filename = "fig_residuals.png", width = 1365, height = 605)
-    dev.off()
+    title <- grobTree(
+      rectGrob(gp = gpar(fill = "white", col = NA)),
+      textGrob(paste0("Log-linked Residuals", ptitle), gp = gpar(fontsize = 1.0 * text_scalar * wisp.results$plot.settings$title_size))
+    )
+    panels <- arrangeGrob(hist_plot, qq_plot, ncol = 2)
+    
+    # Export plot
+    ggsave(
+      paste0("fig_residuals", suffix, ".png"), 
+      plot = grid.arrange(
+        title,
+        panels,
+        ncol = 1,
+        heights = c(0.075, 1)
+      ), 
+      width = 14, height = 8, dpi = 900
+    )
     
   }
-make_fig_residuals()
+make_fig_residuals(laminar.model, "_laminar", ", Laminar Model")
 
 # Make and export MCMC vs. bootstrap comparison figure (walks, autocorrelation, normality)
-make_MCMCbs_comparison <- function() {
+make_MCMCbs_comparison <- function(wisp.results, suffix = "") {
     
     # Grab plots 
-    walks_low <- laminar.model[["plots"]][["MCMC"]][["plot.walks.parameters_low"]]
-    walks_high <- laminar.model[["plots"]][["MCMC"]][["plot.walks.parameters_high"]]
-    walks_nll <- laminar.model[["plots"]][["MCMC"]][["plot.walks.nll"]]
+    walks_low <- wisp.results[["plots"]][["MCMC"]][["plot.walks.parameters_low"]]
+    walks_high <- wisp.results[["plots"]][["MCMC"]][["plot.walks.parameters_high"]]
+    walks_nll <- wisp.results[["plots"]][["MCMC"]][["plot.walks.nll"]]
     
-    plot_autocor <- laminar.model[["plots"]][["parameter.normality"]][["plot_sample_correlations"]]
-    plot_shaprio <- laminar.model[["plots"]][["parameter.normality"]][["plot_comparison_Shaprio"]]
-    plot_density <- laminar.model[["plots"]][["parameter.normality"]][["plot_comparison_density"]]
+    plot_autocor <- wisp.results[["plots"]][["parameter.normality"]][["plot_sample_correlations"]]
+    plot_shaprio <- wisp.results[["plots"]][["parameter.normality"]][["plot_comparison_Shaprio"]]
+    plot_density <- wisp.results[["plots"]][["parameter.normality"]][["plot_comparison_density"]]
     
     # Resize titles 
     title_size <- 20 
@@ -277,11 +426,11 @@ make_MCMCbs_comparison <- function() {
     )
     
     # export
-    dev.copy(png, filename = "fig_MCMCbs_comparison.png", width = 1500, height = 950)
+    dev.copy(png, filename = paste0("fig_MCMCbs_comparison", suffix, ".png"), width = 1500, height = 950)
     dev.off()
     
   }
-make_MCMCbs_comparison()
+make_MCMCbs_comparison(laminar.model)
 
 # Make results table for stats 
 snk.report("Making stat results table for MERFISH data", end_breaks = 2)
@@ -432,6 +581,22 @@ radial.model <- wisp(
 # Adjust and export figures for liver data
 snk.report("Exporting figures for liver data", end_breaks = 2)
 
+load_saved_laminar_model <- FALSE 
+if (load_saved_laminar_model) {
+  # Load model
+  radial.model <- readRDS("saved_radial_model_NARresub_feb14.rds")
+  # Remake plots
+  radial.model <- plots.remake(wisp.results = radial.model, all = FALSE, ratecount = TRUE, timeseries = TRUE, residuals = TRUE)
+} else {
+  # Clear plots
+  radial.model.temp <- radial.model
+  radial.model.temp$Cpp_model <- NULL
+  radial.model.temp$plots <- NULL
+  # Save
+  saveRDS(radial.model.temp, "saved_radial_model.rds")
+  rm(radial.model.temp)
+}
+
 plt_radial_ratecount <- radial.model$plots$ratecount[["plot_all"]] +
   facet_wrap(~ species + context, scales = "free_y", ncol = 2) + 
   theme(legend.position = "bottom") + 
@@ -455,6 +620,8 @@ ggsave(
   width = 5.5, height = 8, dpi = 900
   )
 
+make_fig_residuals(radial.model, "_radial", ", Radial Model")
+
 # Make results table for stats 
 snk.report("Making stat results table for MERFISH data", end_breaks = 2)
 
@@ -466,16 +633,10 @@ kableExtra::kbl(
   caption = "Parameter estimates for radial liver model.\\label{table:FEestimatesLiver}", 
   linesep = "")
 
-# Save
-radial.model$Cpp_model <- NULL
-radial.model$plots <- NULL
-saveRDS(radial.model, "saved_radial_model.rds")
-
 # Simulated data #######################################################################################################
 snk.horizontal_rule(initial_breaks = 2, end_breaks = 0)
 snk.report("Making seed data for benchmark simulations", end_breaks = 1)
 
-# For the 250-sim benchmarking run, just run setup, come down to here, and run all lines to the bottom of the 250-sim loop.
 set.seed(9999)
 
 preprocess_Allen <- FALSE 
