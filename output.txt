@@ -1,0 +1,29 @@
+
+
+Code for the paper 'Logistic regression for estimating functional effects with spatial transcriptomics'
+No suitable frames for recover()
+
+
+Printing species summary plots for hepatocytes: ARNTL, ASS1, DBP, ELOVL3, GLUL, PCK1
+Making parameter plots... 
+Enter a frame number, or 0 to exit   
+
+1: plot.parameters(radial.model, species.classes = radial.model[["grouping.variables"]][["species.lvls"]])
+
+[1] "ARNTL"  "ASS1"   "DBP"    "ELOVL3" "GLUL"   "PCK1"  
+
+Making parameter plots... 
+Enter a frame number, or 0 to exit   
+
+1: plot.parameters(radial.model, species.classes = list(radial.model[["grouping.variables"]][["species.lvls"]]))
+
+Called from: top level 
+[1] 1
+[1] "ARNTL"  "ASS1"   "DBP"    "ELOVL3" "GLUL"   "PCK1"  
+[1] "character"
+[1] 0
+
+Enter a frame number, or 0 to exit   
+
+1: plot.parameters(radial.model, species.classes = list(radial.model[["grouping.variables"]][["species.lvls"]]))
+

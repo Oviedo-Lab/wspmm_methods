@@ -188,7 +188,7 @@ snk.horizontal_rule(initial_breaks = 2, end_breaks = 0)
 snk.report("Making and exporting figures for MERFISH data", end_breaks = 2)
 
 # Helper function to rebuild plots 
-  plots.remake <- function(
+plots.remake <- function(
     wisp.results,
     all = TRUE,
     ratecount = FALSE,
@@ -338,6 +338,119 @@ ggsave(
   plot = plt_laminar_ratecount, 
   width = 11, height = 8, dpi = 900
   )
+
+make_sample_parameter_plots_for_laminar_model <- function() {
+  plot_list <- laminar.model[["plots"]][["parameters"]]
+  plot_list <- plot_list[
+    grepl("treatment_18|baseline", names(plot_list)) & !grepl("RORB", names(plot_list))]
+  genes <- c()
+  effectlevels <- c()
+  celltypes <- c()
+  for (p in c(1:length(plot_list))) {
+    # Change title 
+    y_axis_name <- "effect size"
+    old_title <- plot_list[[p]]$labels$title
+    if (grepl("Treatment", old_title)) {
+      effectlevels <- c(effectlevels, "Age Effect")
+      ct_gene <- gsub("Treatment parameters \\(", "", old_title)
+    } else {
+      effectlevels <- c(effectlevels, "Reference Level")
+      ct_gene <- gsub("Baseline parameters, fitted \\(", "", old_title)
+      y_axis_name <- "baseline value"
+    }
+    ct_gene <- gsub("\\)", "", ct_gene)
+    parts <- strsplit(ct_gene, ",\\s*")[[1]]
+    ct <- parts[1]
+    celltypes <- c(celltypes, ct)
+    gene <- parts[2]
+    genes <- c(genes, gene)
+    #plot_list[[p]] <- plot_list[[p]] + labs(title = paste0("ZT"))
+    # Remake labels 
+    plot_list[[p]]$facet$params$labeller <- labeller(.default = function(x) sub("^.*\\.", "", x))
+    plot_list[[p]] <- plot_list[[p]] + scale_x_discrete(labels = function(x) sub("^.*_", "", x))
+    # Remake sig gap
+    text_layer_idx <- which(vapply(plot_list[[p]]$layers, function(l)
+      inherits(l$geom, "GeomText"), logical(1)))
+    plot_list[[p]]$layers[[text_layer_idx]]$mapping$y <-
+      rlang::expr(value_high + 0.25 * (exp(-(value_high - value_low)) + (value_high - value_low)))
+    plot_list[[p]]$layers[[text_layer_idx]]$mapping$size <- NULL
+    plot_list[[p]]$layers[[text_layer_idx]]$aes_params$size <- 3.5
+    # Redo text sizes, expand y, and remove x lab
+    plot_list[[p]] <- plot_list[[p]] +
+      labs(
+        x = "",
+        y = y_axis_name
+      ) +
+      theme(
+        plot.title = element_text(hjust = 0.5, size = 0 * laminar.model$plot.settings$title_size),
+        axis.title = element_text(size = 10),
+        axis.text.x = element_text(size = 10, angle = 45),
+        strip.text = element_text(size = 12),
+        legend.title = element_text(size = laminar.model$plot.settings$legend_size),
+        legend.text = element_text(size = laminar.model$plot.settings$legend_size)
+      ) +
+      scale_y_continuous(
+        expand = expansion(mult = 0.1)
+      )
+  }
+  
+  genes <- unique(genes)
+  gene_grobs <- lapply(seq_along(genes), function(i) {
+    grobTree(
+      rectGrob(gp = gpar(fill = "white", col = NA)),
+      textGrob(
+        genes[i],
+        rot = 90,
+        gp = gpar(fontsize = 14, fontface = "bold")
+      )
+    )
+  })
+  
+  effectlevels <- unique(effectlevels)
+  celltypes <- unique(celltypes)
+  ctel <<- c(
+    paste0(celltypes[1], ", ", effectlevels[1]),
+    paste0(celltypes[1], ", ", effectlevels[2]),
+    paste0(celltypes[2], ", ", effectlevels[1]),
+    paste0(celltypes[2], ", ", effectlevels[2])
+    )
+  ctel_grobs <- lapply(seq_along(ctel), function(i) {
+    grobTree(
+      rectGrob(gp = gpar(fill = "white", col = NA)),
+      textGrob(
+        ctel[i],
+        gp = gpar(fontsize = 14, fontface = "bold")
+      )
+    )
+  })
+  
+  plot_list <- list(
+    grobTree(rectGrob(gp = gpar(fill = "white", col = NA)), textGrob("")), 
+    ctel_grobs[[1]], ctel_grobs[[2]], ctel_grobs[[3]], ctel_grobs[[4]],
+    gene_grobs[[1]],
+    plot_list[[1]], plot_list[[2]], plot_list[[3]], plot_list[[4]], 
+    gene_grobs[[2]],
+    plot_list[[5]], plot_list[[6]], plot_list[[7]], plot_list[[8]],
+    gene_grobs[[3]],
+    plot_list[[9]], plot_list[[10]], plot_list[[11]], plot_list[[12]],
+    gene_grobs[[4]], 
+    plot_list[[13]], plot_list[[14]], plot_list[[15]], plot_list[[16]],
+    gene_grobs[[5]], 
+    plot_list[[17]], plot_list[[18]], plot_list[[19]], plot_list[[20]]
+  )
+  
+  ggsave(
+    paste0("fig_laminar_parameters.png"), 
+    plot = grid.arrange(
+      grobs = plot_list,
+      ncol = 5,
+      widths = c(0.1, 1, 1, 1, 1),
+      heights = c(0.15, 1, 1, 1, 1, 1)
+    ), 
+    width = 17, height = 9, dpi = 900
+  )
+}
+make_sample_parameter_plots_for_laminar_model()
 
 # Make and export residuals figure (histogram and qq plot)
 make_fig_residuals <- function(wisp.results, suffix = "", ptitle = "") {
@@ -581,8 +694,8 @@ radial.model <- wisp(
 # Adjust and export figures for liver data
 snk.report("Exporting figures for liver data", end_breaks = 2)
 
-load_saved_laminar_model <- FALSE 
-if (load_saved_laminar_model) {
+load_saved_radial_model <- FALSE 
+if (load_saved_radial_model) {
   # Load model
   radial.model <- readRDS("saved_radial_model_NARresub_feb14.rds")
   # Remake plots
@@ -622,8 +735,97 @@ ggsave(
 
 make_fig_residuals(radial.model, "_radial", ", Radial Model")
 
+make_sample_parameter_plots_for_radial_model <- function() {
+  plot_list <- radial.model[["plots"]][["parameters"]]
+  plot_list <- plot_list[grepl("treatment", names(plot_list)) & grepl("ARNTL|GLUL|ASS1", names(plot_list))]
+  genes <- c()
+  zts <- c()
+  for (p in c(1:length(plot_list))) {
+    # Change title 
+    old_title <- plot_list[[p]]$labels$title
+    gene_zt <- gsub("Treatment parameters \\(hepatocytes, ", "", old_title)
+    zt <- gsub("^.*, ", "", gene_zt)
+    zt <- gsub("\\)", "", zt)
+    gene <- gsub(paste0(", ", zt, "\\)"), "", gene_zt) 
+    genes <- c(genes, gene)
+    zts <- c(zts, zt)
+    plot_list[[p]] <- plot_list[[p]] + labs(title = paste0("ZT", zt))
+    # Remake labels 
+    plot_list[[p]]$facet$params$labeller <- labeller(.default = function(x) sub("^.*\\.", "", x))
+    plot_list[[p]] <- plot_list[[p]] + scale_x_discrete(labels = function(x) sub("^.*_", "", x))
+    # Remake sig gap
+    text_layer_idx <- which(vapply(plot_list[[p]]$layers, function(l)
+      inherits(l$geom, "GeomText"), logical(1)))
+    plot_list[[p]]$layers[[text_layer_idx]]$mapping$y <-
+      rlang::expr(value_high + 0.25 * (exp(-(value_high - value_low)) + (value_high - value_low)))
+    # Redo text sizes, expand y, and remove x lab
+    plot_list[[p]] <- plot_list[[p]] +
+      labs(
+        x = "",
+        y = "effect size"
+      ) +
+      theme(
+        plot.title = element_text(hjust = 0.5, size = 0 * radial.model$plot.settings$title_size),
+        axis.title = element_text(size = 10),
+        axis.text.x = element_text(size = 10, angle = 45),
+        strip.text = element_text(size = 12),
+        legend.title = element_text(size = radial.model$plot.settings$legend_size),
+        legend.text = element_text(size = radial.model$plot.settings$legend_size)
+      ) +
+      scale_y_continuous(
+        expand = expansion(mult = 0.1)
+      )
+  }
+  
+  genes <- unique(genes)
+  gene_grobs <- lapply(seq_along(genes), function(i) {
+    grobTree(
+      rectGrob(gp = gpar(fill = "white", col = NA)),
+      textGrob(
+        genes[i],
+        rot = 90,
+        gp = gpar(fontsize = 14, fontface = "bold")
+      )
+    )
+  })
+  
+  zts <- unique(zts)
+  zt_grobs <- lapply(seq_along(zts), function(i) {
+    grobTree(
+      rectGrob(gp = gpar(fill = "white", col = NA)),
+      textGrob(
+        paste0("ZT", zts[i]),
+        gp = gpar(fontsize = 14, fontface = "bold")
+      )
+    )
+  })
+  
+  plot_list <- list(
+    grobTree(rectGrob(gp = gpar(fill = "white", col = NA)), textGrob("")), 
+    zt_grobs[[1]], zt_grobs[[2]], zt_grobs[[3]],
+    gene_grobs[[1]],
+    plot_list[[1]], plot_list[[2]], plot_list[[3]],
+    gene_grobs[[2]],
+    plot_list[[4]], plot_list[[5]], plot_list[[6]],
+    gene_grobs[[3]],
+    plot_list[[7]], plot_list[[8]], plot_list[[9]]
+  )
+  
+  ggsave(
+    paste0("fig_radial_parameters.png"), 
+    plot = grid.arrange(
+      grobs = plot_list,
+      ncol = 4,
+      widths = c(0.1, 1, 1, 1),
+      heights = c(0.1, 1, 1, 1)
+    ), 
+    width = 14, height = 8, dpi = 900
+  )
+}
+make_sample_parameter_plots_for_radial_model()
+
 # Make results table for stats 
-snk.report("Making stat results table for MERFISH data", end_breaks = 2)
+snk.report("Making stat results table for radial data", end_breaks = 2)
 
 kableExtra::kbl(
   radial.model[["stats"]][["parameters"]], 
@@ -1463,6 +1665,16 @@ sink(file = NULL)
 
 
 
+
+
+laminar.model[["plot.settings"]][["title_size"]] <- 10
+laminar.model <- plots.remake(wisp.results = laminar.model)
+plot.species.summary(laminar.model, species = "RORB")
+
+
+radial.model[["plot.settings"]][["title_size"]] <- 10
+radial.model <- plots.remake(wisp.results = radial.model)
+plot.species.summary(radial.model)
 
 
 
