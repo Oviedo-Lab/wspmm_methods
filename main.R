@@ -340,9 +340,16 @@ ggsave(
   )
 
 make_sample_parameter_plots_for_laminar_model <- function() {
-  plot_list <- laminar.model[["plots"]][["parameters"]]
-  plot_list <- plot_list[
-    grepl("treatment_18|baseline", names(plot_list)) & !grepl("RORB", names(plot_list))]
+  plot_list_all <- laminar.model[["plots"]][["parameters"]]
+  plot_list <- plot_list_all[grepl("treatment_18|baseline", names(plot_list_all))] #  & !grepl("RORB", names(plot_list))
+  plot_list <- c(
+    plot_list, 
+    plot_list_all[
+      grepl("RORB", names(plot_list_all)) & 
+        grepl("Glut", names(plot_list_all)) & 
+        grepl("treatment_right|treatment_right18", names(plot_list_all))
+      ]
+    )
   genes <- c()
   effectlevels <- c()
   celltypes <- c()
@@ -351,7 +358,13 @@ make_sample_parameter_plots_for_laminar_model <- function() {
     y_axis_name <- "effect size"
     old_title <- plot_list[[p]]$labels$title
     if (grepl("Treatment", old_title)) {
-      effectlevels <- c(effectlevels, "Age Effect")
+      if (grepl("right18", names(plot_list)[p])[1]) {
+        effectlevels <- c(effectlevels, "Laterality-Age Interaction")
+      } else if (grepl("right_", names(plot_list)[p])[1])  {
+        effectlevels <- c(effectlevels, "Laterality Effect")
+      } else {
+        effectlevels <- c(effectlevels, "Age Effect")
+      }
       ct_gene <- gsub("Treatment parameters \\(", "", old_title)
     } else {
       effectlevels <- c(effectlevels, "Reference Level")
@@ -383,11 +396,13 @@ make_sample_parameter_plots_for_laminar_model <- function() {
       ) +
       theme(
         plot.title = element_text(hjust = 0.5, size = 0 * laminar.model$plot.settings$title_size),
-        axis.title = element_text(size = 10),
+        axis.title.x = element_text(size = 0),
+        axis.title.y = element_text(size = 10),
         axis.text.x = element_text(size = 10, angle = 45),
         strip.text = element_text(size = 12),
-        legend.title = element_text(size = laminar.model$plot.settings$legend_size),
-        legend.text = element_text(size = laminar.model$plot.settings$legend_size)
+        legend.title = element_text(size = 0),
+        legend.text = element_text(size = 0) #,
+        #plot.margin = margin(-4, 2, -4, 2)   # top, right, bottom, left (pt)
       ) +
       scale_y_continuous(
         expand = expansion(mult = 0.1)
@@ -408,11 +423,13 @@ make_sample_parameter_plots_for_laminar_model <- function() {
   
   effectlevels <- unique(effectlevels)
   celltypes <- unique(celltypes)
-  ctel <<- c(
+  ctel <- c(
     paste0(celltypes[1], ", ", effectlevels[1]),
     paste0(celltypes[1], ", ", effectlevels[2]),
     paste0(celltypes[2], ", ", effectlevels[1]),
-    paste0(celltypes[2], ", ", effectlevels[2])
+    paste0(celltypes[2], ", ", effectlevels[2]),
+    paste0("Glut, ", effectlevels[3]),
+    paste0("Glut, ", effectlevels[4])
     )
   ctel_grobs <- lapply(seq_along(ctel), function(i) {
     grobTree(
@@ -424,30 +441,85 @@ make_sample_parameter_plots_for_laminar_model <- function() {
     )
   })
   
-  plot_list <- list(
+  plot_list_GABA <- list(
     grobTree(rectGrob(gp = gpar(fill = "white", col = NA)), textGrob("")), 
-    ctel_grobs[[1]], ctel_grobs[[2]], ctel_grobs[[3]], ctel_grobs[[4]],
+    ctel_grobs[[1]], ctel_grobs[[2]], 
     gene_grobs[[1]],
-    plot_list[[1]], plot_list[[2]], plot_list[[3]], plot_list[[4]], 
+    plot_list[[1]], plot_list[[2]], 
     gene_grobs[[2]],
-    plot_list[[5]], plot_list[[6]], plot_list[[7]], plot_list[[8]],
+    plot_list[[5]], plot_list[[6]], 
     gene_grobs[[3]],
-    plot_list[[9]], plot_list[[10]], plot_list[[11]], plot_list[[12]],
+    plot_list[[9]], plot_list[[10]], 
     gene_grobs[[4]], 
-    plot_list[[13]], plot_list[[14]], plot_list[[15]], plot_list[[16]],
+    plot_list[[13]], plot_list[[14]], 
     gene_grobs[[5]], 
-    plot_list[[17]], plot_list[[18]], plot_list[[19]], plot_list[[20]]
+    plot_list[[17]], plot_list[[18]],
+    gene_grobs[[6]],
+    plot_list[[21]], plot_list[[22]]
   )
   
   ggsave(
-    paste0("fig_laminar_parameters.png"), 
+    paste0("fig_laminar_parameters_gaba.png"), 
     plot = grid.arrange(
-      grobs = plot_list,
-      ncol = 5,
-      widths = c(0.1, 1, 1, 1, 1),
-      heights = c(0.15, 1, 1, 1, 1, 1)
+      grobs = plot_list_GABA,
+      ncol = 3,
+      widths = c(0.1, 1, 1),
+      heights = c(0.15, 1, 1, 1, 1, 1, 1)
     ), 
-    width = 17, height = 9, dpi = 900
+    width = 2.2*14/3.3, height = 6.9*8/3.3, dpi = 900
+  )
+  
+  plot_list_Glut <- list(
+    grobTree(rectGrob(gp = gpar(fill = "white", col = NA)), textGrob("")), 
+    ctel_grobs[[3]], ctel_grobs[[4]],
+    gene_grobs[[1]],
+    plot_list[[3]], plot_list[[4]], 
+    gene_grobs[[2]],
+    plot_list[[7]], plot_list[[8]],
+    gene_grobs[[3]],
+    plot_list[[11]], plot_list[[12]],
+    gene_grobs[[4]], 
+    plot_list[[15]], plot_list[[16]],
+    gene_grobs[[5]], 
+    plot_list[[19]], plot_list[[20]],
+    gene_grobs[[6]],
+    plot_list[[23]], plot_list[[24]]
+  )
+  
+  ggsave(
+    paste0("fig_laminar_parameters_glut.png"), 
+    plot = grid.arrange(
+      grobs = plot_list_Glut,
+      ncol = 3,
+      widths = c(0.1, 1, 1),
+      heights = c(0.15, 1, 1, 1, 1, 1, 1)
+    ), 
+    width = 2.2*14/3.3, height = 6.9*8/3.3, dpi = 900
+  )
+  
+  plot_list_Rorb <- list(
+    grobTree(rectGrob(gp = gpar(fill = "white", col = NA)), textGrob("")), 
+    ctel_grobs[[5]], ctel_grobs[[6]],
+    grobTree(
+      rectGrob(gp = gpar(fill = "white", col = NA)),
+      textGrob(
+        "RORB",
+        rot = 90,
+        gp = gpar(fontsize = 14, fontface = "bold")
+      )
+    ),
+    plot_list[[25]], plot_list[[26]]
+  )
+  
+  ggsave(
+    paste0("fig_laminar_parameters_rorb.png"), 
+    plot = grid.arrange(
+      grobs = plot_list_Rorb,
+      ncol = 3,
+      widths = c(0.1, 1, 1),
+      heights = c(0.15, 1)
+    ), 
+    width = 2.2*14/3.3, height = 1.15*8/3.3, dpi = 900
   )
 }
 make_sample_parameter_plots_for_laminar_model()
